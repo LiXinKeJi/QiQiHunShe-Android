@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'//dataBinging
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    //MVVM模式数据绑定
+    dataBinding {
+        enabled = true
+    }
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.lxkj.qiqihunshe"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '28.0.3'
+}
+
+repositories {
+    jcenter()
+    flatDir {
+        dirs 'libs'
+    }
+    google()
+}
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+
+kapt {//dataBinging
+    generateStubs = true
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //dataBinging
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.20'
+    //解决databinding 和kotlin的冲突 支持
+    kapt 'com.android.databinding:compiler:3.1.4'
+
+    //网络
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+
+    //rxjava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.1'
+    //autodispose,代替RxLifecycle管理网络请求生命周期
+    implementation 'com.uber.autodispose:autodispose:0.8.0'
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.8.0'
+    //log打印
+    implementation 'com.orhanobut:logger:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
+    //自定义顶部弹出sneaker https://github.com/Hamadakram/Sneaker
+    implementation project(':sneaker')
+
+    //浏览图片
+    implementation 'com.github.SherlockGougou:BigImageViewPager:v4_2.1.4'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.8.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //图片选择
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    //轮播图
+    implementation 'com.youth.banner:banner:1.4.10'
+
+    //引用module方法过多
+    implementation 'com.android.support:multidex:1.0.3'
+
+}
