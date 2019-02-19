@@ -2,7 +2,6 @@ package com.lxkj.qiqihunshe.app.ui.shouye
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
-import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.FuJinViewModel
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.ShouYeViewModel
 import com.lxkj.qiqihunshe.databinding.FragmentShouyeBinding
 

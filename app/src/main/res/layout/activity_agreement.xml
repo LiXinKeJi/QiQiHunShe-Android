@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.AgreementViewModel"/>
+    </data>
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:background="@color/white"
+                  android:fitsSystemWindows="true">
+
+        <include
+                layout="@layout/include_title"
+                android:id="@+id/include"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/tv_user"
+                  android:background="@drawable/touch_bg"
+                  android:padding="12dp"
+                  android:text="用户协议"
+                  android:drawablePadding="8dp"
+                  android:drawableRight="@drawable/ic_arrar_right"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/colorTabText"
+                  android:textSize="15sp"/>
+
+        <include layout="@layout/include_line07"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/tv_privacy"
+                  android:background="@drawable/touch_bg"
+                  android:padding="12dp"
+                  android:text="隐私政策"
+                  android:drawablePadding="8dp"
+                  android:drawableRight="@drawable/ic_arrar_right"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/colorTabText"
+                  android:textSize="15sp"/>
+
+        <include layout="@layout/include_line07"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/tv_statement"
+                  android:background="@drawable/touch_bg"
+                  android:padding="12dp"
+                  android:text="法律声明"
+                  android:drawablePadding="8dp"
+                  android:drawableRight="@drawable/ic_arrar_right"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/colorTabText"
+                  android:textSize="15sp"/>
+
+        <include layout="@layout/include_line07"/>
+
+
+    </LinearLayout>
+
+</layout>
+

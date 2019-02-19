@@ -43,6 +43,18 @@
         <activity android:name=".app.ui.entrance.MyTypeActivity"
                   android:screenOrientation="portrait"/>
 
+
+
+
+
+        <!--我的-->
+        <activity android:name=".app.ui.mine.activity.SetUpActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.AgreementActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.ContactUsActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

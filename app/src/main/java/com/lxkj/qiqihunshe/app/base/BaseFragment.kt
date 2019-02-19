@@ -36,11 +36,11 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
         super.onActivityCreated(savedInstanceState)
         isViewInitiated = true
         prepareFetchData()
-        init()
         viewModel = getBaseViewModel()
         viewModel?.let {
             it.fragment = this
         }
+        init()
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

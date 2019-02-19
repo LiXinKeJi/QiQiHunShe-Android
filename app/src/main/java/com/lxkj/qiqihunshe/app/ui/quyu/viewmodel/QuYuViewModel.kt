@@ -1,4 +1,4 @@
-package com.lxkj.qiqihunshe.app.ui.shouye.viewmodel
+package com.lxkj.qiqihunshe.app.ui.quyu.viewmodel
 
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 

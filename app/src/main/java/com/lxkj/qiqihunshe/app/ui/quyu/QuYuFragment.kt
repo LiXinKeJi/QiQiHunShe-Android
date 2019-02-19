@@ -1,8 +1,8 @@
-package com.lxkj.qiqihunshe.app.ui.shouye
+package com.lxkj.qiqihunshe.app.ui.quyu
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
-import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.QuYuViewModel
+import com.lxkj.qiqihunshe.app.ui.quyu.viewmodel.QuYuViewModel
 import com.lxkj.qiqihunshe.databinding.FragmentQuyuBinding
 
 /**

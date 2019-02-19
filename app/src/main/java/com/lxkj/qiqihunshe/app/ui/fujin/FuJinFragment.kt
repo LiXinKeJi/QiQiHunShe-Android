@@ -1,10 +1,9 @@
-package com.lxkj.qiqihunshe.app.ui.shouye
+package com.lxkj.qiqihunshe.app.ui.fujin
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
-import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.FuJinViewModel
+import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.FuJinViewModel
 import com.lxkj.qiqihunshe.databinding.FragmentFujinBinding
-import com.lxkj.qiqihunshe.databinding.FragmentShouyeBinding
 
 /**
  * Created by Slingge on 2019/2/16
