@@ -16,49 +16,64 @@ import com.lxkj.qiqihunshe.R
 object GlideUtil {
 
     val options = RequestOptions()
-            .placeholder(R.mipmap.ic_launcher)
+        .placeholder(R.mipmap.ic_launcher)
 //            .error(R.drawable.logo)
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
 
     //通用
-    fun glideLoad(context: Context, url: String?, imageView: ImageView) {
+    fun glideLoad(context: Context?, url: String?, imageView: ImageView?) {
+        if (imageView == null) {
+            return
+        }
         if (TextUtils.isEmpty(url)) {
             imageView.setImageResource(R.mipmap.ic_launcher)
             return
         }
-        Glide.with(context)
-                .load(url)
-                .apply(options)
-                .into(imageView)
+        Glide.with(context!!)
+            .load(url)
+            .apply(options)
+            .into(imageView)
     }
 
     val optionsHeader = RequestOptions()
 //            .placeholder(R.drawable.ic_header)
 //            .error(R.drawable.ic_header)
-            .skipMemoryCache(false)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .skipMemoryCache(false)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
 
     //头像
-    fun glideHeaderLoad(context: Context, url: String?, imageView: ImageView) {
-        Glide.with(context)
-                .load(url)
-                .apply(optionsHeader)
-                .into(imageView)
+    fun glideHeaderLoad(context: Context?, url: String?, imageView: ImageView?) {
+        if (imageView == null) {
+            return
+        }
+        if (TextUtils.isEmpty(url)) {
+            imageView.setImageResource(R.mipmap.ic_launcher)
+            return
+        }
+        Glide.with(context!!)
+            .load(url)
+            .apply(optionsHeader)
+            .into(imageView)
     }
 
 
     val Rounde = 6
     val roundedCorners = RoundedCorners(Rounde)
     //圆角
-    fun glideRoundLoad(context: Context, url: String?, imageView: ImageView) {
+    fun glideRoundLoad(context: Context, url: String?, imageView: ImageView?) {
+        if (imageView == null) {
+            return
+        }
         Glide.with(context)
-                .load(url)
-                .apply(RequestOptions.bitmapTransform(roundedCorners).placeholder(R.mipmap.ic_launcher)
+            .load(url)
+            .apply(
+                RequestOptions.bitmapTransform(roundedCorners).placeholder(R.mipmap.ic_launcher)
 //                        .error(R.drawable.logo)
-                        .skipMemoryCache(false)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
-                .into(imageView)
+                    .skipMemoryCache(false)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            )
+            .into(imageView)
     }
 
 

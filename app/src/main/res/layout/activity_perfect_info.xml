@@ -1,0 +1,1106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.entrance.model.PerfectInfoModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.PerfectInfoViewModel"/>
+    </data>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:fitsSystemWindows="true"
+    >
+
+        <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+            >
+
+                <include
+                        layout="@layout/include_title"
+                        android:id="@+id/include"/>
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/rl_header"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:paddingBottom="10dp">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/header"
+                              android:text="头像"
+                              android:textSize="16sp"
+                              android:textColor="@color/itemBackground"
+                    />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/header1"
+                              android:text="上传真实头像可以更受关注哦！"
+                              android:layout_below="@+id/header"
+                              android:layout_marginTop="8dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="14sp"
+                    />
+
+                    <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:id="@+id/iv_header"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="12dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:layout_toLeftOf="@+id/iv_right"
+                    />
+
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                               android:id="@+id/iv_right"
+                               android:src="@drawable/ic_arrar_right"
+                               android:layout_centerVertical="true"
+                               android:layout_alignParentRight="true"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="12dp"
+                         android:layout_marginRight="12dp"/>
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/nickname"
+                              android:text="昵称"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:id="@+id/et_nickname"
+                              android:hint="请输入"
+                              android:layout_toRightOf="@+id/nickname"
+                              android:gravity="right"
+                              android:textSize="15sp"
+                              android:singleLine="true"
+                              android:maxLength="12"
+                              android:drawablePadding="5dp"
+                              android:drawableRight="@drawable/ic_edit"
+                              android:layout_alignParentRight="true"
+                              android:background="@color/white"
+                              android:padding="8dp"
+                    />
+
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="4dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/autograph"
+                              android:text="个人签名"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:id="@+id/et_autograph"
+                              android:hint="请输入签名信息"
+                              android:layout_toRightOf="@+id/autograph"
+                              android:gravity="right"
+                              android:drawablePadding="5dp"
+                              android:textSize="15sp"
+                              android:singleLine="true"
+                              android:maxLength="30"
+                              android:drawableRight="@drawable/ic_edit"
+                              android:layout_alignParentRight="true"
+                              android:background="@color/white"
+                              android:padding="8dp"
+                    />
+
+                </RelativeLayout>
+
+                <include layout="@layout/include_line10"
+                         android:background="@color/line_color"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="4dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/name"
+                              android:text="真实姓名"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:id="@+id/et_name"
+                              android:hint="请输入"
+                              android:layout_toRightOf="@+id/name"
+                              android:gravity="right"
+                              android:singleLine="true"
+                              android:maxLength="5"
+                              android:drawablePadding="5dp"
+                              android:textSize="15sp"
+                              android:drawableRight="@drawable/ic_edit"
+                              android:layout_alignParentRight="true"
+                              android:background="@color/white"
+                              android:padding="8dp"
+                    />
+
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/sex"
+                              android:text="性别"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <RadioGroup android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:orientation="horizontal"
+                                android:id="@+id/rg_sex">
+
+                        <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                     android:id="@+id/rb_boy"
+                                     android:text="男"
+                        />
+
+                        <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                     android:id="@+id/rb_girl"
+                                     android:text="女"
+                                     android:layout_marginLeft="10dp"
+                        />
+
+                    </RadioGroup>
+
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_birthday"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/birthday"
+                              android:text="出生日期"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                              android:id="@+id/tv_birthday"
+                              android:text=""
+                              android:layout_toRightOf="@+id/birthday"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+
+                </RelativeLayout>
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/height"
+                              android:text="身高"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/tv_height"
+                              android:text="/cm"
+                              android:layout_alignParentRight="true"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/colorTabText"
+                              android:textSize="16sp"
+                    />
+
+
+                    <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/et_height"
+                              android:hint="请输入"
+                              android:layout_toLeftOf="@+id/tv_height"
+                              android:gravity="right"
+                              android:drawablePadding="5dp"
+                              android:singleLine="true"
+                              android:inputType="number"
+                              android:layout_toRightOf="@+id/height"
+                              android:layout_marginLeft="10dp"
+                              android:maxLength="3"
+                              android:textSize="15sp"
+                              android:background="@color/white"
+                              android:padding="8dp"
+                    />
+
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_hometown"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/hometown"
+                              android:text="家乡"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_hometown"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_residence"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/residence"
+                              android:text="现居"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_residence"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_nation"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/nation"
+                              android:text="民族"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_nation"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="4dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_occupation"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/occupation"
+                              android:text="职业"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+
+                    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:id="@+id/et_occupation"
+                              android:hint="请输入"
+                              android:gravity="right"
+                              android:drawablePadding="5dp"
+                              android:singleLine="true"
+                              android:inputType="number"
+                              android:layout_toRightOf="@+id/occupation"
+                              android:layout_marginLeft="10dp"
+                              android:maxLength="9"
+                              android:drawableRight="@drawable/ic_edit"
+                              android:textSize="15sp"
+                              android:background="@color/white"
+                              android:padding="8dp"
+                    />
+
+                </RelativeLayout>
+
+                <include layout="@layout/include_line10"/>
+
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_emotional_state"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/emotional_state"
+                              android:text="情感状态"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_emotional_state"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_emotional_planning"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/emotional_planning"
+                              android:text="情感计划"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_emotional_planning"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_mytype"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/mytype"
+                              android:text="我的类型"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_mytype"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_hobby"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/hobby"
+                              android:text="兴趣爱好"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_hobby"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_label"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/label"
+                              android:text="地点标签"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_label"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@color/text_deed_bg"
+                                android:paddingBottom="10dp"
+                >
+
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="择偶条件"
+                              android:textSize="16sp"
+                              android:textColor="@color/black"
+                              android:layout_centerVertical="true"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="是否希望系统为您筛选"
+                              android:textSize="14sp"
+                              android:textColor="@color/colorTheme"
+                              android:layout_centerVertical="true"
+                              android:layout_toLeftOf="@+id/sw_mate"
+                              android:layout_marginRight="6dp"
+                    />
+
+                    <com.lxkj.qiqihunshe.app.customview.SwitchView android:layout_width="wrap_content"
+                                                                   android:layout_height="30dp"
+                                                                   android:layout_alignParentRight="true"
+                                                                   android:layout_marginRight="10dp"
+                                                                   android:id="@+id/sw_mate"
+
+                    />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_type"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_type"
+                              android:text="他/她的类型"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_type"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_hometown"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_hometown"
+                              android:text="家乡"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_hometown"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_residence"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_residence"
+                              android:text="现居"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_residence"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_height"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_height"
+                              android:text="身高"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_height"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_emotional_state"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_emotional_state"
+                              android:text="情感状态"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_emotional_state"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_emotional_planning"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_emotional_planning"
+                              android:text="情感计划"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_emotional_planning"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_salary"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_salary"
+                              android:text="薪资范围"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_salary"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_car"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_car"
+                              android:text="是否有车"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_car"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_room"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_room"
+                              android:text="是否有房"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_room"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_he_education"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/he_education"
+                              android:text="学历"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_he_education"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+
+                <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:paddingTop="12dp"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="30dp">
+
+                    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/rb_agree"
+                              android:text="继续表示您同意"
+                              android:textSize="13sp"
+                              android:textColor="@color/colorTabTexts"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/tv_agree"
+                              android:text="《七七服务协议》"
+                              android:layout_alignTop="@+id/rb_agree"
+                              android:layout_alignBottom="@+id/rb_agree"
+                              android:gravity="center"
+                              android:textSize="13sp"
+                              android:layout_toRightOf="@+id/rb_agree"
+                              android:autoLink="all"
+                              android:textColor="@color/colorTheme"
+                    />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</layout>
+

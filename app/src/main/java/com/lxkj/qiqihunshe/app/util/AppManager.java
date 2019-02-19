@@ -74,6 +74,10 @@ public class AppManager {
             }
         }
     }
+
+
+
+
     /**
      * 结束所有Activity
      */
