@@ -1,0 +1,22 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="line">0.5dp</dimen>
+
+    <!--我的界面字体-->
+    <dimen name="title">17sp</dimen>
+
+    <dimen name="main_fant">15sp</dimen>
+    <dimen name="sub_fant">13sp</dimen>
+
+    <!--tablayout下划线高度-->
+    <dimen name="tabIndicatorHeight">1.5dp</dimen>
+
+
+    <!--点击选择的TextView高度-->
+    <dimen name="textHeight">55dp</dimen>
+
+
+</resources>

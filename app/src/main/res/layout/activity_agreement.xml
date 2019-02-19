@@ -16,10 +16,13 @@
                 layout="@layout/include_title"
                 android:id="@+id/include"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="@dimen/textHeight"
                   android:id="@+id/tv_user"
                   android:background="@drawable/touch_bg"
-                  android:padding="12dp"
+                  android:paddingLeft="12dp"
+                  android:paddingRight="12dp"
+                  android:gravity="center_vertical"
                   android:text="用户协议"
                   android:drawablePadding="8dp"
                   android:drawableRight="@drawable/ic_arrar_right"
@@ -29,10 +32,13 @@
 
         <include layout="@layout/include_line07"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="@dimen/textHeight"
                   android:id="@+id/tv_privacy"
                   android:background="@drawable/touch_bg"
-                  android:padding="12dp"
+                  android:paddingLeft="12dp"
+                  android:paddingRight="12dp"
+                  android:gravity="center_vertical"
                   android:text="隐私政策"
                   android:drawablePadding="8dp"
                   android:drawableRight="@drawable/ic_arrar_right"
@@ -42,10 +48,13 @@
 
         <include layout="@layout/include_line07"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="@dimen/textHeight"
                   android:id="@+id/tv_statement"
                   android:background="@drawable/touch_bg"
-                  android:padding="12dp"
+                  android:paddingLeft="12dp"
+                  android:paddingRight="12dp"
+                  android:gravity="center_vertical"
                   android:text="法律声明"
                   android:drawablePadding="8dp"
                   android:drawableRight="@drawable/ic_arrar_right"

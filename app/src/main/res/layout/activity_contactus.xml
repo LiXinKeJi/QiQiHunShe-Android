@@ -24,8 +24,10 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:layout_height="@dimen/textHeight"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tel"
@@ -50,8 +52,10 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:layout_height="@dimen/textHeight"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/name"
@@ -75,8 +79,10 @@
         <include layout="@layout/include_line07"/>
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:layout_height="@dimen/textHeight"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/address"
@@ -101,8 +107,10 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:layout_height="@dimen/textHeight"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/mail"
@@ -127,8 +135,10 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:layout_height="@dimen/textHeight"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/http"

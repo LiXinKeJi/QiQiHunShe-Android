@@ -22,10 +22,13 @@
                     android:layout_below="@+id/include">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical">
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="@dimen/textHeight"
                           android:id="@+id/tv_setup"
                           android:background="@drawable/touch_bg"
-                          android:padding="12dp"
+                          android:paddingLeft="12dp"
+                          android:paddingRight="12dp"
+                          android:gravity="center_vertical"
                           android:text="安全设置"
                           android:drawablePadding="8dp"
                           android:drawableRight="@drawable/ic_arrar_right"
@@ -35,10 +38,13 @@
 
                 <include layout="@layout/include_line07"/>
 
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="@dimen/textHeight"
                           android:id="@+id/tv_feedback"
                           android:background="@drawable/touch_bg"
-                          android:padding="12dp"
+                          android:paddingLeft="12dp"
+                          android:paddingRight="12dp"
+                          android:gravity="center_vertical"
                           android:text="意见反馈"
                           android:drawablePadding="8dp"
                           android:drawableRight="@drawable/ic_arrar_right"
@@ -48,10 +54,13 @@
 
                 <include layout="@layout/include_line07"/>
 
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="@dimen/textHeight"
                           android:id="@+id/tv_agreement"
                           android:background="@drawable/touch_bg"
-                          android:padding="12dp"
+                          android:paddingLeft="12dp"
+                          android:paddingRight="12dp"
+                          android:gravity="center_vertical"
                           android:text="服务协议"
                           android:drawablePadding="8dp"
                           android:drawableRight="@drawable/ic_arrar_right"
@@ -62,10 +71,13 @@
                 <include layout="@layout/include_line07"/>
 
 
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="@dimen/textHeight"
                           android:id="@+id/tv_contact"
                           android:background="@drawable/touch_bg"
-                          android:padding="12dp"
+                          android:paddingLeft="12dp"
+                          android:paddingRight="12dp"
+                          android:gravity="center_vertical"
                           android:text="联系我们"
                           android:drawablePadding="8dp"
                           android:drawableRight="@drawable/ic_arrar_right"
@@ -75,10 +87,13 @@
 
                 <include layout="@layout/include_line07"/>
 
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="@dimen/textHeight"
                           android:id="@+id/tv_updata"
                           android:background="@drawable/touch_bg"
-                          android:padding="12dp"
+                          android:paddingLeft="12dp"
+                          android:paddingRight="12dp"
+                          android:gravity="center_vertical"
                           android:text="版本更新"
                           android:drawablePadding="8dp"
                           android:drawableRight="@drawable/ic_arrar_right"
@@ -91,11 +106,14 @@
                 <RelativeLayout
                         android:id="@+id/rl_clear"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/textHeight"
                         android:background="@drawable/touch_bg"
-                        android:padding="12dp">
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:gravity="center_vertical">
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
                               android:id="@+id/tv_clear"
                               android:text="清除缓存"
                               android:layout_centerVertical="true"
