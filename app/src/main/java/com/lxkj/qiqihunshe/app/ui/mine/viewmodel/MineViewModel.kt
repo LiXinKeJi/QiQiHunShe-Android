@@ -1,20 +1,19 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
-import android.view.ViewTreeObserver
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.util.ThreadUtil
-import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentMineBinding
-import android.opengl.ETC1.getWidth
-import android.view.WindowManager
 import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import android.util.DisplayMetrics
+import com.lxkj.qiqihunshe.app.ui.dialog.CategoryPop
+import java.util.*
 
 
 /**
  * Created by Slingge on 2019/2/16
  */
-class MineViewModel : BaseViewModel() {
+class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
+
 
     var bind: FragmentMineBinding? = null
 
@@ -63,7 +62,28 @@ class MineViewModel : BaseViewModel() {
                 }
             }
         }).start()
-        bind!!.tvReputation.translationX =width.toFloat()
+        bind!!.tvReputation.translationX = width.toFloat()
     }
+
+
+    private var categoryPop: CategoryPop? = null
+    private val list by lazy { ArrayList<String>() }
+    //选择状态
+    fun selectState() {
+        if (list.isEmpty()) {
+            list.addAll(fragment!!.context!!.resources.getStringArray(com.lxkj.qiqihunshe.R.array.state))
+        }
+        if (categoryPop == null) {
+            categoryPop = CategoryPop(fragment!!.context!!)
+            categoryPop?.setCatinterface(this)
+        }
+        categoryPop!!.screenPopwindow(list, bind!!.tvState)
+    }
+
+    // 选中的状态
+    override fun category(position: Int) {
+        bind!!.tvState.text = list[position]
+    }
+
 
 }

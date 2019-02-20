@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:background="@color/white"
+                  android:fitsSystemWindows="true"
+                  android:orientation="vertical">
+
+
+        <include
+                layout="@layout/include_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/include"/>
+
+
+        <include layout="@layout/include_line07"/>
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="@dimen/textHeight"
+                  android:id="@+id/tv_paypass"
+                  android:background="@drawable/touch_bg"
+                  android:paddingLeft="12dp"
+                  android:paddingRight="12dp"
+                  android:gravity="center_vertical"
+                  android:text="修改支付密码"
+                  android:drawablePadding="8dp"
+                  android:drawableRight="@drawable/ic_arrar_right"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/colorTabText"
+                  android:textSize="15sp"/>
+
+        <include layout="@layout/include_line07"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="@dimen/textHeight"
+                  android:id="@+id/tv_sginpass"
+                  android:background="@drawable/touch_bg"
+                  android:paddingLeft="12dp"
+                  android:paddingRight="12dp"
+                  android:gravity="center_vertical"
+                  android:text="修改登录密码"
+                  android:drawablePadding="8dp"
+                  android:drawableRight="@drawable/ic_arrar_right"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/colorTabText"
+                  android:textSize="15sp"/>
+
+        <include layout="@layout/include_line07"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="@dimen/textHeight"
+                  android:id="@+id/tv_replacephont"
+                  android:background="@drawable/touch_bg"
+                  android:paddingLeft="12dp"
+                  android:paddingRight="12dp"
+                  android:gravity="center_vertical"
+                  android:text="更换手机号"
+                  android:drawablePadding="8dp"
+                  android:drawableRight="@drawable/ic_arrar_right"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/colorTabText"
+                  android:textSize="15sp"/>
+
+        <include layout="@layout/include_line07"/>
+
+    </LinearLayout>
+
+
+</layout>
+

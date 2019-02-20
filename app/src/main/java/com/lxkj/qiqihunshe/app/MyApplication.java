@@ -45,8 +45,7 @@ public class MyApplication extends MultiDexApplication {
         myApplication = this;
         CONTEXT = getApplicationContext();
 
-        uId = SharedPreferencesUtil.getSharePreStr(CONTEXT, "uId");
-
+        uId = SharedPreferencesUtil.getSharePreStr(CONTEXT, "uid");
 
         Logger.addLogAdapter(new AndroidLogAdapter());
     }
@@ -57,17 +56,15 @@ public class MyApplication extends MultiDexApplication {
      * @return
      */
     public static boolean isLogined() {
-        return !(uId.equals(""))
-                && SharedPreferencesUtil.getSharePreBoolean(CONTEXT, "isLogin");
+        return !(uId.equals(""));
     }
 
     /**
      * 是否登陆提示
      */
     public static boolean isLoginToa() {
-        boolean b = !(SharedPreferencesUtil.getSharePreStr(CONTEXT, "uId")
-                .equals(""))
-                && SharedPreferencesUtil.getSharePreBoolean(CONTEXT, "isLogin");
+        boolean b = !(SharedPreferencesUtil.getSharePreStr(CONTEXT, "uid")
+                .equals(""));
         if (b) {
             return true;
         } else {

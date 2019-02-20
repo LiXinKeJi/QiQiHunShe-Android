@@ -8,7 +8,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 /**
  * 类说明 SharedPreferences封装类
- * 1、用户id 字段 uId String类型
+ * 1、用户id 字段 uid String类型
  * 2、 是否登陆 字段 isLogin boolean类型
  * 2.5 用户手机号，账号 phone String类型
  * 3、用户昵称 nickName String类型

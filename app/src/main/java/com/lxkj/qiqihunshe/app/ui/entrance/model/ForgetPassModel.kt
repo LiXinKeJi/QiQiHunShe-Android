@@ -19,7 +19,7 @@ class ForgetPassModel : BaseObservable() {
 
 
     //刷新双向绑定数据
-     fun notif() {
+    fun notif() {
         notifyPropertyChanged(BR.phone)
         notifyPropertyChanged(BR.pass)
         notifyPropertyChanged(BR.code)

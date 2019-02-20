@@ -19,7 +19,10 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_state"
                       android:textSize="16sp"
+                      android:background="@drawable/touch_bg"
                       android:textColor="@color/black"
+                      android:minWidth="65dp"
+                      android:drawablePadding="8dp"
                       android:drawableLeft="@drawable/ic_arraw_down"
                       android:padding="12dp"
             />
@@ -36,13 +39,25 @@
                       android:layout_alignTop="@+id/iv_header"
             />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/tv_progress"
-                      android:text="资料完善>实名认证"
+                      android:id="@+id/tv_editInfo"
+                      android:text="资料完善"
                       android:textSize="16sp"
+                      android:paddingRight="5dp"
                       android:layout_marginTop="5dp"
                       android:layout_alignBottom="@+id/iv_header"
                       android:layout_marginBottom="5dp"
                       android:layout_marginLeft="12dp"
+                      android:textColor="@color/colorSubtitle"
+            />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tv_authent"
+                      android:text=">  实名认证"
+                      android:layout_toRightOf="@+id/tv_editInfo"
+                      android:textSize="16sp"
+                      android:layout_marginTop="5dp"
+                      android:layout_alignBottom="@+id/iv_header"
+                      android:layout_marginBottom="5dp"
                       android:textColor="@color/colorSubtitle"
             />
 

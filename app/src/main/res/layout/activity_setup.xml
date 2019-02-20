@@ -22,6 +22,7 @@
                     android:layout_below="@+id/include">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical">
+                <include layout="@layout/include_line07"/>
                 <TextView android:layout_width="match_parent"
                           android:layout_height="@dimen/textHeight"
                           android:id="@+id/tv_setup"
@@ -87,19 +88,42 @@
 
                 <include layout="@layout/include_line07"/>
 
-                <TextView android:layout_width="match_parent"
-                          android:layout_height="@dimen/textHeight"
-                          android:id="@+id/tv_updata"
-                          android:background="@drawable/touch_bg"
-                          android:paddingLeft="12dp"
-                          android:paddingRight="12dp"
-                          android:gravity="center_vertical"
-                          android:text="版本更新"
-                          android:drawablePadding="8dp"
-                          android:drawableRight="@drawable/ic_arrar_right"
-                          android:layout_centerVertical="true"
-                          android:textColor="@color/colorTabText"
-                          android:textSize="15sp"/>
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="@dimen/textHeight"
+                                android:padding="12dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/fl_updata">
+
+
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/tv_updata"
+                              android:gravity="center_vertical"
+                              android:text="版本更新"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/colorTabText"
+                              android:textSize="15sp"/>
+
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                               android:src="@drawable/ic_arrar_right"
+                               android:layout_alignParentRight="true"
+                               android:layout_centerVertical="true"
+                    />
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/iv_spot"
+                            android:src="@drawable/ic_spot"
+                            android:layout_toRightOf="@+id/tv_updata"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:visibility="gone"
+                    />
+
+
+                </RelativeLayout>
+
 
                 <include layout="@layout/include_line07"/>
 
@@ -136,19 +160,23 @@
 
                 <include layout="@layout/include_line07"/>
 
-                <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                             android:background="@drawable/touch_bg"
-                             android:layout_marginTop="50dp"
-                             android:layout_marginBottom="30dp"
-                             android:layout_marginLeft="30dp"
-                             android:layout_marginRight="30dp">
+                <FrameLayout
+                        android:id="@+id/fl_sginout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/wirth_line3"
+                        android:padding="1dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                               android:id="@+id/tv_singout"
                               android:text="退出登录"
                               android:gravity="center"
                               android:padding="12dp"
                               android:textColor="@color/colorTabText"
-                              android:background="@drawable/wirth_line3"
+                              android:background="@drawable/touch_bg"
                     />
 
                 </FrameLayout>

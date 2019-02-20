@@ -31,7 +31,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tel"
-                      android:background="@drawable/touch_bg"
                       android:text="客服电话"
                       android:layout_centerVertical="true"
                       android:textColor="@color/colorTabText"
@@ -39,7 +38,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_tel"
-                      android:background="@drawable/touch_bg"
                       android:text="@{model.phone}"
                       android:layout_alignParentRight="true"
                       android:layout_centerVertical="true"
@@ -59,7 +57,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/name"
-                      android:background="@drawable/touch_bg"
                       android:text="公司名称"
                       android:layout_centerVertical="true"
                       android:textColor="@color/colorTabText"
@@ -67,7 +64,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_name"
-                      android:background="@drawable/touch_bg"
                       android:text="@{model.name}"
                       android:layout_alignParentRight="true"
                       android:layout_centerVertical="true"
@@ -86,7 +82,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/address"
-                      android:background="@drawable/touch_bg"
                       android:text="公司地址"
                       android:layout_centerVertical="true"
                       android:textColor="@color/colorTabText"
@@ -94,7 +89,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_address"
-                      android:background="@drawable/touch_bg"
                       android:text="@{model.address}"
                       android:layout_alignParentRight="true"
                       android:layout_centerVertical="true"
@@ -114,7 +108,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/mail"
-                      android:background="@drawable/touch_bg"
                       android:text="公司邮箱"
                       android:layout_centerVertical="true"
                       android:textColor="@color/colorTabText"
@@ -122,7 +115,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_mail"
-                      android:background="@drawable/touch_bg"
                       android:text="@{model.mail}"
                       android:layout_alignParentRight="true"
                       android:layout_centerVertical="true"
@@ -140,9 +132,9 @@
                 android:paddingRight="12dp"
                 android:gravity="center_vertical">
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
                       android:id="@+id/http"
-                      android:background="@drawable/touch_bg"
                       android:text="公司官网"
                       android:layout_centerVertical="true"
                       android:textColor="@color/colorTabText"
@@ -150,7 +142,6 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_http"
-                      android:background="@drawable/touch_bg"
                       android:text="@{model.http}"
                       android:layout_alignParentRight="true"
                       android:layout_centerVertical="true"

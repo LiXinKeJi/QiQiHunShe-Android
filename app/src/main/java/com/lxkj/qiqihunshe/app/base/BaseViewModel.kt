@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 /**
  * Created by Slingge on 2018/11/13
  */
-abstract class BaseViewModel : BaseObservable() {
+open class BaseViewModel : BaseObservable() {
 
 
     var activity: Activity? = null

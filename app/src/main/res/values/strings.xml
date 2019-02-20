@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">七七婚社</string>
+
+
+    <array name="state">
+        <item>单身</item>
+        <item>约会</item>
+        <item>牵手</item>
+    </array>
+
+
+
 </resources>

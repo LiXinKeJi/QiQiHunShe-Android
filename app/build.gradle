@@ -99,4 +99,6 @@ dependencies {
     //引用module方法过多
     implementation 'com.android.support:multidex:1.0.3'
 
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
 }
