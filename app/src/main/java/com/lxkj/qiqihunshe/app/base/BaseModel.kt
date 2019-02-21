@@ -1,4 +1,4 @@
-package com.lxkj.qiqihunshe.app.retrofitnet
+package com.lxkj.qiqihunshe.app.base
 
 /**
  * Created by Slingge on 2018/11/13

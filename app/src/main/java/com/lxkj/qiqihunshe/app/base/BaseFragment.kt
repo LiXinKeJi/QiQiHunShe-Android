@@ -26,8 +26,10 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     abstract fun getLayoutId(): Int
     protected abstract fun init()
 
+      var one=false//默认只加载一次，true每次进入页面都加载
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate<VB>(layoutInflater, getLayoutId(), null, false)
+        binding = DataBindingUtil.inflate(layoutInflater, getLayoutId(), null, false)
         binding.setLifecycleOwner(this)
         return binding.root
     }
@@ -56,7 +58,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
         if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
             loadData()
             isDataInitiated = true
-            refreshData = true//false,只加载一次，true每次进入页面都加载
+            refreshData = one//false,只加载一次，true每次进入页面都加载
             return true
         }
         return false

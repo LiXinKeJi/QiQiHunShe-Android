@@ -35,6 +35,13 @@
             </intent-filter>
         </activity>
 
+        <!--腾讯TBS浏览服务X5内核 更新之后似乎可有可无-->
+        <meta-data
+                android:name="QBSDKAppKey"
+                android:value="Q7xpuMkavjlnT1JB+DounMu3" />
+
+
+
 
         <service
                 android:name=".app.service.NotificationDownApkService"
@@ -73,6 +80,20 @@
         <activity android:name=".app.ui.mine.activity.ModifyPhoneActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.RealNameAuthenActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.PersonalInfoActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.ReputationBaoActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.QiQiRuleActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.WebViewActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.CheckInActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.QiQIDynamicActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.QiQIDynamicDetailsActivity"
                   android:screenOrientation="portrait"/>
     </application>
 

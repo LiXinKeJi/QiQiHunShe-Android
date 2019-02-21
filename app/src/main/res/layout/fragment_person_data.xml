@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonDataViewModel"/>
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+        >
+
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="择偶条件"
+                      android:textSize="17sp"
+                      android:textColor="@color/black"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginTop="10dp"
+            />
+
+            <com.lxkj.qiqihunshe.app.customview.FlowLayout
+                    android:id="@+id/fl_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+            />
+
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="账号信息"
+                      android:textSize="17sp"
+                      android:textColor="@color/black"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginTop="16dp"
+            />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tv_account"
+                      android:text="七七账号:"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginTop="10dp"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+            />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tv_data"
+                      android:text="注册日期:"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginTop="10dp"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+            />
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_margin="15dp"
+                            android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/info" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="个人信息"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_plan"
+                          android:text="情感计划:"
+                          android:textSize="13sp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_toRightOf="@+id/info"
+                          android:layout_marginLeft="10dp"
+                          android:layout_marginTop="2dp"
+                />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_hometown"
+                          android:text="家乡："
+                          android:textSize="13sp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/info"
+                          android:layout_marginTop="10dp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_current"
+                          android:text="现居："
+                          android:textSize="13sp"
+                          android:layout_toRightOf="@+id/tv_hometown"
+                          android:layout_marginLeft="18dp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/info"
+                          android:layout_marginTop="10dp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_nation"
+                          android:text="民族："
+                          android:textSize="13sp"
+                          android:layout_toRightOf="@+id/tv_current"
+                          android:layout_marginLeft="18dp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/info"
+                          android:layout_marginTop="10dp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_age"
+                          android:text="年龄："
+                          android:textSize="13sp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/tv_hometown"
+                          android:layout_marginTop="10dp"
+                />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_occupation"
+                          android:text="职业："
+                          android:textSize="13sp"
+                          android:layout_toRightOf="@+id/tv_age"
+                          android:layout_marginLeft="18dp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/tv_hometown"
+                          android:layout_marginTop="10dp"
+                />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_state"
+                          android:text="情感状态："
+                          android:textSize="13sp"
+                          android:layout_toRightOf="@+id/tv_occupation"
+                          android:layout_marginLeft="18dp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/tv_hometown"
+                          android:layout_marginTop="10dp"
+                />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_height"
+                          android:text="身高："
+                          android:textSize="13sp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/tv_age"
+                          android:layout_marginTop="10dp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_type"
+                          android:text="类型："
+                          android:textSize="13sp"
+                          android:layout_marginLeft="18dp"
+                          android:layout_toRightOf="@+id/tv_height"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/tv_age"
+                          android:layout_marginTop="10dp"
+                />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/economics" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="经济资料"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                />
+
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_tv_education"
+                          android:text="学历："
+                          android:textSize="13sp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/economics"
+                          android:layout_marginTop="10dp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_salary"
+                          android:text="月薪："
+                          android:textSize="13sp"
+                          android:layout_toRightOf="@+id/tv_tv_education"
+                          android:layout_marginLeft="18dp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/economics"
+                          android:layout_marginTop="10dp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_car"
+                          android:text="车："
+                          android:textSize="13sp"
+                          android:layout_toRightOf="@+id/tv_salary"
+                          android:layout_marginLeft="18dp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/economics"
+                          android:layout_marginTop="10dp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_room"
+                          android:text="房："
+                          android:textSize="13sp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_below="@+id/tv_tv_education"
+                          android:layout_marginTop="10dp"
+                />
+
+            </RelativeLayout>
+
+
+            <TextView
+                    android:id="@+id/signature" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="个人签名"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+            />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tv_signature"
+                      android:text="个人签名"
+                      android:textSize="13sp"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginTop="10dp"
+                      android:textColor="@color/colorTabText"
+                      android:layout_below="@+id/tv_tv_education"
+            />
+
+            <TextView
+                    android:id="@+id/boby" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="兴趣爱好"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+            />
+
+            <com.lxkj.qiqihunshe.app.customview.FlowLayout
+                    android:id="@+id/fl_boby"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+            />
+
+            <TextView
+                    android:id="@+id/address" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="地点标签"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+            />
+
+            <com.lxkj.qiqihunshe.app.customview.FlowLayout
+                    android:id="@+id/fl_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+            />
+
+            <TextView
+                    android:id="@+id/comment" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="点评"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+            />
+
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_accord"
+                          android:text="相符："
+                          android:textSize="13sp"
+                          android:layout_marginLeft="15dp"
+                          android:layout_marginRight="15dp"
+                          android:layout_marginTop="10dp"
+                          android:textColor="@color/colorTabText"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_impression"
+                          android:text="印象："
+                          android:layout_toRightOf="@+id/tv_accord"
+                          android:textSize="13sp"
+                          android:layout_marginLeft="15dp"
+                          android:layout_marginRight="15dp"
+                          android:layout_marginTop="10dp"
+                          android:textColor="@color/colorTabText"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_num"
+                          android:text="评分人数："
+                          android:layout_toRightOf="@+id/tv_impression"
+                          android:textSize="13sp"
+                          android:layout_marginLeft="15dp"
+                          android:layout_marginRight="15dp"
+                          android:layout_marginTop="10dp"
+                          android:textColor="@color/colorTabText"
+                />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</layout>
+

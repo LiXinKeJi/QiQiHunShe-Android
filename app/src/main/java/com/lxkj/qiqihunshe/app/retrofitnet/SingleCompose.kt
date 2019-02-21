@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.retrofitnet
 
 import android.content.Context
 import com.google.gson.Gson
+import com.lxkj.qiqihunshe.app.base.BaseModel
 import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.orhanobut.logger.Logger

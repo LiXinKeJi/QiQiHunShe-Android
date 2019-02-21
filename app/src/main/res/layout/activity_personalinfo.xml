@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.mine.model.PersonalInfoModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonalInfoViewModel"/>
+    </data>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/coordinator_layout"
+                android:layout_width="match_parent"
+                android:layout_above="@+id/ll_3"
+                android:layout_height="match_parent">
+
+
+            <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentScrim="@color/gray2">
+
+                <android.support.design.widget.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        app:contentScrim="@color/gray2"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                    >
+
+                        <View
+                                android:id="@+id/view_staus"
+                                android:layout_width="match_parent"
+                                android:layout_height="22dp"
+                                android:visibility="gone"
+                        />
+
+                        <com.youth.banner.Banner android:layout_width="match_parent"
+                                                 android:layout_height="280dp"
+                                                 android:id="@+id/banner"
+                                                 android:background="@color/colorTheme"
+                                                 app:banner_layout="@layout/banner_custom_viewpager"
+                                                 app:is_auto_play="true"
+                                                 app:image_scale_type="center_crop"
+                        />
+
+                        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                   android:id="@+id/iv_back"
+                                   android:src="@drawable/ic_back_w"
+                                   android:padding="12dp"
+                                   android:layout_below="@+id/view_staus"/>
+
+                        <ImageView android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:id="@+id/iv_edit"
+                                   android:layout_below="@+id/view_staus"
+                                   android:src="@drawable/ic_edit"
+                                   android:layout_alignParentRight="true"
+                                   android:padding="12dp"
+                        />
+
+                        <TextView android:layout_width="match_parent" android:layout_height="38dp"
+                                  android:id="@+id/tv_perfect"
+                                  android:text="完善个人信息"
+                                  android:textSize="13sp"
+                                  android:textColor="#F85543"
+                                  android:background="#fffff2e2"
+                                  android:gravity="center"
+                                  android:layout_below="@+id/iv_edit"
+                                  android:layout_marginTop="12dp"
+                        />
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="27dp"
+                                  android:id="@+id/tv_vido"
+                                  android:text="切换3秒视频"
+                                  android:textSize="10sp"
+                                  android:textColor="#F85543"
+                                  android:gravity="center"
+                                  android:paddingLeft="10dp"
+                                  android:paddingRight="10dp"
+                                  android:layout_alignParentRight="true"
+                                  android:layout_below="@+id/tv_perfect"
+                                  android:layout_marginTop="32dp"
+                                  android:background="@drawable/bg_yello_left60"
+                                  android:layout_marginRight="1dp"/>
+
+
+                        <include layout="@layout/include_v"
+                                 android:layout_marginLeft="15dp"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_alignBottom="@+id/banner"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tv_name"
+                                  android:textSize="18sp"
+                                  android:textColor="@color/black"
+                                  android:text="洛克贝尔"
+                                  android:layout_below="@+id/banner"
+                                  android:layout_marginLeft="15dp"
+                                  android:layout_marginTop="12dp"
+                                  android:layout_marginRight="10dp"
+                        />
+
+                        <!--牵手、约会那三个状态-->
+                        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                   android:id="@+id/iv"
+                                   android:layout_toRightOf="@+id/tv_name"
+                                   android:layout_alignBottom="@+id/tv_name"
+                        />
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tv_age"
+                                  android:text="19"
+                                  android:textColor="@color/white"
+                                  android:background="@drawable/bg_girl"
+                                  android:layout_toRightOf="@+id/tv_name"
+                                  android:layout_alignBottom="@+id/tv_name"
+                                  android:drawableLeft="@drawable/ic_back"
+                                  android:drawablePadding="5dp"
+                                  android:paddingTop="2dp"
+                                  android:paddingBottom="2dp"
+                                  android:gravity="center"
+                                  android:paddingLeft="5dp"
+                                  android:paddingRight="5dp"/>
+
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tv_distance"
+                                  android:text="1km"
+                                  android:drawableLeft="@drawable/ic_back"
+                                  android:layout_below="@+id/tv_name"
+                                  android:drawablePadding="5dp"
+                                  android:layout_marginLeft="15dp"
+                                  android:layout_marginTop="5dp"
+                        />
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tv_reputation"
+                                  android:background="@drawable/thems_bg35"
+                                  android:text="信誉值：0"
+                                  android:textSize="11sp"
+                                  android:textColor="@color/colorTheme"
+                                  android:layout_below="@+id/tv_distance"
+                                  android:layout_marginTop="10dp"
+                                  android:layout_marginLeft="15dp"
+                                  android:paddingTop="3dp"
+                                  android:paddingBottom="3dp"
+                                  android:paddingLeft="10dp"
+                                  android:paddingRight="10dp"
+                        />
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tv_feel"
+                                  android:background="@drawable/thems_bg35"
+                                  android:text="言礼值：0"
+                                  android:textSize="11sp"
+                                  android:layout_toRightOf="@+id/tv_reputation"
+                                  android:textColor="@color/colorTheme"
+                                  android:layout_below="@+id/tv_distance"
+                                  android:layout_marginTop="10dp"
+                                  android:layout_marginLeft="15dp"
+                                  android:paddingTop="3dp"
+                                  android:paddingBottom="3dp"
+                                  android:paddingLeft="10dp"
+                                  android:paddingRight="10dp"
+                        />
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tv_security"
+                                  android:background="@drawable/thems_bg35"
+                                  android:text="综合安全值：0"
+                                  android:textSize="11sp"
+                                  android:layout_toRightOf="@+id/tv_feel"
+                                  android:textColor="@color/colorTheme"
+                                  android:layout_below="@+id/tv_distance"
+                                  android:layout_marginTop="10dp"
+                                  android:layout_marginLeft="15dp"
+                                  android:paddingTop="3dp"
+                                  android:paddingBottom="3dp"
+                                  android:paddingLeft="10dp"
+                                  android:paddingRight="10dp"
+                        />
+
+                        <com.lxkj.qiqihunshe.app.customview.CustomShapTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_fllow"
+                                android:drawableTop="@drawable/ic_xin"
+                                android:text="0"
+                                android:gravity="center_horizontal"
+                                android:layout_below="@+id/banner"
+                                android:layout_alignParentRight="true"
+                                app:paintNormalColor="@color/gray"
+                                app:paintSelectColor="@color/blue"
+                                android:layout_marginTop="20dp"
+                                android:padding="10dp"
+                                android:layout_marginRight="5dp"
+                        />
+
+                        <include layout="@layout/include_line07"
+                                 android:id="@+id/line"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginTop="12dp"
+                                 android:layout_below="@+id/tv_reputation"/>
+
+                    </RelativeLayout>
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+
+            </android.support.design.widget.AppBarLayout>
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <android.support.design.widget.TabLayout
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="@color/black"
+                        app:tabSelectedTextColor="@color/black"
+                        app:tabTextAppearance="@style/TabLayoutTextStyle"
+                        app:tabTextColor="@color/colorTitle"/>
+            </FrameLayout>
+
+
+            <android.support.v4.view.ViewPager
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="44dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:id="@+id/viewPager"/>
+
+
+        </android.support.design.widget.CoordinatorLayout>
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:id="@+id/ll_3"
+                      android:padding="15dp"
+                      android:layout_alignParentBottom="true">
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:id="@+id/tv_cancel"
+                      android:text="取消"
+                      android:paddingBottom="10dp"
+                      android:paddingTop="10dp"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+                      android:gravity="center"
+                      android:textColor="@color/colorTabText"
+                      android:background="@drawable/bg_gray_60"
+            />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:id="@+id/tv_conversation"
+                      android:text="通话"
+                      android:paddingBottom="10dp"
+                      android:paddingTop="10dp"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+                      android:gravity="center"
+                      android:textColor="@color/white"
+                      android:background="@drawable/them_bg35"
+            />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</layout>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.WebViewViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            android:layout_height="match_parent">
+
+        <!---->
+
+        <include
+                android:id="@+id/include"
+                layout="@layout/include_title"/>
+
+
+        <com.lxkj.qiqihunshe.app.customview.MyWebView
+                android:id="@+id/mywebview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
