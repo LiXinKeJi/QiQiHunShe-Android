@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/touch_bg"
             android:paddingTop="12dp"
-            android:paddingBottom="2dp"
+
     >
 
         <com.lxkj.qiqihunshe.app.customview.CircleImageView
@@ -117,9 +117,10 @@
                   android:layout_marginEnd="15dp" app:layout_constraintEnd_toEndOf="parent"
                   android:layout_marginRight="15dp" android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
 
+
         <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                  android:id="@+id/tv_range"
-                  android:text="限制范围："
+                  android:id="@+id/tv_address"
+                  android:text="活动地点："
                   android:textSize="15sp"
                   android:textColor="@color/colorTabText"
                   android:maxLines="3"
@@ -130,99 +131,74 @@
                   android:layout_marginEnd="15dp" app:layout_constraintEnd_toEndOf="parent"
                   android:layout_marginRight="15dp" android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
 
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                  android:id="@+id/tv_limit"
-                  android:text="限制："
-                  android:textSize="15sp"
-                  android:textColor="@color/colorTabText"
-                  android:maxLines="3"
-                  android:ellipsize="end"
-                  android:layout_marginTop="10dp"
-                  app:layout_constraintTop_toBottomOf="@+id/tv_range"
-                  app:layout_constraintStart_toStartOf="parent"
-                  android:layout_marginEnd="15dp" app:layout_constraintEnd_toEndOf="parent"
-                  android:layout_marginRight="15dp" android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
 
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                  android:id="@+id/tv_consu"
-                  android:text="消费："
-                  android:textSize="15sp"
-                  android:textColor="@color/colorTabText"
-                  android:maxLines="3"
-                  android:ellipsize="end"
-                  android:layout_marginTop="10dp"
-                  app:layout_constraintTop_toBottomOf="@+id/tv_limit"
-                  app:layout_constraintStart_toStartOf="parent"
-                  android:layout_marginEnd="15dp" app:layout_constraintEnd_toEndOf="parent"
-                  android:layout_marginRight="15dp"/>
-
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                  android:id="@+id/tv_address"
-                  android:text="消费："
-                  android:textSize="15sp"
-                  android:textColor="@color/colorTabText"
-                  android:maxLines="3"
-                  android:ellipsize="end"
-                  android:layout_marginTop="10dp"
-                  app:layout_constraintTop_toBottomOf="@+id/tv_limit"
-                  app:layout_constraintStart_toStartOf="parent"
-                  android:layout_marginEnd="15dp" app:layout_constraintEnd_toEndOf="parent"
-                  android:layout_marginRight="15dp" android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
-
-        <LinearLayout
-                android:id="@+id/ll_image"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+        <com.lxkj.runproject.app.view.SquareImage
+                android:id="@+id/iv_1"
+                android:layout_width="0dp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_address"
-                android:layout_marginTop="10dp"
-        >
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/iv_2"/>
 
-            <com.lxkj.runproject.app.view.SquareImage
-                    android:id="@+id/iv_1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop"
-            />
+        <com.lxkj.runproject.app.view.SquareImage
+                android:id="@+id/iv_2"
+                android:layout_width="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toBottomOf="@+id/tv_address"
+                android:layout_marginTop="12dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/iv_1" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/iv_3"/>
 
-            <com.lxkj.runproject.app.view.SquareImage
-                    android:id="@+id/iv_2"
-                    android:layout_width="0dp"
-                    android:scaleType="centerCrop"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"/>
+        <com.lxkj.runproject.app.view.SquareImage
+                android:id="@+id/iv_3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_address"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="6dp"
+           android:layout_marginRight="15dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintStart_toEndOf="@+id/iv_2"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5"/>
 
-            <com.lxkj.runproject.app.view.SquareImage
-                    android:id="@+id/iv_3"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_content"
-                    app:layout_constraintStart_toEndOf="@+id/iv_2"
-                    app:layout_constraintEnd_toEndOf="parent"/>
 
-        </LinearLayout>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_totalnum"
+                  android:text="+1"
+                  android:textSize="18sp"
+                  android:textColor="@color/colorRateRed"
+                  app:layout_constraintTop_toTopOf="@+id/iv_3"
+                  app:layout_constraintEnd_toEndOf="@+id/iv_3"
+                  app:layout_constraintBottom_toBottomOf="@+id/iv_3" app:layout_constraintStart_toStartOf="@+id/iv_3"/>
+
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_date"
                   android:textColor="@color/colorSubtitle"
                   android:textSize="11sp"
                   android:text="2019"
-                  app:layout_constraintTop_toBottomOf="@+id/ll_image"
+                  app:layout_constraintTop_toBottomOf="@+id/iv_1"
                   android:layout_marginTop="10dp"
-                  android:paddingBottom="10dp"
                   android:layout_marginRight="15dp"
                   app:layout_constraintEnd_toEndOf="parent"
         />
         <include layout="@layout/include_line07"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
+                 android:layout_marginTop="12dp"
                  app:layout_constraintTop_toBottomOf="@+id/tv_date"
         />
 

@@ -19,6 +19,132 @@
                 layout="@layout/include_title"
                 android:id="@+id/include"/>
 
+        <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical">
+
+
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:paddingTop="15dp"
+                                android:paddingLeft="15dp"
+                                android:visibility="gone"
+                                android:paddingRight="15dp"
+                                android:id="@+id/rl_call"
+
+                >
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="联系人："
+                              android:textColor="@color/colorTabText"
+                              android:textSize="15sp"
+                              android:id="@+id/tv_name"
+                    />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="联系电话："
+                              android:textColor="@color/colorTabText"
+                              android:textSize="15sp"
+                              android:id="@+id/tv_phone"
+                              android:layout_below="@+id/tv_name"
+                              android:layout_marginTop="10dp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/tv_call"
+                              android:text="拨号"
+                              android:textSize="14sp"
+                              android:background="@drawable/button_click5"
+                              android:layout_alignParentRight="true"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/white"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:paddingLeft="18dp"
+                              android:paddingRight="18dp"
+                    />
+
+                </RelativeLayout>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/tv_title"
+                          android:text="标题"
+                          android:textSize="16sp"
+                          android:textColor="@color/colorBlack"
+                          android:layout_marginLeft="15dp"
+                          android:layout_marginRight="15dp"
+                          android:layout_marginTop="15dp"
+                />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_time"
+                          android:text="2019"
+                          android:textSize="13sp"
+                          android:layout_marginLeft="15dp"
+                          android:textColor="@color/colorSubtitle"
+                          android:layout_marginTop="8dp"
+                />
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/tv_brief"
+                          android:text="简介："
+                          android:layout_marginRight="15dp"
+                          android:textSize="13sp"
+                          android:layout_marginLeft="15dp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_marginTop="8dp"
+                />
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/content"
+                          android:text="活动内容"
+                          android:layout_marginRight="15dp"
+                          android:textSize="13sp"
+                          android:layout_marginLeft="15dp"
+                          android:textColor="@color/black"
+                          android:layout_marginTop="15dp"
+                />
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/tv_content"
+                          android:text="内容"
+                          android:layout_marginRight="15dp"
+                          android:textSize="13sp"
+                          android:layout_marginLeft="15dp"
+                          android:textColor="@color/colorTabText"
+                          android:layout_marginTop="8dp"
+                />
+
+
+                <ImageView android:layout_width="match_parent" android:layout_height="200dp"
+                           android:src="@mipmap/ic_launcher"
+                           android:scaleType="centerCrop"
+                           android:layout_marginTop="18dp"
+                           android:layout_marginLeft="15dp"
+                           android:layout_marginRight="15dp"
+                           android:layout_marginBottom="30dp"
+                />
+
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_sginup"
+                          android:text="报名"
+                          android:layout_gravity="center_horizontal"
+                          android:textSize="14sp"
+                          android:background="@drawable/button_click5"
+                          android:layout_alignParentRight="true"
+                          android:layout_centerVertical="true"
+                          android:textColor="@color/white"
+                          android:paddingTop="10dp"
+                          android:paddingBottom="10dp"
+                          android:layout_marginBottom="30dp"
+                          android:paddingLeft="55dp"
+                          android:paddingRight="55dp"
+                />
+
+
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 

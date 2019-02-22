@@ -7,7 +7,7 @@ import com.lxkj.qiqihunshe.BR
 /**
  * Created by Slingge on 2019/2/16
  */
-class SginInModel : BaseObservable() {
+class SignInModel : BaseObservable() {
 
     @Bindable
     var phone = ""

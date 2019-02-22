@@ -27,7 +27,7 @@
             android:supportsRtl="true"
             android:name=".app.MyApplication"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".app.ui.entrance.SginInActivity">
+        <activity android:name=".app.ui.entrance.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -83,6 +83,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.PersonalInfoActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.PersonInvitationDetailsActivity"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.ReputationBaoActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.QiQiRuleActivity"
@@ -91,9 +93,23 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.CheckInActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".app.ui.mine.activity.QiQIDynamicActivity"
+        <activity android:name=".app.ui.mine.activity.QiQiDynamicActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".app.ui.mine.activity.QiQIDynamicDetailsActivity"
+        <activity android:name=".app.ui.mine.activity.QiQiDynamicDetailsActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.SignUpRecordAcivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.QiQiRecommendActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.InteractiveNotificationActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.WalletActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.RechargeActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.WithdrawalActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.MyBillActivity"
                   android:screenOrientation="portrait"/>
     </application>
 

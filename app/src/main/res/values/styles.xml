@@ -43,6 +43,11 @@
     </style>
 
 
+    <style name="dialogAnim">
+        <item name="android:windowEnterAnimation">@anim/fade_in2</item>
+        <item name="android:windowExitAnimation">@anim/fade_out2</item>
+    </style>
+
 
     <style name="NoSpaceActionBarTheme" parent="Base.Widget.AppCompat.Toolbar">
         <item name="contentInsetStart">0dp</item>

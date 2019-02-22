@@ -5,8 +5,8 @@
 >
 
     <data>
-        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.SginInViewModel"/>
-        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.entrance.model.SginInModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.SignInViewModel"/>
+        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel"/>
     </data>
 
 

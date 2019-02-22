@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MyBillViewModel"/>
+    </data>
+
+    <!--我的账单-->
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:background="@color/white"
+                  android:fitsSystemWindows="true"
+    >
+        <include
+                layout="@layout/include_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/include"/>
+
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:background="@color/gray"
+                        android:padding="15dp" app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tv_start"
+                      android:text="@={viewmodel.startTime}"
+                      android:textColor="@color/colorTabText"
+                      android:textSize="13sp"
+                      android:background="@drawable/bg_white3"
+                      android:paddingLeft="15dp"
+                      android:paddingTop="3dp"
+                      android:paddingBottom="3dp"
+                      android:paddingRight="15dp"
+                      android:minWidth="55dp"
+            />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/t"
+                      android:text="-"
+                      android:layout_marginLeft="10dp"
+                      android:textColor="@color/colorTabText"
+                      android:textSize="13sp"
+                      android:layout_toRightOf="@+id/tv_start"
+                      android:layout_centerVertical="true"
+            />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tv_end"
+                      android:text="@={viewmodel.endTime}"
+                      android:textColor="@color/colorTabText"
+                      android:textSize="13sp"
+                      android:layout_marginLeft="10dp"
+                      android:layout_toRightOf="@+id/t"
+                      android:background="@drawable/bg_white3"
+                      android:paddingLeft="15dp"
+                      android:paddingTop="5dp"
+                      android:paddingBottom="5dp"
+                      android:paddingRight="15dp"
+                      android:minWidth="55dp"
+            />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tv_enter"
+                      android:text="确定"
+                      android:textSize="13sp"
+                      android:textColor="@color/white"
+                      android:background="@drawable/button_click5"
+                      android:layout_toRightOf="@+id/tv_end"
+                      android:layout_marginLeft="15dp"
+                      android:paddingTop="5dp"
+                      android:paddingBottom="5dp"
+                      android:paddingLeft="18dp"
+                      android:paddingRight="18dp"
+                      android:layout_centerVertical="true"
+            />
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_bill"/>
+
+
+    </LinearLayout>
+
+
+</layout>
+

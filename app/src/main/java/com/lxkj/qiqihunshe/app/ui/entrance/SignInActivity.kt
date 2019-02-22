@@ -5,24 +5,23 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.MainActivity
-import com.lxkj.qiqihunshe.app.ui.entrance.model.SginInModel
-import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.SginInViewModel
+import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
+import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.SignInViewModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
-import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.databinding.ActivitySgininBinding
-import kotlinx.android.synthetic.main.activity_sginin.*
+import com.lxkj.qiqihunshe.databinding.ActivitySigninBinding
+import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.include_title.*
 
 /**
  * Created by Slingge on 2019/2/16
  */
-class SginInActivity : BaseActivity<ActivitySgininBinding, SginInViewModel>(), View.OnClickListener {
+class SignInActivity : BaseActivity<ActivitySigninBinding, SignInViewModel>(), View.OnClickListener {
 
-    override fun getBaseViewModel() = SginInViewModel()
+    override fun getBaseViewModel() = SignInViewModel()
 
-    override fun getLayoutId() = R.layout.activity_sginin
+    override fun getLayoutId() = R.layout.activity_signin
 
-    private var sginModel = SginInModel()
+    private var sginModel = SignInModel()
 
     override fun init() {
         initTitle("关闭")

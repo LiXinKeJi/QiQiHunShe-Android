@@ -3,13 +3,12 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.provider.Settings
 import android.support.v4.content.FileProvider
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.service.NotificationDownApkService
-import com.lxkj.qiqihunshe.app.ui.entrance.SginInActivity
+import com.lxkj.qiqihunshe.app.ui.entrance.SignInActivity
 import com.lxkj.qiqihunshe.app.util.*
 import java.io.File
 
@@ -23,7 +22,7 @@ class SetUpViewModel : BaseViewModel() {
         SharedPreferencesUtil.putSharePre(activity, "uid", "")
         MyApplication.uId = ""
         AppManager.finishAllActivity()
-        MyApplication.openActivity(activity, SginInActivity::class.java)
+        MyApplication.openActivity(activity, SignInActivity::class.java)
     }
 
 

@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationViewModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationFragmentViewModel"/>
     </data>
 
     <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"

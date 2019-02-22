@@ -27,12 +27,16 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         iv_header.setOnClickListener(this)
         tv_editInfo.setOnClickListener(this)
         tv_authent.setOnClickListener(this)
-        tv_setup.setOnClickListener(this)
 
         tv_qiandao.setOnClickListener(this)
         tv_huodong.setOnClickListener(this)
+        tv_tuijian.setOnClickListener(this)
+        tv_tongzhi.setOnClickListener (this)
 
         tv_reputation_bao.setOnClickListener(this)
+        tv_wallet.setOnClickListener(this)
+        tv_setup.setOnClickListener(this)
+
 
         viewModel?.let {
             binding.viewmodel = it
@@ -62,10 +66,19 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 MyApplication.openActivity(activity, CheckInActivity::class.java)
             }
             R.id.tv_huodong -> {//七七活动
-                MyApplication.openActivity(activity, QiQIDynamicActivity::class.java)
+                MyApplication.openActivity(activity, QiQiDynamicActivity::class.java)
+            }
+            R.id.tv_tuijian -> {//七七推荐
+                MyApplication.openActivity(activity, QiQiRecommendActivity::class.java)
+            }
+            R.id.tv_tongzhi -> {//互动通知
+                MyApplication.openActivity(activity, InteractiveNotificationActivity::class.java)
             }
             R.id.tv_reputation_bao -> {//信誉宝
                 MyApplication.openActivity(activity, ReputationBaoActivity::class.java)
+            }
+            R.id.tv_wallet -> {//钱包
+                MyApplication.openActivity(activity, WalletActivity::class.java)
             }
             R.id.tv_setup -> {
                 MyApplication.openActivity(activity, SetUpActivity::class.java)

@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.lxkj.qiqihunshe.R

@@ -9,5 +9,14 @@
     </array>
 
 
+    <array name="report">
+        <item>宣传信息</item>
+        <item>虚假信息</item>
+        <item>站外引导</item>
+        <item>其他</item>
+        <item>感情诈骗</item>
+        <item>纠纷</item>
+    </array>
+
 
 </resources>

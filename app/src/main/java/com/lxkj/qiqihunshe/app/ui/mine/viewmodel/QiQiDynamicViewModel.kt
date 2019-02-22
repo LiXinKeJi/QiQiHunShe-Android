@@ -3,12 +3,13 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 import android.support.v7.widget.LinearLayoutManager
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.ui.mine.activity.QiQIDynamicDetailsActivity
+import com.lxkj.qiqihunshe.app.ui.mine.activity.QiQiDynamicDetailsActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.QiQiDynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiDynamicModel
 import com.lxkj.qiqihunshe.databinding.ActivityQiqiDynamicBinding
 
 /**
+ * 活动报名记录
  * Created by Slingge on 2019/2/21
  */
 class QiQiDynamicViewModel : BaseViewModel() {
@@ -32,7 +33,7 @@ class QiQiDynamicViewModel : BaseViewModel() {
         adapter.upData(list)
 
         adapter.setMyListener { itemBean, position ->
-            MyApplication.openActivity(activity, QiQIDynamicDetailsActivity::class.java)
+            MyApplication.openActivity(activity, QiQiDynamicDetailsActivity::class.java)
         }
     }
 

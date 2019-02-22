@@ -5,6 +5,7 @@ import com.lxkj.qiqihunshe.app.util.ThreadUtil
 import com.lxkj.qiqihunshe.databinding.FragmentMineBinding
 import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import android.util.DisplayMetrics
+import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.dialog.CategoryPop
 import java.util.*
 
@@ -71,7 +72,7 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
     //选择状态
     fun selectState() {
         if (list.isEmpty()) {
-            list.addAll(fragment!!.context!!.resources.getStringArray(com.lxkj.qiqihunshe.R.array.state))
+            list.addAll(fragment!!.context!!.resources.getStringArray(R.array.state))
         }
         if (categoryPop == null) {
             categoryPop = CategoryPop(fragment!!.context!!)

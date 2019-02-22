@@ -2,7 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.util.GlideImageLoader
-import com.lxkj.qiqihunshe.databinding.ActivityPersonalinfoBinding
+import com.lxkj.qiqihunshe.databinding.ActivityPersonalInfoBinding
 import com.youth.banner.BannerConfig
 import java.util.*
 
@@ -11,7 +11,7 @@ import java.util.*
  */
 class PersonalInfoViewModel : BaseViewModel() {
 
-    var bind: ActivityPersonalinfoBinding? = null
+    var bind: ActivityPersonalInfoBinding? = null
 
 
     private val array = arrayOf(
