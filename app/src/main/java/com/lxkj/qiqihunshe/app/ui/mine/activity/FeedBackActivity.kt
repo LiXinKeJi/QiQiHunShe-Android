@@ -21,7 +21,6 @@ class FeedBackActivity : BaseActivity<ActivityFeedbackBinding, FeedBackViewModel
     private val model by lazy { FeedBackModel() }
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("意见反馈")
 
         tv_enter.setOnClickListener {

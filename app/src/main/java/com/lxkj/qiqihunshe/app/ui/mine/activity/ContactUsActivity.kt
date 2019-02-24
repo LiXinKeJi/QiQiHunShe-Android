@@ -16,7 +16,6 @@ class ContactUsActivity : BaseActivity<ActivityContactusBinding, ContactUsViewMo
     override fun getLayoutId() = R.layout.activity_contactus
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("联系我们")
 
         viewModel?.let {

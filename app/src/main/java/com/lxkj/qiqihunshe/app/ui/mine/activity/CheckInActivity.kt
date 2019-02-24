@@ -16,7 +16,6 @@ class CheckInActivity : BaseActivity<ActivityCheckinBinding, CheckInViewModel>()
     override fun getLayoutId() = R.layout.activity_checkin
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("签到")
 
         viewModel?.let {

@@ -13,7 +13,6 @@ class AgreementActivity:BaseActivity<com.lxkj.qiqihunshe.databinding.ActivityAgr
     override fun getLayoutId()= R.layout.activity_agreement
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("服务协议")
     }
 

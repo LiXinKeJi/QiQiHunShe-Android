@@ -1,8 +1,5 @@
 package com.lxkj.qiqihunshe.app.service
 
-import android.Manifest
-import android.annotation.TargetApi
-import android.app.Activity
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.Service
@@ -10,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
-import android.os.Environment
 import android.os.IBinder
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
@@ -53,7 +49,8 @@ class NotificationDownApkService : Service() {
     fun downApk() {
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url("http://yuedingle.com/icon/yueding.apk")
+//            .url("http://yuedingle.com/icon/yueding.apk")
+            .url("https://dl.google.com/dl/android/studio/install/2.3.3.0/android-studio-bundle-162.4069837-windows.exe")
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

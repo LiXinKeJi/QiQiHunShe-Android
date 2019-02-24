@@ -26,7 +26,6 @@ class SginInActivity : BaseActivity<ActivitySgininBinding, SginInViewModel>(), V
 
     override fun init() {
         initTitle("关闭")
-        WhiteStatusBar()
         AbStrUtil.setDrawableLeft(this, -1, tv_title, 0)
 
         tv_forgetpass.setOnClickListener(this)

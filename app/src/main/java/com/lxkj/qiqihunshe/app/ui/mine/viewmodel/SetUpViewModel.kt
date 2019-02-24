@@ -8,6 +8,8 @@ import android.provider.Settings
 import android.support.v4.content.FileProvider
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.service.NotificationDownApkService
 import com.lxkj.qiqihunshe.app.ui.entrance.SginInActivity
 import com.lxkj.qiqihunshe.app.util.*
@@ -39,6 +41,7 @@ class SetUpViewModel : BaseViewModel() {
             activity!!.startService(Intent(activity, NotificationDownApkService::class.java))
         }
     }
+
 
 
     val REQUEST_INSTALL = 124

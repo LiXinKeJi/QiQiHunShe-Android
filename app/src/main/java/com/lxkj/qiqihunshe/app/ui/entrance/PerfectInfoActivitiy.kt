@@ -34,7 +34,6 @@ class PerfectInfoActivitiy :
 
     override fun init() {
         initTitle("完善资料")
-        WhiteStatusBar()
 
         tv_agree.paint.flags = Paint.UNDERLINE_TEXT_FLAG //下划线
         tv_agree.paint.isAntiAlias = true//抗锯齿

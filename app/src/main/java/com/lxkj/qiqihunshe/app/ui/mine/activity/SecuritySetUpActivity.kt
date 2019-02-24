@@ -20,7 +20,6 @@ class SecuritySetUpActivity : BaseActivity<ActivitySecuritySetupBinding, BaseVie
     override fun getLayoutId() = R.layout.activity_security_setup
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("安全设置")
 
         tv_paypass.setOnClickListener(this)

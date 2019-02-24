@@ -16,7 +16,6 @@ class QiQIDynamicActivity : BaseActivity<ActivityQiqiDynamicBinding, QiQiDynamic
     override fun getLayoutId() = R.layout.activity_qiqi_dynamic
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("七七活动")
 
         viewModel?.let {

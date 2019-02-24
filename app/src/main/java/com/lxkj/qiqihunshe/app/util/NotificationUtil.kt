@@ -41,7 +41,7 @@ object NotificationUtil {
                 .setContentText("已下载：$progress%")
                 .setTicker("ticker")
                 .setProgress(100, progress, false)
-                .setAutoCancel(true)
+                .setAutoCancel(false)
                 .build()
 
         nm?.createNotificationChannel(createNotificationChannel())

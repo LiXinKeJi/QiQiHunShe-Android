@@ -18,7 +18,6 @@ class RealNameAuthenActivity : BaseActivity<ActivityRealnameAuthenBinding, RealN
     override fun getLayoutId() = R.layout.activity_realname_authen
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("实名认证")
         tv_right.visibility = View.VISIBLE
         tv_right.text = "保存"

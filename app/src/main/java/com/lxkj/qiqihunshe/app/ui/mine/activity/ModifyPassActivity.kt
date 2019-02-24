@@ -22,7 +22,6 @@ class ModifyPassActivity : BaseActivity<ActivityModifyPassBinding, ModifyPassVie
     override fun getLayoutId() = R.layout.activity_modify_pass
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("修改密码")
 
         tv_enter.setOnClickListener {
