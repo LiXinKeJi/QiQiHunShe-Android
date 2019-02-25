@@ -24,7 +24,6 @@ class VerificationPhoneActivity : BaseActivity<ActivityVerificationPhoneBinding,
 
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("手机号验证")
 
         tv_getcode.setOnClickListener(this)

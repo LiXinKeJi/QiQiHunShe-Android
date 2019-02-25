@@ -18,7 +18,6 @@ class AnswerProblemActivity : BaseActivity<ActivityAnswerProblemBinding, AnswerP
     override fun getLayoutId() = R.layout.activity_answer_problem
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("回答验证")
 
         viewModel?.let {

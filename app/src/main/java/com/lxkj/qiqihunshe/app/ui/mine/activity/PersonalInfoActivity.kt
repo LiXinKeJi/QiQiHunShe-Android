@@ -31,7 +31,7 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
 
 
     override fun init() {
-
+        isWhiteStatusBar = false
         if (Build.VERSION.SDK_INT > 19) {
             StatusBarUtil.immersiveStatusBar(this, 0f)
             view_staus.visibility = View.VISIBLE

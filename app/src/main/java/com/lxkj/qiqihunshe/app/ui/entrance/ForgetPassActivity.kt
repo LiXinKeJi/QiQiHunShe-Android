@@ -23,7 +23,6 @@ class ForgetPassActivity : BaseActivity<ActivityForgetPassBinding, ForgetPassVie
     override fun init() {
 
         initTitle("设置新密码")
-        WhiteStatusBar()
 
         tv_getCode.setOnClickListener(this)
         tv_enter.setOnClickListener(this)

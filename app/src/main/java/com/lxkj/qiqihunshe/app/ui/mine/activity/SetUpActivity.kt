@@ -3,6 +3,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.text.TextUtils
 import android.view.View
 import com.lxkj.qiqihunshe.R
@@ -11,6 +12,7 @@ import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SetUpViewModel
 import com.lxkj.qiqihunshe.app.util.DataCleanManager
+import com.lxkj.qiqihunshe.app.util.ThreadUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivitySetupBinding
 import kotlinx.android.synthetic.main.activity_setup.*
@@ -29,7 +31,6 @@ class SetUpActivity : BaseActivity<ActivitySetupBinding, SetUpViewModel>(), View
 
     override fun init() {
         EventBus.getDefault().register(this)
-        WhiteStatusBar()
         initTitle("设置")
 
         viewModel?.let {
@@ -102,7 +103,9 @@ class SetUpActivity : BaseActivity<ActivitySetupBinding, SetUpViewModel>(), View
     @Subscribe
     fun onEvent(msg: String) {
         if (TextUtils.isEmpty(msg)) {
-            ToastUtil.showToast("网络错误")
+            ThreadUtil.runOnMainThread(Runnable {
+                ToastUtil.showTopSnackBar(this, "网络错误")
+            })
             viewModel?.isDownApk = false
         } else {
             viewModel?.initApk()

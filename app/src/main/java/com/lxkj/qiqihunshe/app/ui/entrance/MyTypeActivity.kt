@@ -18,7 +18,6 @@ class MyTypeActivity : BaseActivity<ActivityMytypeBinding, MyTypeViewModel>() {
     override fun getLayoutId() = R.layout.activity_mytype
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("我的类型")
         tv_right.visibility= View.VISIBLE
         tv_right.text="保存"

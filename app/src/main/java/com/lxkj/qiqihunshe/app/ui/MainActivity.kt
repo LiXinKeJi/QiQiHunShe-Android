@@ -6,14 +6,11 @@ import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
-
     override fun getBaseViewModel() = MainViewModel()
 
     override fun getLayoutId() = R.layout.activity_main
 
     override fun init() {
-
-       WhiteStatusBar()
 
         viewModel?.let {
             it.bind = binding

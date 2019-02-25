@@ -19,7 +19,6 @@ class QiQiDynamicActivity : BaseActivity<ActivityQiqiDynamicBinding, QiQiDynamic
     override fun getLayoutId() = R.layout.activity_qiqi_dynamic
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("七七活动")
         tv_right.visibility= View.VISIBLE
         tv_right.text="报名记录"

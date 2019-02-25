@@ -27,7 +27,6 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
     override fun init() {
 
         initTitle("注册用户")
-        WhiteStatusBar()
 
         tv_getCode.setOnClickListener(this)
         tv_enter.setOnClickListener(this)

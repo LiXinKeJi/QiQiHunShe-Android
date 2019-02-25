@@ -19,7 +19,6 @@ class ReputationBaoActivity : BaseActivity<ActivityReputationBaoBinding, Reputat
     override fun getLayoutId() = R.layout.activity_reputation_bao
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("信誉宝")
         tv_right.visibility = View.VISIBLE
         tv_right.text = "七七规则"

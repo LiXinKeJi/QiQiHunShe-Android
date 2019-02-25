@@ -16,7 +16,6 @@ class QiQiRuleActivity : BaseActivity<ActivityQiqiRuleBinding, QiQiRuleViewModel
     override fun getLayoutId() = R.layout.activity_qiqi_rule
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("七七规则")
 
         viewModel?.let {

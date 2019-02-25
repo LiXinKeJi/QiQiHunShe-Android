@@ -26,9 +26,12 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     protected abstract fun init()
     protected open fun loadData() {}
 
+    var isWhiteStatusBar = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WhiteStatusBar()
         binding = DataBindingUtil.setContentView(this, getLayoutId())
         binding.setLifecycleOwner(this)
 
@@ -59,7 +62,7 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
 
     //白色状态栏
     fun WhiteStatusBar() {
-        if (Build.VERSION.SDK_INT > 19) {
+        if (isWhiteStatusBar && Build.VERSION.SDK_INT > 19) {
             StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.white))
             StatusBarBlackWordUtil.StatusBarLightMode(this)
         }

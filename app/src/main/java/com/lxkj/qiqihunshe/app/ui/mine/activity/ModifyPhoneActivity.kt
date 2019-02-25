@@ -22,7 +22,6 @@ class ModifyPhoneActivity : BaseActivity<ActivityModifyPhoneBinding, ModifyPhone
     override fun getLayoutId() = R.layout.activity_modify_phone
 
     override fun init() {
-        WhiteStatusBar()
         initTitle("修改绑定手机号")
 
         tv_enter.setOnClickListener {
