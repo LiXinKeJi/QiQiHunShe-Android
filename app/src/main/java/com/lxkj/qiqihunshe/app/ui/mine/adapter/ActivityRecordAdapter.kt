@@ -17,6 +17,7 @@ class ActivityRecordAdapter : BaseListAdapter<ActivityRecordModel, ActivityRecor
     }
 
     override fun refreshItemView(view: ActivityRecordItemView, itembean: ActivityRecordModel) {
+        view.setData(itembean)
     }
 
 

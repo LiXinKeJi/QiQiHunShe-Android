@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:fitsSystemWindows="true">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        >
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingTop="12dp"
+            >
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_setup"
+                          android:text="收费设置"
+                          android:layout_marginLeft="15dp"
+                          android:background="@drawable/wirth_bg35"
+                          android:paddingLeft="15dp"
+                          android:paddingRight="15dp"
+                          android:paddingTop="5dp"
+                          android:paddingBottom="5dp"
+                />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_see"
+                          android:text="我看过的才艺"
+                          android:layout_marginLeft="15dp"
+                          android:layout_toRightOf="@+id/tv_setup"
+                          android:background="@drawable/wirth_bg35"
+                          android:paddingLeft="15dp"
+                          android:paddingRight="15dp"
+                          android:paddingTop="5dp"
+                          android:paddingBottom="5dp"
+                />
+
+                <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recycler"
+                        android:layout_marginTop="12dp"
+                        android:layout_below="@+id/tv_setup"
+                />
+
+            </RelativeLayout>
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </FrameLayout>
+
+</layout>
+

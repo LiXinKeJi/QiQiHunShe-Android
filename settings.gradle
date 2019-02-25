@@ -1,1 +1,1 @@
-include ':app', ':sneaker'
+include ':app', ':sneaker', ':floatingActionButton'

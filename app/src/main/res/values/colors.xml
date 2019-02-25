@@ -74,4 +74,6 @@
     <color name="gray2">#efefef</color>
     <color name="girl">#FF6B91</color>
 
+    <color name="red">#f75441</color>
+    <color name="reds">#f95441</color>
 </resources>

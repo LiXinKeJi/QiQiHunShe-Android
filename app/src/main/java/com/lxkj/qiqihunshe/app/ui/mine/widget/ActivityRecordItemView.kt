@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.ui.mine.model.ActivityRecordModel
 import com.lxkj.qiqihunshe.app.ui.mine.model.CommentRecordModel
 
 /**
@@ -21,7 +22,7 @@ class ActivityRecordItemView : RelativeLayout  {
         View.inflate(context, R.layout.item_activity_record, this)
     }
 
-    fun setData(bean: CommentRecordModel) {
+    fun setData(bean: ActivityRecordModel) {
 
 
     }

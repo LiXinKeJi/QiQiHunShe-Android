@@ -31,10 +31,13 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         tv_qiandao.setOnClickListener(this)
         tv_huodong.setOnClickListener(this)
         tv_tuijian.setOnClickListener(this)
-        tv_tongzhi.setOnClickListener (this)
+        tv_tongzhi.setOnClickListener(this)
 
         tv_reputation_bao.setOnClickListener(this)
         tv_wallet.setOnClickListener(this)
+        tv_rule.setOnClickListener(this)
+        tv_space.setOnClickListener(this)
+        tv_area.setOnClickListener(this)
         tv_setup.setOnClickListener(this)
 
 
@@ -80,7 +83,16 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
             R.id.tv_wallet -> {//钱包
                 MyApplication.openActivity(activity, WalletActivity::class.java)
             }
-            R.id.tv_setup -> {
+            R.id.tv_rule -> {//七七规则
+                MyApplication.openActivity(activity, QiQiRuleActivity::class.java)
+            }
+            R.id.tv_space -> {//我的空间
+                MyApplication.openActivity(activity, MySpaceActivity::class.java)
+            }
+            R.id.tv_area -> {//情感专区
+                MyApplication.openActivity(activity, AffectiveZoneActivity::class.java)
+            }
+            R.id.tv_setup -> {//设置
                 MyApplication.openActivity(activity, SetUpActivity::class.java)
             }
         }

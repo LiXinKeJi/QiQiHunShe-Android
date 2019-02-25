@@ -8,14 +8,14 @@
     <ImageView android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:id="@+id/iv_v1"
-               android:src="@drawable/ic_back"
+               android:src="@drawable/v1"
                android:layout_marginLeft="12dp"
                android:layout_marginBottom="5dp"
     />
 
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                android:id="@+id/iv_v2"
-               android:src="@drawable/ic_back"
+               android:src="@drawable/v2"
                android:layout_alignBottom="@+id/banner"
                android:layout_marginLeft="10dp"
                android:layout_marginBottom="5dp"
@@ -24,7 +24,7 @@
 
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                android:id="@+id/iv_v3"
-               android:src="@drawable/ic_back"
+               android:src="@drawable/v3"
                android:layout_alignBottom="@+id/banner"
                android:layout_marginLeft="10dp"
                android:layout_marginBottom="5dp"
@@ -33,7 +33,7 @@
 
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                android:id="@+id/iv_v4"
-               android:src="@drawable/ic_back"
+               android:src="@drawable/v4"
                android:layout_alignBottom="@+id/banner"
                android:layout_marginLeft="10dp"
                android:layout_marginBottom="5dp"
@@ -42,28 +42,11 @@
 
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                android:id="@+id/iv_v5"
-               android:src="@drawable/ic_back"
+               android:src="@drawable/v5"
                android:layout_alignBottom="@+id/banner"
                android:layout_marginLeft="10dp"
                android:layout_marginBottom="5dp"
                android:layout_toRightOf="@+id/iv_v4"
     />
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_v6"
-               android:src="@drawable/ic_back"
-               android:layout_alignBottom="@+id/banner"
-               android:layout_marginLeft="10dp"
-               android:layout_marginBottom="5dp"
-               android:layout_toRightOf="@+id/iv_v5"
-    />
-
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/iv_v7"
-               android:src="@drawable/ic_back"
-               android:layout_alignBottom="@+id/banner"
-               android:layout_marginLeft="10dp"
-               android:layout_marginBottom="5dp"
-               android:layout_toRightOf="@+id/iv_v6"
-    />
 </LinearLayout>

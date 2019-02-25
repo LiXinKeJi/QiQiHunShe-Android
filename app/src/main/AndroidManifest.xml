@@ -121,6 +121,26 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.MyBillActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.MySpaceActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.ChargingSetUpActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.SeenSkillActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.MyDynamicActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.ReleaseDynamicActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.ReleaseSkillActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.ReleaseInvitationTypeActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.ReleaseInvitationActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.MyInvitationDetailsActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.AffectiveZoneActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

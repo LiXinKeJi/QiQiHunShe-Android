@@ -48,7 +48,7 @@
                  android:layout_alignBottom="@+id/banner" app:layout_constraintStart_toEndOf="@+id/tv_occupation"
                  android:layout_marginStart="10dp"
                  app:layout_constraintBottom_toBottomOf="@+id/tv_occupation"
-                 app:layout_constraintTop_toTopOf="@+id/tv_occupation"/>
+                 android:layout_marginBottom="-5dp"/>
 
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -67,12 +67,7 @@
 
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                    android:id="@+id/tv_report"
-                   android:background="@drawable/bg_yello_left60"
-                   android:src="@drawable/ic_back"
-                   android:paddingLeft="12dp"
-                   android:paddingRight="18dp"
-                   android:paddingTop="5dp"
-                   android:paddingBottom="5dp"
+                   android:src="@drawable/jubao"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintTop_toTopOf="@+id/header" app:layout_constraintBottom_toBottomOf="@+id/header"/>
 

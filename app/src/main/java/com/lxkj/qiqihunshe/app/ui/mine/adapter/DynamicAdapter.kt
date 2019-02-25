@@ -16,6 +16,7 @@ class DynamicAdapter : BaseListAdapter<DynamicModel, PersonDynamicItemView>() {
     }
 
     override fun refreshItemView(view: PersonDynamicItemView, itembean: DynamicModel) {
+
     }
 
 

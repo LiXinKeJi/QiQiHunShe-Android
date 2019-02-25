@@ -112,9 +112,9 @@ object SelectPictureUtil {
                 .rotateEnabled(false) // 裁剪是否可旋转图片 true or false
                 .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
 //                .videoQuality()// 视频录制质量 0 or 1 int
-                .videoMaxSecond(11)// 显示多少秒以内的视频or音频也可适用 int
+                .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
 //                .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int
-                .recordVideoSecond(10)//视频秒数录制 默认60s int
+                .recordVideoSecond(15)//视频秒数录制 默认60s int
                 .isDragFrame(false)// 是否可拖动裁剪框(固定)
                 .forResult(code)//结果回调onActivityResult code
 

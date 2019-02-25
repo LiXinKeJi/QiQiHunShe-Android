@@ -16,7 +16,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding, WebViewViewModel>()
     override fun getLayoutId() = R.layout.activity_webview
 
     override fun init() {
-        initTitle("七七规则")
+        initTitle("详情")
 
         viewModel?.let {
             binding.viewmodel=it

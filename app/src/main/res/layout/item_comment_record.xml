@@ -56,7 +56,7 @@
                   android:paddingBottom="2dp"
                   android:paddingLeft="10dp"
                   android:paddingRight="10dp"
-                  android:drawableLeft="@drawable/ic_back"
+                  android:drawableLeft="@drawable/ic_girl"
                   android:drawablePadding="3dp"
                   app:layout_constraintStart_toEndOf="@+id/tv_name"
                   app:layout_constraintBottom_toBottomOf="@+id/tv_name" android:layout_marginLeft="10dp"
