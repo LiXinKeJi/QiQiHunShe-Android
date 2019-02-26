@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.lxkj.qiqihunshe.app.MyApplication
@@ -33,7 +34,9 @@ class SpaceDynamicViewModel : BaseViewModel() {
         adapter.upData(list)
 
         adapter.setMyListener { itemBean, position ->
-          MyApplication.openActivity(fragment!!.context,MyDynamicActivity::class.java)
+            val bundle = Bundle()
+            bundle.putInt("flag", 0)
+            MyApplication.openActivity(fragment!!.context, MyDynamicActivity::class.java, bundle)
         }
     }
 

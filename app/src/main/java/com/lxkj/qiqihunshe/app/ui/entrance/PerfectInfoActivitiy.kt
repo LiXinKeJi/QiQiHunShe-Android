@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.view.View
 import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
+import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
@@ -32,6 +33,8 @@ class PerfectInfoActivitiy :
 
     override fun getLayoutId() = R.layout.activity_perfect_info
 
+    private val ImageList by lazy { ArrayList<LocalMedia>() }
+
     override fun init() {
         initTitle("完善资料")
 
@@ -57,7 +60,7 @@ class PerfectInfoActivitiy :
             }
             R.id.rl_header -> {
                 if (PermissionUtil.ApplyPermissionAlbum(this, 0)) {
-                    SelectPictureUtil.selectPicture(this, 1, 0, false)
+                    SelectPictureUtil.selectPicture(this, 10, 0, false)
                 }
             }
             R.id.rl_mytype -> {
@@ -73,7 +76,7 @@ class PerfectInfoActivitiy :
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == 0) {//询问结果
-            SelectPictureUtil.selectPicture(this, 1, 0, true)
+            SelectPictureUtil.selectPicture(this, 10, 0, true)
         } else {//禁止使用权限，询问是否设置允许
             PermissionsDialog.dialog(this, "需要访问内存卡和拍照权限")
         }
@@ -87,7 +90,10 @@ class PerfectInfoActivitiy :
         }
         if (requestCode == 0) {
             if (PictureSelector.obtainMultipleResult(data).isNotEmpty()) {
-                val file = File(PictureSelector.obtainMultipleResult(data)[0].compressPath)
+                for (model: LocalMedia in PictureSelector.obtainMultipleResult(data)) {
+                    ImageList.add(ImageList.size - 1, model)
+                }
+                val file = File(ImageList[0].compressPath)
                 //加载图片
                 Glide.with(this).load(file).into(iv_header)
             }

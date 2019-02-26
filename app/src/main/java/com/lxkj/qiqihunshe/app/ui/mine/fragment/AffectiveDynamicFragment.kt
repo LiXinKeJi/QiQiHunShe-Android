@@ -2,7 +2,9 @@ package com.lxkj.qiqihunshe.app.ui.mine.fragment
 
 import android.view.View
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
+import com.lxkj.qiqihunshe.app.ui.mine.activity.ReleaseDynamicActivity
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.AffectiveDynamicViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import kotlinx.android.synthetic.main.activity_recyvlerview.*
@@ -22,7 +24,7 @@ class AffectiveDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, Affec
         include.visibility = View.GONE
         fab.visibility = View.VISIBLE
         fab.setOnClickListener {
-
+            MyApplication.openActivity(activity, ReleaseDynamicActivity::class.java)
         }
         fab.attachToRecyclerView(recycler)
         viewModel?.let {

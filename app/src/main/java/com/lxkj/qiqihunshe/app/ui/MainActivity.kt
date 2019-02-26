@@ -10,11 +10,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun getLayoutId() = R.layout.activity_main
 
+
     override fun init() {
+        isWhiteStatusBar = false
 
         viewModel?.let {
             it.bind = binding
-            it.framanage=supportFragmentManager
+            it.framanage = supportFragmentManager
             it.initBind()
         }
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <!--首页 聊 匹配-->
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:fitsSystemWindows="true">
+
+        <include
+                layout="@layout/include_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/include"/>
+
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:src="@drawable/ic_saomiao"
+                   android:scaleType="centerInside"
+                   android:id="@+id/iv_saomiao" android:layout_marginTop="15dp"
+                   app:layout_constraintTop_toBottomOf="@+id/include" app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
+                   app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.188"/>
+
+        <ImageView android:layout_width="55dp" android:layout_height="55dp"
+                   android:id="@+id/iv_header"
+                   android:src="@mipmap/ic_launcher"
+                   android:scaleType="centerCrop"
+                   app:layout_constraintTop_toTopOf="@+id/iv_saomiao" app:layout_constraintEnd_toEndOf="@+id/iv_saomiao"
+                   app:layout_constraintStart_toStartOf="@+id/iv_saomiao"
+                   app:layout_constraintBottom_toBottomOf="@+id/iv_saomiao"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="真诚从这里出发"
+                  android:textSize="19sp"
+                  android:textColor="@color/colorTheme"
+                  android:id="@+id/tel"
+                  android:layout_marginTop="84dp" app:layout_constraintTop_toBottomOf="@+id/iv_saomiao"
+                  android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                  android:layout_marginRight="8dp" android:layout_marginStart="8dp"
+                  app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+        />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_match"
+                  android:text="历史匹配"
+                  android:textColor="@color/white"
+                  android:background="@drawable/button_click60"
+                  android:textSize="15sp"
+                  android:paddingTop="12dp"
+                  android:paddingBottom="12dp"
+                  android:paddingLeft="45dp"
+                  android:paddingRight="45dp"
+                  app:layout_constraintTop_toBottomOf="@+id/tel"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.491"
+                  app:layout_constraintVertical_bias="0.735"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
+

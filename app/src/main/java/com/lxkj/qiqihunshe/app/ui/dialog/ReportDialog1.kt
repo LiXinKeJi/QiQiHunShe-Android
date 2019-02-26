@@ -15,7 +15,7 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
 
 
 /**
- * 七七活动报名
+ * 七七活动报名举报
  * Created by Slingge on 2019/2/22
  */
 @SuppressLint("StaticFieldLeak")

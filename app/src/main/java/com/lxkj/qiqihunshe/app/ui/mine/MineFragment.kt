@@ -38,6 +38,8 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         tv_rule.setOnClickListener(this)
         tv_space.setOnClickListener(this)
         tv_area.setOnClickListener(this)
+        tv_blacklist.setOnClickListener(this)
+        tv_service.setOnClickListener(this)
         tv_setup.setOnClickListener(this)
 
 
@@ -91,6 +93,12 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
             }
             R.id.tv_area -> {//情感专区
                 MyApplication.openActivity(activity, AffectiveZoneActivity::class.java)
+            }
+            R.id.tv_blacklist -> {//黑名单
+                MyApplication.openActivity(activity, QiQiBlackListActivity::class.java)
+            }
+            R.id.tv_service -> {//我的客服
+
             }
             R.id.tv_setup -> {//设置
                 MyApplication.openActivity(activity, SetUpActivity::class.java)

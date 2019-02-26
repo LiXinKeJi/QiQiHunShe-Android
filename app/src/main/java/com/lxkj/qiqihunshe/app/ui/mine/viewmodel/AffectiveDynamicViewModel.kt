@@ -1,7 +1,10 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.AffectiveDynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.DynamicModel
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
@@ -31,7 +34,9 @@ class AffectiveDynamicViewModel:BaseViewModel() {
         adapter.upData(list)
 
         adapter.setMyListener { itemBean, position ->
-
+               val bundle = Bundle()
+            bundle.putInt("flag", 1)
+            MyApplication.openActivity(fragment!!.context, MyDynamicActivity::class.java, bundle)
         }
     }
 

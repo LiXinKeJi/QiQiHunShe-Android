@@ -9,19 +9,23 @@ import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonalInfoViewModel
 import com.lxkj.qiqihunshe.app.util.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import android.support.v4.app.Fragment
+import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDataFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDynamicFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonInvitationFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonSkillFragment
 import com.lxkj.qiqihunshe.databinding.ActivityPersonalInfoBinding
+import kotlinx.android.synthetic.main.include_title.*
 import java.util.*
 
 
 /**
  * Created by Slingge on 2019/2/21
  */
-class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalInfoViewModel>() {
+class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalInfoViewModel>(), View.OnClickListener {
+
 
     private var model = PersonalInfoModel()
 
@@ -37,6 +41,8 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
             view_staus.visibility = View.VISIBLE
             StatusBarUtil.setStutaViewHeight(this, view_staus)
         }
+
+        iv_edit.setOnClickListener(this)
 
         viewModel?.let {
             binding.viewmodel = it
@@ -64,6 +70,15 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
+    }
+
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.iv_edit -> {
+                MyApplication.openActivity(this, PerfectInfoActivitiy::class.java)
+            }
+        }
     }
 
 

@@ -11,11 +11,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
-                     tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
+                     tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.VIBRATE"/> <!-- 震动权限 -->
     <!--安装apk权限-->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
@@ -38,7 +38,7 @@
         <!--腾讯TBS浏览服务X5内核 更新之后似乎可有可无-->
         <meta-data
                 android:name="QBSDKAppKey"
-                android:value="Q7xpuMkavjlnT1JB+DounMu3" />
+                android:value="Q7xpuMkavjlnT1JB+DounMu3"/>
 
         <provider
                 android:name="android.support.v4.content.FileProvider"
@@ -47,16 +47,14 @@
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths" />
+                    android:resource="@xml/file_paths"/>
         </provider>
-
-
 
 
         <service
                 android:name=".app.service.NotificationDownApkService"
                 android:enabled="true"
-                android:exported="true" />
+                android:exported="true"/>
 
         <activity android:name=".app.ui.MainActivity"
                   android:screenOrientation="portrait"/>
@@ -85,8 +83,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.ModifyPassActivity"
                   android:screenOrientation="portrait"/>
-       <activity android:name=".app.ui.mine.activity.AnswerProblemActivity"
-                    android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.AnswerProblemActivity"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.ModifyPhoneActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.RealNameAuthenActivity"
@@ -141,6 +139,26 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.AffectiveZoneActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.MyAffectiveActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.QiQiBlackListActivity"
+                  android:screenOrientation="portrait"/>
+
+        <!--////////////////////////////////首页\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+        <activity android:name=".app.ui.shouye.activity.MatchingActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.shouye.activity.MatchingHistoryActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.shouye.activity.VoiceChatDialActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.shouye.activity.VoiceChatAnswerActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.shouye.activity.SetupProblemActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.shouye.activity.StrokeActivity"
+                  android:screenOrientation="portrait"/>
+
+
     </application>
 
 </manifest>

@@ -61,7 +61,7 @@
                                    android:layout_height="wrap_content"
                                    android:id="@+id/iv_edit"
                                    android:layout_below="@+id/view_staus"
-                                   android:src="@drawable/ic_edit"
+                                   android:src="@drawable/ic_edit2"
                                    android:layout_alignParentRight="true"
                                    android:padding="12dp"
                         />

@@ -26,12 +26,11 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     protected abstract fun init()
     protected open fun loadData() {}
 
-    var isWhiteStatusBar = true
+       var isWhiteStatusBar = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WhiteStatusBar()
         binding = DataBindingUtil.setContentView(this, getLayoutId())
         binding.setLifecycleOwner(this)
 
@@ -40,6 +39,7 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
             it.activity = this
         }
         init()
+        WhiteStatusBar()
         loadData()
 
         AppManager.addActivity(this)

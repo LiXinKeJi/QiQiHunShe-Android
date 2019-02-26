@@ -13,6 +13,7 @@
             android:fitsSystemWindows="true"
             android:orientation="vertical"
             tools:context=".app.ui.MainActivity">
+
         <FrameLayout
                 android:id="@+id/containers"
                 android:layout_width="match_parent"
@@ -27,34 +28,35 @@
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
 
-            <!--
-             android:drawableTop="@drawable/tab_btn2"
-            -->
-
             <RadioButton
                     android:id="@+id/tab_0"
                     style="@style/main_bottom_tab_style"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:drawableTop="@drawable/rb_0"
                     android:text="首页"/>
 
             <RadioButton
                     android:id="@+id/tab_1"
                     style="@style/main_bottom_tab_style"
+                    android:drawableTop="@drawable/rb_1"
                     android:text="附近"/>
 
             <RadioButton
                     android:id="@+id/tab_2"
+                    android:drawableTop="@drawable/rb_2"
                     style="@style/main_bottom_tab_style"
                     android:text="消息"/>
 
             <RadioButton
                     android:id="@+id/tab_3"
+                    android:drawableTop="@drawable/rb_3"
                     style="@style/main_bottom_tab_style"
                     android:text="区域"/>
 
             <RadioButton
                     android:id="@+id/tab_4"
+                    android:drawableTop="@drawable/rb_4"
                     style="@style/main_bottom_tab_style"
                     android:text="我的"/>
         </RadioGroup>
