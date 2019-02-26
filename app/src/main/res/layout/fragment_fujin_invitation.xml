@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+
+    <data>
+
+    </data>
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+            >
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                >
+
+                    <RadioGroup android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginRight="15dp">
+
+                        <RadioButton android:layout_width="0dp" android:layout_height="wrap_content"
+                                     android:id="@+id/rba"
+                                     android:text="全部"
+                                     android:drawableTop="@drawable/rb_all"
+                                     android:drawablePadding="5dp"
+                                     android:gravity="center"
+                                     android:paddingTop="10dp"
+                                     android:checked="true"
+                                     android:paddingBottom="10dp"
+                                     android:layout_weight="1"
+                                     android:textColor="@color/text_bg"
+                                     android:layout_marginLeft="6dp"
+                                     android:textSize="15sp"
+                                     android:button="@null"
+                        />
+
+                        <RadioButton android:layout_width="0dp" android:layout_height="wrap_content"
+                                     android:id="@+id/tv_food"
+                                     android:text="吃饭"
+                                     android:gravity="center"
+                                     android:paddingTop="10dp"
+                                     android:paddingBottom="10dp"
+                                     android:layout_marginLeft="6dp"
+                                     android:drawableTop="@drawable/rb_food"
+                                     android:drawablePadding="5dp"
+                                     android:layout_marginRight="6dp"
+                                     android:layout_weight="1"
+                                     android:textColor="@color/text_bg"
+                                     android:button="@null"
+                                     android:textSize="15sp"
+                        />
+
+                        <RadioButton android:layout_width="0dp" android:layout_height="wrap_content"
+                                     android:id="@+id/tv_movie"
+                                     android:text="电影"
+                                     android:layout_weight="1"
+                                     android:textColor="@color/text_bg"
+                                     android:layout_marginLeft="6dp"
+                                     android:paddingTop="10dp"
+                                     android:paddingBottom="10dp"
+                                     android:drawableTop="@drawable/rb_movie"
+                                     android:drawablePadding="5dp"
+                                     android:layout_marginRight="6dp"
+                                     android:textSize="15sp"
+                                     android:gravity="center"
+                                     android:button="@null"
+                        />
+
+                        <RadioButton android:layout_width="0dp" android:layout_height="wrap_content"
+                                     android:id="@+id/tv_travel"
+                                     android:text="旅行"
+                                     android:textColor="@color/text_bg"
+                                     android:paddingTop="10dp"
+                                     android:gravity="center"
+                                     android:paddingBottom="10dp"
+                                     android:layout_marginLeft="6dp"
+                                     android:layout_marginRight="6dp"
+                                     android:layout_weight="1"
+                                     android:drawableTop="@drawable/rb_travel"
+                                     android:drawablePadding="5dp"
+                                     android:textSize="15sp"
+                                     android:button="@null"
+                        />
+
+                        <RadioButton android:layout_width="0dp" android:layout_height="wrap_content"
+                                     android:id="@+id/tv_other"
+                                     android:layout_weight="1"
+                                     android:gravity="center"
+                                     android:text="其他"
+                                     android:paddingTop="10dp"
+                                     android:paddingBottom="10dp"
+                                     android:drawableTop="@drawable/rb_other"
+                                     android:drawablePadding="5dp"
+                                     android:layout_marginLeft="6dp"
+                                     android:textColor="@color/text_bg"
+                                     android:textSize="15sp"
+                                     android:button="@null"
+                        />
+
+                    </RadioGroup>
+
+                    <include layout="@layout/include_line10"
+                             android:id="@+id/line0"
+                             android:layout_width="match_parent"
+                             android:layout_height="5dp"
+                    />
+
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/tv_tip"
+                              android:text="小七提示：约见后针对信息填写资料不符、虚假不符导致自身权益受损，则根据（七七规则）进行审断惩戒"
+                              android:textSize="13sp"
+                              android:textColor="#ED7C04"
+                              android:layout_marginLeft="15dp"
+                              android:layout_marginRight="15dp"
+                              android:layout_marginTop="8dp"
+                              android:layout_marginBottom="8dp"
+                    />
+
+                    <include layout="@layout/include_line10"
+                             android:id="@+id/line1"
+                             android:layout_width="match_parent"
+                             android:layout_height="5dp"
+                    />
+
+
+                    <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/recycler"
+                            android:nestedScrollingEnabled="false"/>
+
+                </LinearLayout>
+
+
+            </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginRight="12dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="right|bottom"
+                android:src="@drawable/ic_edit2"
+                app:backgroundTint="@color/colorTheme"
+                app:backgroundTintMode="screen"
+                app:rippleColor="@color/colorTheme"/>
+
+    </FrameLayout>
+
+</layout>
+
