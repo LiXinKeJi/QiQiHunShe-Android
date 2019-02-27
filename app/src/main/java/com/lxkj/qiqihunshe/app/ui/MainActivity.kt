@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui
 
+import cn.jzvd.Jzvd
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
@@ -20,6 +21,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             it.initBind()
         }
 
+    }
+
+
+    override fun onBackPressed() {
+        if (Jzvd.backPress()) {
+            return
+        }
+        super.onBackPressed()
     }
 
 

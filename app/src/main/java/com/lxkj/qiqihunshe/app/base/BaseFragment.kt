@@ -69,4 +69,5 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
         var refreshData: Boolean = false
     }
 
+
 }

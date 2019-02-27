@@ -24,7 +24,7 @@
         <RadioGroup
                 android:id="@+id/RadioG_Bottem"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
 
