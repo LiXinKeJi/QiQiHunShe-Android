@@ -79,12 +79,7 @@
 
                 <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                            android:id="@+id/tv_report"
-                           android:background="@drawable/bg_yello_left60"
-                           android:src="@drawable/ic_back"
-                           android:paddingLeft="12dp"
-                           android:paddingRight="18dp"
-                           android:paddingTop="5dp"
-                           android:paddingBottom="5dp"
+                           android:src="@drawable/jubao"
                            app:layout_constraintEnd_toEndOf="parent"
                            app:layout_constraintTop_toTopOf="@+id/header"
                            app:layout_constraintBottom_toBottomOf="@+id/header"/>
@@ -253,7 +248,7 @@
 
 
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                          android:id="@+id/signup"
+                          android:id="@+id/tv_signup"
                           android:text="报名"
                           android:background="@drawable/button_click5"
                           app:layout_constraintTop_toBottomOf="@+id/tv_date"

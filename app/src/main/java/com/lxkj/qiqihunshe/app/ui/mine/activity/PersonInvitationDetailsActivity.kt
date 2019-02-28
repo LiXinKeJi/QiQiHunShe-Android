@@ -26,7 +26,7 @@ class PersonInvitationDetailsActivity :
         WhiteStatusBar()
 
         tv_report.setOnClickListener(this)
-
+        tv_signup.setOnClickListener(this)
 
         viewModel?.let {
             binding.viewmodel = it
@@ -39,6 +39,9 @@ class PersonInvitationDetailsActivity :
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_report -> {
+                ReportDialog1.show(this)
+            }
+            R.id.tv_signup -> {
                 ReportDialog1.show(this)
             }
         }
