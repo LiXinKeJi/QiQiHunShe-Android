@@ -19,6 +19,7 @@ class FuJinDynamicViewModel : BaseViewModel() {
     fun initViewModel() {
         bind!!.recycler.layoutManager = LinearLayoutManager(fragment?.context)
 
+        adapter.activity = fragment!!.activity
         bind!!.recycler.adapter = adapter
 
         val list = ArrayList<DynamicModel>()
@@ -27,7 +28,7 @@ class FuJinDynamicViewModel : BaseViewModel() {
             list.add(model)
         }
         adapter.upData(list)
-
+        adapter.flag = 0
     }
 
 }

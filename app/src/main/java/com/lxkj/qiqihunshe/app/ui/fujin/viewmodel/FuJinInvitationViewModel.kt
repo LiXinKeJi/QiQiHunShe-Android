@@ -18,6 +18,7 @@ class FuJinInvitationViewModel : BaseViewModel() {
     var bind: FragmentFujinInvitationBinding? = null
 
     fun initViewModel() {
+        bind!!.recycler.isFocusable=false
         bind!!.recycler.layoutManager = LinearLayoutManager(fragment?.context)
 
         bind!!.recycler.adapter = adapter

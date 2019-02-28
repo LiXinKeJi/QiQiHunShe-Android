@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.adapter
 
+import android.app.Activity
 import android.content.Context
 import com.lxkj.qiqihunshe.app.base.BaseListAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.DynamicModel
@@ -10,13 +11,15 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.PersonDynamicItemView
  */
 class DynamicAdapter : BaseListAdapter<DynamicModel, PersonDynamicItemView>() {
 
+    var activity: Activity? = null
+
 
     override fun getitemView(context: Context): PersonDynamicItemView {
-        return PersonDynamicItemView(context)
+        return PersonDynamicItemView(activity!!, context)
     }
 
     override fun refreshItemView(view: PersonDynamicItemView, itembean: DynamicModel) {
-
+        view.setData(itembean)
     }
 
 

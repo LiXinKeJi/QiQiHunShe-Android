@@ -3,6 +3,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.ui.dialog.DynamicSignUpAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationDetailsViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityPersonInvitationDetailsBinding
@@ -42,7 +43,7 @@ class PersonInvitationDetailsActivity :
                 ReportDialog1.show(this)
             }
             R.id.tv_signup -> {
-                ReportDialog1.show(this)
+                DynamicSignUpAfterDialog.sginUpShow(this)
             }
         }
     }
@@ -51,6 +52,7 @@ class PersonInvitationDetailsActivity :
     override fun onDestroy() {
         super.onDestroy()
         ReportDialog1.diss()
+        DynamicSignUpAfterDialog.diss()
     }
 
 }

@@ -2,20 +2,20 @@ package com.lxkj.qiqihunshe.app.ui.fujin
 
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.view.View
 import cn.jzvd.Jzvd
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
+import com.lxkj.qiqihunshe.app.ui.dialog.ScreenPersonDialog
 import com.lxkj.qiqihunshe.app.ui.fujin.fragment.FuJInPersonFragment
 import com.lxkj.qiqihunshe.app.ui.fujin.fragment.FuJinDynamicFragment
 import com.lxkj.qiqihunshe.app.ui.fujin.fragment.FuJinInvitationFragment
 import com.lxkj.qiqihunshe.app.ui.fujin.fragment.FuJinSkillFragment
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
-import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDataFragment
-import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDynamicFragment
-import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonInvitationFragment
-import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonSkillFragment
+import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.databinding.FragmentFujinBinding
-import kotlinx.android.synthetic.main.activity_personal_info.*
+import kotlinx.android.synthetic.main.include_tabviewpager.*
+import kotlinx.android.synthetic.main.include_title.*
 import java.util.ArrayList
 
 /**
@@ -29,6 +29,14 @@ class FuJinFragment : BaseFragment<FragmentFujinBinding, FuJinViewModel>() {
     override fun getLayoutId() = R.layout.fragment_fujin
 
     override fun init() {
+
+        tv_title.visibility = View.GONE
+
+        tv_right.text=""
+        AbStrUtil.setDrawableLeft(activity!!, R.drawable.ic_screen, tv_right, 0)
+        tv_right.setOnClickListener {
+            ScreenPersonDialog.show(activity!!)
+        }
 
         val list = ArrayList<Fragment>()
         val tabList = ArrayList<String>()
@@ -49,15 +57,20 @@ class FuJinFragment : BaseFragment<FragmentFujinBinding, FuJinViewModel>() {
         val adapter = FragmentPagerAdapter(childFragmentManager, list, tabList)
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
+        viewPager.offscreenPageLimit = 4
 
-
-        viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
 
             }
 
             override fun onPageSelected(p0: Int) {
                 Jzvd.releaseAllVideos()
+                if (p0 == 2) {
+                    tv_right.visibility = View.VISIBLE
+                } else {
+                    tv_right.visibility = View.GONE
+                }
             }
 
             override fun onPageScrollStateChanged(p0: Int) {
@@ -69,5 +82,10 @@ class FuJinFragment : BaseFragment<FragmentFujinBinding, FuJinViewModel>() {
     override fun loadData() {
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ScreenPersonDialog.diss()
+    }
 
 }
