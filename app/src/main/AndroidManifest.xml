@@ -19,6 +19,11 @@
     <!--安装apk权限-->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
+    <!--读取设备硬件信息，统计数据-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!--程序在手机屏幕关闭后后台进程仍然运行-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
 
     <application
             android:allowBackup="true"
@@ -157,6 +162,14 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.shouye.activity.StrokeActivity"
                   android:screenOrientation="portrait"/>
+        <!--百度地图-->
+        <meta-data
+                android:name="com.baidu.lbsapi.API_KEY"
+                android:value="PlChs1C7ijPY9uuPCXQvxxsemnziVheT"/>
+
+        <service android:name="com.baidu.location.f"
+                 android:enabled="true"
+                 android:process=":remote"/>
 
 
     </application>

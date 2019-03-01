@@ -17,12 +17,33 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            //设置支持的so库架构
+            abiFilters "armeabi"
+        }
     }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+    signingConfigs {
+        release {
+            keyAlias 'qqhs'
+            keyPassword '123456'
+            storeFile file('qqhs.jks')
+            storePassword '123456'
+        }
+        debug {
+            keyAlias 'qqhs'
+            keyPassword '123456'
+            storeFile file('qqhs.jks')
+            storePassword '123456'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -109,4 +130,9 @@ dependencies {
     implementation project(':floatingActionButton')
     implementation project(':likeornot')
     implementation project(':jiaozivideoplayer')
+    implementation files('libs/BaiduLBS_Android.jar')
+
+    //权限管理
+    kapt 'com.zhy:mpermission-compiler:1.0.0'
+    implementation 'com.zhy:mpermission-api:1.0.0'
 }

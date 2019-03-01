@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
 import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -51,6 +53,12 @@ public class MyApplication extends MultiDexApplication {
         Logger.addLogAdapter(new AndroidLogAdapter());
 
         initTBS();
+
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        SDKInitializer.initialize(this);
+        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
+        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
+        SDKInitializer.setCoordType(CoordType.BD09LL);
     }
 
 

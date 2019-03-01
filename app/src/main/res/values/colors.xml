@@ -76,4 +76,6 @@
 
     <color name="red">#f75441</color>
     <color name="reds">#f95441</color>
+
+    <color name="line">#efefef</color>
 </resources>

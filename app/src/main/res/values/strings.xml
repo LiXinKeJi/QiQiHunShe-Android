@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">七七婚社</string>
+    <string name="hint_qy">发起约见为了保障，双方权益必须缴纳信誉金，小七全程跟踪服务为了提供有效的自我维权请提供有效的证据（图文.音频）</string>
 
 
     <array name="state">

@@ -7,21 +7,250 @@
     </data>
 
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="区域"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:orientation="horizontal">
+            <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商都世贸中心"
+                    android:textColor="#ff333333"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:layout_marginLeft="12dp"
+                    android:drawableLeft="@mipmap/ic_location"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+            />
+            <ImageView
+                    android:id="@+id/iv_fwqy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_area_qy"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"/>
+
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1px"
+        android:background="@color/line"/>
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
 
-    </android.support.constraint.ConstraintLayout>
+            <com.baidu.mapapi.map.MapView
+                    android:id="@+id/bmapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    android:background="@color/white">
+                <TextView
+                        android:id="@+id/tv_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="12dp"
+                        android:padding="5dp"
+                        android:text="@string/hint_qy"
+                        android:textColor="#ffed7c04"
+                        android:textSize="11sp"
+                />
+                <ImageView
+                        android:id="@+id/iv_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/ic_close"
+                        android:paddingRight="12dp"
+                        android:paddingLeft="10dp"/>
+            </LinearLayout>
+
+            <ImageView
+                    android:id="@+id/iv_sayHi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_dzh_qy"
+                    android:layout_gravity="right|center_vertical"
+            />
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/tv_toMyLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我所在的位置"
+                        android:drawablePadding="5dp"
+                        android:layout_margin="12dp"
+                        android:drawableLeft="@mipmap/ic_location_tomine"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                />
+                <TextView
+                        android:id="@+id/tv_noRange"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_white_rect_5dp"
+                        android:text="你不在小七的服务范围哦！"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"
+                />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_white_rect_5dp"
+                        android:padding="10dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="vertical">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                            <TextView
+                                    android:id="@+id/tv_time"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="到场时间：01月25日  10:30"
+                                    android:textColor="#ff333333"
+                                    android:textSize="17sp"
+                            />
+
+                            <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:orientation="horizontal">
+                                <TextView
+                                        android:id="@+id/tv_Qdh"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="去导航"
+                                        android:paddingTop="2dp"
+                                        android:paddingBottom="2dp"
+                                        android:paddingRight="12dp"
+                                        android:paddingLeft="12dp"
+                                        android:background="@drawable/bg_rect_50dp_17acf6"
+                                        android:textColor="#ffffffff"
+                                        android:textSize="15sp"
+                                />
+                                <TextView
+                                        android:id="@+id/tv_Lxkf"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="联系客服"
+                                        android:layout_marginLeft="12dp"
+                                        android:paddingTop="2dp"
+                                        android:paddingBottom="2dp"
+                                        android:paddingRight="12dp"
+                                        android:paddingLeft="12dp"
+                                        android:background="@drawable/bg_rect_50dp_17acf6"
+                                        android:textColor="#ffffffff"
+                                        android:textSize="15sp"
+                                />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@mipmap/ic_head"
+                                android:layout_gravity="center_vertical"
+                        />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1px"
+                          android:background="@color/line"/>
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp">
+                        <TextView
+                                android:id="@+id/tv_aqxz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="安全协助"
+                                android:textColor="#ff333333"
+                                android:textSize="15sp"
+                                android:paddingTop="2dp"
+                                android:paddingBottom="2dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/bg_border_line"
+                        />
+                        <TextView
+                                android:id="@+id/tv_ddtj"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="地点推荐"
+                                android:textColor="#ff333333"
+                                android:layout_marginRight="15dp"
+                                android:textSize="15sp"
+                                android:paddingTop="2dp"
+                                android:paddingBottom="2dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:background="@drawable/bg_border_line"
+                        />
+                        <TextView
+                                android:id="@+id/tv_fwwd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="服务网店"
+                                android:textColor="#ff333333"
+                                android:textSize="15sp"
+                                android:paddingTop="2dp"
+                                android:paddingBottom="2dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:background="@drawable/bg_border_line"
+                        />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </FrameLayout>
+
+
+    </LinearLayout>
 
 </layout>
 

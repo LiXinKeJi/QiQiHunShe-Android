@@ -1,5 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui
 
+import android.Manifest
+import android.os.Build
 import cn.jzvd.Jzvd
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.R
@@ -20,6 +22,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             it.framanage = supportFragmentManager
             it.initBind()
         }
+
+
 
     }
 
