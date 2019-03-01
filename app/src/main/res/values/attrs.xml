@@ -42,4 +42,15 @@
         <attr name="max_visible" format="integer" />
     </declare-styleable>
 
+
+    <declare-styleable name="TwoWayRattingBar">
+        <attr name="color_line_normal" format="color" />
+        <attr name="color_line_select" format="color" />
+        <attr name="stroke_width_normal" format="dimension" />
+        <attr name="stroke_width_select" format="dimension" />
+        <attr name="progress_icon" format="reference" />
+        <attr name="text_size" format="dimension" />
+        <attr name="text_color" format="color" />
+    </declare-styleable>
+
 </resources>

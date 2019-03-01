@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="10dp"
+              android:orientation="horizontal">
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="10dp">
+        <ImageView
+                android:id="@+id/ivShop"
+                android:layout_width="58dp"
+                android:layout_height="65dp"
+                android:padding="10dp"
+                android:background="@mipmap/ic_bg_shop_map"
+                android:src="@mipmap/ic_tx"/>
+
+        <TextView
+                android:id="@+id/tvShopName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                android:text="七七推荐"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="200dp"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:background="@drawable/bg_infowindow_qy"
+                  android:layout_marginBottom="50dp"
+                  android:padding="10dp">
+        <TextView
+                android:id="@+id/tvFwdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务地点：郑东新区通泰路商都世贸中心D座220室"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+        <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距离：1.5km"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+        <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="电话：10086"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+        <TextView
+                android:id="@+id/tvFwfw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="服务范围：服务范围服务范围服务范围服务范围服务范围"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+        <TextView
+                android:id="@+id/tvNavigation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="去导航"
+                android:textSize="11sp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_gravity="right"
+                android:background="@drawable/bg_rect_white_50dp"
+                android:textColor="#17ACF6"/>
+    </LinearLayout>
+
+
+</LinearLayout>
