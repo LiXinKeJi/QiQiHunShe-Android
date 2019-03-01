@@ -40,7 +40,7 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     }
 
     fun loadMore(list: ArrayList<ITEMBEAN>, flag: Int) {
-        val size=this.list.size
+        val size = this.list.size
         this.list.addAll(list)
         this.flag = flag
         notifyItemRangeChanged(size, this.list.size)
@@ -86,6 +86,9 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         }
 
         holder.itemView.setOnClickListener { v ->
+            if (position >= list.size || position < 0) {
+                return@setOnClickListener
+            }
             listener?.let {
                 it(list[position], position)
             }

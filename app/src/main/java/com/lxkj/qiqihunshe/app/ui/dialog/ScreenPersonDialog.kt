@@ -76,11 +76,17 @@ object ScreenPersonDialog {
         sb_pressure?.setOnProgressChangeListener(object : TwoWayRattingBar.OnProgressChangeListener {
             override fun onRightProgressChange(progress: Float) {
                 max = (progress * 100).toInt().toString()
+                if (max.toInt() < min.toInt()) {
+                    max = min
+                }
                 tv_range?.text = "${min}-${max}"
             }
 
             override fun onLeftProgressChange(progress: Float) {
-                min = (progress * 100).toInt().toString()
+                min = (progress * 100 + 18).toInt().toString()
+                if (min.toInt() > max.toInt()) {
+                    min = max
+                }
                 tv_range?.text = "${min}-${max}"
             }
         })

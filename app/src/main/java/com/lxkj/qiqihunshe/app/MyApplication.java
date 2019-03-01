@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
+import android.view.View;
+import cn.bingoogolapple.badgeview.BGABadgeTextView;
+import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
@@ -150,5 +153,27 @@ public class MyApplication extends MultiDexApplication {
         openActivityForResult(activity, targetClass, null, requestCode);
     }
 
+
+
+    public static void setRedNum(BGABadgeTextView badgeTextView, int MsgNum) {
+        badgeTextView.getBadgeViewHelper().setBadgeTextSizeSp(9);
+        badgeTextView.getBadgeViewHelper().setBadgeTextColorInt(CONTEXT.getResources().getColor(R.color.white));
+        badgeTextView.getBadgeViewHelper().setBadgeBgColorInt(CONTEXT.getResources().getColor(R.color.red));
+        badgeTextView.getBadgeViewHelper().setDragable(true);
+        badgeTextView.getBadgeViewHelper().setBadgePaddingDp(4);
+        badgeTextView.getBadgeViewHelper().setBadgeBorderWidthDp(0);
+        badgeTextView.getBadgeViewHelper().setBadgeBorderColorInt(CONTEXT.getResources().getColor(R.color.red));
+        badgeTextView.showCirclePointBadge();
+        //注意带上这个显示数字，否则将变成空
+        if (MsgNum > 99) {
+            badgeTextView.showTextBadge("...");
+            badgeTextView.setVisibility(View.VISIBLE);
+        } else if (MsgNum <= 0) {
+            badgeTextView.setVisibility(View.GONE);
+        } else {
+            badgeTextView.setVisibility(View.VISIBLE);
+            badgeTextView.showTextBadge(MsgNum + "");
+        }
+    }
 
 }

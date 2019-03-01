@@ -2,7 +2,12 @@ package com.lxkj.qiqihunshe.app.customview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -10,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 import com.lxkj.qiqihunshe.R;
+import com.lxkj.qiqihunshe.app.util.abLog;
 
 /**
  * Created by Administrator on 2017/10/30.
@@ -25,7 +31,7 @@ public class TwoWayRattingBar extends View {
 
     private int color_line_select;
 
-    private float leftProgress = 0f;
+    private float leftProgress = 0.0f;
 
     private float rightProgress = 1f;
 
@@ -39,7 +45,8 @@ public class TwoWayRattingBar extends View {
 
     private float stroke_width_select;
 
-    private int num = 100;
+    private int minnum = 0;
+    private int maxnum = 100;
 
     Rect bounds = new Rect();
 
@@ -78,6 +85,10 @@ public class TwoWayRattingBar extends View {
         color_line_select = a.getColor(R.styleable.TwoWayRattingBar_color_line_select, Color.parseColor("#238dfb"));
         stroke_width_normal = a.getDimension(R.styleable.TwoWayRattingBar_stroke_width_normal, 2f);
         stroke_width_select = a.getDimension(R.styleable.TwoWayRattingBar_stroke_width_select, 4f);
+
+        minnum = a.getInteger(R.styleable.TwoWayRattingBar_min, 0);
+        maxnum = a.getInteger(R.styleable.TwoWayRattingBar_max, 100);
+
         leftProgressIcon = BitmapFactory.decodeResource(context.getResources(), a.getResourceId(R.styleable.TwoWayRattingBar_progress_icon, R.drawable.ic_spot_them));
         rightProgressIcon = BitmapFactory.decodeResource(context.getResources(), a.getResourceId(R.styleable.TwoWayRattingBar_progress_icon, R.drawable.ic_spot_them));
 
@@ -155,8 +166,8 @@ public class TwoWayRattingBar extends View {
         canvas.drawLine(startX, height / 2, endProgressX, height / 2, paint);
 
         //画刻度值
-        String left_num = String.valueOf((int) (leftProgress * num));
-        String right_num = String.valueOf((int) (rightProgress * num));
+        String left_num = String.valueOf((int) (leftProgress * maxnum + minnum));
+        String right_num = String.valueOf((int) (rightProgress * maxnum));
         textPaint.getTextBounds(right_num, 0, right_num.length(), bounds);
         canvas.drawText(left_num, startProgressX, height / 2 - leftProgressIcon.getHeight() / 2, textPaint);
         canvas.drawText(right_num, endProgressX - bounds.width() / 2, height / 2 + rightProgressIcon.getHeight(), textPaint);
@@ -182,6 +193,8 @@ public class TwoWayRattingBar extends View {
 
     private int touchStatus;
 
+    private float right = maxnum / 100;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -194,11 +207,12 @@ public class TwoWayRattingBar extends View {
                 //触摸点落在有效范围内则跟随手指移动
                 float change_progress = (event.getX() - pressX) / getWidth();
                 if (touchStatus == 1) {
-                    Log.e("left", leftProgress + "," + change_progress);
-                    setLeftProgress(leftProgress + change_progress);
+                    float left = leftProgress + change_progress;
+                    abLog.INSTANCE.e("left+right", left + "," + right);
+                    setLeftProgress(left);
                 } else if (touchStatus == 2) {
-                    Log.e("left", rightProgress + "," + change_progress);
-                    setRightProgress(rightProgress + change_progress);
+                    right = rightProgress + change_progress;
+                    setRightProgress(right);
                 }
                 pressX = event.getX();
                 break;
@@ -212,3 +226,4 @@ public class TwoWayRattingBar extends View {
         return true;
     }
 }
+

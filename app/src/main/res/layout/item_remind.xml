@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            android:padding="12dp">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_time"
+                  android:textSize="13sp"
+                  android:textColor="@color/colorSubtitle"
+                  android:text="2019"
+                  android:layout_centerHorizontal="true"
+        />
+
+        <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                android:layout_width="40dp" android:layout_height="40dp"
+                android:id="@+id/iv_header"
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="centerCrop"
+                android:layout_below="@+id/tv_time"
+                android:layout_marginTop="12dp"
+        />
+
+
+        <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/iv_header"
+                android:layout_below="@+id/tv_time"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp">
+
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cl_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/touch_bg"
+                    android:paddingTop="12dp"
+            >
+
+                <com.lxkj.qiqihunshe.app.customview.RoundImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:id="@+id/image"
+                        android:layout_marginLeft="14dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_title"
+                          android:text="消息title"
+                          android:textSize="15sp"
+                          android:textColor="@color/colorTabTexts"
+                          android:layout_marginTop="3dp"
+                          app:layout_constraintTop_toTopOf="@+id/image" app:layout_constraintStart_toEndOf="@+id/image"
+                          android:layout_marginStart="8dp" android:layout_marginLeft="8dp"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:id="@+id/tv_content"
+                          android:text="消息内容"
+                          android:textSize="13sp"
+                          android:maxLines="2"
+                          android:ellipsize="end"
+                          android:textColor="@color/colorTabText"
+                          android:layout_marginTop="5dp"
+                          app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                          app:layout_constraintStart_toEndOf="@+id/image" android:layout_marginStart="8dp"
+                          android:layout_marginLeft="8dp" android:layout_marginEnd="14dp"
+                          app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="14dp"/>
+
+
+                <include layout="@layout/include_line07"
+                         android:id="@+id/line0"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         app:layout_constraintTop_toBottomOf="@+id/image"
+                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                         android:layout_marginTop="12dp"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/see"
+                          android:text="点击查看"
+                          android:textSize="11sp"
+                          android:textColor="@color/colorSubtitle"
+                          app:layout_constraintTop_toBottomOf="@+id/line0"
+                          android:layout_marginLeft="14dp"
+                          android:layout_marginTop="8dp"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintBottom_toBottomOf="parent"
+                          android:layout_marginBottom="8dp"/>
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>

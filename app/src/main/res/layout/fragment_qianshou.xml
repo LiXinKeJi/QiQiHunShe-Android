@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:fitsSystemWindows="true">
+
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:src="@drawable/yy_lianjie2"
+                   android:id="@+id/iv_0"
+                   app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="@+id/iv_myHeader"
+                   app:layout_constraintBottom_toBottomOf="@+id/iv_myHeader"/>
+
+        <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                android:layout_width="58dp" android:layout_height="58dp"
+                android:id="@+id/iv_myHeader"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintEnd_toStartOf="@+id/iv_0"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="25dp" app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                android:layout_width="58dp" android:layout_height="58dp"
+                android:id="@+id/iv_heHeader"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintStart_toEndOf="@+id/iv_0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_myHeader"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_myHeader"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_myName"
+                  android:textSize="15sp"
+                  android:textColor="@color/colorTabText"
+                  android:text="洛克贝尔"
+                  app:layout_constraintTop_toBottomOf="@+id/iv_myHeader"
+                  app:layout_constraintEnd_toEndOf="@+id/iv_myHeader"
+                  app:layout_constraintStart_toStartOf="@+id/iv_myHeader" android:layout_marginTop="5dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_heName"
+                  android:textSize="15sp"
+                  android:textColor="@color/colorTabText"
+                  android:text="添加牵手人"
+                  android:layout_marginTop="5dp"
+                  app:layout_constraintTop_toBottomOf="@+id/iv_heHeader"
+                  app:layout_constraintEnd_toEndOf="@+id/iv_heHeader"
+                  app:layout_constraintStart_toStartOf="@+id/iv_heHeader"/>
+
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/address"
+                  android:text="实时位置分享"
+                  android:textSize="15sp"
+                  android:textColor="@color/colorTabText"
+                  android:layout_marginTop="30dp"
+                  app:layout_constraintTop_toBottomOf="@+id/tv_myName" android:layout_marginStart="15dp"
+                  app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="15dp"/>
+
+        <com.lxkj.qiqihunshe.app.customview.SwitchView android:layout_width="30dp"
+                                                       android:layout_height="18dp"
+                                                       android:id="@+id/sw_address"
+                                                       app:layout_constraintStart_toEndOf="@+id/address"
+                                                       android:layout_marginLeft="8dp"
+                                                       android:layout_marginStart="8dp"
+                                                       app:layout_constraintTop_toTopOf="@+id/address"
+                                                       app:layout_constraintBottom_toBottomOf="@+id/address"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="当前位置定位失败"
+                  android:textSize="13sp"
+                  android:textColor="@color/colorTabText"
+                  android:id="@+id/tv_address_su"
+                  android:layout_marginStart="15dp"
+                  app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="15dp"
+                  android:layout_marginTop="25dp" app:layout_constraintTop_toBottomOf="@+id/address"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="小七已关闭此权限，详情待更新"
+                  android:textSize="11sp"
+                  android:textColor="@color/colorSubtitle"
+                  android:id="@+id/tv_tip"
+                  app:layout_constraintTop_toBottomOf="@+id/tv_address_su" android:layout_marginStart="15dp"
+                  app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="15dp"
+                  android:layout_marginTop="10dp"/>
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:id="@+id/iv_right"
+                   android:src="@drawable/ic_arrar_right"
+                   android:padding="12dp"
+
+                   app:layout_constraintTop_toTopOf="@+id/tv_address_su"
+                   app:layout_constraintBottom_toBottomOf="@+id/tv_tip"
+                   android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                   android:layout_marginRight="8dp"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
+

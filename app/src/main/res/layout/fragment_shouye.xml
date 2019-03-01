@@ -6,22 +6,25 @@
     </data>
 
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                   android:id="@+id/iv_screen"
-                   android:src="@drawable/ic_screen"
-                   android:layout_alignParentRight="true"
-                   android:padding="12dp"
-                   android:layout_margin="2dp"
-        />
 
         <android.support.v4.view.ViewPager android:layout_width="match_parent"
                                            android:layout_height="match_parent"
                                            android:id="@+id/viewPager"
         />
 
-    </RelativeLayout>
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:id="@+id/iv_screen"
+                   android:src="@drawable/ic_screen1"
+                   android:layout_gravity="right"
+                   android:padding="12dp"
+                   android:layout_margin="2dp"
+        />
+
+
+    </FrameLayout>
 
 </layout>
 

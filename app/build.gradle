@@ -131,8 +131,8 @@ dependencies {
     implementation project(':likeornot')
     implementation project(':jiaozivideoplayer')
     implementation files('libs/BaiduLBS_Android.jar')
-
     //权限管理
     kapt 'com.zhy:mpermission-compiler:1.0.0'
     implementation 'com.zhy:mpermission-api:1.0.0'
+    implementation project(':bgABadgeView')
 }

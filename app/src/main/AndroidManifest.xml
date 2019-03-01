@@ -185,6 +185,22 @@
                  android:process=":remote"/>
 
 
+        <!--//////////////////////////////////////////消息\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+        <activity android:name=".app.ui.xiaoxi.activity.LookupActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.xiaoxi.activity.LookupResultActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.xiaoxi.activity.AddFriendActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.xiaoxi.activity.NewFirendActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.xiaoxi.activity.QiQiRemindActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.xiaoxi.activity.UploadMarryActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.xiaoxi.activity.MsgDetailsActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

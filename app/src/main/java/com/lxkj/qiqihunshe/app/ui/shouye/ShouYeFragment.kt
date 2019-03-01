@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
+import com.lxkj.qiqihunshe.app.ui.dialog.ScreenShouYeDialog
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDataFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDynamicFragment
@@ -52,6 +53,10 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
 
         val adapter = FragmentPagerAdapter(childFragmentManager, list)
         viewPager.adapter = adapter
+
+        iv_screen.setOnClickListener {
+            ScreenShouYeDialog.show(activity!!)
+        }
     }
 
     override fun loadData() {

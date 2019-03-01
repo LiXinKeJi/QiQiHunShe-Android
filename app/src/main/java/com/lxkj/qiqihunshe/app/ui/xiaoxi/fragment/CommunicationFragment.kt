@@ -8,24 +8,27 @@ import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import kotlinx.android.synthetic.main.activity_recyvlerview.*
 
 /**
+ * 消息-通讯
  * Created by Slingge on 2019/2/28
  */
 class CommunicationFragment : BaseFragment<ActivityRecyvlerviewBinding, CommunicationViewModel>() {
 
 
-
-    override fun getBaseViewModel()= CommunicationViewModel()
+    override fun getBaseViewModel() = CommunicationViewModel()
 
     override fun getLayoutId() = R.layout.activity_recyvlerview
 
     override fun init() {
-        include.visibility= View.GONE
+        include.visibility = View.GONE
+        viewModel?.let {
+            it.bind = binding
+            it.initViewmodel()
+        }
     }
 
     override fun loadData() {
 
     }
-
 
 
 }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+
+>
+
+    <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        app:cardElevation="2dp"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_marginBottom="5dp"
+                                        app:cardCornerRadius="8dp"
+                                        android:background="@color/white"
+    >
+
+
+        <LinearLayout android:layout_width="155dp" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+        >
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/tv_liao"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+                      android:paddingTop="10dp"
+                      android:background="@drawable/touch_bg"
+                      android:paddingBottom="10dp"
+                      android:gravity="center"
+                      android:text="聊一聊"
+            />
+
+            <include layout="@layout/include_line07"/>
+
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/tv_yu"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+                      android:paddingTop="10dp"
+                      android:background="@drawable/touch_bg"
+                      android:paddingBottom="10dp"
+                      android:gravity="center"
+                      android:text="听心语"
+            />
+
+            <include layout="@layout/include_line07"/>
+
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/tv_pei"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+                      android:paddingTop="10dp"
+                      android:background="@drawable/touch_bg"
+                      android:paddingBottom="10dp"
+                      android:gravity="center"
+                      android:text="配一配"
+            />
+
+            <include layout="@layout/include_line07"/>
+
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/tv_hua"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+                      android:paddingTop="10dp"
+                      android:background="@drawable/touch_bg"
+                      android:paddingBottom="10dp"
+                      android:gravity="center"
+                      android:text="划一划"
+            />
+
+            <include layout="@layout/include_line07"/>
+
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/tv_jingzhun"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+                      android:paddingTop="10dp"
+                      android:background="@drawable/touch_bg"
+                      android:paddingBottom="10dp"
+                      android:gravity="center"
+                      android:text="精准查找"
+            />
+
+            <include layout="@layout/include_line07"/>
+
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/tv_tiaojian"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+                      android:paddingTop="10dp"
+                      android:background="@drawable/touch_bg"
+                      android:paddingBottom="10dp"
+                      android:gravity="center"
+                      android:text="条件查找"
+            />
+
+            <include layout="@layout/include_line07"/>
+
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/tv_jingji"
+                      android:textSize="13sp"
+                      android:textColor="@color/colorTabText"
+                      android:paddingTop="10dp"
+                      android:background="@drawable/touch_bg"
+                      android:paddingBottom="10dp"
+                      android:gravity="center"
+                      android:text="经济匹配"
+            />
+
+
+            <include layout="@layout/include_line07"/>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</FrameLayout>

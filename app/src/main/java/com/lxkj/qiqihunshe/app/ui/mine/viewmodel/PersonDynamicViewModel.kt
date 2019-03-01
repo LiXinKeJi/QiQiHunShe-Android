@@ -21,7 +21,7 @@ class PersonDynamicViewModel : BaseViewModel() {
         bind!!.rvDynamic.layoutManager = LinearLayoutManager(fragment?.context)
 
         bind!!.rvDynamic.adapter = adapter
-
+        adapter.activity=fragment!!.activity
         val list = ArrayList<DynamicModel>()
         for (i in 0 until 5) {
             val model = DynamicModel()
