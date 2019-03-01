@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lxkj.qiqihunshe.app.customview.CircleImageView xmlns:android="http://schemas.android.com/apk/res/android"
-                                                    android:id="@+id/iv"
-                                                    android:layout_width="40dp"
-                                                    android:layout_height="40dp"
-                                                    android:src="@mipmap/ic_tx">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+             >
 
-</com.lxkj.qiqihunshe.app.customview.CircleImageView>
+    <com.lxkj.qiqihunshe.app.customview.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_tx"
+           />
+
+</FrameLayout>

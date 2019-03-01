@@ -54,8 +54,8 @@ public class BitmapUtil {
      * @return
      */
     public static Bitmap loadBitmapFromView(View v) {
-        int w = v.getWidth();
-        int h = v.getHeight();
+        int w = v.getMeasuredWidth();
+        int h = v.getMeasuredHeight();
 
         Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bmp);

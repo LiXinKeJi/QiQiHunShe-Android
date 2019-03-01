@@ -20,24 +20,39 @@ import com.zhy.m.permission.PermissionDenied
 import com.zhy.m.permission.PermissionGrant
 import android.R.attr.button
 import android.graphics.Color
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.map.MarkerOptions
-import com.baidu.mapapi.map.OverlayOptions
 import com.baidu.mapapi.map.BitmapDescriptorFactory
-import com.baidu.mapapi.map.BitmapDescriptor
-import com.lxkj.qiqihunshe.app.util.BitmapUtil
-import kotlinx.android.synthetic.main.item_image.view.*
+import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.ui.dialog.AqxzDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.FwwdDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.SayHolleDialog
+import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
+import com.lxkj.qiqihunshe.app.ui.map.SelectAddressMapActivity
+import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
+import com.lxkj.qiqihunshe.app.ui.quyu.activity.FwqyActivity
+import kotlinx.android.synthetic.main.layout_infowindow_qy.*
+import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
 
 
 /**
  * Created by Slingge on 2019/2/16
  */
-class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>() {
+class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.OnClickListener {
+
+
     val mMapView by lazy { bmapView.map }
     val mLocationClient by lazy { LocationClient(context) }
     var isFirst = true
+
+    var lat : Double = 0.0
+    var lng : Double = 0.0
+
+
+
 
     override fun getBaseViewModel() = QuYuViewModel()
 
@@ -54,6 +69,11 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>() {
         } else {
             pmsLocationSuccess()
         }
+        iv_fwqy.setOnClickListener(this)
+        iv_sayHi.setOnClickListener(this)
+        tv_aqxz.setOnClickListener(this)
+        tv_ddtj.setOnClickListener(this)
+        tv_fwwd.setOnClickListener(this)
     }
 
     override fun loadData() {
@@ -107,34 +127,67 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>() {
     fun addOverlay(point: LatLng) {
 
         val image = LayoutInflater.from(context).inflate(R.layout.layout_imageview, null)
-        image.setDrawingCacheEnabled(true)
-        image.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH)
-        image.setDrawingCacheBackgroundColor(Color.WHITE)
-//构建Marker图标
-        val bitmap = BitmapUtil.loadBitmapFromView(image)
-        val des = BitmapDescriptorFactory.fromBitmap(bitmap)
-
-//构建MarkerOption，用于在地图上添加Marker
+        //构建Marker图标
+        val des = BitmapDescriptorFactory.fromView(image)
+        //构建MarkerOption，用于在地图上添加Marker
         val option = MarkerOptions()
             .position(point)
             .icon(des)
-//在地图上添加Marker，并显示
+        //在地图上添加Marker，并显示
         val marker = mMapView.addOverlay(option) as Marker
 
 
 
-        mMapView.setOnMarkerClickListener (object : BaiduMap.OnMarkerClickListener{
+        mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
             override fun onMarkerClick(p0: Marker?): Boolean {
-                    if (p0 == marker){
-                        val view = LayoutInflater.from(context).inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_qy, null)
-                        val mInfoWindow = InfoWindow(view, point, -100)
-                        //使InfoWindow生效
-                        mMapView.showInfoWindow(mInfoWindow)
-                    }
+                if (p0 == marker) {
+                    val view =
+                        LayoutInflater.from(context).inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_qy, null)
+                        view.tvNavigation.setOnClickListener(object : View.OnClickListener{
+                       override fun onClick(p0: View?) {
+                           ToastUtil.showToast("去导航！")
+                       }
+                   })
+                    val mInfoWindow = InfoWindow(view, point, -100)
+                    //使InfoWindow生效
+                    mMapView.showInfoWindow(mInfoWindow)
+                }
                 return true
             }
 
         })
+    }
+
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.iv_fwqy ->{
+                val bundle = Bundle()
+                bundle.putDouble("lat",lat)
+                bundle.putDouble("lng",lng)
+                MyApplication.openActivity(activity, FwqyActivity::class.java,bundle)
+                MyApplication.openActivity(activity, SelectAddressMapActivity::class.java,bundle)
+            }
+            R.id.iv_sayHi ->{
+                SayHolleDialog.show(activity!!)
+            }
+
+            R.id.tv_aqxz ->{
+                AqxzDialog.show(activity!!)
+            }
+
+            R.id.tv_fwwd ->{
+                FwwdDialog.show(activity!!)
+            }
+
+            R.id.tv_ddtj ->{
+                val bundle = Bundle()
+                bundle.putDouble("lat",lat)
+                bundle.putDouble("lng",lng)
+                MyApplication.openActivity(activity, DdtjActivity::class.java,bundle)
+            }
+        }
+
     }
 
     inner class MyLocationListener : BDAbstractLocationListener() {
@@ -144,14 +197,16 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>() {
                 return
             }
 
+            lat = location.getLatitude()
+            lng = location.getLongitude()
+
             if (isFirst) {
                 val ll = LatLng(location.getLatitude(), location.getLongitude())
                 val builder = MapStatus.Builder()
                 builder.target(ll).zoom(18.0f)
                 mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
-                addOverlay(ll)
-
-
+                val position = LatLng(location.latitude + 0.01, location.getLongitude() + 0.01)
+                addOverlay(position)
             }
             val locData = MyLocationData.Builder()
                 .accuracy(location.radius)

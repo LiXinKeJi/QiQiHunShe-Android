@@ -5,6 +5,9 @@
 
     <color name="white">#FFFFFF</color>
 
+    <color name="map_round">#1117ACF6</color>
+
+
     <color name="colorTheme">#15acf5</color>
     <color name="colorThemes">#10bcf5</color>
     <!--页面背景的颜色-->

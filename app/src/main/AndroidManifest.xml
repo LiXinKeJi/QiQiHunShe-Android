@@ -162,6 +162,19 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.shouye.activity.StrokeActivity"
                   android:screenOrientation="portrait"/>
+
+                               <!--区域-->
+        <activity android:name=".app.ui.quyu.activity.FwqyActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.quyu.activity.DdtjActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.quyu.activity.ShopDetailActivity"
+                  android:screenOrientation="portrait"/>
+
+
+        <activity android:name=".app.ui.map.SelectAddressMapActivity"
+                  android:screenOrientation="portrait"/>
+
         <!--百度地图-->
         <meta-data
                 android:name="com.baidu.lbsapi.API_KEY"
