@@ -4,16 +4,16 @@ import android.support.v7.widget.LinearLayoutManager
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.CommentAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.CommentModel
-import com.lxkj.qiqihunshe.databinding.FragmentFujinSkillBinding
+import com.lxkj.qiqihunshe.databinding.FragmentSkillBinding
 
 /**
  * Created by Slingge on 2019/2/27
  */
-class FuJinSkillViewModel:BaseViewModel() {
+class SkillViewModel:BaseViewModel() {
 
     private val adapter by lazy { CommentAdapter() }
 
-    var bind: FragmentFujinSkillBinding? = null
+    var bind: FragmentSkillBinding? = null
 
     fun initViewModel() {
         bind!!.rvComment.layoutManager = LinearLayoutManager(fragment?.context)

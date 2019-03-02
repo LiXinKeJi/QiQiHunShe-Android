@@ -16,13 +16,14 @@ import java.util.concurrent.TimeUnit
  */
 //请求延迟时间
 fun <T> Single<T>.async(withDelay: Long = 0): Single<T> =
-        this.subscribeOn(Schedulers.io())
-                .delay(withDelay, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
+    this.subscribeOn(Schedulers.io())
+        .delay(withDelay, TimeUnit.MILLISECONDS)
+        .observeOn(AndroidSchedulers.mainThread())
+
 fun <T> Single<T>.async(): Single<T> =
-        this.subscribeOn(Schedulers.io())
+    this.subscribeOn(Schedulers.io())
 //                .delay(withDelay, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
+        .observeOn(AndroidSchedulers.mainThread())
 
 //绑定生命周期
 fun <T> Single<T>.bindLifeCycle(owner: LifecycleOwner): SingleSubscribeProxy<T> {

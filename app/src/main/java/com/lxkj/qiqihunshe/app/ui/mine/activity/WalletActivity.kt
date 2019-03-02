@@ -24,7 +24,7 @@ class WalletActivity : BaseActivity<ActivityWalletBinding, WalletViewModel>(), V
 
 
     override fun init() {
-
+        isWhiteStatusBar = false
         if (Build.VERSION.SDK_INT > 19) {
             StatusBarUtil.immersiveStatusBar(this, 0f)
             view_staus.visibility = View.VISIBLE
@@ -41,6 +41,7 @@ class WalletActivity : BaseActivity<ActivityWalletBinding, WalletViewModel>(), V
         tv_recharge.setOnClickListener(this)
         tv_withdrawal.setOnClickListener(this)
         tv_bill.setOnClickListener(this)
+        tv_buy.setOnClickListener(this)
     }
 
 
@@ -54,6 +55,9 @@ class WalletActivity : BaseActivity<ActivityWalletBinding, WalletViewModel>(), V
             }
             R.id.tv_bill -> {
                 MyApplication.openActivity(this, MyBillActivity::class.java)
+            }
+            R.id.tv_buy -> {
+                MyApplication.openActivity(this, PermissionBuyActivity::class.java)
             }
         }
     }

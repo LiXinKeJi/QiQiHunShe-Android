@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            android:fitsSystemWindows="true">
+
+        <include
+                layout="@layout/include_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/include"/>
+
+
+        <TextView android:layout_width="match_parent" android:layout_height="160dp"
+                  android:id="@+id/tv_tip"
+                  android:text="hi~你好，开通会员，即刻体验小七专属会员权益"
+                  android:layout_below="@+id/include"
+                  android:background="@color/colorTheme"
+                  android:gravity="center_vertical"
+                  android:paddingLeft="30dp"
+                  android:textColor="@color/white"
+                  android:textSize="16sp"
+                  app:layout_constraintTop_toBottomOf="@+id/include"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="420dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:layout_above="@+id/tv"
+                android:paddingLeft="45dp"
+                android:paddingRight="45dp"
+                android:layout_below="@+id/tv_tip"
+                app:layout_constraintTop_toTopOf="@+id/guideline5"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:paddingBottom="30dp"
+        />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv"
+                  android:text="版权归七七婚社所有"
+                  android:textSize="13sp"
+                  android:textColor="@color/colorSubtitle"
+                  android:layout_alignParentBottom="true"
+                  android:layout_centerHorizontal="true"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginBottom="20dp"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <android.support.constraint.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/guideline5" app:layout_constraintGuide_begin="166dp"
+                android:orientation="horizontal"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
+

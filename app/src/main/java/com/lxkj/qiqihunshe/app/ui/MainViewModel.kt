@@ -12,6 +12,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.MineFragment
 import com.lxkj.qiqihunshe.app.ui.quyu.QuYuFragment
 import com.lxkj.qiqihunshe.app.ui.shouye.*
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.XiaoXiFragment
+import com.lxkj.qiqihunshe.app.util.StatusBarBlackWordUtil
 import com.lxkj.qiqihunshe.app.util.StatusBarUtil
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
 
@@ -47,9 +48,7 @@ class MainViewModel : BaseViewModel() {
     fun initBind() {
         switchFragment(shouYeFragment)
         bind!!.RadioGBottem.setOnCheckedChangeListener { group, checkedId ->
-            if (Build.VERSION.SDK_INT > 19) {
-                StatusBarUtil.setColorNoTranslucent(activity, activity!!.resources.getColor(R.color.white))
-            }
+
             when (checkedId) {
                 R.id.tab_0 -> {
                     if (Build.VERSION.SDK_INT > 19) {
@@ -58,15 +57,27 @@ class MainViewModel : BaseViewModel() {
                     switchFragment(shouYeFragment)
                 }
                 R.id.tab_1 -> {
+                    if (Build.VERSION.SDK_INT > 19) {
+                        StatusBarUtil.setColorNoTranslucent(activity, activity!!.resources.getColor(R.color.white))
+                    }
                     switchFragment(fuJinFragment)
                 }
                 R.id.tab_2 -> {
+                    if (Build.VERSION.SDK_INT > 19) {
+                        StatusBarUtil.setColorNoTranslucent(activity, activity!!.resources.getColor(R.color.white))
+                    }
                     switchFragment(xiaoXiFragment)
                 }
                 R.id.tab_3 -> {
+                    if (Build.VERSION.SDK_INT > 19) {
+                        StatusBarUtil.setColorNoTranslucent(activity, activity!!.resources.getColor(R.color.white))
+                    }
                     switchFragment(quYuFragment)
                 }
                 R.id.tab_4 -> {
+                    if (Build.VERSION.SDK_INT > 19) {
+                        StatusBarUtil.setColorNoTranslucent(activity, activity!!.resources.getColor(R.color.white))
+                    }
                     switchFragment(mineFragment)
                 }
             }

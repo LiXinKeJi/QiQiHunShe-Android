@@ -1,13 +1,13 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.model
 
-import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.lxkj.qiqihunshe.BR
+import com.lxkj.qiqihunshe.app.base.BaseModel
 
 /**
  * Created by Slingge on 2019/2/16
  */
-class SignInModel : BaseObservable() {
+class SignInModel : BaseModel() {
 
     @Bindable
     var phone = ""

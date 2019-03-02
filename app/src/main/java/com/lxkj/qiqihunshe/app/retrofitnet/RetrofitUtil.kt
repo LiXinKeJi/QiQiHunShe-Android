@@ -16,9 +16,9 @@ import java.util.concurrent.TimeUnit
 object RetrofitUtil {
 
 
-    private val url = "http://gank.io/api/data/"
+    private val url = "http://192.168.3.2:8090/"
 
-    private val RecyclerUrl = "https://www.apiopen.top/"
+    private val RecyclerUrl = "http://gank.io/api/data/"
 
     private fun getClient(): OkHttpClient {
         val cache = Cache(MyApplication.getInstance().cacheDir, (1024 * 1024).toLong())
@@ -26,15 +26,15 @@ object RetrofitUtil {
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
                 .cache(cache)
-                .connectTimeout(6000, TimeUnit.SECONDS)
-                .readTimeout(6000, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .build()
     }
 
     fun getRetrofitApi(): Retrofit {
         val retrofit = Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(RecyclerUrl)
                 .client(getClient())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
