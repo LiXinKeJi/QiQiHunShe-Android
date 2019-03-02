@@ -22,9 +22,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             it.framanage = supportFragmentManager
             it.initBind()
         }
-
-
-
     }
 
 

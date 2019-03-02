@@ -9,7 +9,6 @@ import com.lxkj.qiqihunshe.databinding.FragmentQuyuBinding
 import kotlinx.android.synthetic.main.fragment_quyu.*
 import com.baidu.location.BDLocation
 import com.baidu.location.BDAbstractLocationListener
-import com.lxkj.qiqihunshe.app.ui.quyu.QuYuFragment.MyLocationListener
 import com.baidu.location.LocationClientOption
 import com.baidu.location.LocationClient
 import com.baidu.mapapi.model.LatLng
@@ -18,8 +17,6 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.zhy.m.permission.MPermissions
 import com.zhy.m.permission.PermissionDenied
 import com.zhy.m.permission.PermissionGrant
-import android.R.attr.button
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,11 +27,9 @@ import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.ui.dialog.AqxzDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.FwwdDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.SayHolleDialog
-import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
-import com.lxkj.qiqihunshe.app.ui.map.SelectAddressMapActivity
+import com.lxkj.qiqihunshe.app.ui.map.activity.SelectAddressMapActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.FwqyActivity
-import kotlinx.android.synthetic.main.layout_infowindow_qy.*
 import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
 
 

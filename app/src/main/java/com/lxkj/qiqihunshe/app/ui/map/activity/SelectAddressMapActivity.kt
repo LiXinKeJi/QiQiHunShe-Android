@@ -1,9 +1,14 @@
-package com.lxkj.qiqihunshe.app.ui.map
+package com.lxkj.qiqihunshe.app.ui.map.activity
 
 import android.view.LayoutInflater
 import android.view.View
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
+import com.baidu.mapapi.search.core.SearchResult
+import com.baidu.mapapi.search.geocode.GeoCodeResult
+import com.baidu.mapapi.search.geocode.GeoCoder
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.dialog.SelectMeetTimeDialog
@@ -11,16 +16,24 @@ import com.lxkj.qiqihunshe.app.ui.map.viewmodel.SelectAddressMapViewModel
 import com.lxkj.qiqihunshe.databinding.ActivitySelectAddressMapBinding
 import kotlinx.android.synthetic.main.activity_select_address_map.*
 import kotlinx.android.synthetic.main.layout_infowindow_select_address.view.*
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption
+import com.baidu.mapapi.search.core.SearchResult.ERRORNO
+import com.lxkj.qiqihunshe.app.util.ToastUtil
+
 
 /**
  * Created by kxn on 2019/3/1 0001.
- * 地图选择地址
+ * 地图选择地址 聊天选择位置
  */
-class SelectAddressMapActivity : BaseActivity<ActivitySelectAddressMapBinding,SelectAddressMapViewModel>(){
+class SelectAddressMapActivity : BaseActivity<ActivitySelectAddressMapBinding,SelectAddressMapViewModel>(),
+    BaiduMap.OnMapClickListener, OnGetGeoCoderResultListener {
+
+
 
     var lat : Double = 0.0
     var lng : Double = 0.0
     val mMapView by lazy { bmapView.map }
+    val mCoder = GeoCoder.newInstance()
 
     override fun getBaseViewModel(): SelectAddressMapViewModel = SelectAddressMapViewModel()
 
@@ -41,6 +54,10 @@ class SelectAddressMapActivity : BaseActivity<ActivitySelectAddressMapBinding,Se
         addOverlay(position)
         addOverlay( LatLng(lat + 0.01, lng -0.01))
         addOverlay( LatLng(lat - 0.01, lng + 0.01))
+
+        //设置地图单击事件监听
+        mMapView.setOnMapClickListener(this)
+        mCoder.setOnGetGeoCodeResultListener(this);
 
     }
 
@@ -76,7 +93,42 @@ class SelectAddressMapActivity : BaseActivity<ActivitySelectAddressMapBinding,Se
             }
 
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mCoder.destroy()
+    }
+
+    override fun onMapPoiClick(point: MapPoi?): Boolean {
+        return true
+    }
+    //地图点击回调
+    override fun onMapClick(point: LatLng?) {
+        mCoder.reverseGeoCode(
+            ReverseGeoCodeOption()
+                .location(point)
+                // POI召回半径，允许设置区间为0-1000米，超过1000米按1000米召回。默认值为1000
+                .radius(1000)
+        )
+    }
+
+    override fun onGetGeoCodeResult(p0: GeoCodeResult?) {
 
     }
+
+    override fun onGetReverseGeoCodeResult(reverseGeoCodeResult: ReverseGeoCodeResult?) {
+        if (reverseGeoCodeResult == null || reverseGeoCodeResult.error !== SearchResult.ERRORNO.NO_ERROR) {
+            //没有找到检索结果
+            return
+        } else {
+            //详细地址
+            val address = reverseGeoCodeResult.getAddress()
+            ToastUtil.showToast(address)
+
+        }
+    }
+
+
 
 }

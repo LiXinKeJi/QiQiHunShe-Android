@@ -172,7 +172,7 @@
                   android:screenOrientation="portrait"/>
 
 
-        <activity android:name=".app.ui.map.SelectAddressMapActivity"
+        <activity android:name=".app.ui.map.activity.SelectAddressMapActivity"
                   android:screenOrientation="portrait"/>
 
         <!--百度地图-->

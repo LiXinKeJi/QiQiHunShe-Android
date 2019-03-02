@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.map.model.ChooseAddressModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.map.viewmodel.ChooseAddressViewModel"/>
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+    >
+        <include
+                layout="@layout/include_title"
+                android:id="@+id/include"/>
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+            <com.baidu.mapapi.map.MapView
+                    android:id="@+id/bmapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                <EditText
+                        android:id="@+id/keywordEt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:padding="10dp"
+                        android:hint="请输入关键字"
+                        android:background="@drawable/bg_border_line"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/searchTv"
+                        android:text="搜索"
+                        android:paddingRight="30dp"
+                        android:paddingLeft="30dp"
+                        android:background="@drawable/button_click5"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:focusableInTouchMode="false"
+                        android:layout_marginLeft="10dp"
+                />
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</layout>
+
