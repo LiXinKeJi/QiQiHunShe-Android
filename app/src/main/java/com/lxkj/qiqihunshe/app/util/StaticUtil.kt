@@ -11,4 +11,6 @@ object StaticUtil {
     val APKPath = Environment.getExternalStorageDirectory().path + "/Download/Earn.apk"
 
 
+    var headerUrl=""//用户自己的头像
+
 }

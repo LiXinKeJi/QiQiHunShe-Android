@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import com.lxkj.qiqihunshe.app.base.BaseModel
 import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
 import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
+import com.lxkj.qiqihunshe.app.util.ThreadUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.orhanobut.logger.Logger
@@ -29,21 +30,23 @@ object SingleCompose {
                 //                ToastUtil.showToast("结束")
                 ProgressDialogUtil.dismissDialog()
             }.doOnSuccess { t: String? ->
-
                 val type = object : TypeToken<T>() {}.type
-                val bean = Gson().fromJson<T>(t, type)
+                val bean = Gson().fromJson<T>(t,type)
                 abLog.e("返回数据", Gson().toJson(bean))
                 bean?.let {
                     if ((Gson().fromJson(t, BaseModel::class.java)).result == "0") {
                         SingleObserver.onSuccess(it)
-
                     } else {
-                        Logger.e("数据错误", Gson().toJson(it))
-                        ToastUtil.showToast("数据错误")
+                        ToastUtil.showTopSnackBar(context, (Gson().fromJson(t, BaseModel::class.java)).resultNote)
                     }
                 }
             }.doOnError {
-                ToastUtil.showTopSnackBar(context, it.toString())
+                try {
+                    ThreadUtil.runOnMainThread(Runnable {
+                        ToastUtil.showTopSnackBar(context, "网络错误")
+                    })
+                }catch (e:Exception){
+                }
             }
         }
     }
@@ -68,7 +71,9 @@ object SingleCompose {
                     }
                 }
             }.doOnError {
-                ToastUtil.showToast(it.toString())
+                it.message?.let {
+                    ToastUtil.showToast(it)
+                }
             }
         }
     }

@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitUtil {
 
 
-    private val url = "http://192.168.3.2:8090/"
+    private val url = "http://192.168.3.2:8090/77hunshe/api/"
 
     private val RecyclerUrl = "http://gank.io/api/data/"
 
@@ -34,7 +34,7 @@ object RetrofitUtil {
 
     fun getRetrofitApi(): Retrofit {
         val retrofit = Retrofit.Builder()
-                .baseUrl(RecyclerUrl)
+                .baseUrl(url)
                 .client(getClient())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

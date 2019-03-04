@@ -11,7 +11,7 @@ import retrofit2.http.Query
  */
 interface RetrofitService {
 
-    @POST("77hunshe")
+    @POST("service")
     fun getData(@Query("json") json: String): Single<String>
 
     @GET("福利/10/1")

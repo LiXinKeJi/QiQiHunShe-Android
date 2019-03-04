@@ -1,13 +1,11 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
 import android.databinding.ObservableField
-import com.lxkj.qiqihunshe.app.base.BaseModel
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
-import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.retrofitnet.*
 import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivitySigninBinding
 import io.reactivex.Single
 
@@ -22,11 +20,11 @@ class SignInViewModel(val retrofit: RetrofitService) : BaseViewModel() {
 
 
     fun sginIn(json: String): Single<String> =
-        retrofit.getArticleDetail()
+        retrofit.getData(json)
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface<SignInModel> {
                 override fun onSuccess(response: SignInModel) {
-
+                    ToastUtil.showToast(Gson().toJson(response))
                 }
             }, activity!!))
 
