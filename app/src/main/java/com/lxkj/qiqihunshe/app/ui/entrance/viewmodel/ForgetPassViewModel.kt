@@ -13,7 +13,7 @@ import io.reactivex.Single
 /**
  * Created by Slingge on 2019/2/16
  */
-class ForgetPassViewModel(val retrofit: RetrofitService) : BaseViewModel() {
+class ForgetPassViewModel : BaseViewModel() {
 
 
     var bind: ActivityForgetPassBinding? = null
@@ -33,9 +33,13 @@ class ForgetPassViewModel(val retrofit: RetrofitService) : BaseViewModel() {
                 }
             }, activity))
 
-/*
-    fun afe(json: String): Single<String> =
-            retrofit*/
+    fun ForgetPass(json: String): Single<String> =
+        retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    ToastUtil.showTopSnackBar(activity, "密码设置成功")
+                }
+            }, activity))
 
 
 }

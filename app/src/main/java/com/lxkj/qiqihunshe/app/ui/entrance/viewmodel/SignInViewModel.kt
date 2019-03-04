@@ -6,6 +6,7 @@ import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.*
 import com.lxkj.qiqihunshe.app.ui.MainActivity
+import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
 import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
@@ -15,7 +16,7 @@ import io.reactivex.Single
 /**
  * Created by Slingge on 2019/2/16
  */
-class SignInViewModel(val retrofit: RetrofitService) : BaseViewModel() {
+class SignInViewModel : BaseViewModel() {
 
     val headerUrl = ObservableField<String>()
 
@@ -31,7 +32,11 @@ class SignInViewModel(val retrofit: RetrofitService) : BaseViewModel() {
                     val model = Gson().fromJson(response, SignInModel::class.java)
                     StaticUtil.uid = model.uid
                     StaticUtil.fill = model.fill
-                    MyApplication.openActivity(activity, MainActivity::class.java)
+                    if (model.fill == "0") {
+                        MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java)
+                    } else {
+                        MyApplication.openActivity(activity, MainActivity::class.java)
+                    }
                     activity?.finish()
                 }
             }, activity))

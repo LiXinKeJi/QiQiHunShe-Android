@@ -23,7 +23,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
 
 
     override fun getBaseViewModel() =
-        RegisterViewModel(RetrofitUtil.getRetrofitApi().create(RetrofitService::class.java))
+        RegisterViewModel( )
 
     override fun getLayoutId() = R.layout.activity_register
 

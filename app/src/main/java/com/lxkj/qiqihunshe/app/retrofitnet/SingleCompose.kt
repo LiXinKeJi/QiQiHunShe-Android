@@ -49,7 +49,11 @@ object SingleCompose {
 
 
 
-    fun <T> compose(context: Activity?): SingleTransformer<T, T> {
+
+
+
+
+    fun <T> compose(context: Activity?): SingleTransformer<String, String> {
         return return SingleTransformer { upstream ->
             upstream.doOnSubscribe {
                 //                ToastUtil.showToast("开始")
