@@ -59,7 +59,7 @@ object ToastUtil {
         Sneaker.with(activity!!) // Activity, Fragment or ViewGroup
                 .setTitle(msg, R.color.white) // Title and title color
 //                .setMessage(msg, R.color.white) // Message and message color
-                .setDuration(1500) // Time duration to show
+                .setDuration(2000) // Time duration to show
                 .autoHide(true) // Auto hide Sneaker view
                 .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT) // Height of the Sneaker layout
 //                .setIcon(R.drawable.ic_no_connection, R.color.white, false) // Icon, icon tint color and circular icon view

@@ -4,7 +4,7 @@ package com.lxkj.qiqihunshe.app.retrofitnet
 /**
  * Created by Slingge on 2019/1/9
  */
-interface SingleObserverInterface<T> {
+interface SingleObserverInterface {
 
-    fun  onSuccess(response: T)
+    fun  onSuccess(response: String)
 }

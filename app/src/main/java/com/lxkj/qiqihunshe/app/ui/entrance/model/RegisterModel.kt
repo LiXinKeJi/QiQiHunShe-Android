@@ -1,13 +1,13 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.model
 
-import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.lxkj.qiqihunshe.BR
+import com.lxkj.qiqihunshe.app.base.BaseModel
 
 /**
  * Created by Slingge on 2019/2/16
  */
-class RegisterModel : BaseObservable() {
+class RegisterModel : BaseModel() {
 
     @Bindable
     var phone = ""
@@ -20,7 +20,7 @@ class RegisterModel : BaseObservable() {
     @Bindable
     var problem = ""
     @Bindable
-    var answer = ""
+    var answer = ""//答案
 
     //刷新双向绑定数据
      fun notif() {
