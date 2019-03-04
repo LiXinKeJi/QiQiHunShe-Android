@@ -8,6 +8,4 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 class QuYuViewModel: BaseViewModel() {
 
 
-
-
 }
