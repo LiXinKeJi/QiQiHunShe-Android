@@ -21,7 +21,6 @@ object RetrofitUtil {
 
     val upLoad = "http://192.168.3.2:8090/77hunshe/api/uploadFile"
 
-    private val RecyclerUrl = "http://gank.io/api/data/"
     private val providerMap = HashMap<String, NetProvider>()
 
     private var provider: NetProvider? = null
@@ -38,7 +37,14 @@ object RetrofitUtil {
             .cache(cache)
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
+           /* .addInterceptor(loggingInterceptor)
+            .addInterceptor(object : Interceptor {
+                override fun intercept(chain: Interceptor.Chain): Response {
+                    val request = chain.request()
+                    val proceed = chain.proceed(request)
+                    return proceed
+                }
+            })*/
 //            .addInterceptor(NetInterceptor(RequestHandler()))
             .build()
     }

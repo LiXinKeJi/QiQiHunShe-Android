@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 public class AppJsonFileReader {
 
-    private static int fileName[] = {R.raw.city};
+    private static int fileName[] = {R.raw.city, R.raw.nation};
 
     public static String getJsons(Context context, int i) {
         String text = null;
@@ -36,9 +36,6 @@ public class AppJsonFileReader {
         }
         return buffer.toString();
     }
-
-
-
 
 
 }

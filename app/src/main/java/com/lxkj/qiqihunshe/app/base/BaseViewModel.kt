@@ -11,7 +11,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
  */
 open class BaseViewModel : BaseObservable() {
 
-    val retrofit=  RetrofitUtil.getRetrofitApi().create(RetrofitService::class.java)
+    val retrofit by lazy { RetrofitUtil.getRetrofitApi().create(RetrofitService::class.java) }
 
     var activity: Activity? = null
     var fragment: Fragment? = null

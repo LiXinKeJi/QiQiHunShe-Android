@@ -1,11 +1,13 @@
-package com.lxkj.qiqihunshe.app.util
+package com.lxkj.qiqihunshe.app.retrofitnet
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Handler
 import android.os.Message
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
-import com.lxkj.qiqihunshe.app.retrofitnet.*
+import com.lxkj.qiqihunshe.app.util.ThreadUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import okhttp3.*
 import java.io.File
 import java.util.concurrent.TimeUnit

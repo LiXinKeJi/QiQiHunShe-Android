@@ -645,12 +645,14 @@
                               android:textSize="16sp"
                     />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
                               android:id="@+id/tv_hobby"
                               android:layout_alignParentRight="true"
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:drawablePadding="5dp"
                               android:text="请选择"
+                              android:gravity="right"
+                              android:layout_toRightOf="@+id/hobby"
                               android:layout_marginLeft="10dp"
                               android:paddingTop="5dp"
                               android:paddingBottom="5dp"
@@ -866,19 +868,34 @@
                               android:textColor="@color/itemBackground"
                               android:textSize="16sp"
                     />
-
-                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                               android:id="@+id/tv_he_height"
+                              android:text="/cm"
                               android:layout_alignParentRight="true"
-                              android:drawableRight="@drawable/ic_arrar_right"
-                              android:drawablePadding="5dp"
-                              android:text="请选择"
-                              android:layout_marginLeft="10dp"
-                              android:paddingTop="5dp"
-                              android:paddingBottom="5dp"
-                              android:textColor="@color/itemBackground"
-                              android:textSize="15sp"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/colorTabText"
+                              android:textSize="16sp"
                     />
+
+
+                    <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/et_he_height"
+                              android:hint="请输入"
+                              android:layout_toLeftOf="@+id/tv_he_height"
+                              android:gravity="right"
+                              android:drawablePadding="5dp"
+                              android:singleLine="true"
+                              android:text="@={model.height2}"
+                              android:inputType="number"
+                              android:layout_toRightOf="@+id/he_height"
+                              android:layout_marginLeft="10dp"
+                              android:maxLength="3"
+                              android:textSize="15sp"
+                              android:background="@color/white"
+                              android:padding="8dp"
+                    />
+
+
                 </RelativeLayout>
 
                 <include layout="@layout/include_line07"

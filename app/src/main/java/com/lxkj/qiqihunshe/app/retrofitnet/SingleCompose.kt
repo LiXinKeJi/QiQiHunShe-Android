@@ -9,6 +9,7 @@ import com.lxkj.qiqihunshe.app.util.abLog
 import io.reactivex.SingleTransformer
 import org.json.JSONObject
 import com.lxkj.qiqihunshe.app.util.GenericsUtils
+import kotlin.contracts.ReturnsNotNull
 
 
 /**
@@ -28,7 +29,7 @@ object SingleCompose {
                 //                ToastUtil.showToast("结束")
                 ProgressDialogUtil.dismissDialog()
             }.doOnSuccess { t: String? ->
-                abLog.e("返回数据", t!!)
+                abLog.e(context!!.localClassName + "返回数据", t!!)
                 val obj = JSONObject(t)
                 if (obj.getString("result") == "0") {
                     val type = GenericsUtils.getSuperClassGenricType(Account::class.java, 0)
@@ -42,15 +43,11 @@ object SingleCompose {
                         ToastUtil.showTopSnackBar(context, "网络错误")
                     })
                 } catch (e: Exception) {
+                    abLog.e("连接服务器失败", e.toString())
                 }
             }
         }
     }
-
-
-
-
-
 
 
     fun <T> compose(context: Activity?): SingleTransformer<String, String> {

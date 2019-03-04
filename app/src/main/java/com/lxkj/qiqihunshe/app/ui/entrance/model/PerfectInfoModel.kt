@@ -44,8 +44,8 @@ class PerfectInfoModel : BaseModel() {
     var zeou = ""//择偶开关 0关 1开
 
     var type2 = ""//他的类型
-    var birthplace2 = ""
-    var residence2 = ""
+    var birthplace2 = ""//他的家乡
+    var residence2 = ""//他的现居地
     var height2 = ""
     var marriage2 = ""//他的情感状态 0未婚 1已婚 2离异
     var salary2 = ""//他的薪资
