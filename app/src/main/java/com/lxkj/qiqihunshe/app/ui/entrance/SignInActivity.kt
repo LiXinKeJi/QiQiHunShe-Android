@@ -4,6 +4,9 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.MainActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.SignInViewModel
@@ -17,7 +20,7 @@ import kotlinx.android.synthetic.main.include_title.*
  */
 class SignInActivity : BaseActivity<ActivitySigninBinding, SignInViewModel>(), View.OnClickListener {
 
-    override fun getBaseViewModel() = SignInViewModel()
+    override fun getBaseViewModel() = SignInViewModel(RetrofitUtil.getRetrofitApi().create(RetrofitService::class.java))
 
     override fun getLayoutId() = R.layout.activity_signin
 
@@ -49,7 +52,10 @@ class SignInActivity : BaseActivity<ActivitySigninBinding, SignInViewModel>(), V
                 MyApplication.openActivity(this, RegisterActivity::class.java)
             }
             R.id.tv_sginin -> {
-              MyApplication.openActivity(this,MainActivity::class.java)
+
+                viewModel!!.sginIn("").bindLifeCycle(this).subscribe()
+
+//                MyApplication.openActivity(this, MainActivity::class.java)
             }
         }
     }

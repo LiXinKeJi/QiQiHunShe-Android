@@ -11,4 +11,5 @@ open class BaseModel :BaseObservable(){
     var resultNote = ""
 
 
+
 }

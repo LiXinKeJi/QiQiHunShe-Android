@@ -148,6 +148,12 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.QiQiBlackListActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.UploadCertificatesActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.QuestionsAuthenActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.PermissionBuyActivity"
+                  android:screenOrientation="portrait"/>
 
         <!--////////////////////////////////首页\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
         <activity android:name=".app.ui.shouye.activity.MatchingActivity"
