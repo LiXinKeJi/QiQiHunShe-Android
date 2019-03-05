@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.Gravity
@@ -17,6 +16,8 @@ import com.lxkj.qiqihunshe.app.ui.entrance.MyTypeActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.model.PerfectInfoModel
 import com.lxkj.qiqihunshe.app.ui.model.CityModel
 import com.lxkj.qiqihunshe.app.util.AppJsonFileReader
+import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityPerfectInfoBinding
 
 /**
@@ -78,6 +79,7 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
     //flag 0我的家乡，1我的现居，2他的家乡，3他的现居
     fun showAddress(flag: Int) {
         this.flag = flag
+        ToastUtil.showToast(flag.toString())
         if (cityList.isEmpty()) {
             cityList = Gson().fromJson(AppJsonFileReader.getJsons(activity, 0), object : TypeToken<List<CityModel>>() {
             }.type)
@@ -99,38 +101,40 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
                 bind?.tvBirthday?.text = model.birthday
             }
         }
-
     }
 
 
     //家乡
     override fun position(position1: Int, position2: Int, position3: Int) {
-        when (type) {
-            0 -> {
+        when (flag) {
+            0 -> {//我的家乡
                 model.birthplace = cityList[position1].areaName +
                         cityList[position1].cities!![position2].areaName +
                         cityList[position1].cities!![position2].counties!![position3].areaName
                 bind?.tvHometown?.text = model.birthplace
             }
-            1 -> {
+            1 -> {//我的现居
                 model.residence = cityList[position1].areaName +
                         cityList[position1].cities!![position2].areaName +
                         cityList[position1].cities!![position2].counties!![position3].areaName
-                bind?.tvResidence?.text = model.birthplace
+                bind?.tvResidence?.text = model.residence
             }
-            2 -> {
+            2 -> {//他的家乡
                 model.birthplace2 = cityList[position1].areaName +
                         cityList[position1].cities!![position2].areaName +
                         cityList[position1].cities!![position2].counties!![position3].areaName
-                bind?.tvHeHometown?.text = model.birthplace
+                bind!!.tvHeHometown.text = model.birthplace
+                abLog.e("家乡", model.birthplace2)
             }
-            3 -> {
+            3 -> {//他的现居
                 model.residence2 = cityList[position1].areaName +
                         cityList[position1].cities!![position2].areaName +
                         cityList[position1].cities!![position2].counties!![position3].areaName
-                bind?.tvHeResidence?.text = model.birthplace
+                bind!!.tvHeResidence.text = model.birthplace
+                abLog.e("现居", model.residence2)
             }
         }
+
     }
 
     //民族
@@ -147,7 +151,7 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
     //民族,学历,情感状态
     override fun position(position1: Int) {
         when (SelectString) {
-            0 -> {
+            0 -> {//民族
                 model.nation = nationList!![position1]
                 bind?.tvNation?.text = model.nation
             }
@@ -254,9 +258,9 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
     }
 
     fun showStringWheel(list: ArrayList<String>) {
-        if (stringPop == null) {
-            stringPop = StringSelectPop(activity, list, this)
-        }
+
+        stringPop = StringSelectPop(activity, list, this)
+
         if (!stringPop!!.isShowing) {
             stringPop!!.showAtLocation(bind?.llMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
         }

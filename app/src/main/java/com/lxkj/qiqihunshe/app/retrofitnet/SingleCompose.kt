@@ -9,7 +9,6 @@ import com.lxkj.qiqihunshe.app.util.abLog
 import io.reactivex.SingleTransformer
 import org.json.JSONObject
 import com.lxkj.qiqihunshe.app.util.GenericsUtils
-import kotlin.contracts.ReturnsNotNull
 
 
 /**
@@ -39,9 +38,7 @@ object SingleCompose {
                 }
             }.doOnError {
                 try {
-                    ThreadUtil.runOnMainThread(Runnable {
-                        ToastUtil.showTopSnackBar(context, "网络错误")
-                    })
+                    ToastUtil.showTopSnackBar(context, "网络错误")
                 } catch (e: Exception) {
                     abLog.e("连接服务器失败", e.toString())
                 }

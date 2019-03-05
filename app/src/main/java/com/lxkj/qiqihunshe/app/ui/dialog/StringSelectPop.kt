@@ -26,6 +26,7 @@ class StringSelectPop(val context: Context?, val list:ArrayList<String>, var whe
     }
 
 
+
     init {
 
         val v = LayoutInflater.from(context).inflate(R.layout.popup_date, null)
@@ -46,8 +47,6 @@ class StringSelectPop(val context: Context?, val list:ArrayList<String>, var whe
         loopview.setNotLoop()
         loopview.setItems(list)
         loopview.setInitPosition(0)
-
-
 
         loopview.setListener { index ->
             position = index

@@ -10,6 +10,8 @@ import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.lxkj.qiqihunshe.app.retrofitnet.BaseNetProvider;
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
 import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -54,6 +56,8 @@ public class MyApplication extends MultiDexApplication {
         uId = SharedPreferencesUtil.getSharePreStr(CONTEXT, "uid");
 
         Logger.addLogAdapter(new AndroidLogAdapter());
+
+        RetrofitUtil.INSTANCE.registerProvider(new BaseNetProvider(CONTEXT));
 
         initTBS();
 
@@ -152,7 +156,6 @@ public class MyApplication extends MultiDexApplication {
                                              Class<?> targetClass, int requestCode) {
         openActivityForResult(activity, targetClass, null, requestCode);
     }
-
 
 
     public static void setRedNum(BGABadgeTextView badgeTextView, int MsgNum) {

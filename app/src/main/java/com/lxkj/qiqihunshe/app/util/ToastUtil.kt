@@ -22,12 +22,14 @@ object ToastUtil {
 
     private var mToast: Toast? = null
 
-    fun showToast(text: String) {
-        if (mToast == null) {
-            mToast = Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT)
+    fun showToast(text: String?) {
+        text?.let {
+            if (mToast == null) {
+                mToast = Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT)
+            }
+            mToast!!.setText(text)
+            mToast!!.show()
         }
-        mToast!!.setText(text)
-        mToast!!.show()
     }
 
 

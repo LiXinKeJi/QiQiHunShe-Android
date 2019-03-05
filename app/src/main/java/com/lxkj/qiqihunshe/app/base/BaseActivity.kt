@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.dispatchFailure
 import com.lxkj.qiqihunshe.app.util.AppManager
+import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
 import com.lxkj.qiqihunshe.app.util.StatusBarBlackWordUtil
 import com.lxkj.qiqihunshe.app.util.StatusBarUtil
 import kotlinx.android.synthetic.main.include_title.*
@@ -26,7 +28,7 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     protected abstract fun init()
     protected open fun loadData() {}
 
-       var isWhiteStatusBar = true
+    var isWhiteStatusBar = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +68,13 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
             StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.white))
             StatusBarBlackWordUtil.StatusBarLightMode(this)
         }
+    }
+
+
+    //网络异常捕捉
+    fun toastFailure(error: Throwable?) {
+        ProgressDialogUtil.dismissDialog()
+        dispatchFailure(this, error)
     }
 
 

@@ -51,7 +51,7 @@ class UpFileUtil(val activity: Activity, val loadFileCallBack: UpLoadFileCallBac
 
         val file = File(path)
         if (mOkHttpClient == null) {
-            mOkHttpClient = RetrofitUtil.getClient()
+            mOkHttpClient = OkHttpClient()
         }
 
         val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
