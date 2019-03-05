@@ -16,4 +16,8 @@ object StaticUtil {
 
     var fill = ""// 0未完善资料 1已完善资料
 
+    var lat = ""// 当前纬度
+    var lng = ""//当前经度
+    var address = "" //当前位置
+
 }

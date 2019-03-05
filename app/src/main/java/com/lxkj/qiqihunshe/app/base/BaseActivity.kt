@@ -29,6 +29,9 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     protected open fun loadData() {}
 
     var isWhiteStatusBar = true
+    var params = HashMap<String,String>()
+    var lat = ""
+    var lng = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

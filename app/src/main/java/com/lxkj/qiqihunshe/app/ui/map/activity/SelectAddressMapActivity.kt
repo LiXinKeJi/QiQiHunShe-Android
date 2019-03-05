@@ -30,8 +30,6 @@ class SelectAddressMapActivity : BaseActivity<ActivitySelectAddressMapBinding,Se
 
 
 
-    var lat : Double = 0.0
-    var lng : Double = 0.0
     val mMapView by lazy { bmapView.map }
     val mCoder = GeoCoder.newInstance()
 
@@ -42,18 +40,18 @@ class SelectAddressMapActivity : BaseActivity<ActivitySelectAddressMapBinding,Se
     }
     override fun init() {
         initTitle("选择地址")
-        lat = intent.getDoubleExtra("lat",0.0)
-        lng = intent.getDoubleExtra("lng",0.0)
+        lat = intent.getDoubleExtra("lat",0.0).toString()
+        lng = intent.getDoubleExtra("lng",0.0).toString()
 
-        val ll = LatLng(lat,lng)
+        val ll = LatLng(lat.toDouble(),lng.toDouble())
         val builder = MapStatus.Builder()
         builder.target(ll).zoom(15.0f)
         mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
-        val position = LatLng(lat, lng)
+        val position = LatLng(lat.toDouble(), lng.toDouble())
 
         addOverlay(position)
-        addOverlay( LatLng(lat + 0.01, lng -0.01))
-        addOverlay( LatLng(lat - 0.01, lng + 0.01))
+        addOverlay( LatLng(lat.toDouble() + 0.01, lng.toDouble() -0.01))
+        addOverlay( LatLng(lat.toDouble() - 0.01, lng.toDouble() + 0.01))
 
         //设置地图单击事件监听
         mMapView.setOnMapClickListener(this)

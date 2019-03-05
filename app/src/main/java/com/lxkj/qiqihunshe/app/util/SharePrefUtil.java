@@ -1,4 +1,4 @@
-package com.lxkj.fangfuquan.utils;
+package com.lxkj.qiqihunshe.app.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

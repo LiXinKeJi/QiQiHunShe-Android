@@ -24,6 +24,8 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     protected abstract fun getBaseViewModel(): VM
     var viewModel: VM? = null
 
+    var params = HashMap<String,String>()
+
     abstract fun getLayoutId(): Int
     protected abstract fun init()
 

@@ -1,4 +1,4 @@
-package com.lxkj.fangfuquan.utils;
+package com.lxkj.qiqihunshe.app.util;
 
 /**
  * Created by kxn on 2017/4/27.

@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.layout_infowindow_fwqy.view.*
  * Created by kxn on 2019/3/1 0001.
  */
 class FwqyActivity : BaseActivity<ActivityFwqyBinding,FwqyViewModel>(){
-    var lat : Double = 0.0
-    var lng : Double = 0.0
     val mMapView by lazy { bmapView.map }
 
     override fun getBaseViewModel(): FwqyViewModel = FwqyViewModel()
@@ -29,18 +27,18 @@ class FwqyActivity : BaseActivity<ActivityFwqyBinding,FwqyViewModel>(){
 
     override fun init() {
         initTitle("商都世贸中心D座")
-        lat = intent.getDoubleExtra("lat",0.0)
-        lng = intent.getDoubleExtra("lng",0.0)
+        lat = intent.getDoubleExtra("lat",0.0).toString()
+        lng = intent.getDoubleExtra("lng",0.0).toString()
 
-        val ll = LatLng(lat,lng)
+        val ll = LatLng(lat.toDouble(),lng.toDouble())
         val builder = MapStatus.Builder()
         builder.target(ll).zoom(15.0f)
         mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
-        val position = LatLng(lat, lng)
+        val position = LatLng(lat.toDouble(), lng.toDouble())
 
         addOverlay(position)
-        addOverlay( LatLng(lat + 0.01, lng -0.01))
-        addOverlay( LatLng(lat - 0.01, lng + 0.01))
+        addOverlay( LatLng(lat.toDouble() + 0.01, lng.toDouble() -0.01))
+        addOverlay( LatLng(lat.toDouble() - 0.01, lng.toDouble() + 0.01))
     }
 
     fun addOverlay(point: LatLng) {

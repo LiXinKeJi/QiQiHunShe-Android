@@ -42,7 +42,7 @@
 
         </LinearLayout>
         <View android:layout_width="match_parent" android:layout_height="1px"
-        android:background="@color/line"/>
+              android:background="@color/line"/>
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,6 +54,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_location_red"
+                    android:layout_gravity="center"/>
+
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -145,7 +152,7 @@
                                     android:id="@+id/tv_time"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="到场时间：01月25日  10:30"
+                                    android:text="到场时间：暂无到场时间"
                                     android:textColor="#ff333333"
                                     android:textSize="17sp"
                             />
@@ -189,6 +196,7 @@
                         </LinearLayout>
 
                         <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                                android:id="@+id/headOfficeIv"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:src="@mipmap/ic_head"

@@ -22,8 +22,6 @@ import com.lxkj.qiqihunshe.app.MyApplication
  */
 class DdtjActivity : BaseActivity<ActivityDdtjBinding,DdtjViewModel>() {
 
-    var lat: Double = 0.0
-    var lng: Double = 0.0
     val mMapView by lazy { bmapView.map }
 
     override fun getBaseViewModel(): DdtjViewModel = DdtjViewModel()
@@ -34,21 +32,21 @@ class DdtjActivity : BaseActivity<ActivityDdtjBinding,DdtjViewModel>() {
 
     override fun init() {
         initTitle("地点推荐")
-        lat = intent.getDoubleExtra("lat", 0.0)
-        lng = intent.getDoubleExtra("lng", 0.0)
+        lat = intent.getDoubleExtra("lat", 0.0).toString()
+        lng = intent.getDoubleExtra("lng", 0.0).toString()
 
-        val ll = LatLng(lat, lng)
+        val ll = LatLng(lat.toDouble(), lng.toDouble())
         val builder = MapStatus.Builder()
         builder.target(ll).zoom(15.0f)
         mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
 
-        val position = LatLng(lat, lng)
+        val position = LatLng(lat.toDouble(), lng.toDouble())
 
         //构建Marker图标
         val des = BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_red)
         //构建MarkerOption，用于在地图上添加Marker
         val option = MarkerOptions()
-            .position(LatLng(lat, lng))
+            .position(position)
             .icon(des)
         //在地图上添加Marker，并显示
 
@@ -64,8 +62,8 @@ class DdtjActivity : BaseActivity<ActivityDdtjBinding,DdtjViewModel>() {
 
 
 
-        addOverlay(LatLng(lat + 0.01, lng - 0.01))
-        addOverlay(LatLng(lat - 0.01, lng + 0.01))
+        addOverlay(LatLng(lat.toDouble() + 0.01, lng.toDouble() - 0.01))
+        addOverlay(LatLng(lat.toDouble() - 0.01, lng.toDouble() + 0.01))
 
 
     }
