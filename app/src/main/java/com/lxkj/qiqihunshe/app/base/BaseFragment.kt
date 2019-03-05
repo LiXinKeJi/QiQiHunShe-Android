@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.dispatchFailure
 
 /**
  * Created by Slingge on 2017/4/21 0021.
@@ -26,7 +27,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     abstract fun getLayoutId(): Int
     protected abstract fun init()
 
-      var one=false//默认只加载一次，true每次进入页面都加载
+    var one = false//默认只加载一次，true每次进入页面都加载
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(layoutInflater, getLayoutId(), null, false)
@@ -67,6 +68,12 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     companion object {
 
         var refreshData: Boolean = false
+    }
+
+
+    //网络异常捕捉
+    fun toastFailure(error: Throwable?) {
+        dispatchFailure(this.activity!!, error)
     }
 
 

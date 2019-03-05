@@ -9,6 +9,7 @@ import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.dispatchFailure
 import com.lxkj.qiqihunshe.app.ui.MainActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.SignInViewModel
@@ -73,7 +74,8 @@ class SignInActivity : BaseActivity<ActivitySigninBinding, SignInViewModel>(), V
                         sginModel.pass
                     ) +
                             "\",\"token\":\"" + "" + "\"}"
-                viewModel!!.sginIn(json).bindLifeCycle(this).subscribe()
+                viewModel!!.sginIn(json).bindLifeCycle(this)
+                    .subscribe({}, { toastFailure(it) })
             }
         }
     }

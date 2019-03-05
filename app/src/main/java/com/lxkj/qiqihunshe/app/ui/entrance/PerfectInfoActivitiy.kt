@@ -63,17 +63,7 @@ class PerfectInfoActivitiy :
             binding.model = it.model
         }
 
-        sw_mate.setOnStateChangedListener(object : SwitchView.OnStateChangedListener {
-            override fun toggleToOff(view: SwitchView?) {
-                ToastUtil.showTopSnackBar(this@PerfectInfoActivitiy, "关")
-                viewModel!!.model.zeou = "0"
-            }
 
-            override fun toggleToOn(view: SwitchView?) {
-                ToastUtil.showTopSnackBar(this@PerfectInfoActivitiy, "开")
-                viewModel!!.model.zeou = "1"
-            }
-        })
         rg_sex.setOnCheckedChangeListener(this)
         rl_birthday.setOnClickListener(this)
         rl_hometown.setOnClickListener(this)
@@ -103,10 +93,10 @@ class PerfectInfoActivitiy :
             R.id.rl_birthday -> {
                 viewModel?.showDate(0)
             }
-            R.id.rl_hometown -> {
+            R.id.rl_hometown -> {//我的家乡
                 viewModel?.showAddress(0)
             }
-            R.id.rl_residence -> {
+            R.id.rl_residence -> {//我的现居
                 viewModel?.showAddress(1)
             }
             R.id.tv_nation -> {//民族
@@ -167,6 +157,7 @@ class PerfectInfoActivitiy :
                 }
             }
             R.id.tv_right -> {
+                ToastUtil.showToast(sw_mate.isOpened.toString())
                 viewModel?.model?.noti()
                 if (ImageList.isEmpty()) {
                     ToastUtil.showTopSnackBar(this, "请选择头像")
@@ -187,7 +178,7 @@ class PerfectInfoActivitiy :
                     return
                 }
 
-                if (TextUtils.isEmpty(viewModel?.model?.marriage)) {
+                if (TextUtils.isEmpty(viewModel?.model?.sex)) {
                     ToastUtil.showTopSnackBar(this, "请选择性别")
                     return
                 }
@@ -260,12 +251,12 @@ class PerfectInfoActivitiy :
 
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-        when (group?.id) {
+        when (checkedId) {
             R.id.rb_boy -> {
-                viewModel?.model?.marriage = "1"
+                viewModel!!.model.sex = "1"
             }
             R.id.rb_girl -> {
-                viewModel?.model?.marriage = "0"
+                viewModel!!.model.sex = "0"
             }
         }
     }

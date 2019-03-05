@@ -18,7 +18,7 @@ class GetTagUtil(val activity: Activity, val tagListCallback: TagListCallback) {
         fun TagList(tagList: ArrayList<String>)
     }
 
-    val retrofit by lazy { RetrofitUtil.getRetrofitApi().create(RetrofitService::class.java) }
+    val retrofit by lazy { RetrofitUtil.getRetrofit().create(RetrofitService::class.java) }
 
     //type 1情感计划 2我的类型 3兴趣爱好 4地点标签 5薪资范围 6车辆价格 7房屋面积 8学历 9实名认证问题
     //sex 0女 1男

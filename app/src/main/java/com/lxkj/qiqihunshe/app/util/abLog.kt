@@ -10,10 +10,10 @@ import com.orhanobut.logger.Logger
 
 object abLog {
 
-    var E: Boolean? = true
+    var E: Boolean = true
 
     fun e(tag: String, text: String) {
-        if (E!!) {
+        if (E) {
             if (text.length > 4000) {
                 var count = 0
                 var i = 0
@@ -33,7 +33,7 @@ object abLog {
     }
 
     fun e2(text: String) {
-        if (E!!) {
+        if (E) {
             if (text.length > 4000) {
                 var count = 0
                 var i = 0
