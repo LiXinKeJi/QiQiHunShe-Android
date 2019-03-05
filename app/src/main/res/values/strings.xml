@@ -9,6 +9,13 @@
         <item>牵手</item>
     </array>
 
+    <array name="emotional">
+        <item>未婚</item>
+        <item>已婚</item>
+        <item>离异</item>
+    </array>
+
+
 
     <array name="report">
         <item>宣传信息</item>

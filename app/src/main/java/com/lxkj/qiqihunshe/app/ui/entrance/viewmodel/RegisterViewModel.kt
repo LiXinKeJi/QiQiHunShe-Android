@@ -16,7 +16,7 @@ import io.reactivex.Single
 /**
  * Created by Slingge on 2019/2/16
  */
-class RegisterViewModel(val retrofit: RetrofitService) : BaseViewModel() {
+class RegisterViewModel  : BaseViewModel() {
 
 
     var bind: ActivityRegisterBinding? = null

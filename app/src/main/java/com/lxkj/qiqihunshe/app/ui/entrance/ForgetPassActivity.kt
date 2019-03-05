@@ -6,8 +6,10 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.entrance.model.ForgetPassModel
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.ForgetPassViewModel
+import com.lxkj.qiqihunshe.app.util.Md5Util
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityForgetPassBinding
 import kotlinx.android.synthetic.main.activity_forget_pass.*
@@ -18,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_forget_pass.*
 class ForgetPassActivity : BaseActivity<ActivityForgetPassBinding, ForgetPassViewModel>(), View.OnClickListener {
 
     override fun getBaseViewModel() =
-        ForgetPassViewModel(RetrofitUtil.getRetrofitApi().create(RetrofitService::class.java))
+        ForgetPassViewModel ()
 
     override fun getLayoutId() = R.layout.activity_forget_pass
 
@@ -72,7 +74,10 @@ class ForgetPassActivity : BaseActivity<ActivityForgetPassBinding, ForgetPassVie
                     return
                 }
 
-
+                val json = "{\"cmd\":\"forgotPassword\",\"phone\":\"" + model.phone +
+                        "\",\"password\":\"" + Md5Util.md5Encode(model.pass) +
+                        "\",\"validate\":\"" + model.code + "\"}"
+                viewModel!!.ForgetPass(json).bindLifeCycle(this).subscribe()
             }
         }
     }

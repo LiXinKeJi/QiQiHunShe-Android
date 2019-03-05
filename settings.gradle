@@ -1,1 +1,1 @@
-include ':app', ':sneaker', ':floatingActionButton', ':likeornot', ':jiaozivideoplayer', ':bgABadgeView'
+include ':app', ':sneaker', ':floatingActionButton', ':likeornot', ':jiaozivideoplayer', ':bgABadgeView', ':loopview'

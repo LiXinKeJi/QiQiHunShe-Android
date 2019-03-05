@@ -9,6 +9,7 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:fitsSystemWindows="true"
+                  android:id="@+id/ll_main"
     >
 
         <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
@@ -94,6 +95,7 @@
                               android:layout_toRightOf="@+id/nickname"
                               android:gravity="right"
                               android:textSize="15sp"
+                              android:text="@={model.nickname}"
                               android:singleLine="true"
                               android:maxLength="12"
                               android:drawablePadding="5dp"
@@ -137,6 +139,7 @@
                               android:drawablePadding="5dp"
                               android:textSize="15sp"
                               android:singleLine="true"
+                              android:text="@={model.introduction}"
                               android:maxLength="30"
                               android:drawableRight="@drawable/ic_edit"
                               android:layout_alignParentRight="true"
@@ -173,6 +176,7 @@
                               android:gravity="right"
                               android:singleLine="true"
                               android:maxLength="5"
+                              android:text="@={model.realname}"
                               android:drawablePadding="5dp"
                               android:textSize="15sp"
                               android:drawableRight="@drawable/ic_edit"
@@ -252,10 +256,11 @@
 
                     <TextView android:layout_width="match_parent" android:layout_height="match_parent"
                               android:id="@+id/tv_birthday"
-                              android:text=""
                               android:layout_toRightOf="@+id/birthday"
                               android:layout_marginLeft="10dp"
                               android:paddingTop="5dp"
+                              android:drawableRight="@drawable/ic_rili"
+                              android:drawablePadding="5dp"
                               android:paddingBottom="5dp"
                               android:textColor="@color/itemBackground"
                               android:textSize="15sp"
@@ -302,6 +307,7 @@
                               android:gravity="right"
                               android:drawablePadding="5dp"
                               android:singleLine="true"
+                              android:text="@={model.height}"
                               android:inputType="number"
                               android:layout_toRightOf="@+id/height"
                               android:layout_marginLeft="10dp"
@@ -457,6 +463,7 @@
                               android:drawablePadding="5dp"
                               android:singleLine="true"
                               android:inputType="number"
+                              android:text="@={model.job}"
                               android:layout_toRightOf="@+id/occupation"
                               android:layout_marginLeft="10dp"
                               android:maxLength="9"
@@ -466,6 +473,43 @@
                               android:padding="8dp"
                     />
 
+                </RelativeLayout>
+
+                <include layout="@layout/include_line07"
+                         android:paddingLeft="12dp"
+                         android:paddingRight="12dp"
+                />
+
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="10dp"
+                                android:background="@drawable/touch_bg"
+                                android:id="@+id/rl_education"
+                                android:paddingBottom="10dp"
+                >
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/education"
+                              android:text="学历"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="16sp"
+                    />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                              android:id="@+id/tv_education"
+                              android:layout_alignParentRight="true"
+                              android:drawableRight="@drawable/ic_arrar_right"
+                              android:drawablePadding="5dp"
+                              android:text="请选择"
+                              android:layout_marginLeft="10dp"
+                              android:paddingTop="5dp"
+                              android:paddingBottom="5dp"
+                              android:textColor="@color/itemBackground"
+                              android:textSize="15sp"
+                    />
                 </RelativeLayout>
 
                 <include layout="@layout/include_line10"/>
@@ -601,12 +645,14 @@
                               android:textSize="16sp"
                     />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
                               android:id="@+id/tv_hobby"
                               android:layout_alignParentRight="true"
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:drawablePadding="5dp"
                               android:text="请选择"
+                              android:gravity="right"
+                              android:layout_toRightOf="@+id/hobby"
                               android:layout_marginLeft="10dp"
                               android:paddingTop="5dp"
                               android:paddingBottom="5dp"
@@ -683,12 +729,12 @@
                               android:layout_marginRight="6dp"
                     />
 
-                    <com.lxkj.qiqihunshe.app.customview.SwitchView android:layout_width="wrap_content"
-                                                                   android:layout_height="30dp"
-                                                                   android:layout_alignParentRight="true"
-                                                                   android:layout_marginRight="10dp"
-                                                                   android:id="@+id/sw_mate"
-
+                    <com.lxkj.qiqihunshe.app.customview.SwitchView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:id="@+id/sw_mate"
                     />
 
                 </RelativeLayout>
@@ -822,19 +868,34 @@
                               android:textColor="@color/itemBackground"
                               android:textSize="16sp"
                     />
-
-                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                               android:id="@+id/tv_he_height"
+                              android:text="/cm"
                               android:layout_alignParentRight="true"
-                              android:drawableRight="@drawable/ic_arrar_right"
-                              android:drawablePadding="5dp"
-                              android:text="请选择"
-                              android:layout_marginLeft="10dp"
-                              android:paddingTop="5dp"
-                              android:paddingBottom="5dp"
-                              android:textColor="@color/itemBackground"
-                              android:textSize="15sp"
+                              android:layout_centerVertical="true"
+                              android:textColor="@color/colorTabText"
+                              android:textSize="16sp"
                     />
+
+
+                    <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/et_he_height"
+                              android:hint="请输入"
+                              android:layout_toLeftOf="@+id/tv_he_height"
+                              android:gravity="right"
+                              android:drawablePadding="5dp"
+                              android:singleLine="true"
+                              android:text="@={model.height2}"
+                              android:inputType="number"
+                              android:layout_toRightOf="@+id/he_height"
+                              android:layout_marginLeft="10dp"
+                              android:maxLength="3"
+                              android:textSize="15sp"
+                              android:background="@color/white"
+                              android:padding="8dp"
+                    />
+
+
                 </RelativeLayout>
 
                 <include layout="@layout/include_line07"

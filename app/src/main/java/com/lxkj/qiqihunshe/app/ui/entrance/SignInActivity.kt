@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.include_title.*
  */
 class SignInActivity : BaseActivity<ActivitySigninBinding, SignInViewModel>(), View.OnClickListener {
 
-    override fun getBaseViewModel() = SignInViewModel(RetrofitUtil.getRetrofitApi().create(RetrofitService::class.java))
+    override fun getBaseViewModel() = SignInViewModel()
 
     override fun getLayoutId() = R.layout.activity_signin
 

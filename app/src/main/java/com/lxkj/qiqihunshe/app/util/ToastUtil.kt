@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 
 import android.graphics.Typeface
+import android.support.v4.app.Fragment
 import android.view.ViewGroup
 import com.irozon.sneaker.Sneaker
 import com.lxkj.qiqihunshe.R
@@ -46,7 +47,8 @@ object ToastUtil {
      *  setActionTextColor(ColorStateList colors)
      * */
     fun showSnackBar(view: View, title: String, onClick: View.OnClickListener) {
-        Snackbar.make(view, title, Snackbar.LENGTH_SHORT).setAction("隐藏", onClick
+        Snackbar.make(view, title, Snackbar.LENGTH_SHORT).setAction(
+            "隐藏", onClick
         ).setDuration(Snackbar.LENGTH_INDEFINITE).show()
     }
 
@@ -55,19 +57,49 @@ object ToastUtil {
     }
 
 
-    fun showTopSnackBar(activity: Activity?,msg:String){
-        Sneaker.with(activity!!) // Activity, Fragment or ViewGroup
-                .setTitle(msg, R.color.white) // Title and title color
+    fun showTopSnackBar(activity: Activity?, msg: String?) {
+        msg?.let {
+            Sneaker.with(activity!!) // Activity, Fragment or ViewGroup
+                .setTitle(it, R.color.white) // Title and title color
 //                .setMessage(msg, R.color.white) // Message and message color
                 .setDuration(2000) // Time duration to show
                 .autoHide(true) // Auto hide Sneaker view
                 .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT) // Height of the Sneaker layout
 //                .setIcon(R.drawable.ic_no_connection, R.color.white, false) // Icon, icon tint color and circular icon view
-                .setTypeface(Typeface.createFromAsset(activity.assets, "font/RobotoCondensed-Regular.ttf")) // Custom font for title and message
+                .setTypeface(
+                    Typeface.createFromAsset(
+                        activity.assets,
+                        "font/RobotoCondensed-Regular.ttf"
+                    )
+                ) // Custom font for title and message
 //                .setOnSneakerClickListener(this) // Click listener for Sneaker
 //                .setOnSneakerDismissListener(this) // Dismiss listener for Sneaker. - Version 1.0.2
                 .setCornerRadius(4, 1) // Radius and margin for round corner Sneaker. - Version 1.0.2
                 .sneak(R.color.colorPrimaryDark) // Sneak with background color
+        }
+    }
+
+
+    fun showTopSnackBar(activity: Fragment?, msg: String?) {
+        msg?.let {
+            Sneaker.with(activity!!) // Activity, Fragment or ViewGroup
+                .setTitle(it, R.color.white) // Title and title color
+//                .setMessage(msg, R.color.white) // Message and message color
+                .setDuration(2000) // Time duration to show
+                .autoHide(true) // Auto hide Sneaker view
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT) // Height of the Sneaker layout
+//                .setIcon(R.drawable.ic_no_connection, R.color.white, false) // Icon, icon tint color and circular icon view
+                .setTypeface(
+                    Typeface.createFromAsset(
+                        activity.activity!!.assets,
+                        "font/RobotoCondensed-Regular.ttf"
+                    )
+                ) // Custom font for title and message
+//                .setOnSneakerClickListener(this) // Click listener for Sneaker
+//                .setOnSneakerDismissListener(this) // Dismiss listener for Sneaker. - Version 1.0.2
+                .setCornerRadius(4, 1) // Radius and margin for round corner Sneaker. - Version 1.0.2
+                .sneak(R.color.colorPrimaryDark) // Sneak with background color
+        }
     }
 
 
