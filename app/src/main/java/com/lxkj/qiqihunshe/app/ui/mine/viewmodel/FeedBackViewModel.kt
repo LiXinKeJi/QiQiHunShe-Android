@@ -55,7 +55,7 @@ class FeedBackViewModel : BaseViewModel(), TextWatcher {
     fun feedback(json: String): Single<String> = retrofit.getData(json)
         .async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
-                Log.i("sss","response------------------>"+response)
+               // Log.i("sss","response------------------>"+response)
                 var json=JSONObject(response)
                 if(json.getString("result").equals("0")) {
                     ToastUtil.showToast(json.getString("resultNote"))
