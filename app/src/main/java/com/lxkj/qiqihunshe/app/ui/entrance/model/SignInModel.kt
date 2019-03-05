@@ -22,4 +22,7 @@ class SignInModel : BaseModel() {
     }
 
 
+    var uid=""
+    var fill=""// 0未完善资料 1已完善资料
+
 }

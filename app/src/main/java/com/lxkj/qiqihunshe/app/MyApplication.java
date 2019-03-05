@@ -27,7 +27,7 @@ public class MyApplication extends MultiDexApplication {
     public static Context CONTEXT;
 
     //String json = "{\"cmd\":\"getMsg\"" + "}";
-// String json = "{\"cmd\":\"upPrize\",\"prizeId\":\"" + prizeId  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}";
+//    val json = "{\"cmd\":\"upPrize\",\"prizeId\":\"" + prizeId  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}"
 
 
     private static MyApplication myApplication;

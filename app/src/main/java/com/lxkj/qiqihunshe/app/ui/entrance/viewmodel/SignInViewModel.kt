@@ -2,9 +2,12 @@ package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
 import android.databinding.ObservableField
 import com.google.gson.Gson
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.*
+import com.lxkj.qiqihunshe.app.ui.MainActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivitySigninBinding
 import io.reactivex.Single
@@ -22,11 +25,16 @@ class SignInViewModel(val retrofit: RetrofitService) : BaseViewModel() {
     fun sginIn(json: String): Single<String> =
         retrofit.getData(json)
             .async()
-            .compose(SingleCompose.compose(object : SingleObserverInterface<SignInModel> {
-                override fun onSuccess(response: SignInModel) {
-                    ToastUtil.showToast(Gson().toJson(response))
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    ToastUtil.showTopSnackBar(activity, "登录成功")
+                    val model = Gson().fromJson(response, SignInModel::class.java)
+                    StaticUtil.uid = model.uid
+                    StaticUtil.fill = model.fill
+                    MyApplication.openActivity(activity, MainActivity::class.java)
+                    activity?.finish()
                 }
-            }, activity!!))
+            }, activity))
 
 
 }

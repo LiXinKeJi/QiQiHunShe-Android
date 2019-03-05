@@ -1,8 +1,11 @@
 package com.lxkj.qiqihunshe.app.ui.entrance
 
+import android.text.TextUtils
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
 import com.lxkj.qiqihunshe.app.ui.entrance.model.ForgetPassModel
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.ForgetPassViewModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
@@ -14,7 +17,8 @@ import kotlinx.android.synthetic.main.activity_forget_pass.*
  */
 class ForgetPassActivity : BaseActivity<ActivityForgetPassBinding, ForgetPassViewModel>(), View.OnClickListener {
 
-    override fun getBaseViewModel() = ForgetPassViewModel()
+    override fun getBaseViewModel() =
+        ForgetPassViewModel(RetrofitUtil.getRetrofitApi().create(RetrofitService::class.java))
 
     override fun getLayoutId() = R.layout.activity_forget_pass
 
@@ -40,11 +44,35 @@ class ForgetPassActivity : BaseActivity<ActivityForgetPassBinding, ForgetPassVie
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_getCode -> {
-                viewModel?.getCode()
+                viewModel?.let {
+                    model.notif()
+                    if (TextUtils.isEmpty(model.phone)) {
+                        ToastUtil.showTopSnackBar(this, "请输入手机号")
+                        return
+                    }
+                    it.getCode()
+                    it.getcode(model.phone)
+                }
             }
             R.id.tv_enter -> {
                 model.notif()
-                ToastUtil.showTopSnackBar(this, model.code)
+
+                if (TextUtils.isEmpty(model.phone)) {
+                    ToastUtil.showTopSnackBar(this, "请输入手机号")
+                    return
+                }
+
+                if (TextUtils.isEmpty(model.code)) {
+                    ToastUtil.showTopSnackBar(this, "请输入验证码")
+                    return
+                }
+
+                if (TextUtils.isEmpty(model.pass)) {
+                    ToastUtil.showTopSnackBar(this, "请输入密码")
+                    return
+                }
+
+
             }
         }
     }
