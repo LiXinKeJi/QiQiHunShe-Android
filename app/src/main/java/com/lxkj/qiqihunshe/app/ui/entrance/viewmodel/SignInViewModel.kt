@@ -33,7 +33,9 @@ class SignInViewModel : BaseViewModel() {
                     StaticUtil.uid = model.uid
                     StaticUtil.fill = model.fill
                     if (model.fill == "0") {
-                        MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java)
+                        MyApplication.openActivity(activity, MainActivity::class.java)
+
+                       // MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java)
                     } else {
                         MyApplication.openActivity(activity, MainActivity::class.java)
                     }
