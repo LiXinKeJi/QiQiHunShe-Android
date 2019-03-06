@@ -21,7 +21,7 @@ class FeedBackActivity : BaseActivity<ActivityFeedbackBinding, FeedBackViewModel
     private val model by lazy { FeedBackModel() }
 
     override fun init() {
-        initTitle("意见反馈")
+        initTitle("意见反馈0")
 
         tv_enter.setOnClickListener {
             model.noify()
