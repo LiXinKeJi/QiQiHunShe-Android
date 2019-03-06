@@ -9,6 +9,7 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SetUpViewModel
 import com.lxkj.qiqihunshe.app.util.DataCleanManager
@@ -35,6 +36,8 @@ class SetUpActivity : BaseActivity<ActivitySetupBinding, SetUpViewModel>(), View
 
         viewModel?.let {
             binding.viewmodel = it
+            it.bind = binding
+            it.getUpData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
 
         fl_updata.setOnClickListener(this)
@@ -69,7 +72,7 @@ class SetUpActivity : BaseActivity<ActivitySetupBinding, SetUpViewModel>(), View
                 MyApplication.openActivity(this, SecuritySetUpActivity::class.java)
             }
             R.id.tv_singout -> {
-                viewModel?.sginout()
+                viewModel?.sginout()?.bindLifeCycle(this)?.subscribe({}, { it })
             }
             R.id.fl_updata -> {
                 viewModel?.upData()

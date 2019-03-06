@@ -5,6 +5,7 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.WalletViewModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.StatusBarUtil
@@ -38,10 +39,18 @@ class WalletActivity : BaseActivity<ActivityWalletBinding, WalletViewModel>(), V
 
         initTitle("我的钱包")
 
+        viewModel?.let {
+            it.bind = binding
+
+            it.getBannel().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.getPermission().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+        }
+
         tv_recharge.setOnClickListener(this)
         tv_withdrawal.setOnClickListener(this)
         tv_bill.setOnClickListener(this)
         tv_buy.setOnClickListener(this)
+
     }
 
 

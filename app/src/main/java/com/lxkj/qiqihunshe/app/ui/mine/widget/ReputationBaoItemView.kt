@@ -5,11 +5,12 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.mine.model.ReputationBaoModel
+import kotlinx.android.synthetic.main.item_reputationbao.view.*
 
 /**
  * Created by Slingge on 2019/2/21
  */
-class ReputationBaoItemView : RelativeLayout  {
+class ReputationBaoItemView : RelativeLayout {
 
 
     constructor(context: Context) : super(context)
@@ -21,8 +22,14 @@ class ReputationBaoItemView : RelativeLayout  {
         View.inflate(context, R.layout.item_reputationbao, this)
     }
 
-    fun setData(bean: ReputationBaoModel) {
-
+    fun setData(bean: ReputationBaoModel.dataModel) {
+        tv_title.text = bean.title
+        tv_time.text = bean.adtime
+        if (bean.status == "0") {
+            tv_num.text = "-" + bean.point
+        }else{
+            tv_num.text = "+" + bean.point
+        }
 
     }
 

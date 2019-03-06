@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.lxkj.qiqihunshe.R
@@ -14,13 +15,17 @@ class MyTypeViewModel : BaseViewModel() {
 
     var bind: ActivityMytypeBinding? = null
 
-    val array by lazy { ArrayList<MyTypeModel>() }
+    private val array by lazy { ArrayList<MyTypeModel>() }
+    val lable by lazy { ArrayList<String>() }
+    private val tvList by lazy { ArrayList<TextView>() }
+
+    var flag = 0//1我的类型(单选)，2兴趣爱好，3地点标签,4他的类型(单选)
 
     fun initTLable() {
 
-        for (i in 0..10) {
+        for (i in 0 until lable.size) {
             var model = MyTypeModel()
-            model.name = i.toString()
+            model.name = lable[i]
             array.add(model)
         }
 
@@ -31,9 +36,22 @@ class MyTypeViewModel : BaseViewModel() {
             tv.text = array[i].name
 
             tv.setOnClickListener {
-                CleatStat(tv, i)
+                if (flag == 4 || flag == 1) {
+                    for (j in 0 until array.size) {
+                        if (array[j].isSelect) {
+                            array[j].isSelect = false
+                        }
+                    }
+                    for (j in 0 until tvList.size) {
+                        tvList[j].setBackgroundResource(R.drawable.them_line35)
+                    }
+                    array[i].isSelect = true
+                    tv.setBackgroundResource(R.drawable.thems_bg35)
+                } else {
+                    CleatStat(tv, i)
+                }
             }
-
+            tvList.add(tv)
             bind!!.flType.addView(tv)
         }
     }
@@ -47,6 +65,25 @@ class MyTypeViewModel : BaseViewModel() {
             tv.setBackgroundResource(R.drawable.thems_bg35)
             array[i].isSelect = true
         }
+    }
+
+    fun back() {
+
+        val sb = StringBuffer()
+
+        for (i in 0 until array.size) {
+            if (array[i].isSelect) {
+                sb.append(array[i].name + ",")
+            }
+        }
+
+        val intetent = Intent()
+        intetent.putExtra("lable", sb.toString().substring(0, sb.toString().length - 1))
+        activity?.let {
+            it.setResult(0, intetent)
+            it.finish()
+        }
+
     }
 
 

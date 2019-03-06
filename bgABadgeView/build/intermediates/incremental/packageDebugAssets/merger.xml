@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\kxnproject\QiQiHunShe-Android\bgABadgeView\src\main\assets"/><source path="D:\kxnproject\QiQiHunShe-Android\bgABadgeView\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\kxnproject\QiQiHunShe-Android\bgABadgeView\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\studioproject\QiQiHunShe-Android\bgABadgeView\src\main\assets"/><source path="D:\studioproject\QiQiHunShe-Android\bgABadgeView\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\studioproject\QiQiHunShe-Android\bgABadgeView\src\debug\assets"/></dataSet></merger>

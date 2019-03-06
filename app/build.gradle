@@ -125,7 +125,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'org.greenrobot:eventbus:3.1.1'
     //自定义tablayou
-    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+//    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     implementation files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
     implementation project(':floatingActionButton')
     implementation project(':likeornot')

@@ -7,4 +7,5 @@ interface UpLoadFileCallBack {
 
     fun uoLoad(url: String)
     fun uoLoad(url: List<String>)
+
 }
