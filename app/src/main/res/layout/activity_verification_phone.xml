@@ -65,7 +65,7 @@
                   android:textColor="@color/colorTabText"
                   android:background="@drawable/gray_line3"
                   android:padding="12dp"
-                  android:maxLength="6"
+                  android:maxLength="4"
                   android:text="@={model.code}"
                   android:singleLine="true"
                   android:inputType="number"

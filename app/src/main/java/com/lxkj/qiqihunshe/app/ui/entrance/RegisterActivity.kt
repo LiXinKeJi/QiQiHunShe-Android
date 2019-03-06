@@ -2,7 +2,6 @@ package com.lxkj.qiqihunshe.app.ui.entrance
 
 import android.graphics.Paint
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
@@ -97,12 +96,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
                         "\",\"password\":\"" + Md5Util.md5Encode(model.pass) +
                         "\",\"validate\":\"" + model.code + "\",\"question\":\"" + model.problem +
                         "\",\"answer\":\"" + model.answer + "\"}"
-                viewModel!!.register(json).bindLifeCycle(this).subscribe({
-                    Log.i("sss","it------------------>"+it)
-                },{
-                    Log.i("sss","e ------it------------------>"+it)
-
-                })
+                viewModel!!.register(json).bindLifeCycle(this).subscribe()
             }
         }
     }

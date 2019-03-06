@@ -43,7 +43,6 @@ class RegisterViewModel  : BaseViewModel() {
                 ToastUtil.showTopSnackBar(activity, "注册成功")
                 activity?.finish()
             }
-
         }, activity))
 
 
