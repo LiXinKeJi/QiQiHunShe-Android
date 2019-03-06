@@ -4,9 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.quyu.viewmodel.FwqyViewModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityFwqyBinding
 import kotlinx.android.synthetic.main.activity_fwqy.*
@@ -26,19 +29,24 @@ class FwqyActivity : BaseActivity<ActivityFwqyBinding,FwqyViewModel>(){
 
 
     override fun init() {
-        initTitle("商都世贸中心D座")
+
+        viewModel?.bind = binding
+
         lat = intent.getDoubleExtra("lat",0.0).toString()
         lng = intent.getDoubleExtra("lng",0.0).toString()
+        initTitle(intent.getStringExtra("address"))
 
         val ll = LatLng(lat.toDouble(),lng.toDouble())
         val builder = MapStatus.Builder()
-        builder.target(ll).zoom(15.0f)
+        builder.target(ll).zoom(12.0f)
         mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
-        val position = LatLng(lat.toDouble(), lng.toDouble())
 
-        addOverlay(position)
-        addOverlay( LatLng(lat.toDouble() + 0.01, lng.toDouble() -0.01))
-        addOverlay( LatLng(lat.toDouble() - 0.01, lng.toDouble() + 0.01))
+        params.put("cmd", "serviceArea")
+        params.put("uid", StaticUtil.uid)
+        params.put("lon", lng)
+        params.put("lat", lat)
+        viewModel!!.getServiceArea(Gson().toJson(params)).bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
+
     }
 
     fun addOverlay(point: LatLng) {

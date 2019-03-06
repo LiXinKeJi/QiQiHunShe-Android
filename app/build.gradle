@@ -136,6 +136,16 @@ dependencies {
     implementation 'com.zhy:mpermission-api:1.0.0'
     implementation project(':bgABadgeView')
     implementation project(':loopview')
-
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
+    //banner
+    implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
+
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    //刷新加载
+    implementation 'com.jcodecraeer:xrecyclerview:1.5.9'
+
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    //    apt 'com.jakewharton:butterknife-compiler:8.4.0' //studio3.0以后做如下修改
+    kapt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

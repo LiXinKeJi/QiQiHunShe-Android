@@ -1,49 +1,95 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
-import android.support.v7.widget.LinearLayoutManager
-import com.lxkj.qiqihunshe.app.MyApplication
+import android.support.v7.widget.GridLayoutManager
+import com.google.gson.Gson
+import com.jcodecraeer.xrecyclerview.ProgressStyle
+import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.NewFirendActivity
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.CommunicationAdapter
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.MessageAdapter
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.MessageModel
-import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.ui.quyu.model.QuYuModel
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.NewPeopleAdapter
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.databinding.FraCommunicationBinding
+import io.reactivex.Single
+import kotlinx.android.synthetic.main.fra_communication.*
 
 /**
  * Created by Slingge on 2019/2/28
  */
 class CommunicationViewModel : BaseViewModel() {
 
+    var bind: FraCommunicationBinding? = null
 
+    var adapter: NewPeopleAdapter? = null
+    var list = ArrayList<DataListModel>()
+    var page = 1
+    var totalPage = 1
 
-    var bind: ActivityRecyvlerviewBinding? = null
-
-
-    private val adapter by lazy { CommunicationAdapter() }
-
-    fun initViewmodel() {
-        bind!!.recycler.isFocusable = false
-        bind!!.recycler.layoutManager = LinearLayoutManager(fragment?.context)
-
-        bind!!.recycler.adapter = adapter
-
-        val list = ArrayList<MessageModel>()
-        for (i in 0 until 5) {
-            val model = MessageModel()
-            if (i < 1) {
-                model.system = "0"
-            }else{
-                model.system = "1"
+    fun init() {
+        bind?.xRecyclerView?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
+        bind?.xRecyclerView?.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin)
+        bind?.xRecyclerView?.defaultRefreshHeaderView // get default refresh header view
+            ?.setRefreshTimeVisible(true)
+        bind?.xRecyclerView?.layoutManager = GridLayoutManager(fragment?.context, 1)
+        bind?.xRecyclerView?.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onRefresh() {
+                bind?.xRecyclerView?.setNoMore(false)
+                page = 1
+                getFriendList()
             }
-            list.add(model)
-        }
-        adapter.upData(list)
 
-        adapter.setMyListener { itemBean, position ->
-            if(itemBean.system=="0"){
-                MyApplication.openActivity(fragment?.context,NewFirendActivity::class.java)
+            override fun onLoadMore() {
+                if (page >= totalPage) {
+                    bind?.xRecyclerView?.setNoMore(true)
+                    return
+                }
+                page++
+                getFriendList()
             }
+        })
+        adapter = NewPeopleAdapter(fragment?.context, list)
+        adapter?.setOnItemClickListener {
+            ToastUtil.showTopSnackBar(fragment,it.toString())
         }
+        bind?.xRecyclerView?.adapter = adapter
+
+        getFriendList()
+    }
+
+    //获取好友
+    fun getFriendList(){
+        var params = HashMap<String,String>()
+        params["cmd"] = "friendList"
+        params["uid"] = StaticUtil.uid
+        params["page"] = page.toString()
+        retrofit.getData(Gson().toJson(params))
+            .async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val model = Gson().fromJson(response, XxModel::class.java)
+                    totalPage = model.totalPage.toInt()
+                    bind?.xRecyclerView?.refreshComplete()
+                    bind?.xRecyclerView?.loadMoreComplete()
+                    if (page == 1)
+                        list.clear()
+
+                    list.addAll(model.dataList)
+                    adapter?.notifyDataSetChanged()
+
+                }
+            }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
+                bind?.xRecyclerView?.refreshComplete()
+                bind?.xRecyclerView?.loadMoreComplete()
+            }, {
+                bind?.xRecyclerView?.refreshComplete()
+                bind?.xRecyclerView?.loadMoreComplete()
+            })
     }
 
 

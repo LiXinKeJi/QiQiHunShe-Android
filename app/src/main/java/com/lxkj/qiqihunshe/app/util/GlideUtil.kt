@@ -37,8 +37,8 @@ object GlideUtil {
     }
 
     val optionsHeader = RequestOptions()
-//            .placeholder(R.drawable.ic_header)
-//            .error(R.drawable.ic_header)
+            .placeholder(R.mipmap.ic_launcher)
+            .error(R.mipmap.ic_launcher)
         .skipMemoryCache(false)
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
 
