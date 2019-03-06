@@ -3,13 +3,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.LookupAccurateViewModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.LookupEconomicsViewModel"/>
     </data>
 
     <!--经济查找-->
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
 
         <LinearLayout
+                android:id="@+id/ll_main"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -41,7 +42,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="男"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />
@@ -79,7 +80,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="18-100"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />
@@ -117,7 +118,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="1-10w"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />
@@ -155,7 +156,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="1-10w"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />
@@ -193,7 +194,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="1-10w"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />
@@ -231,7 +232,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="本科"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />
@@ -309,7 +310,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="单身"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />

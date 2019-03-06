@@ -6,15 +6,12 @@
 
     </data>
 
-    <!--查找结果-->
-
     <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:background="@color/white"
             android:fitsSystemWindows="true">
-
         <include
                 layout="@layout/include_title"
                 app:layout_constraintTop_toTopOf="parent"
@@ -22,25 +19,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/include"/>
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:id="@+id/tv_tip"
-                  android:text="任何带有引导性语句及宣传虚假不符，举报受理可获得10-200元奖励"
-                  android:layout_marginTop="12dp"
-                  android:layout_marginLeft="15dp"
-                  android:layout_marginRight="15dp"
-                  android:layout_marginBottom="12dp"
-        />
-
-        <include layout="@layout/include_line10"
-                 android:layout_width="match_parent"
-                 android:layout_height="5dp"
-        />
-
         <com.jcodecraeer.xrecyclerview.XRecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/xRecyclerView"/>
-
+                android:id="@+id/xRecyclerView"
+        />
 
     </LinearLayout>
 

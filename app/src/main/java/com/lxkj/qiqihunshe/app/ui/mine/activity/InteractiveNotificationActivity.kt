@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
+import com.lxkj.qiqihunshe.app.ui.mine.fragment.AboutMeFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.ActivityRecordFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.CommentRecordFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.QiQiRecommendFragment
@@ -35,13 +36,13 @@ class InteractiveNotificationActivity : BaseActivity<ActivityQiqiRecommendBindin
         tabList.add("活动记录")
 
         var bundle = Bundle()
-        bundle.putInt("flag", 2)
-        val fragment0 = Fragment.instantiate(this, QiQiRecommendFragment::class.java.name, bundle)
+        bundle.putInt("flag", 1)
+        val fragment0 = Fragment.instantiate(this, AboutMeFragment::class.java.name, bundle)
         list.add(fragment0)
 
         bundle = Bundle()
-        bundle.putInt("flag", 3)
-        val fragment1 = Fragment.instantiate(this, QiQiRecommendFragment::class.java.name, bundle)
+        bundle.putInt("flag", 2)
+        val fragment1 = Fragment.instantiate(this, AboutMeFragment::class.java.name, bundle)
         list.add(fragment1)
 
         val fragment2 = Fragment.instantiate(this, CommentRecordFragment::class.java.name)
@@ -52,6 +53,7 @@ class InteractiveNotificationActivity : BaseActivity<ActivityQiqiRecommendBindin
 
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 3
         tabs.setupWithViewPager(viewPager)
 
     }

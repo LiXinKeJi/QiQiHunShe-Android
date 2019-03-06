@@ -14,24 +14,22 @@ import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
-import com.lxkj.qiqihunshe.app.util.ToastUtil;
 
 import java.util.List;
 
 /**
- * Created by kxn on 2019/3/5 0005.
- * 好友适配器
+ * Created by kxn on 2019/3/6 0006.
+ * 新朋友适配器
  */
-public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.ViewHolder> {
-
+public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.ViewHolder> {
 
 
     private Context context;
     private List<DataListModel> list;
     private OnItemClickListener onItemClickListener;
-    private OnDeleteItemClickListener onItemDeleteListener;
+    OnAgreeClickListener onAgreeClickListener;
 
-    public NewPeopleAdapter(Context context, List list) {
+    public NewFriendAdapter(Context context, List list) {
         this.context = context;
         this.list = list;
     }
@@ -40,13 +38,14 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setOnItemDeleteListener(OnDeleteItemClickListener onItemDeleteListener){
-        this.onItemDeleteListener = onItemDeleteListener;
+    public void setOnAgreeClickListener(OnAgreeClickListener onAgreeClickListener) {
+        this.onAgreeClickListener = onAgreeClickListener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_new_friends, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_firend_new, parent, false);
 
         return new ViewHolder(view);
     }
@@ -54,33 +53,18 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.ivHead);
-        if (null != list.get(position).getAge())
-            holder.tvAge.setText(list.get(position).getAge());
-        else
-            holder.tvAge.setText("");
 
-        if (null != list.get(position).getRealname())
-            holder.tvName.setText(list.get(position).getRealname());
+        if (null != list.get(position).getNickname())
+            holder.tvName.setText(list.get(position).getNickname());
         else
             holder.tvName.setText("");
 
-        if (null != list.get(position).getJob())
-            holder.tvZy.setText(list.get(position).getJob());
+        if (null != list.get(position).getContent())
+            holder.tvMessage.setText(list.get(position).getContent());
         else
-            holder.tvZy.setText("");
+            holder.tvMessage.setText("");
 
-        if (null != list.get(position).getSex()) {
-            switch (list.get(position).getSex()) {
-                case "0"://女
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nv);
-                    holder.tvAge.setTextColor(context.getResources().getColor(R.color.girl));
-                    break;
-                case "1"://男
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nan);
-                    holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                    break;
-            }
-        }
+
 
         holder.llItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,13 +74,32 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
             }
         });
 
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+        if (null != list.get(position).getStatus()){
+            switch (list.get(position).getStatus()){
+                case "0"://0待审核
+                    holder.tvTag.setText("同意");
+                    holder.tvTag.setBackgroundResource(R.drawable.bg_rect_17acf6_5dp);
+                    break;
+                case "1"://1同意
+                    holder.tvTag.setText("已添加");
+                    holder.tvTag.setBackgroundResource(R.drawable.bg_rect_c8c8c8_5dp);
+                    break;
+                case "2"://2拒绝
+                    holder.tvTag.setText("已拒绝");
+                    holder.tvTag.setBackgroundResource(R.drawable.bg_rect_c8c8c8_5dp);
+                    break;
+            }
+        }
+
+        holder.tvTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (null != onItemDeleteListener)
-                    onItemDeleteListener.OnDeleteClick(position);
+                if (null != onAgreeClickListener){
+                    onAgreeClickListener.OnAgreeClick(position);
+                }
             }
         });
+
     }
 
     @Override
@@ -107,24 +110,23 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
     public interface OnItemClickListener {
         void OnItemClick(int position);
     }
-
-    public interface OnDeleteItemClickListener {
-        void OnDeleteClick(int position);
+    public interface OnAgreeClickListener {
+        void OnAgreeClick(int position);
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ivHead)
         CircleImageView ivHead;
         @BindView(R.id.tvName)
         TextView tvName;
-        @BindView(R.id.tvAge)
-        TextView tvAge;
-        @BindView(R.id.tvZy)
-        TextView tvZy;
-        @BindView(R.id.btnDelete)
-        Button btnDelete;
+        @BindView(R.id.tvMessage)
+        TextView tvMessage;
+        @BindView(R.id.tvTag)
+        TextView tvTag;
         @BindView(R.id.ll_item)
         LinearLayout llItem;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

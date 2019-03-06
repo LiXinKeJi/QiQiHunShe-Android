@@ -1,37 +1,37 @@
-package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
+package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
+import com.lxkj.qiqihunshe.app.base.BaseModel
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.ui.quyu.model.QuYuModel
+import com.lxkj.qiqihunshe.app.ui.mine.adapter.AboutMeAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.NewPeopleAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.databinding.FraCommunicationBinding
-import io.reactivex.Single
-import kotlinx.android.synthetic.main.fra_communication.*
+import com.lxkj.qiqihunshe.databinding.ActivityXrecyclerviewBinding
 
 /**
- * Created by Slingge on 2019/2/28
+ * Created by kxn on 2019/3/6 0006.
  */
-class CommunicationViewModel : BaseViewModel() {
+class AboutMeFragmentViewModel : BaseViewModel(){
+    var bind: ActivityXrecyclerviewBinding? = null
 
-    var bind: FraCommunicationBinding? = null
-
-    var adapter: NewPeopleAdapter? = null
+    var adapter: AboutMeAdapter? = null
     var list = ArrayList<DataListModel>()
     var page = 1
     var totalPage = 1
+    var type = "1"
 
-    fun init() {
+    fun init(type:String) {
+        this.type = type
         bind?.xRecyclerView?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
         bind?.xRecyclerView?.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin)
         bind?.xRecyclerView?.defaultRefreshHeaderView // get default refresh header view
@@ -41,7 +41,7 @@ class CommunicationViewModel : BaseViewModel() {
             override fun onRefresh() {
                 bind?.xRecyclerView?.setNoMore(false)
                 page = 1
-                getFriendList()
+                getList()
             }
 
             override fun onLoadMore() {
@@ -50,27 +50,24 @@ class CommunicationViewModel : BaseViewModel() {
                     return
                 }
                 page++
-                getFriendList()
+                getList()
             }
         })
-        adapter = NewPeopleAdapter(fragment?.context, list)
+        adapter = AboutMeAdapter(fragment?.context, list)
         adapter?.setOnItemClickListener {
             ToastUtil.showTopSnackBar(fragment,it.toString())
         }
 
-        adapter?.setOnItemDeleteListener {
-           delFriend(it)
-        }
         bind?.xRecyclerView?.adapter = adapter
-
-        getFriendList()
+        getList()
     }
 
-    //获取好友
-    fun getFriendList(){
+    //获取列表
+    fun getList(){
         var params = HashMap<String,String>()
-        params["cmd"] = "friendList"
+        params["cmd"] = "loveOrLook"
         params["uid"] = StaticUtil.uid
+        params["type"] = type
         params["page"] = page.toString()
         retrofit.getData(Gson().toJson(params))
             .async()
@@ -95,26 +92,5 @@ class CommunicationViewModel : BaseViewModel() {
                 bind?.xRecyclerView?.loadMoreComplete()
             })
     }
-
-
-
-    //删除好友
-    fun delFriend(position : Int){
-        var params = HashMap<String,String>()
-        params["cmd"] = "delFriend"
-        params["uid"] = StaticUtil.uid
-        params["userId"] = list[position].userId
-        retrofit.getData(Gson().toJson(params))
-            .async()
-            .compose(SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                    list.removeAt(position)
-                    adapter?.notifyDataSetChanged()
-                }
-            }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
-            }, {
-            })
-    }
-
 
 }

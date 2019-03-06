@@ -37,6 +37,7 @@ class AddressPop(context: Context?, private val cityList: List<CityModel>, var w
 
     init {
 
+
         val v = LayoutInflater.from(context).inflate(R.layout.popup_date, null)
         val loopview = v.findViewById<View>(R.id.loopView) as LoopView
         val loopview2 = v.findViewById<View>(R.id.loopView2) as LoopView

@@ -118,7 +118,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             SharePrefUtil.saveString(this@MainActivity,AppConsts.LAT,lat)
             SharePrefUtil.saveString(this@MainActivity,AppConsts.LNG,lng)
             SharePrefUtil.saveString(this@MainActivity,AppConsts.ADDRESS,location.addrStr)
-            ToastUtil.showTopSnackBar(this@MainActivity,location.addrStr)
+//            ToastUtil.showTopSnackBar(this@MainActivity,location.addrStr)
 
 
 

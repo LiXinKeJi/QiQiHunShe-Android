@@ -13,8 +13,6 @@ import kotlinx.android.synthetic.main.activity_recyvlerview.*
  */
 class CommentRecordFragment : BaseFragment<ActivityRecyvlerviewBinding, CommentRecordViewModel>() {
 
-
-
     override fun getBaseViewModel() = CommentRecordViewModel()
 
     override fun getLayoutId() = R.layout.activity_recyvlerview

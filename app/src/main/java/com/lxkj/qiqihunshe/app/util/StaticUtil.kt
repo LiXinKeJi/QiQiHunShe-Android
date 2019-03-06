@@ -12,6 +12,7 @@ object StaticUtil {
 
 
     var uid = ""//用户id
+    var sex = ""//用户性别  0女 1男
     var headerUrl = ""//用户自己的头像
 
     var fill = ""// 0未完善资料 1已完善资料
