@@ -16,7 +16,7 @@ public class AppConsts {
     public static final String ADDRESS = "address";
 
     public static final int PMS_LOCATION = 1003;// 权限编号，自定义
-
+    public static final int PMS_CALL = 1004;// 权限编号，自定义
 
 
 }

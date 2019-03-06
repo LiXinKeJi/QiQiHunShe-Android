@@ -7,7 +7,7 @@ import com.lxkj.qiqihunshe.app.base.BaseModel
  */
 class QuYuModel : BaseModel() {
 
-    var arrivalTime = "暂无到场时间"
+    var arrivalTime = ""
 
     var dataList = ArrayList<DataListModel>()
 

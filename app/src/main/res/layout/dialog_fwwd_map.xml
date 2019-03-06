@@ -41,8 +41,8 @@
 
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:id="@+id/nameTv"
-                  android:text="服务人姓名：张三"
+                  android:id="@+id/addressTv"
+                  android:text="服务地点："
                   android:textSize="13sp"
                   android:textColor="@color/colorTabText"
                   android:layout_marginTop="15dp"
@@ -56,7 +56,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="服务人电话："
+                    android:text="电话："
                     android:textSize="13sp"
                     android:textColor="@color/colorTabText"
                     android:layout_marginTop="15dp"
@@ -66,12 +66,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/phoneTv"
-                    android:text="400-88888888"
+                    android:text=""
                     android:textSize="13sp"
                     android:textColor="#ff17acf6"
                     android:layout_marginTop="15dp"
             />
             <ImageView
+                    android:id="@+id/phoneIv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -86,7 +87,7 @@
                 android:id="@+id/fwfwTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="服务范围：服务范围服务范围服务范围服务范围"
+                android:text="服务范围："
                 android:textSize="13sp"
                 android:textColor="@color/colorTabText"
                 android:layout_marginTop="15dp"

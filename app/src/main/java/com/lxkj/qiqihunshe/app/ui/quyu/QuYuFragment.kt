@@ -1,6 +1,9 @@
 package com.lxkj.qiqihunshe.app.ui.quyu
 
 import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
@@ -13,11 +16,11 @@ import com.baidu.location.LocationClientOption
 import com.baidu.location.LocationClient
 import com.baidu.mapapi.model.LatLng
 import com.lxkj.qiqihunshe.app.AppConsts
-import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.zhy.m.permission.MPermissions
 import com.zhy.m.permission.PermissionDenied
 import com.zhy.m.permission.PermissionGrant
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -31,14 +34,15 @@ import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.AqxzDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.FwwdDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.SayHolleDialog
 import com.lxkj.qiqihunshe.app.ui.map.activity.SelectAddressMapActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.FwqyActivity
-import com.lxkj.qiqihunshe.app.util.StaticUtil
-import com.lxkj.qiqihunshe.app.util.abLog
+import com.lxkj.qiqihunshe.app.util.*
 import kotlinx.android.synthetic.main.activity_mybill.view.*
 import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
+import java.util.*
 import kotlin.math.ln
 
 
@@ -46,7 +50,8 @@ import kotlin.math.ln
  * Created by Slingge on 2019/2/16
  */
 class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.OnClickListener,
-    BaiduMap.OnMapStatusChangeListener {
+    BaiduMap.OnMapStatusChangeListener, FwwdDialog.OnTellListener, AqxzDialog.OnTellListener,
+    SayHolleDialog.OnSayHiListener {
 
 
 
@@ -57,12 +62,16 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
     var lat: Double = 0.0
     var lng: Double = 0.0
 
+    var currentPosition: LatLng? = null
+    var phoneNum: String? = null
 
     override fun getBaseViewModel() = QuYuViewModel()
 
     override fun getLayoutId() = R.layout.fragment_quyu
 
     override fun init() {
+
+        viewModel?.bind = binding
 
         mMapView.setMyLocationEnabled(true)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -79,12 +88,15 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         tv_aqxz.setOnClickListener(this)
         tv_ddtj.setOnClickListener(this)
         tv_fwwd.setOnClickListener(this)
-
+        tv_toMyLocation.setOnClickListener(this)
+        iv_close.setOnClickListener(this)
 
     }
 
     override fun loadData() {
-
+        params.clear()
+        params.put("cmd", "getChatList")
+        viewModel?.getChatList(Gson().toJson(params))?.bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
     }
 
     @PermissionGrant(AppConsts.PMS_LOCATION)
@@ -108,9 +120,33 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         mLocationClient.start()
     }
 
+
     @PermissionDenied(AppConsts.PMS_LOCATION)
     fun pmsLocationError() {
-        ToastUtil.showToast("权限被拒绝，定位失败！")
+        ToastUtil.showTopSnackBar(this, "权限被拒绝，定位失败！")
+    }
+
+    @PermissionGrant(AppConsts.PMS_CALL)
+    fun pmsCallSuccess() {
+        //权限授权成功
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNum"))
+        startActivity(intent)
+    }
+
+    @PermissionDenied(AppConsts.PMS_CALL)
+    fun pmsCallError() {
+        ToastUtil.showTopSnackBar(this, "权限被拒绝，无法使用该功能！")
+    }
+
+    override fun onSayHi(phoneNum: String) {
+        params.clear()
+        params.put("cmd", "greet")
+        params.put("uid", StaticUtil.uid)
+        params.put("lon", lng.toString())
+        params.put("lat", lat.toString())
+        params.put("content", phoneNum)
+        viewModel?.greet(Gson().toJson(params))?.bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -136,27 +172,33 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
     }
 
 
-
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_fwqy -> {
                 val bundle = Bundle()
                 bundle.putDouble("lat", lat)
                 bundle.putDouble("lng", lng)
+                bundle.putString("address", tv_address.text.toString())
                 MyApplication.openActivity(activity, FwqyActivity::class.java, bundle)
-                MyApplication.openActivity(activity, SelectAddressMapActivity::class.java, bundle)
+//                MyApplication.openActivity(activity, SelectAddressMapActivity::class.java, bundle)
             }
             R.id.iv_sayHi -> {
-                SayHolleDialog.show(activity!!)
+                viewModel!!.hiList?.let {
+                    ToastUtil.showTopSnackBar(this, "暂无打招呼内容")
+                    return
+                }
+                SayHolleDialog.show(activity!!, viewModel!!.hiList)
+                SayHolleDialog.setListener(this)
             }
 
             R.id.tv_aqxz -> {
-                AqxzDialog.show(activity!!)
+                AqxzDialog.show(activity!!, viewModel!!.serviceOffice)
+                AqxzDialog.setListener(this)
             }
 
             R.id.tv_fwwd -> {
-                FwwdDialog.show(activity!!)
+                FwwdDialog.show(activity!!, viewModel!!.serviceOffice)
+                FwwdDialog.setListener(this)
             }
 
             R.id.tv_ddtj -> {
@@ -165,16 +207,40 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
                 bundle.putDouble("lng", lng)
                 MyApplication.openActivity(activity, DdtjActivity::class.java, bundle)
             }
+
+            R.id.tv_toMyLocation -> {
+                val builder = MapStatus.Builder()
+                builder.target(currentPosition)
+                mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
+            }
+
+            R.id.iv_close -> {
+               ll_hint.visibility = View.GONE
+            }
         }
 
     }
 
+    override fun onTell(phoneNum: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            MPermissions.requestPermissions(
+                this, AppConsts.PMS_CALL,
+                Manifest.permission.CALL_PHONE
+            )
+        } else {
+            this.phoneNum = phoneNum
+            pmsCallSuccess()
+        }
+    }
+
+
     fun getData() {
+        params.clear()
         params.put("cmd", "serviceArea")
         params.put("uid", StaticUtil.uid)
         params.put("lon", lng.toString())
         params.put("lat", lat.toString())
-        viewModel!!.getServiceArea(Gson().toJson(params)).bindLifeCycle(this).subscribe()
+        viewModel!!.getServiceArea(Gson().toJson(params)).bindLifeCycle(this).subscribe({ }, { toastFailure(it) })
     }
 
     inner class MyLocationListener : BDAbstractLocationListener() {
@@ -188,15 +254,16 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
             tv_address.text = (location.addrStr)
             tv_toMyLocation.text = (location.addrStr)
 
-            getData()
-
             if (isFirst) {
+                currentPosition = LatLng(location.getLatitude(), location.getLongitude())
+
                 val ll = LatLng(location.getLatitude(), location.getLongitude())
                 val builder = MapStatus.Builder()
                 builder.target(ll).zoom(18.0f)
                 mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
-                val position = LatLng(location.latitude + 0.01, location.getLongitude() + 0.01)
+                getData()
             }
+
             val locData = MyLocationData.Builder()
                 .accuracy(location.radius)
                 // 此处设置开发者获取到的方向信息，顺时针0-360
@@ -220,8 +287,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
         mapStatus?.bound?.center?.latitude
         mapStatus?.bound?.center?.latitude
-
-        abLog.e2(mapStatus?.bound?.center?.latitude.toString() + "--->" + mapStatus?.bound?.center?.latitude)
+        getData()
     }
 
 

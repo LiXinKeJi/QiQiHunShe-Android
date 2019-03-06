@@ -9,8 +9,11 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.ui.quyu.model.DataListModel
 import kotlinx.android.synthetic.main.dialog_aqxz_map.view.*
+import kotlinx.android.synthetic.main.spinner_tv.view.*
 import java.util.ArrayList
 
 /**
@@ -20,20 +23,33 @@ import java.util.ArrayList
 @SuppressLint("StaticFieldLeak")
 object AqxzDialog {
     private var dialog: AlertDialog? = null
-    fun show(context: Activity) {
+
+    var onTellListener: OnTellListener? = null
+
+
+    fun setListener(onTellListener: OnTellListener) {
+        this.onTellListener = onTellListener
+    }
+
+    fun show(context: Activity, data: DataListModel) {
         if (AqxzDialog.dialog == null) {
             AqxzDialog.dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             AqxzDialog.dialog?.show()
             val view = LayoutInflater.from(context).inflate(R.layout.dialog_aqxz_map, null)
 
-
-
+            view.nameTv.text = (data?.username)
+            view.phoneTv.text = (data?.phone)
+            view.fwfwTv.text = (data?.extent)
 
             view.ivClose.setOnClickListener {
                 dialog?.dismiss()
             }
             view.confirmTv.setOnClickListener {
                 dialog?.dismiss()
+            }
+
+            view.phoneIv.setOnClickListener {
+                onTellListener!!.onTell(data.phone)
             }
 
             AqxzDialog.dialog!!.window.setContentView(view)
@@ -52,4 +68,8 @@ object AqxzDialog {
         p.width = d.width // 宽度设置为屏幕的0.65
         dialogWindow.attributes = p
     }
+    interface OnTellListener {
+        fun onTell(phoneNum: String)
+    }
+
 }

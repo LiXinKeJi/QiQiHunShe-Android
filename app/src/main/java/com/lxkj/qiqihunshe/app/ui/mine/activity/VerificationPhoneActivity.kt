@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
-import android.text.TextUtils
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
@@ -20,7 +19,6 @@ class VerificationPhoneActivity : BaseActivity<ActivityVerificationPhoneBinding,
     override fun getBaseViewModel() = VerificationPhoneViewModel()
 
     override fun getLayoutId() = R.layout.activity_verification_phone
-   var code = ""
 
     private val model by lazy { ForgetPassModel() }
 
@@ -43,30 +41,13 @@ class VerificationPhoneActivity : BaseActivity<ActivityVerificationPhoneBinding,
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_getcode -> {
-                if(TextUtils.isEmpty(et_phone.text)){
-                    ToastUtil.showToast(getString(R.string.phone_isnot_null))
-                    return
-                }
                 viewModel?.getCode()
             }
             R.id.tv_enter -> {
                 model.notif()
-               // ToastUtil.showToast(model.code)
-                if(TextUtils.isEmpty(et_phone.text)){
-                    ToastUtil.showToast(getString(R.string.phone_isnot_null))
-                    return
-                }
+                ToastUtil.showToast(model.code)
 
-                if(TextUtils.isEmpty(et_code.text)){
-                    ToastUtil.showToast(getString(R.string.code_isnot_null))
-                    return
-                }
-
-                if(!TextUtils.equals(et_code.text,viewModel!!.CODE)){
-                    ToastUtil.showToast(getString(R.string.code_write_wrong))
-                    return
-                }
-                viewModel?.jump(et_phone.text.toString(),et_code.text.toString())
+                viewModel?.jump()
             }
         }
     }

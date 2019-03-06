@@ -47,6 +47,20 @@ public class PermissionUtil {
         }
     }
 
+    /**
+     * 打电话权限
+     *  int result PermissionsResult返回标示符
+     */
+    public static boolean TellPermissionAlbum(Activity context, int result) {
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.CALL_PHONE}, result);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
 
     /**

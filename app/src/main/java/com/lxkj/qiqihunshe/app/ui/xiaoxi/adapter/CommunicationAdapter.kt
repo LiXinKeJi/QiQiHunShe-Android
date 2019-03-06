@@ -21,4 +21,5 @@ class CommunicationAdapter : BaseListAdapter<MessageModel, CommunicationItemView
     }
 
 
+
 }

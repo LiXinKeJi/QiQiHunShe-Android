@@ -6,119 +6,124 @@
         <variable name="model" type="com.lxkj.qiqihunshe.app.ui.quyu.model.ShopDetailModel"/>
         <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.quyu.viewmodel.ShopDetailViewModel"/>
     </data>
-    <LinearLayout
+
+    <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:fitsSystemWindows="true"
-            android:orientation="vertical"
-    >
-
-        <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
-            <ImageView
-                    android:id="@+id/shopIv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/ic_shop"
-                    android:scaleType="centerCrop"
-            />
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                <View
-                        android:id="@+id/view_staus"
-                        android:layout_width="match_parent"
-                        android:layout_height="22dp"
-                        android:visibility="gone"/>
-
-                <include
-                        layout="@layout/include_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/include"
-                        android:layout_below="@+id/view_staus"
-                />
-
-            </LinearLayout>
-
-
-
-        </FrameLayout>
-        <TextView
-                android:id="@+id/nameTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="米林可国际餐厅"
-                android:padding="12dp"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-        />
-        <TextView
-                android:id="@+id/priceTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="人均价格：¥188起"
-                android:paddingLeft="12dp"
-                android:textColor="#ff333333"
-                android:textSize="12sp"
-        />
+            android:fillViewport="true">
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:orientation="horizontal">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="地址："
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@mipmap/ic_location_shop"
-                    android:textColor="#ff333333"
-                    android:textSize="12sp"
-            />
-            <TextView
-                    android:id="@+id/addressTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="河南省郑州市金水区通泰路商都路交叉口"
-                    android:textColor="#ff333333"
-                    android:textSize="12sp"
-            />
-            <ImageView
-                    android:id="@+id/navigationIv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@mipmap/ic_dh_shop"/>
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical"
+        >
 
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp">
+                <cn.bingoogolapple.bgabanner.BGABanner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/BannerDefaultStyle"/>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <View
+                            android:id="@+id/view_staus"
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:visibility="gone"/>
+
+                    <include
+                            layout="@layout/include_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/include"
+                            android:layout_below="@+id/view_staus"
+                    />
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+            <TextView
+                    android:id="@+id/nameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="店铺名称"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+            />
+            <TextView
+                    android:id="@+id/priceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="人均价格：¥**起"
+                    android:paddingLeft="12dp"
+                    android:textColor="#ff333333"
+                    android:textSize="12sp"
+            />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="地址："
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@mipmap/ic_location_shop"
+                        android:textColor="#ff333333"
+                        android:textSize="12sp"
+                />
+                <TextView
+                        android:id="@+id/addressTv"
+                        android:layout_width="312dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="#ff333333"
+                        android:textSize="12sp"
+                />
+                <ImageView
+                        android:id="@+id/navigationIv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:src="@mipmap/ic_dh_shop"/>
+
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="商家详情"
+                    android:textColor="#ff1a1a1a"
+                    android:textSize="15sp"
+            />
+            <com.lxkj.qiqihunshe.app.customview.NoScrollWebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </com.lxkj.qiqihunshe.app.customview.NoScrollWebView>
 
         </LinearLayout>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:text="商家详情"
-                android:textColor="#ff1a1a1a"
-                android:textSize="15sp"
-        />
-        <com.lxkj.qiqihunshe.app.customview.MyWebView
-                android:id="@+id/webView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-        </com.lxkj.qiqihunshe.app.customview.MyWebView>
-
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </layout>

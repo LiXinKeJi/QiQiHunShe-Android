@@ -20,25 +20,27 @@ import java.util.ArrayList
 object SayHolleDialog {
     private var dialog: AlertDialog? = null
     private var messagSpinner: Spinner? = null
-    fun show(context: Activity) {
+    var hi : String ?= null
+
+    var onSayHiListener: OnSayHiListener? = null
+
+
+    fun setListener(onSayHiListener: OnSayHiListener) {
+        this.onSayHiListener = onSayHiListener
+    }
+
+    fun show(context: Activity,messages : List<String>) {
         if (SayHolleDialog.dialog == null) {
             SayHolleDialog.dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             SayHolleDialog.dialog?.show()
             val view = LayoutInflater.from(context).inflate(R.layout.dialog_say_holle_map, null)
             messagSpinner = view.findViewById(R.id.messageSpinner)
-
-            val messages = ArrayList<String>()
-            messages.add("您好！")
-            messages.add("吃了没！")
-            messages.add("拜拜！")
-
-
             val ageAdapter = ArrayAdapter(context, R.layout.spinner_tv, messages)
             ageAdapter.setDropDownViewResource(R.layout.spinner_item)
             messagSpinner?.setAdapter(ageAdapter)
             messagSpinner?.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
-
+                    hi = messages[i]
                 }
 
                 override fun onNothingSelected(adapterView: AdapterView<*>) {}
@@ -51,6 +53,7 @@ object SayHolleDialog {
                 dialog?.dismiss()
             }
             view.confirmTv.setOnClickListener {
+                onSayHiListener!!.onSayHi(hi!!)
                 dialog?.dismiss()
             }
 
@@ -69,5 +72,9 @@ object SayHolleDialog {
 //        p.height = (d.height * 0.5).toInt() // 高度设置为屏幕的0.5
         p.width = d.width // 宽度设置为屏幕的0.65
         dialogWindow.attributes = p
+    }
+
+    interface OnSayHiListener {
+        fun onSayHi(phoneNum: String)
     }
 }
