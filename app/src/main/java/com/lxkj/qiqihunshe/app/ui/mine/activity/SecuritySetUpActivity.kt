@@ -33,12 +33,12 @@ class SecuritySetUpActivity : BaseActivity<ActivitySecuritySetupBinding, BaseVie
         when (v?.id) {
             R.id.tv_paypass -> {
                 val bundle = Bundle()
-                bundle.putInt("flag", 1)
+                bundle.putInt("flag", 2)
                 MyApplication.openActivity(this, VerificationPhoneActivity::class.java, bundle)
             }
             R.id.tv_sginpass -> {
                 val bundle = Bundle()
-                bundle.putInt("flag", 2)
+                bundle.putInt("flag", 1)
                 MyApplication.openActivity(this, VerificationPhoneActivity::class.java, bundle)
             }
             R.id.tv_replacephont -> {

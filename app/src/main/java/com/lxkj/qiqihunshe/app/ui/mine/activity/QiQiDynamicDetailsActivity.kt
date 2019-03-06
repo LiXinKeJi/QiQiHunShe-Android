@@ -8,7 +8,7 @@ import com.lxkj.qiqihunshe.databinding.ActivityQiqiDynamicDetailsBinding
 /**
  * Created by Slingge on 2019/2/21
  */
-class QiQiDynamicDetailsActivity : BaseActivity<ActivityQiqiDynamicDetailsBinding, QiQiDynamicDetailsViewModel>() {
+class QiQIDynamicDetailsActivity : BaseActivity<ActivityQiqiDynamicDetailsBinding, QiQiDynamicDetailsViewModel>() {
 
 
     override fun getBaseViewModel() = QiQiDynamicDetailsViewModel()
