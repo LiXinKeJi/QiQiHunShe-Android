@@ -3,22 +3,18 @@ package com.lxkj.qiqihunshe.app.ui.mine.model
 import com.lxkj.qiqihunshe.app.base.BaseModel
 
 /**
- * 我的账单
- * Created by Slingge on 2019/2/22
+ * Created by Slingge on 2019/3/6
  */
-class MyBillModel : BaseModel() {
+class PermissionBuyModel : BaseModel() {
 
-    var totalPage = 1
 
     var dataList = ArrayList<dataModel>()
 
-
     class dataModel {
-        var title = ""
-        var money = ""
         var type = ""
-        var adtime = ""
+        var price = ""
+        var content = ""
+        var endTime = ""
     }
-
 
 }

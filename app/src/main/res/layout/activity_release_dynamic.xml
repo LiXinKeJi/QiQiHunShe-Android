@@ -40,6 +40,7 @@
                         android:hint="来和朋友分享你的生活..."
                         android:minLines="5"
                         android:padding="10dp"
+                        android:text="@={model.content}"
                         android:textColor="@color/colorTabText"
                         android:textSize="15sp"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +88,7 @@
 
                     <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
                                  android:id="@+id/rb_ys"
-                                 android:text="公开"
+                                 android:text="私有"
                                  android:drawableLeft="@drawable/rb_click"
                                  android:button="@null"
                                  android:textSize="13sp"

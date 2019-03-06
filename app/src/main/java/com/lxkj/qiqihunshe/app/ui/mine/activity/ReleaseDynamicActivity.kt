@@ -2,15 +2,20 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.text.TextUtils
 import android.view.View
 import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
+import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseDynamicModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseDynamicViewModel
 import com.lxkj.qiqihunshe.app.util.PermissionUtil
 import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityReleaseDynamicBinding
 import kotlinx.android.synthetic.main.activity_release_dynamic.*
 
@@ -18,32 +23,71 @@ import kotlinx.android.synthetic.main.activity_release_dynamic.*
  * Created by Slingge on 2019/2/25
  */
 class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, ReleaseDynamicViewModel>(),
-    View.OnClickListener {
+    View.OnClickListener, UpLoadFileCallBack {
 
 
     override fun getBaseViewModel() = ReleaseDynamicViewModel()
 
     override fun getLayoutId() = R.layout.activity_release_dynamic
 
-    private val model by lazy { ReleaseDynamicModel() }
-
+    private val upload by lazy { UpFileUtil(this, this) }
 
     override fun init() {
         initTitle("发布动态")
         viewModel?.let {
             binding.viewmodel = it
-            binding.model = model
+            binding.model = it.model
             it.bind = binding
             it.initViewModel()
         }
 
+        tv_address.setOnClickListener(this)
+        tv_send.setOnClickListener(this)
     }
 
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.tv_address -> {
 
+            }
+            R.id.tv_send -> {
+                viewModel?.let {
+                    it.model.notiCinten()
+                    if (TextUtils.isEmpty(it.model.content)) {
+                        ToastUtil.showTopSnackBar(this, "请输入动态内容")
+                        return
+                    }
+                    it.model.lat = "32.45458"
+                    it.model.lon = "125.15484"
+                    it.model.location = "楼下"
+
+                    if (it.ablumList.isNotEmpty()) {
+                        val fileList = ArrayList<String>()
+                        for (i in 0 until it.ablumList.size) {
+                            fileList.add(it.ablumList[i].path)
+                        }
+                        upload.setListPath(fileList)
+                    } else {
+                        viewModel!!.fendDynamic().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                    }
+                }
+            }
         }
+    }
+
+
+    override fun uoLoad(url: List<String>) {
+        val sb = StringBuffer()
+        for (i in 0 until url.size) {
+            sb.append(url[i] + "|")
+        }
+        viewModel!!.model.images = sb.toString().substring(0, sb.toString().length - 1)
+        viewModel!!.fendDynamic().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+    }
+
+    override fun uoLoad(url: String) {
+
     }
 
 
@@ -67,7 +111,6 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
         if (requestCode == 0) {
             if (PictureSelector.obtainMultipleResult(data).isNotEmpty()) {
                 viewModel?.setImage(PictureSelector.obtainMultipleResult(data))
-
             }
         }
     }

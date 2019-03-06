@@ -61,6 +61,8 @@ class PerfectInfoActivitiy :
             it.bind = binding
             binding.viewmodel = it
             binding.model = it.model
+            it.birthplace2.set("请选择")
+            it.residence2.set("请选择")
         }
 
 
@@ -157,13 +159,11 @@ class PerfectInfoActivitiy :
                 }
             }
             R.id.tv_right -> {
-                ToastUtil.showToast(sw_mate.isOpened.toString())
                 viewModel?.model?.noti()
                 if (ImageList.isEmpty()) {
                     ToastUtil.showTopSnackBar(this, "请选择头像")
                     return
                 }
-
 
                 if (TextUtils.isEmpty(viewModel?.model?.nickname)) {
                     ToastUtil.showTopSnackBar(this, "请输入昵称")
@@ -236,6 +236,15 @@ class PerfectInfoActivitiy :
                     return
                 }
 
+                if (sw_mate.isOpened) {
+                    if (TextUtils.isEmpty(viewModel?.model?.locale)) {
+                        ToastUtil.showTopSnackBar(this, "请选择地点标签")
+                        return
+                    }
+
+
+                }
+
 
                 ProgressDialogUtil.showProgressDialog(this)
                 val pathList = ArrayList<String>()
@@ -243,7 +252,6 @@ class PerfectInfoActivitiy :
                     pathList.add(ImageList[i].path)
                 }
                 upload.setListPath(pathList)
-
 
             }
         }
@@ -292,16 +300,24 @@ class PerfectInfoActivitiy :
                 }
             }
             1 -> {//我的类型
-
+                abLog.e("我的类型", data.getStringExtra("lable"))
+                viewModel!!.model.type = data.getStringExtra("lable")
+                tv_mytype.text = viewModel!!.model.type
             }
             2 -> {//兴趣爱好
-
+                abLog.e("兴趣爱好", data.getStringExtra("lable"))
+                viewModel!!.model.interest = data.getStringExtra("lable")
+                tv_hobby.text = viewModel!!.model.interest
             }
             3 -> {//地点标签
-
+                abLog.e("地点标签", data.getStringExtra("lable"))
+                viewModel!!.model.locale = data.getStringExtra("lable")
+                tv_label.text = viewModel!!.model.locale
             }
             4 -> {//他的类型
-
+                abLog.e("他的类型", data.getStringExtra("lable"))
+                viewModel!!.model.type2 = data.getStringExtra("lable")
+                tv_he_type.text = viewModel!!.model.type2
             }
         }
     }
@@ -313,7 +329,12 @@ class PerfectInfoActivitiy :
     override fun uoLoad(url: List<String>) {
         ProgressDialogUtil.dismissDialog()
         abLog.e("上传图片完成", Gson().toJson(url))
+        val sb = StringBuffer()
+        for (i in 0 until url.size) {
+            sb.append(url[i] + "|")
+        }
 
+        viewModel!!.model.icon = sb.toString().substring(0, sb.toString().length - 1)
 
     }
 

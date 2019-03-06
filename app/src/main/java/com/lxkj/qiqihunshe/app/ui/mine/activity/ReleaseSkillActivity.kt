@@ -62,7 +62,7 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == 0) {//询问结果
-            SelectPictureUtil.selectPicture(this, 9, 0, false)
+            SelectPictureUtil.selectPicture(this, 1, 0, false)
         } else {//禁止使用权限，询问是否设置允许
             PermissionsDialog.dialog(this, "需要访问内存卡和拍照权限")
         }

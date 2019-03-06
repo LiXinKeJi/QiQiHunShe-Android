@@ -4,6 +4,7 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReputationBaoViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityReputationBaoBinding
 import kotlinx.android.synthetic.main.include_title.*
@@ -27,7 +28,14 @@ class ReputationBaoActivity : BaseActivity<ActivityReputationBaoBinding, Reputat
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
+            it.getUserCredit().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             it.initViewModel()
+
+            it.getCreditList().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.adapter.setLoadMore {
+                viewModel!!.page++
+                it.getCreditList().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            }
         }
 
     }

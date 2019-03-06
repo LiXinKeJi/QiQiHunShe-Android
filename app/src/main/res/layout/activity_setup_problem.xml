@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="7dp"
                 android:layout_below="@+id/tv_reputation"
-                android:progressDrawable="@drawable/progressbar"
+                android:progressDrawable="@drawable/progress_progressbar"
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:max="5"
                 android:progress="2"

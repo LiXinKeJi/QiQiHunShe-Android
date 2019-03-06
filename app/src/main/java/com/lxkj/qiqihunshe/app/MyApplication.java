@@ -28,8 +28,8 @@ public class MyApplication extends MultiDexApplication {
     public static String uId = "";
     public static Context CONTEXT;
 
-    //String json = "{\"cmd\":\"getMsg\"" + "}";
-//    val json = "{\"cmd\":\"upPrize\",\"prizeId\":\"" + prizeId  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}"
+    //val json = "{\"cmd\":\"getMsg\"" + "}"
+//    val json = "{\"cmd\":\"sign\",\"uid\":\"" + StaticUtil.uid  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}"
 
 
     private static MyApplication myApplication;

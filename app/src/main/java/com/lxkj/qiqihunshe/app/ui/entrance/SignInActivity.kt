@@ -70,10 +70,8 @@ class SignInActivity : BaseActivity<ActivitySigninBinding, SignInViewModel>(), V
                 }
 
                 val json =
-                    "{\"cmd\":\"userLogin\",\"phone\":\"" + "15903691791"+ "\",\"password\":\"" + Md5Util.md5Encode(
-                        sginModel.pass
-                    ) +
-                            "\",\"token\":\"" + "" + "\"}"
+                    "{\"cmd\":\"userLogin\",\"phone\":\"" + sginModel.phone + "\",\"password\":\"" +
+                            Md5Util.md5Encode(sginModel.pass) + "\",\"token\":\"" + "" + "\"}"
                 viewModel!!.sginIn(json).bindLifeCycle(this)
                     .subscribe({}, { toastFailure(it) })
             }

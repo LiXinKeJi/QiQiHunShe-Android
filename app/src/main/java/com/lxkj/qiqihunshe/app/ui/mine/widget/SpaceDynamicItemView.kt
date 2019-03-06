@@ -23,7 +23,11 @@ class SpaceDynamicItemView : RelativeLayout  {
         View.inflate(context, R.layout.item_space_dynamic, this)
     }
 
-    fun setData(bean: SpaceDynamicModel) {
+    fun setData(bean: SpaceDynamicModel.dataModel) {
+
+
+
+
 
         iv_del.setOnClickListener {
             ToastUtil.showToast("fe")
