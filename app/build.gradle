@@ -148,4 +148,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.4.0'
     //    apt 'com.jakewharton:butterknife-compiler:8.4.0' //studio3.0以后做如下修改
     kapt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    implementation 'com.contrarywind:wheelview:4.0.8'
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
 }

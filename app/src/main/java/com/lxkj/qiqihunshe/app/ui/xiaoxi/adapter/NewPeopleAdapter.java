@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Created by kxn on 2019/3/5 0005.
+ * 好友适配器
  */
 public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.ViewHolder> {
 
@@ -28,6 +29,7 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
     private Context context;
     private List<DataListModel> list;
     private OnItemClickListener onItemClickListener;
+    private OnDeleteItemClickListener onItemDeleteListener;
 
     public NewPeopleAdapter(Context context, List list) {
         this.context = context;
@@ -36,6 +38,10 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnItemDeleteListener(OnDeleteItemClickListener onItemDeleteListener){
+        this.onItemDeleteListener = onItemDeleteListener;
     }
 
     @Override
@@ -48,12 +54,12 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.ivHead);
-        if (null != list.get(position).getJob())
+        if (null != list.get(position).getAge())
             holder.tvAge.setText(list.get(position).getAge());
         else
             holder.tvAge.setText("");
 
-        if (null != list.get(position).getJob())
+        if (null != list.get(position).getRealname())
             holder.tvName.setText(list.get(position).getRealname());
         else
             holder.tvName.setText("");
@@ -87,18 +93,23 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.INSTANCE.showToast(position + "");
+                if (null != onItemDeleteListener)
+                    onItemDeleteListener.OnDeleteClick(position);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return list.size();
     }
 
     public interface OnItemClickListener {
         void OnItemClick(int position);
+    }
+
+    public interface OnDeleteItemClickListener {
+        void OnDeleteClick(int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

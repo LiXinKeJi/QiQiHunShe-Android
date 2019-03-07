@@ -15,7 +15,7 @@ import com.weigan.loopview.LoopView
  * 单个String类型选择
  * Created by Slingge on 2019/3/4
  */
-class StringSelectPop(val context: Context?, val list:ArrayList<String>, var wheelViewCallBack: StringCallBack) :
+class StringSelectPop(val context: Context?, val list: ArrayList<String>, var wheelViewCallBack: StringCallBack) :
     PopupWindow(context) {
 
     internal var position = 0
@@ -24,7 +24,6 @@ class StringSelectPop(val context: Context?, val list:ArrayList<String>, var whe
     interface StringCallBack {
         fun position(position1: Int)
     }
-
 
 
     init {
@@ -55,7 +54,10 @@ class StringSelectPop(val context: Context?, val list:ArrayList<String>, var whe
 
 
         val tv_enter = v.findViewById<View>(R.id.tv_enter) as TextView
-        tv_enter.setOnClickListener { v1 -> this.dismiss() }
+        tv_enter.setOnClickListener { v1 ->
+            wheelViewCallBack.position(position)
+            this.dismiss()
+        }
 
         //设置初始位置
 

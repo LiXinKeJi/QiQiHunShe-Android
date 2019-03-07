@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.model.QuestionsAuthenModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.QuestionsAuthenViewModel"/>
     </data>
 
 
@@ -26,12 +26,13 @@
                   android:id="@+id/tv_problem"
                   android:textSize="15sp"
                   android:textColor="@color/colorTabText"
-                  android:text="问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题"
+                  android:text="@{viewmodel.questions}"
                   android:layout_margin="15dp"
         />
 
         <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="无争议"
+                  android:id="@+id/check"
                   android:layout_marginLeft="15dp"
                   android:layout_marginTop="12dp"
                   style="@style/Widget.AppCompat.CompoundButton.CheckBox"

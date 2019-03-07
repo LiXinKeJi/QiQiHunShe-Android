@@ -5,6 +5,8 @@ import android.databinding.BaseObservable
 import android.support.v4.app.Fragment
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.dispatchFailure
+import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
 
 /**
  * Created by Slingge on 2018/11/13
@@ -23,6 +25,17 @@ open class BaseViewModel : BaseObservable() {
         fragment?.let {
             fragment = null
         }
+    }
+
+    //网络异常捕捉
+    fun toastFailure(error: Throwable?) {
+        ProgressDialogUtil.dismissDialog()
+        if (activity == null) {
+            dispatchFailure(fragment!!.activity!!, error)
+        } else {
+            dispatchFailure(activity!!, error)
+        }
+
     }
 
 

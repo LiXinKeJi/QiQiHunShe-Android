@@ -1,13 +1,15 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
-import android.support.v7.widget.LinearLayoutManager
-import com.lxkj.qiqihunshe.app.MyApplication
+import android.view.View
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.ui.mine.activity.InteractiveNotificationActivity
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.QiQiRemindActivity
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.MessageAdapter
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.MessageModel
-import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.databinding.FraXiangshiBinding
 
 /**
  * Created by Slingge on 2019/2/28
@@ -15,42 +17,44 @@ import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 class XiangShiViewModel : BaseViewModel() {
 
 
-    var bind: ActivityRecyvlerviewBinding? = null
+    var bind: FraXiangshiBinding? = null
 
-
-    private val adapter by lazy { MessageAdapter() }
-
-    fun initViewmodel() {
-        bind!!.recycler.isFocusable = false
-        bind!!.recycler.layoutManager = LinearLayoutManager(fragment?.context)
-
-        bind!!.recycler.adapter = adapter
-
-        val list = ArrayList<MessageModel>()
-        for (i in 0 until 5) {
-            val model = MessageModel()
-            if (i < 2) {
-                model.system = "0"
-                if (i == 0) {
-                    model.title = "互动通知"
-                } else if (i == 1) {
-                    model.title = "小七提醒"
+    //获取好友
+    fun getNewMsg(){
+        var params = HashMap<String,String>()
+        params["cmd"] = "newMsg"
+        params["uid"] = StaticUtil.uid
+        retrofit.getData(Gson().toJson(params))
+            .async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val model = Gson().fromJson(response, XxModel::class.java)
+                    for(i in 0 until model.dataList.size){
+                        when (model.dataList[i].type){
+                            "1" -> { //1互动通知 2小七提醒
+                                bind?.tvMessage?.text = model.dataList[i].content
+                                if (model.dataList[i].count == "0")
+                                    bind?.tvNotificationNum?.visibility = View.GONE
+                                else
+                                    bind?.tvNotificationNum?.visibility = View.VISIBLE
+                            }
+                            "2" -> {
+                                bind?.tvHintMessage?.text = model.dataList[i].content
+                                if (model.dataList[i].count == "0")
+                                    bind?.tvHintMessageNum?.visibility = View.GONE
+                                else
+                                    bind?.tvHintMessageNum?.visibility = View.VISIBLE
+                            }
+                        }
+                    }
                 }
-            } else {
-                model.system = "1"
-            }
-            list.add(model)
-        }
-        adapter.upData(list)
+            }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
+            }, {
 
-        adapter.setMyListener { itemBean, position ->
-            if (itemBean.title == "互动通知") {
-                MyApplication.openActivity(fragment?.context, InteractiveNotificationActivity::class.java)
-            } else if (itemBean.title == "小七提醒") {
-                MyApplication.openActivity(fragment?.context, QiQiRemindActivity::class.java)
-            }
-        }
+            })
     }
+
+
 
 
 }

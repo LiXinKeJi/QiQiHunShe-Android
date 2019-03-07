@@ -607,9 +607,11 @@
                               android:textSize="16sp"
                     />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
                               android:id="@+id/tv_mytype"
                               android:layout_alignParentRight="true"
+                              android:layout_toRightOf="@+id/mytype"
+                              android:gravity="right"
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:drawablePadding="5dp"
                               android:text="请选择"
@@ -684,8 +686,10 @@
                               android:textSize="16sp"
                     />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
                               android:id="@+id/tv_label"
+                              android:layout_toRightOf="@+id/label"
+                              android:gravity="right"
                               android:layout_alignParentRight="true"
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:drawablePadding="5dp"
@@ -758,9 +762,11 @@
                               android:textSize="16sp"
                     />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
                               android:id="@+id/tv_he_type"
                               android:layout_alignParentRight="true"
+                              android:layout_toRightOf="@+id/he_type"
+                              android:gravity="right"
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:drawablePadding="5dp"
                               android:text="请选择"
@@ -800,7 +806,7 @@
                               android:layout_alignParentRight="true"
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:drawablePadding="5dp"
-                              android:text="请选择"
+                              android:text="@{viewmodel.birthplace2}"
                               android:layout_marginLeft="10dp"
                               android:paddingTop="5dp"
                               android:paddingBottom="5dp"
@@ -837,7 +843,7 @@
                               android:layout_alignParentRight="true"
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:drawablePadding="5dp"
-                              android:text="请选择"
+                              android:text="@{viewmodel.residence2}"
                               android:layout_marginLeft="10dp"
                               android:paddingTop="5dp"
                               android:paddingBottom="5dp"

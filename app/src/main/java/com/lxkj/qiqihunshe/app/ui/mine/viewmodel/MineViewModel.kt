@@ -5,8 +5,16 @@ import com.lxkj.qiqihunshe.app.util.ThreadUtil
 import com.lxkj.qiqihunshe.databinding.FragmentMineBinding
 import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import android.util.DisplayMetrics
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.dialog.CategoryPop
+import com.lxkj.qiqihunshe.app.ui.mine.model.MineModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
+import io.reactivex.Single
 import java.util.*
 
 
@@ -19,51 +27,47 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
     var bind: FragmentMineBinding? = null
 
 
-    //假设的总进度，最多为100，可自行调整
-    private val status = 30
-    //当前进度
-    private var currentStatue: Int = 0
-    /**
-     * 当前位置
-     */
-    private var currentPosition: Float = 0.toFloat()
+    fun getMine(): Single<String> {
+        val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                val model = Gson().fromJson(response, MineModel::class.java)
 
-    //得到屏幕的总宽度
-    private var width: Int = 0
-    private var scrollDistance: Float = 0.toFloat()
-    private var tvWidth: Int = 0
+                bind?.let {
+                    it.model = model
+                    it.pbReputation.progress = (model.credit.toDouble() * 100).toInt()
+                    it.pbFeel.progress = (model.polite.toDouble() * 100).toInt()
 
+                    if (model.identity == "1") {
+                        it.tvState.text="单身"
+                    } else if (model.identity == "2") {
+                        it.tvState.text="约会"
+                    } else if (model.identity == "3") {
+                        it.tvState.text="牵手"
+                    }
 
-    fun initAchieve() {
-        val outMetrics = DisplayMetrics()
-        fragment?.activity!!.windowManager.defaultDisplay.getMetrics(outMetrics)
-        width = (outMetrics.widthPixels - (ControlWidthHeight.dip2px(fragment?.context!!, 42))) * status / 100
-
-        //开启分线程
-        Thread(Runnable {
-            //每一段要移动的距离
-            scrollDistance = width.toFloat()
-            for (i in 0 until status) {
-                ThreadUtil.runOnMainThread(Runnable {
-                    // 控制进度条的增长进度
-                    bind!!.pbReputation.incrementProgressBy(1)
-                    currentStatue++
-                    bind!!.tvReputation.text = currentStatue.toString()
-                    // 得到字体的宽度
-                    tvWidth = bind!!.tvReputation.width
-                    currentPosition += scrollDistance
-                    //做一个平移动画的效果
-
-                })
-
-                try {
-                    Thread.sleep(30)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                    MyApplication.setRedNum(it.tvMsgNum1, model.xiaoqi.toInt())
+                    MyApplication.setRedNum(it.tvMsgNum2, model.interact.toInt())
                 }
+
+
+                StaticUtil.headerUrl = model.icon
+                StaticUtil.nickName = model.nickname
+
+
             }
-        }).start()
-        bind!!.tvReputation.translationX = width.toFloat()
+        }, fragment?.activity))
+    }
+
+
+    fun motifyState(identity: Int): Single<String> {
+        val json = "{\"cmd\":\"upPrize\",\"uid\":\"" + StaticUtil.uid + "\",\"identity\":\"" + identity + "\"}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    bind!!.tvState.text = list[identity]
+                }
+            }, fragment?.activity))
     }
 
 
@@ -83,7 +87,7 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
     // 选中的状态
     override fun category(position: Int) {
-        bind!!.tvState.text = list[position]
+        motifyState(position)
     }
 
 

@@ -373,7 +373,7 @@ public class LoopView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (items == null) {
+        if (items == null||items.isEmpty()) {
             return;
         }
 

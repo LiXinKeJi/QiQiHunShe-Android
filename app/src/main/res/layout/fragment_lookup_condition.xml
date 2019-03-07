@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.LookupAccurateViewModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.LookupConditionViewModel"/>
     </data>
 
     <!--条件查找-->
@@ -14,6 +14,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
+                android:id="@+id/ll_main"
                 android:fitsSystemWindows="true">
 
 
@@ -41,7 +42,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="男"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />
@@ -79,7 +80,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="18-100"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />
@@ -117,7 +118,7 @@
                           android:textSize="14sp"
                           android:layout_alignParentRight="true"
                           android:drawablePadding="8dp"
-                          android:text="离异"
+                          android:text=""
                           android:layout_centerVertical="true"
                           android:drawableRight="@drawable/ic_arrar_right"
                 />

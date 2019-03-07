@@ -21,6 +21,15 @@
         <item>离异</item>
     </array>
 
+    <array name="sex">
+        <item>女</item>
+        <item>男</item>
+    </array>
+
+    <array name="payType">
+        <item>微信</item>
+        <item>支付宝</item>
+    </array>
 
 
     <array name="report">

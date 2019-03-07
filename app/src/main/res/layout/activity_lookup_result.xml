@@ -36,9 +36,10 @@
                  android:layout_height="5dp"
         />
 
-        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:id="@+id/recycler"/>
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/xRecyclerView"/>
 
 
     </LinearLayout>

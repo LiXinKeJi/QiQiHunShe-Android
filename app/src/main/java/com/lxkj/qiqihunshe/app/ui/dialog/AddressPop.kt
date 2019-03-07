@@ -20,7 +20,8 @@ import java.util.ArrayList
  * Created by Slingge on 2018/1/17 0017.
  */
 
-class AddressPop(context: Context?, private val cityList: List<CityModel>, var wheelViewCallBack: AddressCallBack) : PopupWindow(context) {
+class AddressPop(context: Context?, private val cityList: List<CityModel>, var wheelViewCallBack: AddressCallBack) :
+    PopupWindow(context) {
 
     internal var position = 0
     internal var position2 = 0
@@ -36,6 +37,7 @@ class AddressPop(context: Context?, private val cityList: List<CityModel>, var w
 
 
     init {
+
 
         val v = LayoutInflater.from(context).inflate(R.layout.popup_date, null)
         val loopview = v.findViewById<View>(R.id.loopView) as LoopView
@@ -99,7 +101,10 @@ class AddressPop(context: Context?, private val cityList: List<CityModel>, var w
         }
 
         val tv_enter = v.findViewById<View>(R.id.tv_enter) as TextView
-        tv_enter.setOnClickListener { v1 -> this@AddressPop.dismiss() }
+        tv_enter.setOnClickListener { v1 ->
+            wheelViewCallBack.position(position, position2, position3)
+            this@AddressPop.dismiss()
+        }
 
         //设置初始位置
 

@@ -9,14 +9,14 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.SpaceDynamicItemView
  * 我的空间-我的动态
  * Created by Slingge on 2019/2/22
  */
-class SpaceDynamicAdapter : BaseListAdapter<SpaceDynamicModel, SpaceDynamicItemView>() {
+class SpaceDynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, SpaceDynamicItemView>() {
 
 
     override fun getitemView(context: Context): SpaceDynamicItemView {
         return SpaceDynamicItemView(context)
     }
 
-    override fun refreshItemView(view: SpaceDynamicItemView, itembean: SpaceDynamicModel) {
+    override fun refreshItemView(view: SpaceDynamicItemView, itembean: SpaceDynamicModel.dataModel) {
         view.setData(itembean)
     }
 

@@ -126,7 +126,10 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         }
 
         val tv_enter = v.findViewById<View>(R.id.tv_enter) as TextView
-        tv_enter.setOnClickListener { v1 -> this@DatePop.dismiss() }
+        tv_enter.setOnClickListener { v1 ->
+            wheelViewCallBack.position(yearList[position], monthList[position2], dayList[position3])
+            this@DatePop.dismiss()
+        }
 
         //设置初始位置
         this.contentView = v

@@ -57,6 +57,10 @@ class CommunicationViewModel : BaseViewModel() {
         adapter?.setOnItemClickListener {
             ToastUtil.showTopSnackBar(fragment,it.toString())
         }
+
+        adapter?.setOnItemDeleteListener {
+           delFriend(it)
+        }
         bind?.xRecyclerView?.adapter = adapter
 
         getFriendList()
@@ -89,6 +93,26 @@ class CommunicationViewModel : BaseViewModel() {
             }, {
                 bind?.xRecyclerView?.refreshComplete()
                 bind?.xRecyclerView?.loadMoreComplete()
+            })
+    }
+
+
+
+    //删除好友
+    fun delFriend(position : Int){
+        var params = HashMap<String,String>()
+        params["cmd"] = "delFriend"
+        params["uid"] = StaticUtil.uid
+        params["userId"] = list[position].userId
+        retrofit.getData(Gson().toJson(params))
+            .async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    list.removeAt(position)
+                    adapter?.notifyDataSetChanged()
+                }
+            }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
+            }, {
             })
     }
 

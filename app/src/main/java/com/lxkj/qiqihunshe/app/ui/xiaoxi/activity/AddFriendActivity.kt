@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.xiaoxi.activity
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.AddFriendViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityAddfriendBinding
 
@@ -17,6 +18,11 @@ class AddFriendActivity : BaseActivity<ActivityAddfriendBinding, AddFriendViewMo
 
     override fun init() {
         initTitle("添加")
+        var model = intent.getSerializableExtra("model") as DataListModel
+        viewModel?.let {
+            it.bind=binding
+            it.init(model)
+        }
     }
 
 }
