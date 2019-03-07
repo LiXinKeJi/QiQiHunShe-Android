@@ -23,9 +23,9 @@ class MyProblemViewModel:BaseViewModel() {
 
         bind!!.recycler.adapter = adapter
 
-        val list = ArrayList<SpaceDynamicModel>()
+        val list = ArrayList<SpaceDynamicModel.dataModel>()
         for (i in 0 until 5) {
-            val model = SpaceDynamicModel()
+            val model = SpaceDynamicModel.dataModel()
             list.add(model)
         }
         adapter.upData(list)
