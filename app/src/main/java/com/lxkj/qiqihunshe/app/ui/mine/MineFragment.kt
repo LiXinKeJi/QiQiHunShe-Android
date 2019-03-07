@@ -4,7 +4,6 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
-import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
 import com.lxkj.qiqihunshe.app.ui.mine.activity.*
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MineViewModel
@@ -47,7 +46,7 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
-            it.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.initAchieve()
         }
 
 

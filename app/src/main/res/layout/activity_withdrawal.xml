@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -10,7 +10,6 @@
 
 
     <android.support.constraint.ConstraintLayout
-            android:id="@+id/cl_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -47,7 +46,7 @@
                   android:textSize="15sp"
                   android:textColor="@color/colorTabText"
                   android:singleLine="true"
-                  android:text="@={model.amount}"
+                  android:text="@={model.money}"
                   android:padding="10dp"
                   android:inputType="number|numberDecimal"
                   android:background="@color/white"
@@ -60,7 +59,7 @@
                   android:layout_height="wrap_content"
                   android:id="@+id/tv_totalmoney"
                   android:padding="10dp"
-                  android:text="可提现金额￥"
+                  android:text="@{`可提现金额￥`+viewmodel.totalMoney}"
                   android:textColor="@color/colorSubtitle"
                   android:textSize="13sp"
                   app:layout_constraintTop_toBottomOf="@+id/et_money"
@@ -108,7 +107,7 @@
                       android:id="@+id/tv_type"
                       android:layout_marginLeft="15dp"
                       android:layout_centerVertical="true"
-                      android:text="支付宝"
+                      android:text="微信"
                       android:drawableRight="@drawable/ic_arrar_right"
                       android:layout_alignParentRight="true"
                       android:drawablePadding="5dp"
@@ -147,14 +146,13 @@
                       android:layout_centerVertical="true"
                       android:gravity="right|center_vertical"
                       android:hint="请输入提现账户"
-                      android:singleLine="true"
                       android:background="@color/white"
                       android:layout_alignParentRight="true"
                       android:textColor="@color/colorTabText"
                       android:layout_marginRight="15dp"
                       android:textSize="15sp"
+
                       android:layout_toRightOf="@+id/account"
-                      android:text="@={model.account}"
             />
 
         </RelativeLayout>
@@ -190,22 +188,20 @@
                       android:gravity="right|center_vertical"
                       android:hint="请输入账户姓名"
                       android:background="@color/white"
-                      android:singleLine="true"
                       android:layout_alignParentRight="true"
                       android:textColor="@color/colorTabText"
                       android:layout_marginRight="15dp"
                       android:textSize="15sp"
-                      android:text="@={model.realname}"
                       android:layout_toRightOf="@+id/name"
             />
 
         </RelativeLayout>
-        <!--     android:text="@{`注：本次提现平台需扣取佣金：`+viewmodel.rate}"-->
+        <!--  android:text="@{`注：本次提现平台需扣取佣金`+model.money}"-->
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_zhu"
+
                   android:textColor="#F85543"
                   android:textSize="13sp"
-                  android:text="@{viewmodel.rate}"
                   app:layout_constraintTop_toBottomOf="@+id/rv_name"
                   android:layout_marginLeft="15dp"
                   android:layout_marginTop="15dp"

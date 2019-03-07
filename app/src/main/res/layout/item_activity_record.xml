@@ -11,6 +11,7 @@
 
 
     <android.support.constraint.ConstraintLayout
+            android:id="@+id/item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="12dp"
@@ -23,6 +24,7 @@
                 android:id="@+id/header"
                 android:layout_marginLeft="15dp"
                 android:src="@mipmap/ic_launcher"
+                android:visibility="gone"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -33,6 +35,7 @@
                   android:textSize="15sp"
                   android:textColor="@color/black"
                   android:text="昵称"
+                  android:visibility="gone"
                   app:layout_constraintTop_toTopOf="@+id/header" app:layout_constraintStart_toEndOf="@+id/header"
                   android:layout_marginStart="5dp" android:layout_marginLeft="5dp"/>
 
@@ -41,6 +44,7 @@
                   android:textSize="13sp"
                   android:textColor="@color/colorSubtitle"
                   android:text="职业"
+                  android:visibility="gone"
                   app:layout_constraintBottom_toBottomOf="@+id/header" app:layout_constraintStart_toEndOf="@+id/header"
                   android:layout_marginStart="5dp" android:layout_marginLeft="5dp"/>
 
@@ -49,6 +53,7 @@
                  android:layout_marginLeft="10dp"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:visibility="gone"
                  android:layout_alignBottom="@+id/banner" app:layout_constraintStart_toEndOf="@+id/tv_occupation"
                  android:layout_marginStart="10dp"
                  app:layout_constraintBottom_toBottomOf="@+id/tv_occupation"
@@ -58,13 +63,13 @@
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_age"
                   android:textColor="@color/girl"
-                  android:background="@drawable/bg_girl"
+                  android:background="@mipmap/bg_sex_nv"
+                  android:visibility="gone"
                   android:text="16"
                   android:textSize="10sp"
                   android:paddingTop="1dp"
                   android:paddingBottom="1dp"
-                  android:paddingLeft="10dp"
-                  android:paddingRight="10dp"
+                  android:paddingLeft="15dp"
                   app:layout_constraintStart_toEndOf="@+id/tv_name" android:layout_marginStart="8dp"
                   android:layout_marginLeft="8dp"
                   app:layout_constraintBottom_toBottomOf="@+id/tv_name"/>
@@ -74,6 +79,7 @@
                    android:background="@drawable/bg_yello_left60"
                    android:src="@drawable/ic_back"
                    android:paddingLeft="12dp"
+                   android:visibility="gone"
                    android:paddingRight="18dp"
                    android:paddingTop="5dp"
                    android:paddingBottom="5dp"
@@ -226,6 +232,7 @@
                   android:id="@+id/tv_totalnum"
                   android:text="+1"
                   android:textSize="18sp"
+
                   android:textColor="@color/colorRateRed"
                   app:layout_constraintTop_toTopOf="@+id/iv_3"
                   app:layout_constraintEnd_toEndOf="@+id/iv_3"
@@ -236,7 +243,7 @@
                   android:id="@+id/tv_date"
                   android:textColor="@color/colorSubtitle"
                   android:textSize="11sp"
-                  android:text="2019"
+                  android:text=""
                   app:layout_constraintTop_toBottomOf="@+id/iv_1"
                   android:layout_marginTop="10dp"
                   android:layout_marginRight="15dp"

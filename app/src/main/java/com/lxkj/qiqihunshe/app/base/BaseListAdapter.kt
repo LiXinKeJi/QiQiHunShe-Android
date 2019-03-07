@@ -97,9 +97,6 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         //到达底部加载更多
         if (position == itemCount - 1) {//已经到达列表的底部
             LoadListener?.let {
-                if (position >= list.size || position < 0) {
-                    return
-                }
                 it()
             }
         }

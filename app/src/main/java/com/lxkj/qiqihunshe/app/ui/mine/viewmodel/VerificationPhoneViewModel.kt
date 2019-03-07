@@ -17,7 +17,7 @@ class VerificationPhoneViewModel : BaseViewModel() {
 
     private val timerUtil by lazy { TimerUtil(bind?.tvGetcode) }
 
-    var CODE = ""
+    private var CODE = ""
     private var flag = 0//1支付密码，2登录密码
 
     fun getCode() {
@@ -30,11 +30,9 @@ class VerificationPhoneViewModel : BaseViewModel() {
     }
 
 
-    fun jump(phone:String,code:String) {
+    fun jump() {
         val bundle = Bundle()
         bundle.putInt("flag", flag)
-        bundle.putString("phone",phone)
-        bundle.putString("code",CODE)
         MyApplication.openActivity(activity, ModifyPassActivity::class.java, bundle)
     }
 

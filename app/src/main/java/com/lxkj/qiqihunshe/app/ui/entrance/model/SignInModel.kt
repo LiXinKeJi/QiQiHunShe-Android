@@ -10,9 +10,9 @@ import com.lxkj.qiqihunshe.app.base.BaseModel
 class SignInModel : BaseModel() {
 
     @Bindable
-    var phone = "15903691791"
+    var phone = ""
     @Bindable
-    var pass = "123456"
+    var pass = ""
 
 
     //刷新双向绑定数据

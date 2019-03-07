@@ -3,9 +3,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.fragment
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
-import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SpaceDynamicViewModel
-import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import kotlinx.android.synthetic.main.activity_recyvlerview.*
 
@@ -16,22 +14,20 @@ class SpaceDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceDyna
 
     override fun getBaseViewModel() = SpaceDynamicViewModel()
 
-    override fun getLayoutId() = R.layout.activity_recyvlerview
+    override fun getLayoutId()= R.layout.activity_recyvlerview
 
     override fun init() {
-        include.visibility = View.GONE
+        include.visibility= View.GONE
 
         viewModel?.let {
-            recycler.setPadding(0, 12, 0, 0)
-            it.bind = binding
+            recycler.setPadding(0,12,0,0)
+            it.bind=binding
             it.initViewModel()
         }
 
     }
 
     override fun loadData() {
-        viewModel!!.sginIn().bindLifeCycle(this)
-            .subscribe({}, { toastFailure(it) })
     }
 
 

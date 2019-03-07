@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:id="@+id/fl_load"
              android:background="@color/transparent"
-             android:layout_height="40dp">
+             android:layout_height="wrap_content">
 
     <RelativeLayout
             android:layout_width="wrap_content"

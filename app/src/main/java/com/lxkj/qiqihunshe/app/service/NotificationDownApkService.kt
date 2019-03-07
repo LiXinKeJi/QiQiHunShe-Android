@@ -40,17 +40,17 @@ class NotificationDownApkService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        downApk(intent!!.getStringExtra("url"))
+        downApk()
         return super.onStartCommand(intent, flags, startId)
     }
 
 
     private var apkFile: File? = null
-    fun downApk(url: String) {
+    fun downApk() {
         val client = OkHttpClient()
         val request = Request.Builder()
 //            .url("http://yuedingle.com/icon/yueding.apk")
-            .url(url)
+            .url("https://dl.google.com/dl/android/studio/install/2.3.3.0/android-studio-bundle-162.4069837-windows.exe")
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

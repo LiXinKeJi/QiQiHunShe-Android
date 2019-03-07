@@ -14,15 +14,11 @@ object StaticUtil {
     var uid = ""//用户id
     var sex = ""//用户性别  0女 1男
     var headerUrl = ""//用户自己的头像
-    var nickName=""//昵称
 
     var fill = ""// 0未完善资料 1已完善资料
 
     var lat = ""// 当前纬度
     var lng = ""//当前经度
     var address = "" //当前位置
-
-
-    var amount=""//账户总额
 
 }

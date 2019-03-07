@@ -1,10 +1,8 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import android.text.InputFilter
-import android.text.TextUtils
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
-import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.model.RechargeModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.RechargeViewModel
 import com.lxkj.qiqihunshe.app.util.CashierInputFilter
@@ -22,7 +20,7 @@ class RechargeActivity : BaseActivity<ActivityRechargeBinding, RechargeViewModel
 
     override fun getLayoutId() = R.layout.activity_recharge
 
-    private val model by lazy { RechargeModel() }
+    private val  model by lazy { RechargeModel() }
 
     override fun init() {
 
@@ -33,21 +31,14 @@ class RechargeActivity : BaseActivity<ActivityRechargeBinding, RechargeViewModel
         et_money.filters = filter
 
         viewModel?.let {
-            binding.viewmodel = it
-            binding.model = model
+            binding.viewmodel=it
+            binding.model=model
 
         }
 
         tv_enter.setOnClickListener {
             model.notifyMoney()
-
-            if (TextUtils.isEmpty(model.money)) {
-                ToastUtil.showTopSnackBar(this, "请输入充值金额")
-                return@setOnClickListener
-            }
-
-            viewModel!!.recharge(model.money).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-
+            ToastUtil.showToast(model.money)
         }
     }
 

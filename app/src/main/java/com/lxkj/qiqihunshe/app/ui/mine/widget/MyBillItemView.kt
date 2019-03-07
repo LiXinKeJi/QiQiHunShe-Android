@@ -5,12 +5,11 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.mine.model.MyBillModel
-import kotlinx.android.synthetic.main.item_mybill.view.*
 
 /**
  * Created by Slingge on 2019/2/21
  */
-class MyBillItemView : RelativeLayout {
+class MyBillItemView : RelativeLayout  {
 
 
     constructor(context: Context) : super(context)
@@ -22,15 +21,8 @@ class MyBillItemView : RelativeLayout {
         View.inflate(context, R.layout.item_mybill, this)
     }
 
-    fun setData(bean: MyBillModel.dataModel) {
+    fun setData(bean: MyBillModel) {
 
-        tv_title.text = bean.title
-        tv_time.text = bean.adtime
-        if (bean.type == "0") {//减少
-            tv_money.text = "-$bean.money"
-        } else {
-            tv_money.text = "+$bean.money"
-        }
 
     }
 

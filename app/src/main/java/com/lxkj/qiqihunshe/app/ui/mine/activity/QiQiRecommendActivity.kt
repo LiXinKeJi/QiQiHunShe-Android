@@ -32,12 +32,12 @@ class QiQiRecommendActivity : BaseActivity<ActivityQiqiRecommendBinding, QiQiRec
         tabList.add("定制推荐")
 
         var bundle = Bundle()
-        bundle.putInt("flag", 0)
+        bundle.putInt("flag", 1)
         val fragment0 = Fragment.instantiate(this, QiQiRecommendFragment::class.java.name, bundle)
         list.add(fragment0)
 
         bundle = Bundle()
-        bundle.putInt("flag", 1)
+        bundle.putInt("flag", 2)
         val fragment1 = Fragment.instantiate(this, QiQiRecommendFragment::class.java.name, bundle)
         list.add(fragment1)
 

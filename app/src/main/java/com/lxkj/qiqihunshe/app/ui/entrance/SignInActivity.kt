@@ -58,7 +58,7 @@ class SignInActivity : BaseActivity<ActivitySigninBinding, SignInViewModel>(), V
                 MyApplication.openActivity(this, RegisterActivity::class.java)
             }
             R.id.tv_sginin -> {
-
+                MyApplication.openActivity(this, MainActivity::class.java)
                 sginModel.notif()
                 if (TextUtils.isEmpty(sginModel.phone)) {
                     ToastUtil.showToast("请输入手机号/七七账号")
@@ -70,8 +70,10 @@ class SignInActivity : BaseActivity<ActivitySigninBinding, SignInViewModel>(), V
                 }
 
                 val json =
-                    "{\"cmd\":\"userLogin\",\"phone\":\"" + sginModel.phone + "\",\"password\":\"" +
-                            Md5Util.md5Encode(sginModel.pass) + "\",\"token\":\"" + "" + "\"}"
+                    "{\"cmd\":\"userLogin\",\"phone\":\"" + sginModel.phone + "\",\"password\":\"" + Md5Util.md5Encode(
+                        sginModel.pass
+                    ) +
+                            "\",\"token\":\"" + "" + "\"}"
                 viewModel!!.sginIn(json).bindLifeCycle(this)
                     .subscribe({}, { toastFailure(it) })
             }

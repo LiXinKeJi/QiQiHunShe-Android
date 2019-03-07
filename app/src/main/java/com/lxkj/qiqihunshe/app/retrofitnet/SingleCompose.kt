@@ -40,7 +40,6 @@ object SingleCompose {
                 try {
                     ToastUtil.showTopSnackBar(context, "网络错误")
                 } catch (e: Exception) {
-                    ToastUtil.showTopSnackBar(context, "连接服务器失败")
                     abLog.e("连接服务器失败", e.toString())
                 }
             }
