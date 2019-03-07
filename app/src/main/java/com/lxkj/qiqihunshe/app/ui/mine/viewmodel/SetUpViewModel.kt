@@ -5,42 +5,62 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.support.v4.content.FileProvider
+import android.view.View
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.service.NotificationDownApkService
 import com.lxkj.qiqihunshe.app.ui.entrance.SignInActivity
+import com.lxkj.qiqihunshe.app.ui.mine.model.UpDataModel
 import com.lxkj.qiqihunshe.app.util.*
+import com.lxkj.qiqihunshe.databinding.ActivitySetupBinding
+import io.reactivex.Single
 import java.io.File
+import android.support.v7.app.AlertDialog
+
 
 /**
  * Created by Slingge on 2019/2/19
  */
 class SetUpViewModel : BaseViewModel() {
 
+    var bind: ActivitySetupBinding? = null
 
-    fun sginout() {
-        SharedPreferencesUtil.putSharePre(activity, "uid", "")
-        MyApplication.uId = ""
-        AppManager.finishAllActivity()
-        MyApplication.openActivity(activity, SignInActivity::class.java)
-    }
+    private var upDataModel = UpDataModel()
 
-
-      var isDownApk = false
-    fun upData() {
-        if (PermissionUtil.ApplyPermissionAlbum(activity, 0)) {
-            if (isDownApk) {
-                ToastUtil.showTopSnackBar(activity, "正在下载")
-                return
+    fun sginout(): Single<String> {
+        val json = "{\"cmd\":\"userLogout\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json).compose(SingleCompose.compose(object :SingleObserverInterface{
+            override fun onSuccess(response: String) {
+                SharedPreferencesUtil.putSharePre(activity, "uid", "")
+                MyApplication.uId = ""
+                AppManager.finishAllActivity()
+                MyApplication.openActivity(activity, SignInActivity::class.java)
             }
-            isDownApk = true
-            ToastUtil.showTopSnackBar(activity, "开始下载")
-            activity!!.startService(Intent(activity, NotificationDownApkService::class.java))
-        }
+        },activity))
+
     }
 
+
+    var isDownApk = false
+    fun getUpData(): Single<String> {
+        val json = "{\"cmd\":\"updateVersion\"" + "}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    upDataModel = Gson().fromJson(response, upDataModel::class.java)
+                    val packageInfo = activity!!.applicationContext
+                        .packageManager
+                        .getPackageInfo(activity!!.packageName, 0)
+                    if (upDataModel.number.toInt() > packageInfo.versionCode) {
+                        bind!!.ivSpot.visibility = View.VISIBLE
+                    }
+                }
+            }, activity))
+    }
 
 
     val REQUEST_INSTALL = 124
@@ -67,6 +87,33 @@ class SetUpViewModel : BaseViewModel() {
             intent.setDataAndType(Uri.parse("file://$apkFile"), "application/vnd.android.package-archive")
         }
         activity?.startActivity(intent)
+    }
+
+    fun upData() {
+        if (bind!!.ivSpot.visibility == View.VISIBLE) {
+            val builder =
+                AlertDialog.Builder(activity!!).setTitle("发现新版本" + upDataModel.version + "\n" + upDataModel.content)
+                    .setMessage("是否更新？").setPositiveButton(
+                        "更新"
+                    ) { dialog, which ->
+                        if (PermissionUtil.ApplyPermissionAlbum(activity, 0)) {
+                            if (isDownApk) {
+                                ToastUtil.showTopSnackBar(activity, "正在下载")
+                                return@setPositiveButton
+                            }
+                            isDownApk = true
+                            ToastUtil.showTopSnackBar(activity, "开始下载")
+                            val intent = Intent(activity, NotificationDownApkService::class.java)
+                            intent.putExtra("url", upDataModel.url)
+                            activity!!.startService(intent)
+                            dialog.dismiss()
+                        }
+                    }.setNegativeButton("取消") { dialog, which ->
+                        dialog.dismiss()
+                    }
+            builder.create().show()
+
+        }
     }
 
 

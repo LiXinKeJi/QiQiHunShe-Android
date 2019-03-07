@@ -61,10 +61,10 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
                     it.model.lat = "32.45458"
                     it.model.lon = "125.15484"
                     it.model.location = "楼下"
-                    it.model.type = "0"
-                    if (it.ablumList.size-1>0) {
+
+                    if (it.ablumList.isNotEmpty()) {
                         val fileList = ArrayList<String>()
-                        for (i in 0 until it.ablumList.size - 1) {//移除最后一个添加占位的图片
+                        for (i in 0 until it.ablumList.size) {
                             fileList.add(it.ablumList[i].path)
                         }
                         upload.setListPath(fileList)

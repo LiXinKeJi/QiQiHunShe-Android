@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
+import android.databinding.ObservableField
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.Gravity
@@ -38,6 +39,9 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
     private var type = -1//0我的出生日期
 
     private var flag = -1// 0我的家乡，1我的现居
+    val birthplace2 = ObservableField<String>()//ta的家乡
+    val residence2 = ObservableField<String>()//ta的现居
+
 
     private var SelectString = -1//0民族，1学历,2我的情感状态,3我的情感计划，4他的情感状态,5他的情感计划，6他的薪资范围
 
@@ -79,7 +83,6 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
     //flag 0我的家乡，1我的现居，2他的家乡，3他的现居
     fun showAddress(flag: Int) {
         this.flag = flag
-        ToastUtil.showToast(flag.toString())
         if (cityList.isEmpty()) {
             cityList = Gson().fromJson(AppJsonFileReader.getJsons(activity, 0), object : TypeToken<List<CityModel>>() {
             }.type)
@@ -123,15 +126,13 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
                 model.birthplace2 = cityList[position1].areaName +
                         cityList[position1].cities!![position2].areaName +
                         cityList[position1].cities!![position2].counties!![position3].areaName
-                bind!!.tvHeHometown.text = model.birthplace
-                abLog.e("家乡", model.birthplace2)
+                birthplace2.set(model.birthplace2)
             }
             3 -> {//他的现居
                 model.residence2 = cityList[position1].areaName +
                         cityList[position1].cities!![position2].areaName +
                         cityList[position1].cities!![position2].counties!![position3].areaName
-                bind!!.tvHeResidence.text = model.birthplace
-                abLog.e("现居", model.residence2)
+                residence2.set(model.residence2)
             }
         }
 
@@ -177,11 +178,11 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
             }
             6 -> {//他的薪资
                 model.salary2 = HeSalaryList[position1]
-                bind?.tvHeEmotionalPlanning?.text = model.salary2
+                bind?.tvHeSalary?.text = model.salary2
             }
             7 -> {//他的车
                 model.car2 = HeCarList[position1]
-                if (model.house2 == "0") {
+                if (model.car2 == "0") {
                     bind?.tvHeCar?.text = "无"
                 } else {
                     bind?.tvHeCar?.text = model.car2
@@ -320,12 +321,14 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
                     MyTypeList.addAll(tagList)
                     val bundle = Bundle()
                     bundle.putStringArrayList("list", MyTypeList)
+                    bundle.putInt("flag",1)
                     MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 1)
                 }
             }).getTag(model.sex, "2")
         } else {
             val bundle = Bundle()
             bundle.putStringArrayList("list", MyTypeList)
+            bundle.putInt("flag", 1)
             MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 1)
         }
     }
@@ -338,12 +341,14 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
                     hobbyList.addAll(tagList)
                     val bundle = Bundle()
                     bundle.putStringArrayList("list", hobbyList)
+                    bundle.putInt("flag", 2)
                     MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 2)
                 }
             }).getTag(getHeSex(), "3")
         } else {
             val bundle = Bundle()
             bundle.putStringArrayList("list", hobbyList)
+            bundle.putInt("flag", 2)
             MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 2)
         }
     }
@@ -357,12 +362,14 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
                     hobbyList.addAll(tagList)
                     val bundle = Bundle()
                     bundle.putStringArrayList("list", labelList)
+                    bundle.putInt("flag", 3)
                     MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 3)
                 }
             }).getTag(model.sex, "4")
         } else {
             val bundle = Bundle()
             bundle.putStringArrayList("list", labelList)
+            bundle.putInt("flag", 3)
             MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 3)
         }
     }
@@ -376,12 +383,14 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
                     HeTypeList.addAll(tagList)
                     val bundle = Bundle()
                     bundle.putStringArrayList("list", HeTypeList)
+                    bundle.putInt("flag", 4)
                     MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 4)
                 }
             }).getTag(getHeSex(), "2")
         } else {
             val bundle = Bundle()
             bundle.putStringArrayList("list", HeTypeList)
+            bundle.putInt("flag", 4)
             MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 4)
         }
     }
@@ -394,12 +403,12 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
                 override fun TagList(tagList: ArrayList<String>) {
                     HeSalaryList.addAll(tagList)
                     SelectString = 6
-                    showStringWheel(planningList)
+                    showStringWheel(HeSalaryList)
                 }
             }).getTag(getHeSex(), "5")
         } else {
             SelectString = 6
-            showStringWheel(planningList)
+            showStringWheel(HeSalaryList)
         }
     }
 
@@ -426,6 +435,10 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
             GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
                 override fun TagList(tagList: ArrayList<String>) {
                     HeRoomList.addAll(tagList)
+                    if(HeRoomList.isEmpty()){
+                        ToastUtil.showTopSnackBar(activity,"暂无分类")
+                        return
+                    }
                     SelectString = 8
                     showStringWheel(HeRoomList)
                 }

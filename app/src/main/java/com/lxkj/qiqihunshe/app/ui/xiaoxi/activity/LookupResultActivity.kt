@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.activity
 
+import android.content.Intent
 import cc.shinichi.sherlockutillibrary.utility.ui.ToastUtil
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
@@ -36,6 +37,15 @@ class LookupResultActivity :
             it.bind=binding
             it.init(tag, mapData.map)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 0 && resultCode == 1){
+            viewModel?.list?.removeAt(viewModel!!.doPositon)
+            viewModel?.adapter?.notifyDataSetChanged()
+        }
+
     }
 
 }

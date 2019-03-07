@@ -73,12 +73,14 @@
                               android:textColor="@color/colorSubtitle"
                               android:textSize="15sp"/>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:drawableRight="@drawable/ic_arrar_right"
-                              android:layout_alignParentRight="true"
-                              android:text="证件上传"
-                              android:drawablePadding="5dp"
-                              android:layout_centerVertical="true"
+                    <TextView
+                            android:id="@+id/tv1"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/ic_arrar_right"
+                            android:layout_alignParentRight="true"
+                            android:text="证件上传"
+                            android:drawablePadding="5dp"
+                            android:layout_centerVertical="true"
                     />
                 </RelativeLayout>
                 <include layout="@layout/include_line07"/>
@@ -97,12 +99,14 @@
                               android:textColor="@color/colorSubtitle"
                               android:textSize="15sp"/>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:drawableRight="@drawable/ic_arrar_right"
-                              android:layout_alignParentRight="true"
-                              android:text="证件上传"
-                              android:drawablePadding="5dp"
-                              android:layout_centerVertical="true"
+                    <TextView
+                            android:id="@+id/tv2"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/ic_arrar_right"
+                            android:layout_alignParentRight="true"
+                            android:text="证件上传"
+                            android:drawablePadding="5dp"
+                            android:layout_centerVertical="true"
                     />
                 </RelativeLayout>
                 <include layout="@layout/include_line07"/>
@@ -121,12 +125,14 @@
                               android:textColor="@color/colorSubtitle"
                               android:textSize="15sp"/>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:drawableRight="@drawable/ic_arrar_right"
-                              android:layout_alignParentRight="true"
-                              android:text="证件上传"
-                              android:drawablePadding="5dp"
-                              android:layout_centerVertical="true"
+                    <TextView
+                            android:id="@+id/tv3"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/ic_arrar_right"
+                            android:layout_alignParentRight="true"
+                            android:text="证件上传"
+                            android:drawablePadding="5dp"
+                            android:layout_centerVertical="true"
                     />
                 </RelativeLayout>
                 <include layout="@layout/include_line07"/>
@@ -149,6 +155,7 @@
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:layout_alignParentRight="true"
                               android:text="证件上传"
+                              android:id="@+id/tv4"
                               android:drawablePadding="5dp"
                               android:layout_centerVertical="true"
                     />
@@ -174,6 +181,7 @@
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:layout_alignParentRight="true"
                               android:text="证件上传"
+                              android:id="@+id/tv5"
                               android:drawablePadding="5dp"
                               android:layout_centerVertical="true"
                     />
@@ -198,7 +206,8 @@
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                               android:drawableRight="@drawable/ic_arrar_right"
                               android:layout_alignParentRight="true"
-                              android:text="证件上传"
+                              android:text=""
+                              android:id="@+id/tv6"
                               android:drawablePadding="5dp"
                               android:layout_centerVertical="true"
                     />

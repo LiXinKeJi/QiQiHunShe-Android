@@ -10,13 +10,13 @@ import com.lxkj.qiqihunshe.app.base.BaseModel
 class SignInModel : BaseModel() {
 
     @Bindable
-    var phone = ""
+    var phone = "15903691791"
     @Bindable
-    var pass = ""
+    var pass = "123456"
 
 
     //刷新双向绑定数据
-     fun notif() {
+    fun notif() {
         notifyPropertyChanged(BR.phone)
         notifyPropertyChanged(BR.pass)
     }

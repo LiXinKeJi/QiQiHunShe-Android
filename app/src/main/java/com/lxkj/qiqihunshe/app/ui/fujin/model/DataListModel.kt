@@ -8,6 +8,7 @@ import java.io.Serializable
 class DataListModel : Serializable {
     var caiyiId = ""// 才艺ID
     var userId = ""// 发布人ID
+    var userName = ""// 发布人昵称
     var image = ""// 封面图
     var videoUrl = ""// 视频地址
     var icon = ""// 发布人头像
