@@ -2,7 +2,9 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SignUpRecordViewModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivitySignupRecordBinding
 
 /**
@@ -15,6 +17,8 @@ class SignUpRecordAcivity : BaseActivity<ActivitySignupRecordBinding, SignUpReco
 
     override fun getLayoutId() = R.layout.activity_signup_record
 
+    var page=1
+
     override fun init() {
         WhiteStatusBar()
         initTitle("报名记录")
@@ -24,6 +28,17 @@ class SignUpRecordAcivity : BaseActivity<ActivitySignupRecordBinding, SignUpReco
             it.bind=binding
             it.initViewModel()
         }
+    }
+
+    override fun loadData() {
+
+        val json = "{\"cmd\":\"userActivity"  +
+                "\",\"page\":\"" + page+
+                "\",\"uid\":\"" + StaticUtil.uid+
+                "\"}"
+        viewModel!!.getData(json).bindLifeCycle(this)
+            .subscribe({}, { toastFailure(it) }
+            )
     }
 
 

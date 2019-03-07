@@ -18,6 +18,7 @@ class QiQiDynamicAdapter : BaseListAdapter<QiQiDynamicModel, QiQiDynamicItemView
     }
 
     override fun refreshItemView(view: QiQiDynamicItemView, itembean: QiQiDynamicModel) {
+        view.setData(itembean)
     }
 
 }

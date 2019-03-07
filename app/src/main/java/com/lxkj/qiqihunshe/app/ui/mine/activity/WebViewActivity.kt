@@ -21,7 +21,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding, WebViewViewModel>()
         viewModel?.let {
             binding.viewmodel=it
             it.bind=binding
-            it.setUrl()
+            it.setUrl(intent.getStringExtra("url"))
         }
 
     }

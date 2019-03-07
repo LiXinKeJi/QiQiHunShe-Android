@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.ui.mine.model.ContactUsModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ContactUsViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityContactusBinding
 
@@ -12,6 +13,7 @@ class ContactUsActivity : BaseActivity<ActivityContactusBinding, ContactUsViewMo
 
 
     override fun getBaseViewModel() = ContactUsViewModel()
+    var contactusModel= ContactUsModel()
 
     override fun getLayoutId() = R.layout.activity_contactus
 
@@ -20,6 +22,7 @@ class ContactUsActivity : BaseActivity<ActivityContactusBinding, ContactUsViewMo
 
         viewModel?.let {
             binding.viewmodel = it
+            binding.model=contactusModel
 
         }
 

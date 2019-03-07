@@ -15,11 +15,12 @@ class WebViewViewModel : BaseViewModel() {
 
     private var webView: WebView? = null
 
-    fun setUrl() {
+
+    fun setUrl(url:String) {
         webView = bind!!.mywebview.webView
         initWebViewSettings()
 
-        webView?.loadUrl("https://www.baidu.com/")
+        webView?.loadUrl(url)
     }
 
 

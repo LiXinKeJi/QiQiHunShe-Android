@@ -2,7 +2,9 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.QiQiBlackListViewModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import kotlinx.android.synthetic.main.activity_recyvlerview.*
 
@@ -15,6 +17,7 @@ class QiQiBlackListActivity : BaseActivity<ActivityRecyvlerviewBinding, QiQiBlac
     override fun getBaseViewModel() = QiQiBlackListViewModel()
 
     override fun getLayoutId() = R.layout.activity_recyvlerview
+    var page=0
 
     override fun init() {
         initTitle("七七黑名单")
@@ -27,6 +30,15 @@ class QiQiBlackListActivity : BaseActivity<ActivityRecyvlerviewBinding, QiQiBlac
             refresh.isRefreshing=false
         }
 
+    }
+
+    override fun loadData() {
+        val json = "{\"cmd\":\"blacklist"  +
+                "\",\"page\":\"" + page+
+                "\"}"
+
+        viewModel!!.getBlackData(json).bindLifeCycle(this)
+            .subscribe({}, { toastFailure(it) })
     }
 
 

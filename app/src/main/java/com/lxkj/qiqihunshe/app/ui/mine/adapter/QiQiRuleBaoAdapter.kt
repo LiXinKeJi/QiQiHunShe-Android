@@ -16,6 +16,7 @@ class QiQiRuleBaoAdapter : BaseListAdapter<QiQiRuleModel, QiQiRuleItemView>() {
     }
 
     override fun refreshItemView(view: QiQiRuleItemView, itembean: QiQiRuleModel) {
+        view.setData(itembean)
     }
 
 }
