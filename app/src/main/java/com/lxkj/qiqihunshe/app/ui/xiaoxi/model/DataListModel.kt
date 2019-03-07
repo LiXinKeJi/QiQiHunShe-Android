@@ -46,12 +46,22 @@ class DataListModel : Serializable {
     var starttime = ""// 活动时间
     var condition = ""//限制范围",
     var fee = ""// 消费 0AA 1对方买单 2我买单
+    var images = ArrayList<String>() //":["",""],// 图片
     var image = ArrayList<String>() //":["",""],// 图片
     var yes = ""// 报名人数
     var wait = ""// 待审核人数
     var no = "" // 拒绝人数
     var address = "" //活动地点",
 
-    var birthplace= "" // 家乡
-    var residence= "" // 现居
+    var birthplace = "" // 家乡
+    var residence = "" // 现居
+
+    var dongtaiId = "" // 动态ID
+    var location = "" // 发布位置
+    var zan = "" // 0未点赞 1已点赞
+    var zanNum = "" // 点赞数量
+    var commentNum = "" // 评论数量
+    var distance = "" // 评论数量
+
+
 }

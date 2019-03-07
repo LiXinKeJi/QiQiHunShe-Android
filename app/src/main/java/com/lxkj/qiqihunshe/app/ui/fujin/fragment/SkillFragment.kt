@@ -11,6 +11,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.ui.dialog.VoiceTipDialog
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.SkillViewModel
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.util.StatusBarUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentSkillBinding
@@ -29,6 +30,9 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
     override fun getLayoutId() = R.layout.fragment_skill
 
     override fun init() {
+
+        var model = arguments?.getSerializable("model") as DataListModel
+
         val wm = activity!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val dm = DisplayMetrics()
         wm.defaultDisplay.getMetrics(dm)

@@ -204,14 +204,15 @@
                       android:layout_marginTop="15dp"
             />
 
-            <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content"
-                                                    android:id="@+id/rv_comment"
-                                                    app:layout_constraintTop_toBottomOf="@+id/jc_video"
-                                                    android:nestedScrollingEnabled="false"
-                                                    app:layout_constraintStart_toStartOf="parent"
-                                                    app:layout_constraintEnd_toEndOf="parent"
-                                                    app:layout_constraintBottom_toTopOf="@+id/relativeLayout"/>
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rv_comment"
+                    app:layout_constraintTop_toBottomOf="@+id/jc_video"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/relativeLayout"/>
 
         </LinearLayout>
 
