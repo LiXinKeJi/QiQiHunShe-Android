@@ -2,13 +2,17 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.activity.WebViewActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.QiQiRuleBaoAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiRuleModel
-import com.lxkj.qiqihunshe.app.ui.mine.model.ReputationBaoModel
 import com.lxkj.qiqihunshe.databinding.ActivityQiqiRuleBinding
+import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/2/21
@@ -47,6 +51,15 @@ class QiQiRuleViewModel : BaseViewModel() {
             MyApplication.openActivity(activity,WebViewActivity::class.java)
         }
     }
+
+
+    fun getRule(json: String): Single<String> = retrofit.getData(json)
+        .async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+
+            }
+
+        }, activity))
 
 
 }
