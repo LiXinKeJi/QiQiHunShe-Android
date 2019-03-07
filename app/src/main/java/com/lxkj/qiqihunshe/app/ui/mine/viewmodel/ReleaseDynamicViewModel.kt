@@ -1,10 +1,21 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.GridLayoutManager
+import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.ReleaseAdapter
+import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseDynamicModel
+import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityReleaseDynamicBinding
+import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/2/25
@@ -16,6 +27,8 @@ class ReleaseDynamicViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCallb
 
     val ablumList by lazy { ArrayList<LocalMedia>() }
     var imageAdapter: ReleaseAdapter? = null
+    val model by lazy { ReleaseDynamicModel() }
+
 
     fun initViewModel() {
         ablumList.add(LocalMedia())
@@ -39,5 +52,17 @@ class ReleaseDynamicViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCallb
         imageAdapter!!.notifyDataSetChanged()
 
     }
+
+    fun fendDynamic(): Single<String> {
+        abLog.e("发布动态", Gson().toJson(model))
+        return retrofit.getData(Gson().toJson(model)).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    ToastUtil.showToast("发布成功")
+                    activity?.finish()
+                }
+            }, activity))
+    }
+
 
 }

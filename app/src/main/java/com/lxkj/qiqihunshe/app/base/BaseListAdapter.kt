@@ -24,6 +24,17 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     var isFirstOnly = false
     var mLastPosition = -1
 
+    var position = -1//下标
+
+
+    fun getList(): ArrayList<ITEMBEAN> {
+        return list
+    }
+
+    fun removeItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     /**
      * 刷新条目
@@ -83,6 +94,7 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         } else {
             val view = holder.itemView as ITEMVIEW
             refreshItemView(view, list[position])
+            this.position = position
         }
 
         holder.itemView.setOnClickListener { v ->
