@@ -40,19 +40,22 @@ class SpaceDynamicViewModel : BaseViewModel() {
 
         adapter.setMyListener { itemBean, position ->
             val bundle = Bundle()
-            bundle.putInt("flag", 0)
+            bundle.putSerializable("bean", itemBean)
+            bundle.putInt("flag",0)
             MyApplication.openActivity(fragment!!.context, MyDynamicActivity::class.java, bundle)
         }
     }
 
 
-    fun sginIn(): Single<String> {
-        val json = "{\"cmd\":\"dongtai\",\"uid\":\"" + StaticUtil.uid + "\",\"userId\":\"" + StaticUtil.uid +
+    fun getMyDynamic(): Single<String> {
+        val json = "{\"cmd\":\"dongtai\",\"uid\":\"" + StaticUtil.uid + /*"\",\"userId\":\"" + StaticUtil.uid +*/
                 "\",\"type\":\"" + "0" + "\",\"page\":\"" + page + "\"}"
+        abLog.e("我的动态", json)
         return retrofit.getData(json)
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
+                    bind!!.refresh.isRefreshing = false
                     val model = Gson().fromJson(response, SpaceDynamicModel::class.java)
                     if (page == 1) {
                         if (model.totalPage == 1 || model.dataList.isEmpty()) {
@@ -70,5 +73,17 @@ class SpaceDynamicViewModel : BaseViewModel() {
             }, fragment!!.activity))
     }
 
+
+    //删除动态
+    fun DelDynamuc(position: Int): Single<String> {
+        val json =
+            "{\"cmd\":\"delDongtai\",\"uid\":\"" + StaticUtil.uid + "\",\"dongtaiId\":\"" + adapter.getList()[position].dongtaiId + "\"}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    adapter.removeItem(position)
+                }
+            }, fragment!!.activity))
+    }
 
 }

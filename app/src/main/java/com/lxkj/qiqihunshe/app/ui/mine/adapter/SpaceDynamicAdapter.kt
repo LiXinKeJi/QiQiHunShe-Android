@@ -17,7 +17,7 @@ class SpaceDynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, SpaceDy
     }
 
     override fun refreshItemView(view: SpaceDynamicItemView, itembean: SpaceDynamicModel.dataModel) {
-        view.setData(itembean)
+        view.setData(itembean, this.mLastPosition)
     }
 
 

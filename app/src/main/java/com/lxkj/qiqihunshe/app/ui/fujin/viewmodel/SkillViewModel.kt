@@ -19,9 +19,9 @@ class SkillViewModel:BaseViewModel() {
         bind!!.rvComment.layoutManager = LinearLayoutManager(fragment?.context)
         bind!!.rvComment.adapter = adapter
 
-        val list = ArrayList<CommentModel>()
+        val list = ArrayList<CommentModel.dataModel>()
         for (i in 0 until 5) {
-            val model = CommentModel()
+            val model = CommentModel.dataModel()
             list.add(model)
         }
         adapter.upData(list)

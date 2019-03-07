@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.GridLayoutManager
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
@@ -12,6 +13,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.ReleaseAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseDynamicModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityReleaseDynamicBinding
 import io.reactivex.Single
 
@@ -52,6 +54,7 @@ class ReleaseDynamicViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCallb
     }
 
     fun fendDynamic(): Single<String> {
+        abLog.e("发布动态", Gson().toJson(model))
         return retrofit.getData(Gson().toJson(model)).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
