@@ -22,12 +22,12 @@ class MyMarriageViewModel:BaseViewModel() {
         bind!!.recycler.layoutManager = LinearLayoutManager(fragment?.context)
         bind!!.recycler.adapter = adapter
 
-        val list = ArrayList<SpaceInvitationModel>()
+     /*   val list = ArrayList<SpaceInvitationModel>()
         for (i in 0 until 5) {
             val model = SpaceInvitationModel()
             list.add(model)
         }
-        adapter.upData(list)
+        adapter.upData(list)*/
 
         adapter.setMyListener { itemBean, position ->
             MyApplication.openActivity(fragment?.context, MyInvitationDetailsActivity::class.java)

@@ -1,5 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
+import android.content.Intent
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -24,29 +26,35 @@ class MySpaceActivity : BaseActivity<ActivityMyspaceBinding, MySpaceViewModel>()
 
     override fun getLayoutId() = R.layout.activity_myspace
 
-    private var flag=0
+    val list = ArrayList<Fragment>()
+
+    private var flag = 0
 
     override fun init() {
         initTitle("我的空间")
 
-        tv_right.visibility=View.VISIBLE
-        tv_right.text="发布动态"
+        tv_right.visibility = View.VISIBLE
+        tv_right.text = "发布动态"
 
         tv_right.setOnClickListener {
-            when(flag){
-                0->{
-                   MyApplication.openActivity(this,ReleaseDynamicActivity::class.java)
+            when (flag) {
+                0 -> {
+                    val bundle = Bundle()
+                    bundle.putInt("flag", 0)
+                    MyApplication.openActivityForResult(this, ReleaseDynamicActivity::class.java, bundle, 0)
                 }
-                1->{
-                    MyApplication.openActivity(this,ReleaseSkillActivity::class.java)
+                1 -> {
+                    MyApplication.openActivityForResult(this, ReleaseSkillActivity::class.java, 1)
                 }
-                2->{
-                    MyApplication.openActivity(this,ReleaseInvitationTypeActivity::class.java)
+                2 -> {
+                    val bundle = Bundle()
+                    bundle.putInt("type", 0)
+                    MyApplication.openActivityForResult(this, ReleaseInvitationTypeActivity::class.java, bundle, 2)
                 }
             }
         }
 
-        val list = ArrayList<Fragment>()
+
         val tabList = ArrayList<String>()
         tabList.add("我的动态")
         tabList.add("我的才艺")
@@ -63,7 +71,7 @@ class MySpaceActivity : BaseActivity<ActivityMyspaceBinding, MySpaceViewModel>()
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
 
-        viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
 
             }
@@ -72,20 +80,30 @@ class MySpaceActivity : BaseActivity<ActivityMyspaceBinding, MySpaceViewModel>()
             }
 
             override fun onPageSelected(p0: Int) {
-                flag=p0
-                when(p0){
-                    0->{
-                        tv_right.text="发布动态"
+                flag = p0
+                when (p0) {
+                    0 -> {
+                        tv_right.text = "发布动态"
                     }
-                    1->{
-                        tv_right.text="发布才艺"
+                    1 -> {
+                        tv_right.text = "发布才艺"
                     }
-                    2->{
-                        tv_right.text="发布邀约"
+                    2 -> {
+                        tv_right.text = "发布邀约"
                     }
                 }
             }
         })
+
+        viewPager.offscreenPageLimit = 3
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        list[0].onActivityResult(requestCode, resultCode, data)
+        list[1].onActivityResult(requestCode, resultCode, data)
+        list[2].onActivityResult(requestCode, resultCode, data)
+    }
+
 
 }

@@ -24,7 +24,7 @@ class QuestionsAuthenViewModel : BaseViewModel() {
                     if (questionsList.isEmpty()) {
                         return
                     }
-                  next()
+                    next()
                 }
             }).getTag("0", "9")
         }

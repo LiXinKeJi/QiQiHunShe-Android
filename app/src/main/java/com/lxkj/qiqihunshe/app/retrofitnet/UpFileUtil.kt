@@ -36,6 +36,7 @@ class UpFileUtil(val activity: Activity, val loadFileCallBack: UpLoadFileCallBac
                 count = i
                 upLoad(it[i])
             }
+
         }
     }
 
@@ -74,6 +75,7 @@ class UpFileUtil(val activity: Activity, val loadFileCallBack: UpLoadFileCallBac
 
                 override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                     response.body()?.let {
+                        abLog.e("上传图片", it.toString())
                         val obj = JSONObject(it.string())
                         if (obj.getString("result") == "0") {
                             if (list == null || list!!.isEmpty()) {
@@ -99,8 +101,8 @@ class UpFileUtil(val activity: Activity, val loadFileCallBack: UpLoadFileCallBac
             super.handleMessage(msg)
 
             urlList.add(msg.obj.toString())
-            abLog.e("上传图片", msg.obj.toString())
-            if (urlList.size == list!!.size) {
+
+            if(urlList.size==list!!.size){
                 loadFileCallBack.uoLoad(urlList)
                 urlList.clear()
             }

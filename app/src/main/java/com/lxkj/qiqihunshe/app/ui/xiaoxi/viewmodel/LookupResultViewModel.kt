@@ -36,6 +36,7 @@ class LookupResultViewModel : BaseViewModel() {
     var totalPage = 1
     var tag = 0
     var params = HashMap<String,String>()
+    var doPositon = -1
 
     fun init(tag : Int,params : HashMap<String,String>) {
         this.tag = tag
@@ -74,9 +75,10 @@ class LookupResultViewModel : BaseViewModel() {
         adapter = SearchResultAdapter(fragment?.context, list)
 
         adapter?.setOnAddListener {
+            doPositon = it
             var bundle = Bundle()
-            bundle.putSerializable("model",list.get(it))
-            MyApplication.openActivity(activity,AddFriendActivity::class.java,bundle)
+            bundle.putSerializable("model",list[it])
+            MyApplication.openActivityForResult(activity,AddFriendActivity::class.java,bundle,0)
         }
 
         bind?.xRecyclerView?.adapter = adapter

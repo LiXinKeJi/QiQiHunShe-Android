@@ -16,7 +16,7 @@ class SignInModel : BaseModel() {
 
 
     //刷新双向绑定数据
-     fun notif() {
+    fun notif() {
         notifyPropertyChanged(BR.phone)
         notifyPropertyChanged(BR.pass)
     }

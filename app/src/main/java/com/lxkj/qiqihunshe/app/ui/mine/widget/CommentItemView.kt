@@ -26,7 +26,7 @@ class CommentItemView : RelativeLayout  {
         View.inflate(context, R.layout.item_comment, this)
     }
 
-    fun setData(bean: CommentModel) {
+    fun setData(bean: CommentModel.dataModel) {
 
 
     }

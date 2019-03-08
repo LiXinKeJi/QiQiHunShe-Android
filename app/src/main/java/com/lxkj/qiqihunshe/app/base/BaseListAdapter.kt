@@ -24,6 +24,17 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     var isFirstOnly = false
     var mLastPosition = -1
 
+    var position = -1//下标
+
+
+    fun getList(): ArrayList<ITEMBEAN> {
+        return list
+    }
+
+    fun removeItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     /**
      * 刷新条目
@@ -69,6 +80,11 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position == list.size) {
             val view = holder.itemView as LoadMoreView
+            if (list.size == 0) {
+                view.Loaded()
+                return
+            }
+
             when (flag) {
                 0 -> {
                     view.Loaded()
@@ -83,6 +99,7 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         } else {
             val view = holder.itemView as ITEMVIEW
             refreshItemView(view, list[position])
+            this.position = position
         }
 
         holder.itemView.setOnClickListener { v ->
@@ -97,9 +114,6 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         //到达底部加载更多
         if (position == itemCount - 1) {//已经到达列表的底部
             LoadListener?.let {
-                if (position >= list.size || position < 0) {
-                    return
-                }
                 it()
             }
         }
@@ -154,6 +168,11 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         v.pivotX = v.measuredWidth.toFloat() / 2
         v.pivotY = v.measuredHeight.toFloat() / 2
         v.animate().setInterpolator(null).startDelay = 0
+    }
+
+    fun addItem(model: ITEMBEAN) {
+        list.add(0, model)
+        notifyItemInserted(0)
     }
 
 

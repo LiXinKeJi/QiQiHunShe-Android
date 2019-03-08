@@ -41,6 +41,7 @@
 
         <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                   android:textSize="14sp"
+                  android:id="@+id/tv_content"
                   android:textColor="@color/colorTabText"
                   android:text="内容内容内容内容 内容内容"
                   app:layout_constraintTop_toBottomOf="@+id/tv_time"

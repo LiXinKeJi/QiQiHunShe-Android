@@ -19,11 +19,11 @@ import io.reactivex.Single
 class ReputationBaoViewModel : BaseViewModel() {
 
 
-      val adapter by lazy { ReputationBaoAdapter() }
+    val adapter by lazy { ReputationBaoAdapter() }
 
     var bind: ActivityReputationBaoBinding? = null
 
-      var page = 1
+    var page = 1
 
     fun getUserCredit(): Single<String> {
         val json = "{\"cmd\":\"getUserCredit\",\"uid\":\"" + StaticUtil.uid + "\"}"

@@ -115,6 +115,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             lat = location.latitude.toString()
             //获取经度信息
             lng = location.longitude.toString()
+            StaticUtil.lat = lat.toString()
+            StaticUtil.lng = lng.toString()
+            StaticUtil.address = location.addrStr
+
             SharePrefUtil.saveString(this@MainActivity,AppConsts.LAT,lat)
             SharePrefUtil.saveString(this@MainActivity,AppConsts.LNG,lng)
             SharePrefUtil.saveString(this@MainActivity,AppConsts.ADDRESS,location.addrStr)

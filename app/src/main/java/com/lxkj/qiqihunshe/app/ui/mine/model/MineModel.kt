@@ -5,7 +5,7 @@ import com.lxkj.qiqihunshe.app.base.BaseModel
 /**
  * Created by Slingge on 2019/2/19
  */
-class MineModel : BaseModel() {
+class MineModel : BaseModel(){
 
 
     var nickname = ""
@@ -18,5 +18,10 @@ class MineModel : BaseModel() {
     var interact = ""// 互动通知
 
     var auth = ""// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
+
+    var age=""
+
+
+    //temo历史
 
 }

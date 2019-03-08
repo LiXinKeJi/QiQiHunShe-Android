@@ -2,14 +2,19 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.async
+
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.QiQiBlackListAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiBlackListModel
+
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
+
 import io.reactivex.Single
 import org.json.JSONObject
 
@@ -22,6 +27,7 @@ class QiQiBlackListViewModel : BaseViewModel() {
     private val adapter by lazy { QiQiBlackListAdapter() }
 
     var bind: ActivityRecyvlerviewBinding? = null
+    val TAG="QiQiBlackListActivity"
 
     fun initViewModel() {
         bind!!.recycler.layoutManager = LinearLayoutManager(fragment?.context)
@@ -49,6 +55,7 @@ class QiQiBlackListViewModel : BaseViewModel() {
             }
 
         }, activity))
+
 
 
 

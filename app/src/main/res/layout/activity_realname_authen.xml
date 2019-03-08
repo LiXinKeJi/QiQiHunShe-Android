@@ -102,11 +102,11 @@
                     <TextView
                             android:id="@+id/tv2"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:drawableRight="@drawable/ic_arrar_right"
-                              android:layout_alignParentRight="true"
-                              android:text="证件上传"
-                              android:drawablePadding="5dp"
-                              android:layout_centerVertical="true"
+                            android:drawableRight="@drawable/ic_arrar_right"
+                            android:layout_alignParentRight="true"
+                            android:text="证件上传"
+                            android:drawablePadding="5dp"
+                            android:layout_centerVertical="true"
                     />
                 </RelativeLayout>
                 <include layout="@layout/include_line07"/>
@@ -128,11 +128,11 @@
                     <TextView
                             android:id="@+id/tv3"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:drawableRight="@drawable/ic_arrar_right"
-                              android:layout_alignParentRight="true"
-                              android:text="证件上传"
-                              android:drawablePadding="5dp"
-                              android:layout_centerVertical="true"
+                            android:drawableRight="@drawable/ic_arrar_right"
+                            android:layout_alignParentRight="true"
+                            android:text="证件上传"
+                            android:drawablePadding="5dp"
+                            android:layout_centerVertical="true"
                     />
                 </RelativeLayout>
                 <include layout="@layout/include_line07"/>

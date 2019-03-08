@@ -9,14 +9,14 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.SpaceInvitationitenView
  * 我的空间-我的动态
  * Created by Slingge on 2019/2/22
  */
-class SpaceInvitationAdapter : BaseListAdapter<SpaceInvitationModel, SpaceInvitationitenView>() {
+class SpaceInvitationAdapter : BaseListAdapter<SpaceInvitationModel.dataModel, SpaceInvitationitenView>() {
 
 
     override fun getitemView(context: Context): SpaceInvitationitenView {
         return SpaceInvitationitenView(context)
     }
 
-    override fun refreshItemView(view: SpaceInvitationitenView, itembean: SpaceInvitationModel) {
+    override fun refreshItemView(view: SpaceInvitationitenView, itembean: SpaceInvitationModel.dataModel) {
         view.setData(itembean)
     }
 

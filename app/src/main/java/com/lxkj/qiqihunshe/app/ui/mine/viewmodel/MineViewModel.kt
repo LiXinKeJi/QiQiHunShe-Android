@@ -53,7 +53,7 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
                 StaticUtil.headerUrl = model.icon
                 StaticUtil.nickName = model.nickname
-
+                StaticUtil.age=model.age
 
             }
         }, fragment?.activity))

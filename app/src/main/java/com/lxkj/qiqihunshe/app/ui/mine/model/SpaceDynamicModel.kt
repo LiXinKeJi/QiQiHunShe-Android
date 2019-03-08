@@ -1,18 +1,19 @@
 package com.lxkj.qiqihunshe.app.ui.mine.model
 
 import com.lxkj.qiqihunshe.app.base.BaseModel
+import java.io.Serializable
 
 /**
  * Created by Slingge on 2019/2/25
  */
-class SpaceDynamicModel : BaseModel() {
+class SpaceDynamicModel : BaseModel(), Serializable {
 
 
     var totalPage = 1
 
-    var dataList=ArrayList<dataModel>()
+    var dataList = ArrayList<dataModel>()
 
-    class dataModel {
+    class dataModel : Serializable {
         var dongtaiId = ""// 动态ID
         var userId = ""// 发布人ID
 
@@ -28,11 +29,15 @@ class SpaceDynamicModel : BaseModel() {
         var images = ArrayList<String>()// 图片
         var adtime = ""// 发布时间
 
+        var distance = ""// 距离
         var location = ""// 发布位置
         var zan = ""// 0未点赞 1已点
         var zanNum = ""// 点赞数量
 
         var commentNum = ""// 评论数量
+
+
+        var permission = ArrayList<String>()
     }
 
 

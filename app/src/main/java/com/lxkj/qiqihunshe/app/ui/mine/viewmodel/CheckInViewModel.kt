@@ -77,9 +77,9 @@ class CheckInViewModel : BaseViewModel() {
             }
             .compose(
                 SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                }
-            }, activity))
+                    override fun onSuccess(response: String) {
+                    }
+                }, activity))
     }
 
 

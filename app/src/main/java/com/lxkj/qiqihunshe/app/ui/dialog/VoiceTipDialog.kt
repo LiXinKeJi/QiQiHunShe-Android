@@ -25,7 +25,7 @@ object VoiceTipDialog {
     private var tv_play: TextView? = null
 
 
-    fun show(context: Activity, name: String) {
+    fun show(context: Activity, name: String,type: String) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -43,10 +43,11 @@ object VoiceTipDialog {
             dialog?.dismiss()
         }
         tv_play?.setOnClickListener {
-          EventBus.getDefault().post("next")
+            EventBus.getDefault().post("next")
+            diss()
         }
 
-        tv_tip?.text = "与${name}发起语音通话需要XX元一分钟"
+        tv_tip?.text = "与${name}发起${type}通话需要XX元一分钟"
 
         val dialogWindow = dialog!!.window
         dialogWindow.setWindowAnimations(R.style.dialogAnim)//淡入、淡出动画

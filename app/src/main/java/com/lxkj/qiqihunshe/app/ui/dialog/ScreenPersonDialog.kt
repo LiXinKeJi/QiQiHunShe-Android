@@ -33,7 +33,7 @@ object ScreenPersonDialog {
 
     private var min = "18"
     private var max = "100"
-    private var sex = ""
+    private var sex = "2"
 
     fun show(context: Activity) {
         if (dialog == null) {
@@ -44,6 +44,7 @@ object ScreenPersonDialog {
             tv_play = view.findViewById(R.id.tv_play)
             tv_range = view.findViewById(R.id.tv_range)
             sb_pressure = view.findViewById(R.id.sb_pressure)
+            radio = view.findViewById(R.id.radio)
             dialog!!.window.setContentView(view)
 
         } else {
@@ -61,13 +62,13 @@ object ScreenPersonDialog {
         radio?.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.tv_all -> {
-                    sex = "全部"
+                    sex = "2"
                 }
                 R.id.tv_boy -> {
-                    sex = "男"
+                    sex = "1"
                 }
                 R.id.tv_girl -> {
-                    sex = "女"
+                    sex = "0"
                 }
             }
         }
