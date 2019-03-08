@@ -29,7 +29,7 @@ class FuJinSkillViewModel : BaseViewModel(){
     val list = ArrayList<Fragment>()
     var adapter = FragmentPagerAdapter(fragment!!.childFragmentManager, list)
     fun init(){
-        adapter = FragmentPagerAdapter(fragment!!.childFragmentManager, list)
+//        adapter = FragmentPagerAdapter(fragment!!.childFragmentManager, list)
         bind?.viewPager?.adapter = adapter
         getNearbyCaiyi()
         bind?.viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
