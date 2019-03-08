@@ -21,4 +21,7 @@ class MineModel : BaseModel(){
 
     var age=""
 
+
+    //temo历史
+
 }
