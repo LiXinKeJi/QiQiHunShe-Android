@@ -34,13 +34,6 @@ class QiQiBlackListViewModel : BaseViewModel() {
 
         bind!!.recycler.adapter = adapter
 
-        val list = ArrayList<QiQiBlackListModel>()
-//        for (i in 0 until 5) {
-//            val model = QiQiBlackListModel()
-//            list.add(model)
-//        }
-        adapter.upData(list)
-
     }
 
 
