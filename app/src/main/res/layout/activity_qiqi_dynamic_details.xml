@@ -67,7 +67,6 @@
 
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:id="@+id/tv_title"
-                          android:text="标题"
                           android:textSize="16sp"
                           android:textColor="@color/colorBlack"
                           android:layout_marginLeft="15dp"
@@ -76,7 +75,6 @@
                 />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_time"
-                          android:text="2019"
                           android:textSize="13sp"
                           android:layout_marginLeft="15dp"
                           android:textColor="@color/colorSubtitle"

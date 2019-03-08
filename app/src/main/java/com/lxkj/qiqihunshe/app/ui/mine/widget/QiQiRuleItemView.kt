@@ -6,6 +6,7 @@ import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiRuleModel
 import com.lxkj.qiqihunshe.app.ui.mine.model.ReputationBaoModel
+import kotlinx.android.synthetic.main.item_qiqirule.view.*
 
 /**
  * Created by Slingge on 2019/2/21
@@ -23,6 +24,7 @@ class QiQiRuleItemView : RelativeLayout  {
     }
 
     fun setData(bean: QiQiRuleModel) {
+        tv_problem.setText(bean.title)
 
 
     }

@@ -4,6 +4,7 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.QiQiDynamicViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityQiqiDynamicBinding
 import kotlinx.android.synthetic.main.include_title.*
@@ -17,6 +18,7 @@ class QiQiDynamicActivity : BaseActivity<ActivityQiqiDynamicBinding, QiQiDynamic
     override fun getBaseViewModel() = QiQiDynamicViewModel()
 
     override fun getLayoutId() = R.layout.activity_qiqi_dynamic
+    var page=0
 
     override fun init() {
         initTitle("七七活动")
@@ -31,6 +33,15 @@ class QiQiDynamicActivity : BaseActivity<ActivityQiqiDynamicBinding, QiQiDynamic
             it.bind=binding
             it.initViewModel()
         }
+    }
+
+    override fun loadData() {
+        val json = "{\"cmd\":\"activityList"  +
+                "\",\"page\":\"" + page+
+                "\"}"
+        viewModel!!.getData(json).bindLifeCycle(this)
+            .subscribe({}, { toastFailure(it) })
+        super.loadData()
     }
 
 }
