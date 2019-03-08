@@ -41,13 +41,16 @@ class ReputationBaoViewModel : BaseViewModel() {
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, ReputationBaoModel::class.java)
+                if(page>model.totalPage){
+                    return
+                }
                 if (page == 1) {
                     if (model.totalPage == 1) {
                         adapter.flag = 0
                     }
                     adapter.upData(model.dataList)
                 } else {
-                    if (page >= model.totalPage) {
+                    if (page == model.totalPage) {
                         adapter.loadMore(model.dataList, 0)
                     } else {
                         adapter.loadMore(model.dataList, -1)

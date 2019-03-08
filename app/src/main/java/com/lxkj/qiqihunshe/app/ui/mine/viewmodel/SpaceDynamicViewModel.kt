@@ -42,7 +42,7 @@ class SpaceDynamicViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putSerializable("bean", itemBean)
             bundle.putInt("flag", 0)
-            bundle.putInt("position", adapter.position)
+            bundle.putInt("position", adapter.i)
             MyApplication.openActivityForResult(fragment!!.activity, MyDynamicActivity::class.java, bundle,0)
         }
     }
@@ -58,13 +58,16 @@ class SpaceDynamicViewModel : BaseViewModel() {
                 override fun onSuccess(response: String) {
                     bind!!.refresh.isRefreshing = false
                     val model = Gson().fromJson(response, SpaceDynamicModel::class.java)
+                    if(page>model.totalPage){
+                        return
+                    }
                     if (page == 1) {
                         if (model.totalPage == 1 || model.dataList.isEmpty()) {
                             adapter.flag = 0
                         }
                         adapter.upData(model.dataList)
                     } else {
-                        if (page >= model.totalPage) {
+                        if (page == model.totalPage) {
                             adapter.loadMore(model.dataList, 0)
                         } else {
                             adapter.loadMore(model.dataList, -1)
@@ -82,6 +85,7 @@ class SpaceDynamicViewModel : BaseViewModel() {
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
+                    ToastUtil.showToast(position.toString())
                     removeItem(position)
                 }
             }, fragment!!.activity))

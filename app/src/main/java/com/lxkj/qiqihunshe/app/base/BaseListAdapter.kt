@@ -8,6 +8,7 @@ import android.view.animation.DecelerateInterpolator
 import com.lxkj.qiqihunshe.app.base.animators.ItemAnimator
 import com.lxkj.qiqihunshe.app.base.animators.ScaleInItemAnimator
 import com.lxkj.qiqihunshe.app.ui.mine.widget.LoadMoreView
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 
 /**
  * Creater Slingge by 2018/12/26 0026
@@ -24,7 +25,7 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     var isFirstOnly = false
     var mLastPosition = -1
 
-    var position = -1//下标
+    var i = 0//下标
 
 
     fun getList(): ArrayList<ITEMBEAN> {
@@ -40,6 +41,7 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
      * 刷新条目
      * */
     abstract fun refreshItemView(view: ITEMVIEW, itembean: ITEMBEAN)
+    abstract fun refreshItemView(view: ITEMVIEW, itembean: ITEMBEAN,position: Int)
 
     var flag = -1//0，最后一页加载完成，1不支持加载更多，隐藏加载（包括加载完成）,2刷新重新显示加载中
 
@@ -98,11 +100,12 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
             }
         } else {
             val view = holder.itemView as ITEMVIEW
-            refreshItemView(view, list[position])
-            this.position = position
+            refreshItemView(view, list[position],position)
         }
+        this.i = position
 
         holder.itemView.setOnClickListener { v ->
+
             if (position >= list.size || position < 0) {
                 return@setOnClickListener
             }
@@ -114,6 +117,9 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         //到达底部加载更多
         if (position == itemCount - 1) {//已经到达列表的底部
             LoadListener?.let {
+                if (list.size == 0) {
+                    return
+                }
                 it()
             }
         }

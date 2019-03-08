@@ -12,6 +12,9 @@ import com.lxkj.qiqihunshe.app.ui.xiaoxi.widget.MessageItemView
  * Created by Slingge on 2019/3/1
  */
 class LookupResultAdapter : BaseListAdapter<LookResultModel, LookupResultItemView>() {
+    override fun refreshItemView(view: LookupResultItemView, itembean: LookResultModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): LookupResultItemView {

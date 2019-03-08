@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.view.View
 import com.lxkj.qiqihunshe.R
@@ -20,7 +21,7 @@ class AffectiveZoneActivity : BaseActivity<ActivityAffectiveZoneBinding, Affecti
 
     override fun getBaseViewModel() = AffectiveZoneViewModel()
 
-
+    val list = ArrayList<Fragment>()
     override fun getLayoutId() = R.layout.activity_affective_zone
     override fun init() {
         initTitle("情感专区")
@@ -32,7 +33,7 @@ class AffectiveZoneActivity : BaseActivity<ActivityAffectiveZoneBinding, Affecti
         }
 
 
-        val list = ArrayList<Fragment>()
+
         val tabList = ArrayList<String>()
         tabList.add("情感动态")
         tabList.add("情感征婚")
@@ -45,6 +46,13 @@ class AffectiveZoneActivity : BaseActivity<ActivityAffectiveZoneBinding, Affecti
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        list[0].onActivityResult(requestCode, resultCode, data)
+        list[1].onActivityResult(requestCode, resultCode, data)
     }
 
 

@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -36,7 +37,6 @@ class ReleaseDynamicViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCallb
         imageAdapter?.setFlag(1)
         bind!!.rvAlbum.layoutManager = GridLayoutManager(activity, 3)
         bind!!.rvAlbum.adapter = imageAdapter
-
     }
 
 
@@ -59,6 +59,9 @@ class ReleaseDynamicViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCallb
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     ToastUtil.showToast("发布成功")
+                    val intent=Intent()
+                    intent.putExtra("cmd","add")
+                    activity!!.setResult(0,intent)
                     activity?.finish()
                 }
             }, activity))

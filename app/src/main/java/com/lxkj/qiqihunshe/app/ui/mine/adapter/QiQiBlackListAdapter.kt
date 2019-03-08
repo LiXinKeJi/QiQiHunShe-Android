@@ -10,6 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.QiQiBlackListItemView
  * Created by Slingge on 2019/2/22
  */
 class QiQiBlackListAdapter : BaseListAdapter<QiQiBlackListModel, QiQiBlackListItemView>() {
+    override fun refreshItemView(view: QiQiBlackListItemView, itembean: QiQiBlackListModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): QiQiBlackListItemView {

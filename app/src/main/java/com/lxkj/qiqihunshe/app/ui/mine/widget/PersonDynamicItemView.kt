@@ -32,7 +32,12 @@ class PersonDynamicItemView(activity: Activity, context: Context?) : RelativeLay
     fun setData(bean: DynamicModel) {
 
         tv_reward.setOnClickListener {
-            DaShangDialog.show(activity!!)
+            DaShangDialog.show(activity!!,object :DaShangDialog.DaShangCallBack{
+                override fun dashang(money: String) {
+
+                }
+
+            })
         }
 
     }

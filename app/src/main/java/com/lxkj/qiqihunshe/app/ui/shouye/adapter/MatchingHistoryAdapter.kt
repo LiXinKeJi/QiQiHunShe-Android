@@ -10,6 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.shouye.widget.MatchingHistoryItemView
  * Created by Slingge on 2019/2/22
  */
 class MatchingHistoryAdapter(val type: Int) : BaseListAdapter<MatchingHistoryModel, MatchingHistoryItemView>() {
+    override fun refreshItemView(view: MatchingHistoryItemView, itembean: MatchingHistoryModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): MatchingHistoryItemView {

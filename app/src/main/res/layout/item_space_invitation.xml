@@ -172,6 +172,7 @@
                   android:textSize="15sp"
                   android:textColor="@color/colorRateRed"
                   android:text="+1"
+                  android:visibility="gone"
                   app:layout_constraintEnd_toEndOf="@+id/iv_3"
                   app:layout_constraintStart_toStartOf="@+id/iv_3"
                   app:layout_constraintBottom_toBottomOf="@+id/iv_3" app:layout_constraintTop_toTopOf="@+id/iv_3"/>

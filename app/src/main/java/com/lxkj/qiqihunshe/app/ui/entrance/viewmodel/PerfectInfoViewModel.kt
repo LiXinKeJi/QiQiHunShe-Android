@@ -11,20 +11,19 @@ import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.GetTagUtil
 import com.lxkj.qiqihunshe.app.ui.dialog.AddressPop
-import com.lxkj.qiqihunshe.app.ui.dialog.DatePop
+import com.lxkj.qiqihunshe.app.ui.dialog.DateBirthdayPop
 import com.lxkj.qiqihunshe.app.ui.dialog.StringSelectPop
 import com.lxkj.qiqihunshe.app.ui.entrance.MyTypeActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.model.PerfectInfoModel
 import com.lxkj.qiqihunshe.app.ui.model.CityModel
 import com.lxkj.qiqihunshe.app.util.AppJsonFileReader
 import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityPerfectInfoBinding
 
 /**
  * Created by Slingge on 2019/2/19
  */
-class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.AddressCallBack,
+class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, AddressPop.AddressCallBack,
     StringSelectPop.StringCallBack {
 
 
@@ -32,7 +31,7 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
 
     val model by lazy { PerfectInfoModel() }
 
-    private var datePop: DatePop? = null
+    private var dateBirthdayPop: DateBirthdayPop? = null
     private var addressPop: AddressPop? = null
     private var cityList: List<CityModel> = java.util.ArrayList()//全国城市
 
@@ -71,11 +70,11 @@ class PerfectInfoViewModel : BaseViewModel(), DatePop.DateCallBack, AddressPop.A
     //flag 0我的出生日期
     fun showDate(flag: Int) {
         this.type = flag
-        if (datePop == null) {
-            datePop = DatePop(activity, this)
+        if (dateBirthdayPop == null) {
+            dateBirthdayPop = DateBirthdayPop(activity, this)
         }
-        if (!datePop!!.isShowing) {
-            datePop!!.showAtLocation(bind?.llMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
+        if (!dateBirthdayPop!!.isShowing) {
+            dateBirthdayPop!!.showAtLocation(bind?.llMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
         }
     }
 

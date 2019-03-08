@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Activity
 import android.text.InputFilter
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.WindowManager
 import android.widget.*
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
@@ -23,6 +25,10 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
 object DaShangDialog {
 
 
+    interface DaShangCallBack{
+        fun dashang(money:String)
+    }
+
     private var dialog: AlertDialog? = null
     private var tv_play: TextView? = null
     private var iv_cancel: ImageView? = null
@@ -32,7 +38,9 @@ object DaShangDialog {
 
     private val list by lazy { ArrayList<String>() }
 
-    fun show(context: Activity) {
+    private var money = ""
+
+    fun show(context: Activity,daShangCallBack: DaShangCallBack) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -52,16 +60,16 @@ object DaShangDialog {
         radio?.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.tv_1 -> {
-                    ToastUtil.showToast("1")
+                    money = "1"
                 }
                 R.id.tv_2 -> {
-                    ToastUtil.showToast("2")
+                    money = "2"
                 }
                 R.id.tv_5 -> {
-                    ToastUtil.showToast("5")
+                    money = "5"
                 }
                 R.id.tv_10 -> {
-                    ToastUtil.showToast("10")
+                    money = "10"
                 }
             }
         }
@@ -69,13 +77,27 @@ object DaShangDialog {
         et_money?.filters = arrayOf<InputFilter>(CashierInputFilter())
 
         tv_play?.setOnClickListener {
-            ToastUtil.showToast(AbStrUtil.etTostr(et_money!!))
-            DaShangAfterDialog.show(context)
+
+            if (!TextUtils.isEmpty(AbStrUtil.etTostr(et_money!!))) {
+                daShangCallBack.dashang(AbStrUtil.etTostr(et_money!!))
+            } else {
+                if (TextUtils.isEmpty(money)) {
+                    ToastUtil.showTopSnackBar(context,"请选择或输入打赏金额")
+                    return@setOnClickListener
+                }
+            }
+            daShangCallBack.dashang(money)
+//            DaShangAfterDialog.show(context)
             dialog?.dismiss()
         }
         iv_cancel?.setOnClickListener {
             dialog?.dismiss()
         }
+
+
+        dialog!!.window.clearFlags(
+            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+
 
         val dialogWindow = dialog!!.window
         dialogWindow.setWindowAnimations(R.style.dialogAnim)//淡入、淡出动画

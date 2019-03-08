@@ -10,6 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.PersonDynamicItemView
  * Created by Slingge on 2019/2/21
  */
 class DynamicAdapter : BaseListAdapter<DynamicModel, PersonDynamicItemView>() {
+    override fun refreshItemView(view: PersonDynamicItemView, itembean: DynamicModel, position: Int) {
+
+    }
 
     var activity: Activity? = null
 

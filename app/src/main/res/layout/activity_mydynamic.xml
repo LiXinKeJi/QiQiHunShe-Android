@@ -66,6 +66,13 @@
                             app:layout_constraintTop_toTopOf="parent"
                     />
 
+
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                               android:id="@+id/iv_state"
+                               android:src="@drawable/danshen"
+                               app:layout_constraintEnd_toEndOf="@+id/header"
+                               app:layout_constraintBottom_toBottomOf="@+id/header"/>
+
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                               android:id="@+id/tv_name"
                               android:textSize="15sp"
@@ -172,8 +179,8 @@
                           android:padding="10dp"
                           android:text="@={model.zanNum}"
                           android:drawablePadding="5dp"
-                          android:gravity="center"
                           android:drawableLeft="@drawable/ic_zan_nor"
+                          android:gravity="center"
                           android:layout_marginLeft="15dp"
                           android:background="@drawable/touch_bg"
                           app:layout_constraintTop_toBottomOf="@+id/tv_address"
@@ -282,6 +289,7 @@
                       android:id="@+id/et_comment"
                       android:textSize="15sp"
                       android:padding="8dp"
+                      android:text="@={viewmodel.comment}"
                       android:textColor="@color/colorTabText"
                       android:background="@color/white"
                       android:layout_marginTop="3dp"

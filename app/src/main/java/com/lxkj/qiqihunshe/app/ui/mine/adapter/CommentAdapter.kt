@@ -10,6 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.CommentItemView
  * Created by Slingge on 2019/2/22
  */
 class CommentAdapter : BaseListAdapter<CommentModel.dataModel, CommentItemView>() {
+    override fun refreshItemView(view: CommentItemView, itembean: CommentModel.dataModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): CommentItemView {

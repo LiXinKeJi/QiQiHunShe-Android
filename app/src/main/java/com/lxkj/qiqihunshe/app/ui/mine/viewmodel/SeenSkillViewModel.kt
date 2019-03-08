@@ -40,6 +40,9 @@ class SeenSkillViewModel : BaseViewModel() {
         return retrofit.getData(json).compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, SeenSkillModel::class.java)
+                if(page>model.totalPage){
+                    return
+                }
                 if (page == 1) {
                     bind!!.refresh.isRefreshing=false
                     if (model.totalPage == 1) {
@@ -47,7 +50,7 @@ class SeenSkillViewModel : BaseViewModel() {
                     }
                     adapter.upData(model.dataList)
                 } else {
-                    if (model.totalPage == 1) {
+                    if (page==model.totalPage) {
                         adapter.loadMore(model.dataList, 0)
                     } else {
                         adapter.loadMore(model.dataList, -1)

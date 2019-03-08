@@ -22,6 +22,11 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
 object ReportDialog1 {
 
 
+    interface ReportCallBack {
+        fun report(report: String)
+    }
+
+
     private var dialog: AlertDialog? = null
     private var tv_enter: TextView? = null
     private var tv_cancel: TextView? = null
@@ -29,7 +34,8 @@ object ReportDialog1 {
 
     private val list by lazy { ArrayList<String>() }
 
-    fun show(context: Activity) {
+    fun show(context: Activity, reportCallBack: ReportCallBack) {
+        list.clear()
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -50,7 +56,12 @@ object ReportDialog1 {
 
         }
         tv_enter?.setOnClickListener {
-            ToastUtil.showToast(Gson().toJson(list))
+            val sb = StringBuffer()
+            for (i in 0 until list.size) {
+                sb.append(list[i] + ",")
+            }
+
+            reportCallBack.report(sb.toString().substring(0, sb.toString().length - 1))
             dialog?.dismiss()
         }
         iv_cancel?.setOnClickListener {

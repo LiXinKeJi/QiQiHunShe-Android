@@ -17,12 +17,9 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/header"
-                android:layout_marginLeft="15dp"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-        />
+                tools:layout_editor_absoluteY="12dp" tools:layout_editor_absoluteX="15dp"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_name"
@@ -173,6 +170,7 @@
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_totalnum"
                   android:text="+1"
+                  android:visibility="gone"
                   android:textSize="18sp"
                   android:textColor="@color/colorRateRed"
                   app:layout_constraintTop_toTopOf="@+id/iv_3"

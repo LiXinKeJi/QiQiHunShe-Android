@@ -23,9 +23,7 @@ class ImageItemView : RelativeLayout {
     }
 
     fun setData(url: String) {
-       val urls="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3478746384,2289037560&fm=26&gp=0.jpg"
-        GlideUtil.glideLoad(context, urls, image)
-
+        GlideUtil.glideLoad(context, url, image)
     }
 
 

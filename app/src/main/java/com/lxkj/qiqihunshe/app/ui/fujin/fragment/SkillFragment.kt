@@ -40,17 +40,21 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
     override fun getLayoutId() = R.layout.fragment_skill
 
     override fun init() {
+
         var model = arguments?.getSerializable("model") as DataListModel
         viewModel?.model = model
+
         //视频封面图
-        GlideUtil.glideLoad(context, model?.image, jc_video?.thumbImageView)
+        GlideUtil.glideLoad(context,model?.image,jc_video?.thumbImageView)
         //用户头像
-        GlideUtil.glideLoad(context, model?.icon, iv_header)
-        tv_playnum?.text = "播放量：" + model?.count
+        GlideUtil.glideLoad(context,model?.icon,iv_header)
+        tv_playnum?.text= "播放量：" + model?.count
         tv_time.text = model?.adtime
         tv_name.text = model?.title
         tv_address.text = model?.location
         tv_content.text = model?.content
+
+
         val wm = activity!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val dm = DisplayMetrics()
         wm.defaultDisplay.getMetrics(dm)
@@ -58,7 +62,9 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
             activity!!,
             (45 + 44 + 48)//底部导航，tablayout
         ) - StatusBarUtil.getStatusBarHeight(activity)//，状态栏高度
+
         ControlWidthHeight.inputhigh(heigh, jc_video)
+
         iv_voice.setOnClickListener(this)
         iv_video.setOnClickListener(this)
         iv_dashang.setOnClickListener(this)
@@ -93,7 +99,12 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
                 VoiceTipDialog.show(activity!!, model!!.userName, "视频")
             }
             R.id.iv_dashang -> {
-                DaShangDialog.show(activity!!)
+                DaShangDialog.show(activity!!,object :DaShangDialog.DaShangCallBack{
+                    override fun dashang(money: String) {
+
+                    }
+
+                })
             }
             R.id.iv_send -> {
                 if (StringUtil.isEmpty(et_comment.text.toString())) {

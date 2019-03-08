@@ -9,6 +9,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.QiQiRuleItemView
  * Created by Slingge on 2019/2/21
  */
 class QiQiRuleBaoAdapter : BaseListAdapter<QiQiRuleModel, QiQiRuleItemView>() {
+    override fun refreshItemView(view: QiQiRuleItemView, itembean: QiQiRuleModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): QiQiRuleItemView {

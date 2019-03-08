@@ -13,10 +13,8 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.util.GlideUtil
 import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
-import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.runproject.app.view.SquareImage
 import java.io.File
-import kotlin.math.log
 
 
 /**
@@ -69,7 +67,7 @@ class ReleaseAdapter(
             }
         } else {
             holder.iv_del.visibility = View.VISIBLE
-            abLog.e("路径", Gson().toJson(list[position]))
+
             if (!list[position].path.contains("http://")) {  //本地图片
                 Glide.with(context).load(File(list[position].compressPath)).into(holder.image)
             } else {//网络图片

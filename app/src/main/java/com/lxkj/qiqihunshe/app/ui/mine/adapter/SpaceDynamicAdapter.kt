@@ -10,6 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.SpaceDynamicItemView
  * Created by Slingge on 2019/2/22
  */
 class SpaceDynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, SpaceDynamicItemView>() {
+    override fun refreshItemView(view: SpaceDynamicItemView, itembean: SpaceDynamicModel.dataModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): SpaceDynamicItemView {
@@ -17,7 +20,7 @@ class SpaceDynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, SpaceDy
     }
 
     override fun refreshItemView(view: SpaceDynamicItemView, itembean: SpaceDynamicModel.dataModel) {
-        view.setData(itembean, this.mLastPosition)
+        view.setData(itembean, i+1)
     }
 
 

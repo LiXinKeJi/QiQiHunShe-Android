@@ -9,6 +9,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.PersonSkillItemView
  * Created by Slingge on 2019/2/21
  */
 class PersonSkillAdapter : BaseListAdapter<PersonaSkillModel, PersonSkillItemView>() {
+    override fun refreshItemView(view: PersonSkillItemView, itembean: PersonaSkillModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): PersonSkillItemView {

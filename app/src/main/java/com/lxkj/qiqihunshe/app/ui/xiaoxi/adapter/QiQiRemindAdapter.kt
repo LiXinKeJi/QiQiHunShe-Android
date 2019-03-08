@@ -9,6 +9,9 @@ import com.lxkj.qiqihunshe.app.ui.xiaoxi.widget.QiQiRemindItemView
  * Created by Slingge on 2019/3/1
  */
 class QiQiRemindAdapter : BaseListAdapter<QiQiRemindModel, QiQiRemindItemView>() {
+    override fun refreshItemView(view: QiQiRemindItemView, itembean: QiQiRemindModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): QiQiRemindItemView {

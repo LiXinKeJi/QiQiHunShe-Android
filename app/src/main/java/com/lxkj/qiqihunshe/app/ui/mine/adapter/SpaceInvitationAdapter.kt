@@ -10,6 +10,13 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.SpaceInvitationitenView
  * Created by Slingge on 2019/2/22
  */
 class SpaceInvitationAdapter : BaseListAdapter<SpaceInvitationModel.dataModel, SpaceInvitationitenView>() {
+    override fun refreshItemView(
+        view: SpaceInvitationitenView,
+        itembean: SpaceInvitationModel.dataModel,
+        position: Int
+    ) {
+         
+    }
 
 
     override fun getitemView(context: Context): SpaceInvitationitenView {
@@ -17,7 +24,7 @@ class SpaceInvitationAdapter : BaseListAdapter<SpaceInvitationModel.dataModel, S
     }
 
     override fun refreshItemView(view: SpaceInvitationitenView, itembean: SpaceInvitationModel.dataModel) {
-        view.setData(itembean)
+        view.setData(itembean, i + 1)
     }
 
 

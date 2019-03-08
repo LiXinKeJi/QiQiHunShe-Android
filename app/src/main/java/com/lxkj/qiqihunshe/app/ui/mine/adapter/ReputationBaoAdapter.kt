@@ -9,6 +9,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.ReputationBaoItemView
  * Created by Slingge on 2019/2/21
  */
 class ReputationBaoAdapter : BaseListAdapter<ReputationBaoModel.dataModel, ReputationBaoItemView>() {
+    override fun refreshItemView(view: ReputationBaoItemView, itembean: ReputationBaoModel.dataModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): ReputationBaoItemView {

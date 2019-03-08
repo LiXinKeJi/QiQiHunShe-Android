@@ -10,6 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.SpaceSkillItemView
  * Created by Slingge on 2019/2/22
  */
 class SpaceSkillAdapter : BaseListAdapter<SpaceSkillModel.dataModel, SpaceSkillItemView>() {
+    override fun refreshItemView(view: SpaceSkillItemView, itembean: SpaceSkillModel.dataModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): SpaceSkillItemView {
@@ -17,7 +20,7 @@ class SpaceSkillAdapter : BaseListAdapter<SpaceSkillModel.dataModel, SpaceSkillI
     }
 
     override fun refreshItemView(view: SpaceSkillItemView, itembean: SpaceSkillModel.dataModel) {
-        view.setData(itembean,position)
+        view.setData(itembean,i+1)
     }
 
 

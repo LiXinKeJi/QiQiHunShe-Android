@@ -9,6 +9,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.PersonInvitationItemView
  * Created by Slingge on 2019/2/21
  */
 class PersonInvitationAdapter : BaseListAdapter<InvitationModel, PersonInvitationItemView>() {
+    override fun refreshItemView(view: PersonInvitationItemView, itembean: InvitationModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): PersonInvitationItemView {

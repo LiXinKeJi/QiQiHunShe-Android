@@ -1,7 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import cn.jzvd.JzvdStd
 import com.lxkj.qiqihunshe.R

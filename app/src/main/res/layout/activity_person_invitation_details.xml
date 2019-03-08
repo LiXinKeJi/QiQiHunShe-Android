@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.mine.model.PersonInvitationDetailsModel"/>
+        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.mine.model.MyInvitationDetailsModel"/>
         <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationDetailsViewModel"/>
     </data>
 
@@ -13,7 +13,8 @@
                   android:background="@color/white"
                   android:fitsSystemWindows="true">
         <include layout="@layout/include_title"/>
-        <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+        <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content">
 
             <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -26,30 +27,31 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:id="@+id/header"
+                        bind:imageHeaderUrl="@{model.icon}"
                         android:layout_marginLeft="15dp"
                         android:src="@mipmap/ic_launcher"
                         android:scaleType="centerCrop"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                 />
-
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_name"
                           android:textSize="15sp"
                           android:textColor="@color/black"
-                          android:text="昵称"
+                          android:text="@{model.nickname}"
                           app:layout_constraintTop_toTopOf="@+id/header"
                           app:layout_constraintStart_toEndOf="@+id/header"
-                          android:layout_marginStart="5dp" android:layout_marginLeft="5dp"/>
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_marginLeft="5dp"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
                           android:id="@+id/tv_occupation"
+                          android:layout_marginTop="3dp"
                           android:textSize="13sp"
+                          app:layout_constraintTop_toBottomOf="@+id/tv_name"
                           android:textColor="@color/colorSubtitle"
-                          android:text="职业"
-                          app:layout_constraintBottom_toBottomOf="@+id/header"
+                          android:text="@{`职业:`+model.job}"
                           app:layout_constraintStart_toEndOf="@+id/header"
-                          android:layout_marginStart="5dp" android:layout_marginLeft="5dp"/>
+                          android:layout_marginLeft="5dp"/>
 
 
                 <include layout="@layout/include_v"
@@ -87,7 +89,7 @@
 
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                           android:id="@+id/tv_zhui"
-                          android:text="主题："
+                          android:text="@{`主题：`+model.title}"
                           android:textSize="15sp"
                           android:textColor="@color/colorTabTexts"
                           android:maxLines="3"
@@ -100,7 +102,7 @@
 
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                           android:id="@+id/tv_time"
-                          android:text="活动时间："
+                          android:text="@{`活动时间：`+model.starttime}"
                           android:textSize="15sp"
                           android:textColor="@color/colorTabTexts"
                           android:maxLines="3"
@@ -114,7 +116,7 @@
 
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                           android:id="@+id/tv_content"
-                          android:text="活动内容："
+                          android:text="@{`活动内容：`+model.content}"
                           android:textSize="15sp"
                           android:textColor="@color/colorTabTexts"
                           android:maxLines="3"
@@ -182,69 +184,28 @@
                           android:layout_marginStart="15dp"/>
 
 
-                <com.lxkj.runproject.app.view.SquareImage
-                        android:id="@+id/iv_1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_consu"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="6dp"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_2"/>
-
-                <com.lxkj.runproject.app.view.SquareImage
-                        android:id="@+id/iv_2"
-                        android:layout_width="0dp"
-                        android:scaleType="centerCrop"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_consu"
-                        android:layout_marginTop="15dp"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_weight="1" app:layout_constraintStart_toEndOf="@+id/iv_1"
-                        app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/iv_3"/>
-
-                <com.lxkj.runproject.app.view.SquareImage
-                        android:id="@+id/iv_3"
-                        android:layout_width="0dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_weight="1"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_consu"
-                        android:layout_marginTop="15dp"
-                        android:layout_height="wrap_content"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/ic_launcher"
-                        app:layout_constraintStart_toEndOf="@+id/iv_2"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5"/>
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/tv_num"
-                          android:textSize="15sp"
-                          android:textColor="@color/colorRateRed"
-                          android:text="+1"
-
-                          app:layout_constraintTop_toTopOf="@+id/iv_3"
-                          app:layout_constraintEnd_toEndOf="@+id/iv_3"
-                          app:layout_constraintStart_toStartOf="@+id/iv_3"
-                          app:layout_constraintBottom_toBottomOf="@+id/iv_3"/>
-
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_date"
                           android:textColor="@color/colorSubtitle"
                           android:textSize="11sp"
                           android:text="2019"
-                          app:layout_constraintTop_toBottomOf="@+id/iv_1"
+                          app:layout_constraintTop_toBottomOf="@+id/rv_image"
                           android:layout_marginTop="10dp"
                           android:paddingBottom="10dp"
                           android:layout_marginRight="15dp"
                           app:layout_constraintEnd_toEndOf="parent"
                 />
+
+
+                <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_consu"
+                        android:id="@+id/rv_image"
+                        android:nestedScrollingEnabled="false"/>
 
 
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -264,7 +225,7 @@
 
             </android.support.constraint.ConstraintLayout>
 
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 

@@ -19,6 +19,7 @@ import com.lxkj.qiqihunshe.app.ui.map.activity.SelectAddressMapActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseDynamicModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseDynamicViewModel
 import com.lxkj.qiqihunshe.app.util.PermissionUtil
+import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
 import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityReleaseDynamicBinding
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_release_dynamic.*
 class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, ReleaseDynamicViewModel>(),
     View.OnClickListener, UpLoadFileCallBack {
 
+    private var flag = -1//0普通动态，1情感动态
 
     override fun getBaseViewModel() = ReleaseDynamicViewModel()
 
@@ -39,6 +41,7 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
 
     override fun init() {
         initTitle("发布动态")
+        flag = intent.getIntExtra("flag", -1)
         viewModel?.let {
             binding.viewmodel = it
             binding.model = it.model
@@ -71,9 +74,10 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
 
                     if (it.ablumList.isNotEmpty()) {
                         val fileList = ArrayList<String>()
-                        for (i in 0 until it.ablumList.size) {
+                        for (i in 0 until it.ablumList.size - 1) {//移除最后一个添加占位的图片
                             fileList.add(it.ablumList[i].path)
                         }
+                        ProgressDialogUtil.showProgressDialog(this)
                         upload.setListPath(fileList)
                     } else {
                         viewModel!!.fendDynamic().bindLifeCycle(this).subscribe({}, { toastFailure(it) })

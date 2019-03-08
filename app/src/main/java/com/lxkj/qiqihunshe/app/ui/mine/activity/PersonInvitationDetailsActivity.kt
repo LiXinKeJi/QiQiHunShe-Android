@@ -3,6 +3,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.DynamicSignUpAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationDetailsViewModel
@@ -31,7 +32,10 @@ class PersonInvitationDetailsActivity :
 
         viewModel?.let {
             binding.viewmodel = it
-
+            it.bind = binding
+            it.yaoyueId=intent.getStringExtra("id")
+            it.initViewmodel()
+            it.getYaoyueDetails().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
 
     }
@@ -40,7 +44,11 @@ class PersonInvitationDetailsActivity :
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_report -> {
-                ReportDialog1.show(this)
+                ReportDialog1.show(this, object : ReportDialog1.ReportCallBack {
+                    override fun report(report: String) {
+
+                    }
+                })
             }
             R.id.tv_signup -> {
                 DynamicSignUpAfterDialog.sginUpShow(this)

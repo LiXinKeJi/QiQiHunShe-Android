@@ -11,6 +11,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.QiQiRuleItemView
  * Created by Slingge on 2019/2/21
  */
 class QiQiDynamicAdapter : BaseListAdapter<QiQiDynamicModel, QiQiDynamicItemView>() {
+    override fun refreshItemView(view: QiQiDynamicItemView, itembean: QiQiDynamicModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): QiQiDynamicItemView {

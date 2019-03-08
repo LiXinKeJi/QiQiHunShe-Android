@@ -4,6 +4,7 @@
 
     <data>
         <variable name="model" type="com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseSkillModel"/>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseSkillViewModel"/>
     </data>
 
     <!--发布才艺-->
@@ -45,6 +46,7 @@
                           android:id="@+id/et_title"
                           android:textColor="@color/colorTabText"
                           android:textSize="15sp"
+                          android:text="@={viewmodel.title}"
                           android:paddingLeft="15dp"
                           android:singleLine="true"
                           android:paddingTop="10dp"
@@ -84,14 +86,14 @@
                           android:id="@+id/et_content"
                           android:textColor="@color/colorTabText"
                           android:textSize="15sp"
+                          android:text="@={viewmodel.content}"
                           android:paddingLeft="15dp"
                           android:singleLine="true"
                           android:paddingTop="10dp"
                           android:paddingBottom="10dp"
                           android:paddingRight="15dp"
                           android:background="@color/white"
-                          android:maxLength="15"
-                          android:hint="您最近的动态..."
+                          android:hint="您的才艺内容..."
                           app:layout_constraintTop_toBottomOf="@+id/content"
                 />
 
@@ -138,73 +140,74 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"/>
 
-                    <RadioGroup android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:id="@+id/radio"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="12dp"
-                                android:layout_marginLeft="15dp"
-                                app:layout_constraintTop_toBottomOf="@+id/lin3"
-                                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp">
-                        <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                     android:id="@+id/rb_gk"
-                                     android:text="公开"
-                                     android:drawableLeft="@drawable/rb_click"
-                                     android:checked="true"
-                                     android:button="@null"
-                                     android:textSize="13sp"
-                                     android:drawablePadding="5dp"
-                                     android:padding="12dp"
-                                     android:layout_marginLeft="3dp"
-                        />
-
-                        <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                     android:id="@+id/rb_ys"
-                                     android:text="公开"
-                                     android:drawableLeft="@drawable/rb_click"
-                                     android:button="@null"
-                                     android:textSize="13sp"
-                                     android:drawablePadding="5dp"
-                                     android:padding="12dp"
-                                     android:layout_marginLeft="3dp"
-                        />
-
-                    </RadioGroup>
-
-
-                    <TextView
-                            android:id="@+id/tv_address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
+                <RadioGroup android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:id="@+id/radio"
+                            android:orientation="horizontal"
                             android:layout_marginTop="12dp"
-                            android:drawableLeft="@drawable/ic_address"
-                            android:drawablePadding="5dp"
-                            android:background="@drawable/wirth_line60"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:paddingTop="3dp"
-                            android:paddingBottom="3dp"
-                            android:text="您当前的位置"
-                            android:textColor="@color/colorTabText"
-                            android:textSize="@dimen/sub_fant"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/radio"/>
+                            android:layout_marginLeft="15dp"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/lin3"
+                            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp">
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                 android:id="@+id/rb_gk"
+                                 android:text="公开"
+                                 android:drawableLeft="@drawable/rb_click"
+                                 android:checked="true"
+                                 android:button="@null"
+                                 android:textSize="13sp"
+                                 android:drawablePadding="5dp"
+                                 android:padding="12dp"
+                                 android:layout_marginLeft="3dp"
+                    />
 
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                              android:id="@+id/tv_send"
-                              android:text="发布"
-                              android:background="@drawable/button_click5"
-                              android:gravity="center"
-                              android:textColor="@color/white"
-                              android:paddingTop="12dp"
-                              android:layout_marginTop="50dp"
-                              android:layout_marginBottom="30dp"
-                              android:paddingBottom="12dp"
-                              app:layout_constraintTop_toBottomOf="@+id/tv_address"
-                              app:layout_constraintStart_toStartOf="parent"
-                              app:layout_constraintEnd_toEndOf="parent"
-                              app:layout_constraintBottom_toBottomOf="parent" android:layout_marginLeft="30dp"
-                              android:layout_marginRight="30dp" app:layout_constraintVertical_bias="0.7"/>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                 android:id="@+id/rb_ys"
+                                 android:text="公开"
+                                 android:drawableLeft="@drawable/rb_click"
+                                 android:button="@null"
+                                 android:textSize="13sp"
+                                 android:drawablePadding="5dp"
+                                 android:padding="12dp"
+                                 android:layout_marginLeft="3dp"
+                    />
+
+                </RadioGroup>
+
+
+                <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
+                        android:drawableLeft="@drawable/ic_address"
+                        android:drawablePadding="5dp"
+                        android:background="@drawable/wirth_line60"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:text="您当前的位置"
+                        android:textColor="@color/colorTabText"
+                        android:textSize="@dimen/sub_fant"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/radio"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:id="@+id/tv_send"
+                          android:text="发布"
+                          android:background="@drawable/button_click5"
+                          android:gravity="center"
+                          android:textColor="@color/white"
+                          android:paddingTop="12dp"
+                          android:layout_marginTop="50dp"
+                          android:layout_marginBottom="30dp"
+                          android:paddingBottom="12dp"
+                          app:layout_constraintTop_toBottomOf="@+id/tv_address"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          app:layout_constraintBottom_toBottomOf="parent" android:layout_marginLeft="30dp"
+                          android:layout_marginRight="30dp" app:layout_constraintVertical_bias="0.7"/>
 
 
             </android.support.constraint.ConstraintLayout>

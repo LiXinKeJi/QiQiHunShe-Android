@@ -9,6 +9,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.QiQiRecommendItemView
  * Created by Slingge on 2019/2/21
  */
 class QiQiRecommendAdapter : BaseListAdapter<QiQiRecommendModel, QiQiRecommendItemView>() {
+    override fun refreshItemView(view: QiQiRecommendItemView, itembean: QiQiRecommendModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): QiQiRecommendItemView {

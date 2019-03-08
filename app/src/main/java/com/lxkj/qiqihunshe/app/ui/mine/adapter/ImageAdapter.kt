@@ -9,6 +9,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.ImageItemView
  * Created by Slingge on 2019/2/22
  */
 class ImageAdapter : BaseListAdapter<String, ImageItemView>() {
+    override fun refreshItemView(view: ImageItemView, itembean: String, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): ImageItemView {

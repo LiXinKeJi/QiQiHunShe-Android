@@ -12,6 +12,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.QiQiRuleItemView
  * Created by Slingge on 2019/2/21
  */
 class QiQiDynamicSignUpRecordAdapter : BaseListAdapter<QiQiDynamicModel, QiQiDynamicSignUpRecordItemView>() {
+    override fun refreshItemView(view: QiQiDynamicSignUpRecordItemView, itembean: QiQiDynamicModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): QiQiDynamicSignUpRecordItemView {

@@ -20,7 +20,7 @@ import java.util.*
  */
 
 //maxDay true 使用未来时间
-class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWindow(context) {
+class DateBirthdayPop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWindow(context) {
 
     internal var position = 0
     internal var position2 = 0
@@ -74,12 +74,12 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         loopview.setCurrentPosition(position)
 
         loopview2.setNotLoop()
-        loopview2.setItems(monthList)
+        loopview2.setItems(monthList.subList(0, month))
         position2 = month - 1
         loopview2.setCurrentPosition(position2)
 
         loopview3.setNotLoop()
-        loopview3.setItems(dayList)
+        loopview3.setItems(dayList.subList(0, day))
         position3 = day - 1
         loopview3.setCurrentPosition(position3)
         wheelViewCallBack.position(yearList[yearList.size - 1], monthList[month - 1], dayList[day - 1])
@@ -88,8 +88,11 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
             position = index
 
             position2 = 0
-
-            loopview2.setItems(monthList)
+            if (yearList[position].toInt() == year) {
+                loopview2.setItems(monthList.subList(0, month))
+            } else {
+                loopview2.setItems(monthList)
+            }
 
             loopview2.setInitPosition(0)
 
@@ -107,7 +110,11 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
 
             getDay(yearList[position], monthList[position2])
 
-            loopview3.setItems(dayList)
+            if (yearList[position].toInt() == year && monthList[position2].toInt() == month) {
+                loopview3.setItems(dayList.subList(0, day))
+            } else {
+                loopview3.setItems(dayList)
+            }
 
             loopview3.setInitPosition(0)
 
@@ -121,7 +128,7 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         val tv_enter = v.findViewById<View>(R.id.tv_enter) as TextView
         tv_enter.setOnClickListener { v1 ->
             wheelViewCallBack.position(yearList[position], monthList[position2], dayList[position3])
-            this@DatePop.dismiss()
+            this@DateBirthdayPop.dismiss()
         }
 
         //设置初始位置
@@ -151,7 +158,7 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         monthList.clear()
         for (i in 1..12) {
             if (i < 10) {
-                monthList.add("0$i")
+                monthList.add("0" + i.toString())
             } else {
                 monthList.add(i.toString())
             }
@@ -163,7 +170,7 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         dayList.clear()
         for (i in 1..max) {
             if (i < 10) {
-                dayList.add("0$i")
+                dayList.add("0" + i.toString())
             } else {
                 dayList.add(i.toString())
             }

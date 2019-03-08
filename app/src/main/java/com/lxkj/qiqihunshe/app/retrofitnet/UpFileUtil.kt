@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Handler
 import android.os.Message
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.util.ThreadUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
@@ -15,6 +16,7 @@ import okhttp3.RequestBody
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import java.io.IOException
+import kotlin.math.log
 
 
 /**
@@ -32,19 +34,16 @@ class UpFileUtil(val activity: Activity, val loadFileCallBack: UpLoadFileCallBac
     fun setListPath(list: ArrayList<String>) {
         this.list = list
         this.list?.let {
-            for (i in 0 until it.size) {
-                count = i
-                upLoad(it[i])
-            }
-
+            count = 0
+            abLog.e("图片数量", list.size.toString())
+            upLoad(it[count])
         }
     }
 
 
     private var mOkHttpClient: OkHttpClient? = null
-    private var body: RequestBody? = null
     fun upLoad(path: String) {
-
+        abLog.e("上传图片路径", path)
         if (count == 0 && urlList.isNotEmpty()) {
             urlList.clear()
         }
@@ -56,10 +55,7 @@ class UpFileUtil(val activity: Activity, val loadFileCallBack: UpLoadFileCallBac
 
         val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
 
-
-        if (body == null) {
-            body = RequestBody.create(MediaType.parse("image/*"), file)
-        }
+        val body = RequestBody.create(MediaType.parse("image/*"), file)
 
         requestBody.addFormDataPart("file", file.name, body)
 
@@ -75,7 +71,7 @@ class UpFileUtil(val activity: Activity, val loadFileCallBack: UpLoadFileCallBac
 
                 override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                     response.body()?.let {
-                        abLog.e("上传图片", it.toString())
+                        //                        abLog.e("上传图片", it.toString())
                         val obj = JSONObject(it.string())
                         if (obj.getString("result") == "0") {
                             if (list == null || list!!.isEmpty()) {
@@ -99,10 +95,12 @@ class UpFileUtil(val activity: Activity, val loadFileCallBack: UpLoadFileCallBac
     object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-
             urlList.add(msg.obj.toString())
-
-            if(urlList.size==list!!.size){
+            count += 1
+            abLog.e("当前数量", count.toString())
+            if (count <= list!!.size - 1) {
+                upLoad(list!![count])
+            } else {
                 loadFileCallBack.uoLoad(urlList)
                 urlList.clear()
             }

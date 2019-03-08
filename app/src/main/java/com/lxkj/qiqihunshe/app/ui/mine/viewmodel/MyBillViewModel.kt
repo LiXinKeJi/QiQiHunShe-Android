@@ -4,12 +4,11 @@ import android.databinding.ObservableField
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import com.google.gson.Gson
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
-import com.lxkj.qiqihunshe.app.ui.dialog.DatePop
+import com.lxkj.qiqihunshe.app.ui.dialog.DateBirthdayPop
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.MyBillAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.MyBillModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -20,7 +19,7 @@ import io.reactivex.Single
 /**
  * Created by Slingge on 2019/2/22
  */
-class MyBillViewModel : BaseViewModel(), DatePop.DateCallBack {
+class MyBillViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack {
 
 
     val startTime = ObservableField<String>()
@@ -50,13 +49,16 @@ class MyBillViewModel : BaseViewModel(), DatePop.DateCallBack {
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, MyBillModel::class.java)
+                if(page>model.totalPage){
+                    return
+                }
                 if (page == 1) {
                     if (model.totalPage == 1) {
                         adapter.flag = 0
                         adapter.upData(model.dataList)
                     }
                 } else {
-                    if (page >= model.totalPage) {
+                    if (page == model.totalPage) {
                         adapter.loadMore(model.dataList, 0)
                     } else {
                         adapter.loadMore(model.dataList, -1)
@@ -67,15 +69,15 @@ class MyBillViewModel : BaseViewModel(), DatePop.DateCallBack {
     }
 
 
-    private var datePop: DatePop? = null
+    private var dateBirthdayPop: DateBirthdayPop? = null
     private var flag = -1//0开始时间，1结束时间
     fun showDateWheel(flag: Int) {
         this.flag = flag
-        if (datePop == null) {
-            datePop = DatePop(activity, this)
+        if (dateBirthdayPop == null) {
+            dateBirthdayPop = DateBirthdayPop(activity, this)
         }
-        if (!datePop!!.isShowing) {
-            datePop!!.showAtLocation(bind?.llMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
+        if (!dateBirthdayPop!!.isShowing) {
+            dateBirthdayPop!!.showAtLocation(bind?.llMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
         }
     }
 

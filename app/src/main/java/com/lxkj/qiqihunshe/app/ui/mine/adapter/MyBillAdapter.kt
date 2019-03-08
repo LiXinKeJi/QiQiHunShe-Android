@@ -10,6 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.MyBillItemView
  * Created by Slingge on 2019/2/22
  */
 class MyBillAdapter : BaseListAdapter<MyBillModel.dataModel, MyBillItemView>() {
+    override fun refreshItemView(view: MyBillItemView, itembean: MyBillModel.dataModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): MyBillItemView {

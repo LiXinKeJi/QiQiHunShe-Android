@@ -8,7 +8,6 @@ import java.io.Serializable
  */
 class SpaceDynamicModel : BaseModel(), Serializable {
 
-
     var totalPage = 1
 
     var dataList = ArrayList<dataModel>()

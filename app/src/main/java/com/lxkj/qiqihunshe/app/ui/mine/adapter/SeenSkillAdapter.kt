@@ -12,6 +12,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.SeenSkillItemView
  * Created by Slingge on 2019/2/22
  */
 class SeenSkillAdapter : BaseListAdapter<SeenSkillModel.dataModel, SeenSkillItemView>() {
+    override fun refreshItemView(view: SeenSkillItemView, itembean: SeenSkillModel.dataModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): SeenSkillItemView {

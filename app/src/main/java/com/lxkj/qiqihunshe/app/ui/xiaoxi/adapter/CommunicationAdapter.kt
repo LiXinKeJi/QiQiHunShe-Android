@@ -10,6 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.xiaoxi.widget.MessageItemView
  * Created by Slingge on 2019/3/1
  */
 class CommunicationAdapter : BaseListAdapter<MessageModel, CommunicationItemView>() {
+    override fun refreshItemView(view: CommunicationItemView, itembean: MessageModel, position: Int) {
+
+    }
 
 
     override fun getitemView(context: Context): CommunicationItemView {

@@ -20,6 +20,9 @@ class ReleaseInvitationTypeActivity :
 
     override fun getLayoutId() = R.layout.activity_release_invitation_type
 
+    private var type = -1//0普通邀约，1情感邀约
+
+
     override fun init() {
         initTitle("选择发布类型")
 
@@ -28,6 +31,7 @@ class ReleaseInvitationTypeActivity :
         iv_yundong.setOnClickListener(this)
         iv_dianying.setOnClickListener(this)
         iv_qita.setOnClickListener(this)
+
     }
 
 
@@ -50,7 +54,9 @@ class ReleaseInvitationTypeActivity :
                 bundle.putInt("flag", 4)
             }
         }
+        bundle.putInt("type", intent.getIntExtra("type", -1))
         MyApplication.openActivity(this, ReleaseInvitationActivity::class.java, bundle)
+        finish()
     }
 
 }

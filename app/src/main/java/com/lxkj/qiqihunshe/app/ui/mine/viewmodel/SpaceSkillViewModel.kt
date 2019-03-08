@@ -35,7 +35,7 @@ class SpaceSkillViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putString("image", itemBean.image)
             bundle.putString("video", itemBean.video)
-            MyApplication.openActivityForResult(activity, MySkillActivity::class.java, bundle, 1)
+            MyApplication.openActivityForResult(fragment!!.activity, MySkillActivity::class.java, bundle, 1)
         }
     }
 
@@ -46,6 +46,9 @@ class SpaceSkillViewModel : BaseViewModel() {
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, SpaceSkillModel::class.java)
+                    if (page > model.totalPage) {
+                        return
+                    }
                     if (page == 1) {
                         bind!!.refresh.isRefreshing = false
                         if (model.totalPage == 1) {
@@ -53,7 +56,7 @@ class SpaceSkillViewModel : BaseViewModel() {
                         }
                         adapter.upData(model.dataList)
                     } else {
-                        if (page >= model.totalPage) {
+                        if (page == model.totalPage) {
                             adapter.loadMore(model.dataList, 0)
                         } else {
                             adapter.loadMore(model.dataList, -1)
