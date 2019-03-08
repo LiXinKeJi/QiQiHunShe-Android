@@ -35,6 +35,9 @@ class SpaceDynamicModel : BaseModel(), Serializable {
         var zanNum = ""// 点赞数量
 
         var commentNum = ""// 评论数量
+
+
+        var permission = ArrayList<String>()
     }
 
 

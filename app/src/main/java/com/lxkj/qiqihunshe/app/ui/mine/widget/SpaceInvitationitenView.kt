@@ -22,7 +22,7 @@ class SpaceInvitationitenView : RelativeLayout  {
         View.inflate(context, R.layout.item_space_invitation, this)
     }
 
-    fun setData(bean: SpaceInvitationModel) {
+    fun setData(bean: SpaceInvitationModel.dataModel) {
         iv_del.setOnClickListener {
             if(cv_del.visibility==View.VISIBLE){
                 cv_del.visibility=View.GONE

@@ -80,6 +80,11 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position == list.size) {
             val view = holder.itemView as LoadMoreView
+            if (list.size == 0) {
+                view.Loaded()
+                return
+            }
+
             when (flag) {
                 0 -> {
                     view.Loaded()
@@ -163,6 +168,11 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         v.pivotX = v.measuredWidth.toFloat() / 2
         v.pivotY = v.measuredHeight.toFloat() / 2
         v.animate().setInterpolator(null).startDelay = 0
+    }
+
+    fun addItem(model: ITEMBEAN) {
+        list.add(0, model)
+        notifyItemInserted(0)
     }
 
 

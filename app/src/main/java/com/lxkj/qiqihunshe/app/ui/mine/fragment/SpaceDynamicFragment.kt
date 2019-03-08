@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.fragment
 
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import com.lxkj.qiqihunshe.R
@@ -24,7 +25,7 @@ class SpaceDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceDyna
     override fun getLayoutId() = R.layout.activity_recyvlerview
 
     override fun init() {
-        EventBus.getDefault().register(this)
+
         include.visibility = View.GONE
 
         recycler.setPadding(0, 60, 0, 0)
@@ -45,6 +46,7 @@ class SpaceDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceDyna
     }
 
     override fun loadData() {
+        EventBus.getDefault().register(this)
         viewModel!!.getMyDynamic().bindLifeCycle(this)
             .subscribe({}, { toastFailure(it) })
     }
@@ -55,6 +57,26 @@ class SpaceDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceDyna
         if (model.cmd == EventBusCmd.DelDynamic) {//删除动态
             viewModel!!.DelDynamuc(model.position).bindLifeCycle(this).subscribe({}, { it })
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) {
+            return
+        }
+
+        if (resultCode == 0 && requestCode == 0) {
+            if (data.getStringExtra("cmd") == "add") {
+                viewModel?.let {
+                    it.page = 1
+                    it.getMyDynamic().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            } else {
+                viewModel!!.removeItem(data.getIntExtra("position", -1))
+            }
+
+        }
+
     }
 
 

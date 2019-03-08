@@ -6,6 +6,6 @@ package com.lxkj.qiqihunshe.app.util
 object EventBusCmd {
 
     val DelDynamic="delDynamic"//删除动态
-
+    val DelSkill="delSkill"//删除动态
 
 }

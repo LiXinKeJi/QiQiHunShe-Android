@@ -41,8 +41,9 @@ class SpaceDynamicViewModel : BaseViewModel() {
         adapter.setMyListener { itemBean, position ->
             val bundle = Bundle()
             bundle.putSerializable("bean", itemBean)
-            bundle.putInt("flag",0)
-            MyApplication.openActivity(fragment!!.context, MyDynamicActivity::class.java, bundle)
+            bundle.putInt("flag", 0)
+            bundle.putInt("position", adapter.position)
+            MyApplication.openActivityForResult(fragment!!.activity, MyDynamicActivity::class.java, bundle,0)
         }
     }
 
@@ -81,9 +82,16 @@ class SpaceDynamicViewModel : BaseViewModel() {
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    adapter.removeItem(position)
+                    removeItem(position)
                 }
             }, fragment!!.activity))
     }
+
+
+    fun removeItem(position: Int){
+        adapter.removeItem(position)
+    }
+
+
 
 }
