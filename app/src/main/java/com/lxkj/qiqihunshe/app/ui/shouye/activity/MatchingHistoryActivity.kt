@@ -4,6 +4,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.MatchingHistoryViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityMatchHistoryBinding
+import kotlinx.android.synthetic.main.activity_withdrawal.*
 
 /**
  * Created by Slingge on 2019/2/26
@@ -17,11 +18,18 @@ class MatchingHistoryActivity : BaseActivity<ActivityMatchHistoryBinding, Matchi
 
     override fun init() {
         initTitle("历史匹配")
-
         viewModel?.let {
             it.bind = binding
-            it.flag = intent.getIntExtra("flag", -1)
-            it.initViewModel()
+            var flag = intent.getIntExtra("flag", -1)
+            when(flag){
+                0 ->{
+                    it.type = 1
+                }
+                1 ->{
+                    it.type = 2
+                }
+            }
+            it.init()
         }
     }
 }

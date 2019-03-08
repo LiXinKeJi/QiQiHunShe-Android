@@ -186,6 +186,9 @@
         <activity android:name=".app.ui.map.activity.SelectAddressMapActivity"
                   android:screenOrientation="portrait"/>
 
+        <activity android:name=".app.ui.map.activity.ChooseAddressActivity"
+                  android:screenOrientation="portrait"/>
+
         <!--百度地图-->
         <meta-data
                 android:name="com.baidu.lbsapi.API_KEY"
@@ -194,6 +197,7 @@
         <service android:name="com.baidu.location.f"
                  android:enabled="true"
                  android:process=":remote"/>
+        <service android:name=".app.service.LocationService"/>
 
 
         <!--//////////////////////////////////////////消息\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->

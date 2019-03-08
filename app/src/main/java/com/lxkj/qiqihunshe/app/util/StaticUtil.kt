@@ -19,8 +19,8 @@ object StaticUtil {
 
     var fill = ""// 0未完善资料 1已完善资料
 
-    var lat = "35.155"// 当前纬度
-    var lng = "125.45549"//当前经度
+    var lat = "34.75"// 当前纬度
+    var lng = "113.73"//当前经度
     var address = "" //当前位置
 
     var amount=""//账户总额

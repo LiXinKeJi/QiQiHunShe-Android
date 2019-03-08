@@ -50,7 +50,8 @@ public class XqHintAdapter extends RecyclerView.Adapter<XqHintAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.ivHeader);
+        GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.image);
+
         if (null != list.get(position).getAdtime())
             holder.tvTime.setText(list.get(position).getAdtime());
         else

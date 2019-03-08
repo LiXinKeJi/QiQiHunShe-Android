@@ -11,18 +11,19 @@ import com.lxkj.qiqihunshe.app.ui.shouye.activity.SetupProblemActivity
 import com.lxkj.qiqihunshe.app.ui.shouye.activity.StrokeActivity
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.ShouYe4ViewModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.databinding.FragmentShouye4Binding
 import kotlinx.android.synthetic.main.fragment_shouye_4.*
 
 /**
  * Created by Slingge on 2019/2/26
  */
-class ShouYe4Fragment : BaseFragment<com.lxkj.qiqihunshe.databinding.FragmentShouye4Binding, ShouYe4ViewModel>() {
+class ShouYe4Fragment : BaseFragment<FragmentShouye4Binding, ShouYe4ViewModel>() {
 
-
+    var flag = -1
     override fun getLayoutId() = R.layout.fragment_shouye_4
 
     override fun init() {
-        val flag = arguments!!.getInt("flag", -1)
+        flag = arguments!!.getInt("flag", -1)
         when (flag) {
             0 -> {
                 iv_bg.setImageResource(R.drawable.bg_liao)
@@ -55,13 +56,13 @@ class ShouYe4Fragment : BaseFragment<com.lxkj.qiqihunshe.databinding.FragmentSho
                     MyApplication.openActivity(activity, MatchingActivity::class.java, bundle)
                 }
                 2 -> {//先判断有没有设置问题
-//                    if(){
-                    QuestionsAnswersDialog.sginUpShow(activity!!)
-//                    }else{
-//                        val bundle=Bundle()
-//                    bundle.putInt("flag",2)
-//                    MyApplication.openActivity(this, MatchingHistoryActivity::class.java,bundle)
-//                    }
+                    if (viewModel?.answer == "0") {
+                        QuestionsAnswersDialog.sginUpShow(activity!!)
+                    } else {
+                        val bundle = Bundle()
+                        bundle.putInt("flag", 2)
+                        MyApplication.openActivity(activity, MatchingHistoryActivity::class.java, bundle)
+                    }
                 }
                 3 -> {
                     MyApplication.openActivity(activity, StrokeActivity::class.java)
@@ -71,6 +72,12 @@ class ShouYe4Fragment : BaseFragment<com.lxkj.qiqihunshe.databinding.FragmentSho
     }
 
     override fun loadData() {
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (flag == 2)
+            viewModel?.getPeiList()
     }
 
     override fun getBaseViewModel() = ShouYe4ViewModel()

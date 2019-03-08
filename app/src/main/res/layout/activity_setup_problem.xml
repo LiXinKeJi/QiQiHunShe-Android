@@ -40,7 +40,7 @@
                 android:progressDrawable="@drawable/progress_progressbar"
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:max="5"
-                android:progress="2"
+                android:progress="0"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="12dp"
@@ -49,7 +49,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="1/5"
+                  android:text="0/0"
                   android:textSize="13sp"
                   android:textColor="@color/tabBackground"
                   app:layout_constraintEnd_toEndOf="parent"
@@ -72,52 +72,6 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="12dp"
         >
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                         android:id="@+id/rb0"
-                         android:text="答案0答案"
-                         android:paddingTop="12dp"
-                         android:paddingBottom="12dp"
-                         android:drawableLeft="@drawable/rb_click2"
-                         android:button="@null"
-                         android:drawablePadding="10dp"
-                         android:textColor="@color/colorSubtitle"
-            />
-
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                         android:id="@+id/rb1"
-                         android:text="答案1"
-                         android:drawableLeft="@drawable/rb_click2"
-                         android:button="@null"
-                         android:layout_marginTop="12dp"
-                         android:paddingTop="12dp"
-                         android:paddingBottom="12dp"
-                         android:drawablePadding="10dp"
-                         android:textColor="@color/colorSubtitle"
-            />
-
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                         android:id="@+id/rb2"
-                         android:text="答案2"
-                         android:layout_marginTop="12dp"
-                         android:paddingTop="12dp"
-                         android:paddingBottom="12dp"
-                         android:drawableLeft="@drawable/rb_click2"
-                         android:button="@null"
-                         android:drawablePadding="10dp"
-                         android:textColor="@color/colorSubtitle"
-            />
-
-            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                         android:id="@+id/rb3"
-                         android:text="答案3"
-                         android:layout_marginTop="12dp"
-                         android:paddingTop="12dp"
-                         android:paddingBottom="12dp"
-                         android:drawableLeft="@drawable/rb_click2"
-                         android:button="@null"
-                         android:drawablePadding="10dp"
-                         android:textColor="@color/colorSubtitle"
-            />
 
         </RadioGroup>
 

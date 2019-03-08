@@ -4,13 +4,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.text.TextUtils
 import android.view.View
+import com.baidu.location.LocationClient
+import com.baidu.mapapi.search.core.PoiInfo
 import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
+import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
+import com.lxkj.qiqihunshe.app.ui.map.activity.SelectAddressMapActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseDynamicModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseDynamicViewModel
 import com.lxkj.qiqihunshe.app.util.PermissionUtil
@@ -49,7 +54,7 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_address -> {
-
+                MyApplication.openActivityForResult(this, ChooseAddressActivity::class.java, 0)
             }
             R.id.tv_send -> {
                 viewModel?.let {
@@ -58,9 +63,11 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
                         ToastUtil.showTopSnackBar(this, "请输入动态内容")
                         return
                     }
-                    it.model.lat = "32.45458"
-                    it.model.lon = "125.15484"
-                    it.model.location = "楼下"
+
+                    if (TextUtils.isEmpty(it.model.location)) {
+                        ToastUtil.showTopSnackBar(this, "请选择位置信息")
+                        return
+                    }
 
                     if (it.ablumList.isNotEmpty()) {
                         val fileList = ArrayList<String>()
@@ -111,6 +118,16 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
         if (requestCode == 0) {
             if (PictureSelector.obtainMultipleResult(data).isNotEmpty()) {
                 viewModel?.setImage(PictureSelector.obtainMultipleResult(data))
+            }
+        }
+
+        if (requestCode == 0 && resultCode == 1) {
+            var poi = data.getParcelableExtra("poi") as PoiInfo
+            if (null != poi) {
+                binding.model?.lat = poi.location.latitude.toString()
+                binding.model?.lon = poi.location.latitude.toString()
+                binding.model?.location = poi.name
+                tv_address.text = poi.name
             }
         }
     }

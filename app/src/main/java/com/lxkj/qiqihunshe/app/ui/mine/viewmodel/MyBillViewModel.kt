@@ -27,7 +27,7 @@ class MyBillViewModel : BaseViewModel(), DatePop.DateCallBack {
     val endTime = ObservableField<String>()
 
     var page = 1
-    private val adapter by lazy { MyBillAdapter() }
+     val adapter by lazy { MyBillAdapter() }
 
     var bind: ActivityMybillBinding? = null
 

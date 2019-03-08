@@ -25,6 +25,7 @@ class MyBillActivity : BaseActivity<ActivityMybillBinding, MyBillViewModel>() {
             binding.viewmodel = it
             it.bind = binding
             it.initViewModel()
+
 //            it.getBill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
 

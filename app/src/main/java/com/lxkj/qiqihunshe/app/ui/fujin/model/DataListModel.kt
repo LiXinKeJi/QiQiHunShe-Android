@@ -19,4 +19,10 @@ class DataListModel : Serializable {
     var adtime = ""// 发布时间
     var count = ""// 播放量
     var location = ""// 发布位置
+
+    var nickname = ""//昵称",
+    var sex = ""// 0女 1男
+    var age = ""// 年龄
+    var comment = ""//评论内容",
+    var distance = ""// 距离
 }

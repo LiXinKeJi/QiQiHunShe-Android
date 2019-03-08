@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
@@ -53,9 +54,11 @@ class QiQiRemindViewModel : BaseViewModel() {
                 getMsgList()
             }
         })
-        adapter = XqHintAdapter(fragment?.context, list)
+        adapter = XqHintAdapter(activity, list)
         adapter?.setOnItemClickListener {
-            MyApplication.openActivity(activity, MsgDetailsActivity::class.java)
+            var bundle = Bundle()
+            bundle.putSerializable("model",list[it])
+            MyApplication.openActivity(activity, MsgDetailsActivity::class.java,bundle)
         }
 
         bind?.xRecyclerView?.adapter = adapter

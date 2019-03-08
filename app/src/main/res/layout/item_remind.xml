@@ -21,7 +21,7 @@
         <com.lxkj.qiqihunshe.app.customview.CircleImageView
                 android:layout_width="40dp" android:layout_height="40dp"
                 android:id="@+id/iv_header"
-                android:src="@mipmap/ic_tx"
+                android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop"
                 android:layout_below="@+id/tv_time"
                 android:layout_marginTop="12dp"

@@ -48,6 +48,18 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
             }*/
         }
 
+        val flag = intent!!.getIntExtra("flag", -1)
+        when (flag) {
+            0 -> {
+                viewModel?.type = "1"
+                viewModel?.randomUser()
+            }
+            1 -> {
+                viewModel?.type = "2"
+                viewModel?.randomUser()
+            }
+        }
+
     }
 
 

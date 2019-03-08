@@ -5,6 +5,6 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 /**
  * Created by kxn on 2019/3/2 0002.
  */
-class ChooseAddressViewModel : BaseViewModel(){
+class ChooseAddressViewModel : BaseViewModel() {
 
 }

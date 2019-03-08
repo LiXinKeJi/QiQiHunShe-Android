@@ -1,13 +1,20 @@
 package com.lxkj.qiqihunshe.app.ui.shouye.viewmodel
 
+import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.jcodecraeer.xrecyclerview.ProgressStyle
+import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity
-import com.lxkj.qiqihunshe.app.ui.shouye.activity.VoiceChatAnswerActivity
-import com.lxkj.qiqihunshe.app.ui.shouye.activity.VoiceChatDialActivity
-import com.lxkj.qiqihunshe.app.ui.shouye.adapter.MatchingHistoryAdapter
-import com.lxkj.qiqihunshe.app.ui.shouye.model.MatchingHistoryModel
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.ui.shouye.adapter.HistoryAdapter
+import com.lxkj.qiqihunshe.app.ui.shouye.model.DataListModel
+import com.lxkj.qiqihunshe.app.ui.shouye.model.ShouYeModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityMatchHistoryBinding
 
@@ -16,36 +23,79 @@ import com.lxkj.qiqihunshe.databinding.ActivityMatchHistoryBinding
  */
 class MatchingHistoryViewModel : BaseViewModel() {
 
-    private val adapter by lazy { MatchingHistoryAdapter(flag) }
+    var adapter: HistoryAdapter? = null
 
     var bind: ActivityMatchHistoryBinding? = null
 
-    var flag = -1//0聊，1语音
+    var type = 1//	1聊 2语
+    var list = ArrayList<DataListModel>()
+    var page = 1
+    var totalPage = 1
 
-    fun initViewModel() {
-        bind!!.recycler.isFocusable = false
-        bind!!.recycler.layoutManager = LinearLayoutManager(fragment?.context)
 
-        bind!!.recycler.adapter = adapter
-
-        val list = ArrayList<MatchingHistoryModel>()
-        for (i in 0 until 5) {
-            val model = MatchingHistoryModel()
-            list.add(model)
-        }
-        adapter.upData(list)
-
-        adapter.setMyListener { itemBean, position ->
-            when (flag) {
-                0 -> ToastUtil.showToast("跳转聊天")
-                1 -> {
-                    MyApplication.openActivity(activity, VoiceChatAnswerActivity::class.java)//接听
-//                    MyApplication.openActivity(activity, VoiceChatDialActivity::class.java)//拨打
-                }
-                2 -> MyApplication.openActivity(activity, PersonalInfoActivity::class.java)
+    fun init() {
+        bind?.xRecyclerView?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
+        bind?.xRecyclerView?.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin)
+        bind?.xRecyclerView?.defaultRefreshHeaderView // get default refresh header view
+            ?.setRefreshTimeVisible(true)
+        bind?.xRecyclerView?.layoutManager = GridLayoutManager(fragment?.context, 1)
+        bind?.xRecyclerView?.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onRefresh() {
+                bind?.xRecyclerView?.setNoMore(false)
+                page = 1
+                getPipeiLog()
             }
 
+            override fun onLoadMore() {
+                if (page >= totalPage) {
+                    bind?.xRecyclerView?.setNoMore(true)
+                    return
+                }
+                page++
+                getPipeiLog()
+            }
+        })
+        adapter = HistoryAdapter(activity, list)
+        adapter?.setOnItemClickListener {
+            ToastUtil.showTopSnackBar(activity,"聊一聊" + it)
         }
+
+        bind?.xRecyclerView?.adapter = adapter
+
+        getPipeiLog()
     }
+
+
+    //获取消息列表
+    fun getPipeiLog() {
+        var params = HashMap<String, String>()
+        params["cmd"] = "pipeiLog"
+        params["uid"] = StaticUtil.uid
+        params["type"] = type.toString()
+        params["page"] = page.toString()
+        retrofit.getData(Gson().toJson(params))
+            .async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val model = Gson().fromJson(response, ShouYeModel::class.java)
+                    totalPage = model.totalPage.toInt()
+                    bind?.xRecyclerView?.refreshComplete()
+                    bind?.xRecyclerView?.loadMoreComplete()
+                    if (page == 1)
+                        list.clear()
+
+                    list.addAll(model.dataList)
+                    adapter?.notifyDataSetChanged()
+
+                }
+            }, activity)).subscribe({
+                bind?.xRecyclerView?.refreshComplete()
+                bind?.xRecyclerView?.loadMoreComplete()
+            }, {
+                bind?.xRecyclerView?.refreshComplete()
+                bind?.xRecyclerView?.loadMoreComplete()
+            })
+    }
+
 
 }

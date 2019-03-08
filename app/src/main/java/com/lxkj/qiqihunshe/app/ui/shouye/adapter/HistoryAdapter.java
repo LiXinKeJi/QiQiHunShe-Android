@@ -1,4 +1,4 @@
-package com.lxkj.qiqihunshe.app.ui.fujin.adapter;
+package com.lxkj.qiqihunshe.app.ui.shouye.adapter;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -21,15 +21,15 @@ import com.lxkj.runproject.app.view.SquareImage;
 import java.util.List;
 
 /**
- * Created by kxn on 2019/3/7 0007.
+ * Created by kxn on 2019/3/8 0008.
  */
-public class NearPeopleAdapter extends RecyclerView.Adapter<NearPeopleAdapter.ViewHolder> {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
     private Context context;
     private List<DataListModel> list;
     private OnItemClickListener onItemClickListener;
 
-    public NearPeopleAdapter(Context context, List list) {
+    public HistoryAdapter(Context context, List list) {
         this.context = context;
         this.list = list;
     }
@@ -41,7 +41,7 @@ public class NearPeopleAdapter extends RecyclerView.Adapter<NearPeopleAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_near_people, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_matching_history, parent, false);
         return new ViewHolder(view);
     }
 
@@ -86,10 +86,20 @@ public class NearPeopleAdapter extends RecyclerView.Adapter<NearPeopleAdapter.Vi
         else
             holder.tvName.setText("");
 
+
         if (null != list.get(position).getJob())
             holder.tvZhiye.setText("职业："+list.get(position).getJob());
         else
             holder.tvZhiye.setText("");
+
+
+
+
+
+        if (null != list.get(position).getDistance())
+            holder.tvDistance.setText(DisplayUtil.distanceFormat(Double.parseDouble(list.get(position).getDistance())));
+        else
+            holder.tvDistance.setText("");
 
         if (null != list.get(position).getPlan())
             holder.tvEmotional.setText("情感计划："+list.get(position).getPlan());
@@ -101,63 +111,15 @@ public class NearPeopleAdapter extends RecyclerView.Adapter<NearPeopleAdapter.Vi
         else
             holder.tvAutograph.setText("个人签名：暂无");
 
-
-        switch (list.get(position).getPermission().size()) {
-            case 0:
-                holder.ivV1.setVisibility(View.GONE);
-                holder.ivV2.setVisibility(View.GONE);
-                holder.ivV3.setVisibility(View.GONE);
-                holder.ivV4.setVisibility(View.GONE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 1:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.GONE);
-                holder.ivV3.setVisibility(View.GONE);
-                holder.ivV4.setVisibility(View.GONE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 2:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.VISIBLE);
-                holder.ivV3.setVisibility(View.GONE);
-                holder.ivV4.setVisibility(View.GONE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 3:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.VISIBLE);
-                holder.ivV3.setVisibility(View.VISIBLE);
-                holder.ivV4.setVisibility(View.GONE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 4:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.VISIBLE);
-                holder.ivV3.setVisibility(View.VISIBLE);
-                holder.ivV4.setVisibility(View.VISIBLE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 5:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.VISIBLE);
-                holder.ivV3.setVisibility(View.VISIBLE);
-                holder.ivV4.setVisibility(View.VISIBLE);
-                holder.ivV5.setVisibility(View.VISIBLE);
-                break;
-        }
-
-        if (null != list.get(position).getDistance())
-            holder.tvDistance.setText(DisplayUtil.distanceFormat(Double.parseDouble(list.get(position).getDistance())));
-        else
-            holder.tvDistance.setText("");
-
         if (null != list.get(position).getCredit())
             holder.tvReputation.setText("信誉值：" + list.get(position).getCredit());
         if (null != list.get(position).getPolite())
             holder.tvFeel.setText("言礼值：" + list.get(position).getPolite());
         if (null != list.get(position).getSafe())
             holder.tvSecurity.setText("综合安全值：" + list.get(position).getSafe());
+
+
+
 
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +128,9 @@ public class NearPeopleAdapter extends RecyclerView.Adapter<NearPeopleAdapter.Vi
                     onItemClickListener.OnItemClick(position);
             }
         });
+
+
+
 
 
 
@@ -202,16 +167,6 @@ public class NearPeopleAdapter extends RecyclerView.Adapter<NearPeopleAdapter.Vi
         TextView tvDegree;
         @BindView(R.id.tv_zhiye)
         TextView tvZhiye;
-        @BindView(R.id.iv_v1)
-        ImageView ivV1;
-        @BindView(R.id.iv_v2)
-        ImageView ivV2;
-        @BindView(R.id.iv_v3)
-        ImageView ivV3;
-        @BindView(R.id.iv_v4)
-        ImageView ivV4;
-        @BindView(R.id.iv_v5)
-        ImageView ivV5;
         @BindView(R.id.tv_emotional)
         TextView tvEmotional;
         @BindView(R.id.tv_autograph)
@@ -231,4 +186,3 @@ public class NearPeopleAdapter extends RecyclerView.Adapter<NearPeopleAdapter.Vi
         }
     }
 }
-

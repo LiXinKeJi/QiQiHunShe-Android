@@ -144,6 +144,8 @@ dependencies {
     implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     //刷新加载
     implementation 'com.jcodecraeer:xrecyclerview:1.5.9'
+    //刷新加载
+    implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
 
     implementation 'com.jakewharton:butterknife:8.4.0'
     //    apt 'com.jakewharton:butterknife-compiler:8.4.0' //studio3.0以后做如下修改

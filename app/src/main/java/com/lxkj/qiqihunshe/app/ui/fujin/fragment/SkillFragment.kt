@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
+import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
 import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
@@ -15,6 +17,7 @@ import com.lxkj.qiqihunshe.app.ui.fujin.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.SkillViewModel
 import com.lxkj.qiqihunshe.app.util.GlideUtil
 import com.lxkj.qiqihunshe.app.util.StatusBarUtil
+import com.lxkj.qiqihunshe.app.util.StringUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentSkillBinding
 import kotlinx.android.synthetic.main.fragment_skill.*
@@ -25,9 +28,11 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * Created by Slingge on 2019/3/2
  */
-class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View.OnClickListener {
+class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View.OnClickListener,
+    BGARefreshLayout.BGARefreshLayoutDelegate {
 
-    var model : DataListModel? = null
+
+    var model: DataListModel? = null
     var type = 0 //通话类型 0 语音 1 视频
 
     override fun getBaseViewModel() = SkillViewModel()
@@ -35,21 +40,17 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
     override fun getLayoutId() = R.layout.fragment_skill
 
     override fun init() {
-
         var model = arguments?.getSerializable("model") as DataListModel
         viewModel?.model = model
-
         //视频封面图
-        GlideUtil.glideLoad(context,model?.image,jc_video?.thumbImageView)
+        GlideUtil.glideLoad(context, model?.image, jc_video?.thumbImageView)
         //用户头像
-        GlideUtil.glideLoad(context,model?.icon,iv_header)
-        tv_playnum?.text= "播放量：" + model?.count
+        GlideUtil.glideLoad(context, model?.icon, iv_header)
+        tv_playnum?.text = "播放量：" + model?.count
         tv_time.text = model?.adtime
         tv_name.text = model?.title
         tv_address.text = model?.location
         tv_content.text = model?.content
-
-
         val wm = activity!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val dm = DisplayMetrics()
         wm.defaultDisplay.getMetrics(dm)
@@ -57,9 +58,7 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
             activity!!,
             (45 + 44 + 48)//底部导航，tablayout
         ) - StatusBarUtil.getStatusBarHeight(activity)//，状态栏高度
-
         ControlWidthHeight.inputhigh(heigh, jc_video)
-
         iv_voice.setOnClickListener(this)
         iv_video.setOnClickListener(this)
         iv_dashang.setOnClickListener(this)
@@ -69,6 +68,12 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
             it.bind = binding
             it.initViewModel()
         }
+
+
+        bgRefreshLayout.setPullDownRefreshEnable(false)
+        bgRefreshLayout.setDelegate(this)
+        bgRefreshLayout.setRefreshViewHolder(BGANormalRefreshViewHolder(context, true))
+
     }
 
 
@@ -81,17 +86,20 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         when (v!!.id) {
             R.id.iv_voice -> {
                 type = 0
-                VoiceTipDialog.show(activity!!, model!!.userName,"语音")
+                VoiceTipDialog.show(activity!!, model!!.userName, "语音")
             }
             R.id.iv_video -> {
                 type = 1
-                VoiceTipDialog.show(activity!!, model!!.userName,"视频")
+                VoiceTipDialog.show(activity!!, model!!.userName, "视频")
             }
             R.id.iv_dashang -> {
                 DaShangDialog.show(activity!!)
             }
             R.id.iv_send -> {
-                DaShangDialog.show(activity!!)
+                if (StringUtil.isEmpty(et_comment.text.toString())) {
+                    ToastUtil.showTopSnackBar(activity, "请输入评论内容！")
+                } else
+                   viewModel?.addCaiyiComment(et_comment.text.toString())
             }
         }
     }
@@ -100,7 +108,7 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
     override fun onStart() {
         super.onStart()
         jc_video.setUp(
-            "http://fangfubao.oss-cn-beijing.aliyuncs.com/20190227160719lkgL1o.mp4",
+            model?.videoUrl,
             "", JzvdStd.SCREEN_WINDOW_NORMAL
         )
     }
@@ -108,17 +116,18 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
     override fun onResume() {
         super.onResume()
         jc_video.startVideo()
+        viewModel?.playCaiyi()
     }
 
     @Subscribe
     fun onEvent(next: String) {
         if (next == "next") {
-            when(type){
-                0 ->{
-                    ToastUtil.showTopSnackBar(this,"语音通话")
+            when (type) {
+                0 -> {
+                    ToastUtil.showTopSnackBar(this, "语音通话")
                 }
-                1 ->{
-                    ToastUtil.showTopSnackBar(this,"视频通话")
+                1 -> {
+                    ToastUtil.showTopSnackBar(this, "视频通话")
                 }
             }
 
@@ -135,6 +144,17 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         super.onDestroy()
         EventBus.getDefault().unregister(this)
         VoiceTipDialog.diss()
+    }
+
+    override fun onBGARefreshLayoutBeginLoadingMore(refreshLayout: BGARefreshLayout?): Boolean {
+        if (viewModel!!.page >= viewModel!!.totalPage) {
+            return false
+        }
+        viewModel?.getCaiyiCommentList()
+        return true
+    }
+
+    override fun onBGARefreshLayoutBeginRefreshing(refreshLayout: BGARefreshLayout?) {
     }
 
 }

@@ -27,7 +27,7 @@
                       android:id="@+id/tv_type"
                       android:text="通知类型"
                       android:textSize="15sp"
-                      android:textColor="@color/colorTabText"
+                      android:textColor="@color/black"
                       android:layout_marginLeft="30dp"
                       android:layout_marginTop="15dp"
             />
@@ -37,7 +37,7 @@
                       android:id="@+id/tv_content"
                       android:text="通知内容"
                       android:textSize="15sp"
-                      android:textColor="@color/colorTabText"
+                      android:textColor="@color/txt_lv1"
                       android:layout_marginLeft="30dp"
                       android:layout_marginTop="12dp"
                       android:layout_marginRight="30dp"
@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="12dp"
+                    android:visibility="gone"
                     android:layout_marginBottom="15dp"
                     android:layout_marginRight="30dp">
 

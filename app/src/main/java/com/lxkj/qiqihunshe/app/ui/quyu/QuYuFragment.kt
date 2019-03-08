@@ -249,8 +249,13 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
             if (location == null || mMapView == null) {
                 return
             }
-            lat = location.getLatitude()
-            lng = location.getLongitude()
+            lat = location.latitude
+            lng = location.longitude
+            StaticUtil.lat = lat.toString()
+            StaticUtil.lng = lng.toString()
+            SharePrefUtil.saveString(context,AppConsts.LAT,lat.toString())
+            SharePrefUtil.saveString(context,AppConsts.LNG,lng.toString())
+
             tv_address.text = (location.addrStr)
             tv_toMyLocation.text = (location.addrStr)
 
@@ -284,9 +289,8 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
     }
 
     override fun onMapStatusChangeFinish(mapStatus: MapStatus?) {
-
-        mapStatus?.bound?.center?.latitude
-        mapStatus?.bound?.center?.latitude
+        lat = mapStatus?.bound?.center?.latitude!!
+        lng = mapStatus?.bound?.center?.longitude!!
         getData()
     }
 

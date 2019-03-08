@@ -27,9 +27,9 @@ class FuJinSkillViewModel : BaseViewModel(){
     var totalPage = 1
     var bind: FragmentFujinSkillBinding? = null
     val list = ArrayList<Fragment>()
-    var adapter = FragmentPagerAdapter(fragment!!.childFragmentManager, list)
+    var adapter : FragmentPagerAdapter ? = null
     fun init(){
-//        adapter = FragmentPagerAdapter(fragment!!.childFragmentManager, list)
+        adapter = FragmentPagerAdapter(fragment!!.childFragmentManager, list)
         bind?.viewPager?.adapter = adapter
         getNearbyCaiyi()
         bind?.viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -66,7 +66,7 @@ class FuJinSkillViewModel : BaseViewModel(){
                         bundle.putSerializable("model",model.dataList[i])
                         list.add(Fragment.instantiate(activity, SkillFragment::class.java.name,bundle))
                     }
-                   adapter.notifyDataSetChanged()
+                   adapter?.notifyDataSetChanged()
                 }
             }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
             }, {

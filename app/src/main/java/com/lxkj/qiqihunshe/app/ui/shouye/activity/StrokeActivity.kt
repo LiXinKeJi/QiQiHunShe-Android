@@ -40,17 +40,17 @@ class StrokeActivity : BaseActivity<ActivityStrokeBinding, StrokeViewModel>() {
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
-            it.initViewModel()
+            it.getList()
         }
 
 
         like_or_not.onLikeOrNotListener = object : LikeOrNotView.OnLikeOrNotListener {
             override fun onLike(view: View, position: Int) {
-                ToastUtil.showToast("喜欢")
+                viewModel?.addLove(position,"1")
             }
 
             override fun onNope(view: View, position: Int) {
-                ToastUtil.showToast("不喜欢")
+                viewModel?.addLove(position,"2")
             }
 
             override fun onAnimationEnd() {
