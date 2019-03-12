@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_forget_pass.*
 class ForgetPassActivity : BaseActivity<ActivityForgetPassBinding, ForgetPassViewModel>(), View.OnClickListener {
 
     override fun getBaseViewModel() =
-        ForgetPassViewModel ()
+        ForgetPassViewModel()
 
     override fun getLayoutId() = R.layout.activity_forget_pass
 
@@ -52,8 +52,7 @@ class ForgetPassActivity : BaseActivity<ActivityForgetPassBinding, ForgetPassVie
                         ToastUtil.showTopSnackBar(this, "请输入手机号")
                         return
                     }
-                    it.getCode()
-                    it.getcode(model.phone)
+                    it.getcode(model.phone).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
             R.id.tv_enter -> {
@@ -77,7 +76,7 @@ class ForgetPassActivity : BaseActivity<ActivityForgetPassBinding, ForgetPassVie
                 val json = "{\"cmd\":\"forgotPassword\",\"phone\":\"" + model.phone +
                         "\",\"password\":\"" + Md5Util.md5Encode(model.pass) +
                         "\",\"validate\":\"" + model.code + "\"}"
-                viewModel!!.ForgetPass(json).bindLifeCycle(this).subscribe()
+                viewModel!!.ForgetPass(json).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
         }
     }

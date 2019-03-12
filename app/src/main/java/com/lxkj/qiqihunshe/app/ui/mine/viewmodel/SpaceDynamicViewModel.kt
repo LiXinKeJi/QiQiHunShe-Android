@@ -27,9 +27,10 @@ import io.reactivex.Single
 class SpaceDynamicViewModel : BaseViewModel() {
 
 
-    private val adapter by lazy { SpaceDynamicAdapter() }
+    val adapter by lazy { SpaceDynamicAdapter() }
 
     var page = 1
+    var totalpage = 1
 
     var bind: ActivityRecyvlerviewBinding? = null
 
@@ -42,8 +43,8 @@ class SpaceDynamicViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putSerializable("bean", itemBean)
             bundle.putInt("flag", 0)
-            bundle.putInt("position", adapter.i)
-            MyApplication.openActivityForResult(fragment!!.activity, MyDynamicActivity::class.java, bundle,0)
+            bundle.putInt("position", position)
+            MyApplication.openActivityForResult(fragment!!.activity, MyDynamicActivity::class.java, bundle, 0)
         }
     }
 
@@ -58,10 +59,9 @@ class SpaceDynamicViewModel : BaseViewModel() {
                 override fun onSuccess(response: String) {
                     bind!!.refresh.isRefreshing = false
                     val model = Gson().fromJson(response, SpaceDynamicModel::class.java)
-                    if(page>model.totalPage){
-                        return
-                    }
+
                     if (page == 1) {
+                        totalpage = model.totalPage
                         if (model.totalPage == 1 || model.dataList.isEmpty()) {
                             adapter.flag = 0
                         }
@@ -92,10 +92,9 @@ class SpaceDynamicViewModel : BaseViewModel() {
     }
 
 
-    fun removeItem(position: Int){
+    fun removeItem(position: Int) {
         adapter.removeItem(position)
     }
-
 
 
 }

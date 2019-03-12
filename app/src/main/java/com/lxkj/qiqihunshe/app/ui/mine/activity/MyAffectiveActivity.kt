@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -23,18 +24,22 @@ class MyAffectiveActivity : BaseActivity<ActivityMyaffectiveBinding, MyAffective
 
     override fun getLayoutId() = R.layout.activity_myaffective
 
-    private var flag=0//0发布问题，1发布征婚
+    private var flag = 0//0发布问题，1发布征婚
 
     override fun init() {
         initTitle("我的情感")
 
-        tv_right.visibility= View.VISIBLE
-        tv_right.text="发布问题"
+        tv_right.visibility = View.VISIBLE
+        tv_right.text = "发布问题"
         tv_right.setOnClickListener {
-            if(flag==0){
-                MyApplication.openActivity(this,ReleaseDynamicActivity::class.java)
-            }else{
-                MyApplication.openActivity(this,ReleaseInvitationTypeActivity::class.java)
+            if (flag == 0) {
+                val bundle = Bundle()
+                bundle.putInt("flag", 1)
+                MyApplication.openActivity(this, ReleaseDynamicActivity::class.java)
+            } else {
+                val bundle = Bundle()
+                bundle.putInt("flag", 1)
+                MyApplication.openActivity(this, ReleaseInvitationTypeActivity::class.java)
             }
         }
 
@@ -52,7 +57,7 @@ class MyAffectiveActivity : BaseActivity<ActivityMyaffectiveBinding, MyAffective
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
 
-        viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
 
             }
@@ -61,7 +66,7 @@ class MyAffectiveActivity : BaseActivity<ActivityMyaffectiveBinding, MyAffective
             }
 
             override fun onPageSelected(p0: Int) {
-                flag=p0
+                flag = p0
             }
         })
     }

@@ -26,6 +26,7 @@ class MyBillViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack {
     val endTime = ObservableField<String>()
 
     var page = 1
+    var totalPage = 1
      val adapter by lazy { MyBillAdapter() }
 
     var bind: ActivityMybillBinding? = null
@@ -49,10 +50,9 @@ class MyBillViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack {
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, MyBillModel::class.java)
-                if(page>model.totalPage){
-                    return
-                }
+
                 if (page == 1) {
+                    totalPage=model.totalPage
                     if (model.totalPage == 1) {
                         adapter.flag = 0
                         adapter.upData(model.dataList)

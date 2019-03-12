@@ -11,8 +11,6 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.MsgDetailsActivity
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.QiQiRemindActivity
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.NewFriendAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.XqHintAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel

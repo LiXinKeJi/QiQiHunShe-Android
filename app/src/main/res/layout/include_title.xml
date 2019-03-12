@@ -35,7 +35,6 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textColor="@color/black"
-                android:text="right"
                 android:textSize="15sp"/>
 
 

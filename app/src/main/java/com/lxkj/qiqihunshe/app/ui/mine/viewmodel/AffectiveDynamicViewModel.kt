@@ -28,6 +28,7 @@ class AffectiveDynamicViewModel : BaseViewModel() {
 
       val adapter by lazy { AffectiveDynamicAdapter() }
     var page = 1
+    var totalPage = 1
     var bind: ActivityRecyvlerviewBinding? = null
 
     fun initViewModel() {
@@ -46,19 +47,17 @@ class AffectiveDynamicViewModel : BaseViewModel() {
 
 
     fun getMyDynamic(): Single<String> {
-        val json = "{\"cmd\":\"dongtai\",\"uid\":\"" + StaticUtil.uid + "\",\"userId\":\"" + StaticUtil.uid +
-                "\",\"type\":\"" + "1" + "\",\"page\":\"" + page + "\"}"
-        abLog.e("我的情感动态", json)
+        val json = "{\"cmd\":\"nearbyDongtai\",\"uid\":\"" + StaticUtil.uid + "\",\"typeId\":\"" + "" +
+                "\",\"category\":\"" + "1" + "\",\"page\":\"" + page +"\",\"lon\":\"" + StaticUtil.lng + "\",\"lat\":\"" + StaticUtil.lat +  "\"}"
+        abLog.e("情感动态", json)
         return retrofit.getData(json)
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     bind!!.refresh.isRefreshing = false
                     val model = Gson().fromJson(response, SpaceDynamicModel::class.java)
-                    if (page > model.totalPage) {
-                        return
-                    }
                     if (page == 1) {
+                        totalPage=model.totalPage
                         if (model.totalPage == 1 || model.dataList.isEmpty()) {
                             adapter.flag = 0
                         }

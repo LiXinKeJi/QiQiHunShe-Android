@@ -25,7 +25,6 @@ class QiQiRecommendActivity : BaseActivity<ActivityQiqiRecommendBinding, QiQiRec
         WhiteStatusBar()
         initTitle("七七推荐")
 
-
         val list = ArrayList<Fragment>()
         val tabList = ArrayList<String>()
         tabList.add("小七推荐")

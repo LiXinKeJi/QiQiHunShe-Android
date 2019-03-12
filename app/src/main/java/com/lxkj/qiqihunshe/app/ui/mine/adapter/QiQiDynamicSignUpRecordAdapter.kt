@@ -11,9 +11,13 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.QiQiRuleItemView
 /**
  * Created by Slingge on 2019/2/21
  */
-class QiQiDynamicSignUpRecordAdapter : BaseListAdapter<QiQiDynamicModel, QiQiDynamicSignUpRecordItemView>() {
-    override fun refreshItemView(view: QiQiDynamicSignUpRecordItemView, itembean: QiQiDynamicModel, position: Int) {
-
+class QiQiDynamicSignUpRecordAdapter : BaseListAdapter<QiQiDynamicModel.dataModel, QiQiDynamicSignUpRecordItemView>() {
+    override fun refreshItemView(
+        view: QiQiDynamicSignUpRecordItemView,
+        itembean: QiQiDynamicModel.dataModel,
+        position: Int
+    ) {
+        view.setData(itembean,position)
     }
 
 
@@ -21,7 +25,7 @@ class QiQiDynamicSignUpRecordAdapter : BaseListAdapter<QiQiDynamicModel, QiQiDyn
         return QiQiDynamicSignUpRecordItemView(context)
     }
 
-    override fun refreshItemView(view: QiQiDynamicSignUpRecordItemView, itembean: QiQiDynamicModel) {
+    override fun refreshItemView(view: QiQiDynamicSignUpRecordItemView, itembean: QiQiDynamicModel.dataModel) {
     }
 
 }

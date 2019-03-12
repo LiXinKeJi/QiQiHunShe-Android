@@ -18,30 +18,32 @@ class QiQiDynamicActivity : BaseActivity<ActivityQiqiDynamicBinding, QiQiDynamic
     override fun getBaseViewModel() = QiQiDynamicViewModel()
 
     override fun getLayoutId() = R.layout.activity_qiqi_dynamic
-    var page=0
+
 
     override fun init() {
         initTitle("七七活动")
-        tv_right.visibility= View.VISIBLE
-        tv_right.text="报名记录"
+        tv_right.visibility = View.VISIBLE
+        tv_right.text = "报名记录"
         tv_right.setOnClickListener {
-            MyApplication.openActivity(this,SignUpRecordAcivity::class.java)
+            MyApplication.openActivity(this, SignUpRecordAcivity::class.java)
         }
 
         viewModel?.let {
 
-            it.bind=binding
+            it.bind = binding
             it.initViewModel()
+
+            it.getData().bindLifeCycle(this)
+                .subscribe({}, { toastFailure(it) })
+
+            it.adapter.setLoadMore {
+                it.page++
+                if (it.page < it.totalPage) {
+                    it.getData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            }
         }
     }
 
-    override fun loadData() {
-        val json = "{\"cmd\":\"activityList"  +
-                "\",\"page\":\"" + page+
-                "\"}"
-        viewModel!!.getData(json).bindLifeCycle(this)
-            .subscribe({}, { toastFailure(it) })
-        super.loadData()
-    }
 
 }

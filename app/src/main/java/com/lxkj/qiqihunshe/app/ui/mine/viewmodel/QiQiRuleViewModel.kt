@@ -30,7 +30,6 @@ class QiQiRuleViewModel : BaseViewModel() {
     private val adapter3 by lazy { QiQiRuleBaoAdapter() }
 
 
-
     var bind: ActivityQiqiRuleBinding? = null
 
     fun initViewModel() {
@@ -47,18 +46,10 @@ class QiQiRuleViewModel : BaseViewModel() {
 
         rv.adapter = adapter
 
-//        val list = ArrayList<QiQiRuleModel>()
-//        for (i in 0 until 5) {
-//            val model = QiQiRuleModel()
-//            list.add(model)
-//        }
-//        adapter.upData(list)
-
-        adapter.setMyListener {
-                bean, position ->
-            var bundle=Bundle()
-            bundle.putString("url",bean.url)
-            MyApplication.openActivity(activity,WebViewActivity::class.java,bundle)
+        adapter.setMyListener { bean, position ->
+            var bundle = Bundle()
+            bundle.putString("url", bean.url)
+            MyApplication.openActivity(activity, WebViewActivity::class.java, bundle)
         }
     }
 
@@ -66,39 +57,30 @@ class QiQiRuleViewModel : BaseViewModel() {
     fun getRule(json: String): Single<String> = retrofit.getData(json)
         .async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
-                var list1=ArrayList<QiQiRuleModel>()
-                var list2=ArrayList<QiQiRuleModel>()
-                var list3=ArrayList<QiQiRuleModel>()
+                var list1 = ArrayList<QiQiRuleModel>()
+                var list2 = ArrayList<QiQiRuleModel>()
+                var list3 = ArrayList<QiQiRuleModel>()
 
+                if (!TextUtils.isEmpty(response)) {
+                    var json = JSONObject(response)
+                    var datalist = json.getString("dataList")
+                    var list = Gson().fromJson<ArrayList<QiQiRuleModel>>(datalist,
+                        object : TypeToken<ArrayList<QiQiRuleModel>>() {}.type)
 
-                if(!TextUtils.isEmpty(response)){
-                    var json=JSONObject(response)
-                    var datalist=json.getString("dataList")
-                    var list= Gson().fromJson<ArrayList<QiQiRuleModel>>(datalist,object:TypeToken<ArrayList<QiQiRuleModel>>(){}.type)
-
-                    for(q in list){
-                        if(q.type.equals("1")){
+                    for (q in list) {
+                        if (q.type.equals("1")) {
                             list1.add(q)
                         }
-
-                        if(q.type.equals("2")){
+                        if (q.type.equals("2")) {
                             list2.add(q)
                         }
-
-                        if(q.type.equals("3")){
+                        if (q.type.equals("3")) {
                             list3.add(q)
                         }
                     }
-
-                    adapter1.loadMore(list1,1)
-                    adapter1.notifyDataSetChanged()
-                    adapter2.loadMore(list2,1)
-                    adapter2.notifyDataSetChanged()
-
-                    adapter3.loadMore(list3,1)
-                    adapter3.notifyDataSetChanged()
-
-
+                    adapter1.loadMore(list1, 1)
+                    adapter2.loadMore(list2, 1)
+                    adapter3.loadMore(list3, 1)
                 }
             }
 

@@ -1,10 +1,14 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.MessageAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.MessageModel
+import com.lxkj.qiqihunshe.app.util.RecyclerItemTouchListener
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
+import io.rong.imkit.RongIM
 
 /**
  * Created by Slingge on 2019/3/1
@@ -33,9 +37,11 @@ class YueHuiVieModel : BaseViewModel() {
         }
         adapter.upData(list)
 
-        adapter.setMyListener { itemBean, position ->
-
-        }
+        bind!!.recycler.addOnItemTouchListener(object :RecyclerItemTouchListener(bind!!.recycler){
+            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
+                RongIM.getInstance().startPrivateChat(fragment?.activity, "9527", "标题")
+            }
+        })
     }
 
 }

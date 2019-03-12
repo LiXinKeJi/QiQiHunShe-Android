@@ -1,14 +1,23 @@
 package com.lxkj.qiqihunshe.app.ui.mine
 
+import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.AppConsts
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
 import com.lxkj.qiqihunshe.app.ui.mine.activity.*
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MineViewModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentMineBinding
+import io.rong.callkit.RongCallKit
+import io.rong.calllib.RongCallClient
+import io.rong.imkit.RongIM
+import io.rong.imlib.model.CSCustomServiceInfo
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 
@@ -43,13 +52,13 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         tv_service.setOnClickListener(this)
         tv_setup.setOnClickListener(this)
 
+        tv_mylist.setOnClickListener(this)
 
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
             it.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
-
 
     }
 
@@ -96,10 +105,23 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 MyApplication.openActivity(activity, AffectiveZoneActivity::class.java)
             }
             R.id.tv_blacklist -> {//黑名单
-                MyApplication.openActivity(activity, QiQiBlackListActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt("flag", 0)
+                MyApplication.openActivity(activity, QiQiBlackListActivity::class.java, bundle)
+            }
+            R.id.tv_mylist -> {//我的黑名单
+                val bundle = Bundle()
+                bundle.putInt("flag", 1)
+                MyApplication.openActivity(activity, QiQiBlackListActivity::class.java, bundle)
             }
             R.id.tv_service -> {//我的客服
-
+                if (TextUtils.isEmpty(StaticUtil.rytoken)) {
+                    ToastUtil.showTopSnackBar(activity, "IM初始化错误")
+                    return
+                }
+                val csBuilder = CSCustomServiceInfo.Builder()
+                val csInfo = csBuilder.nickName("融云").build()
+                RongIM.getInstance().startCustomerServiceChat(activity, "客服id", "在线客服", csInfo)
             }
             R.id.tv_setup -> {//设置
                 MyApplication.openActivity(activity, SetUpActivity::class.java)

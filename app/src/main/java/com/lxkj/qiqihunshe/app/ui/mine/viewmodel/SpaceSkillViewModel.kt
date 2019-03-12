@@ -22,6 +22,7 @@ import io.reactivex.Single
 class SpaceSkillViewModel : BaseViewModel() {
 
     var page = 1
+    var totalPage = 1
     val adapter by lazy { SpaceSkillAdapter() }
 
     var bind: FragmentSpaceSkillBinding? = null
@@ -46,10 +47,9 @@ class SpaceSkillViewModel : BaseViewModel() {
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, SpaceSkillModel::class.java)
-                    if (page > model.totalPage) {
-                        return
-                    }
+
                     if (page == 1) {
+                        totalPage=model.totalPage
                         bind!!.refresh.isRefreshing = false
                         if (model.totalPage == 1) {
                             adapter.flag = 0

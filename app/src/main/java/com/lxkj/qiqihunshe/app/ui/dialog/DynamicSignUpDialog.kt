@@ -24,6 +24,10 @@ object DynamicSignUpDialog {
     private var tv_content: TextView? = null
     private var iv_cancel: ImageView? = null
 
+
+    interface DynamicSignUpDialog
+
+
     fun sginUpShow(context: Activity, contetent: String) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
@@ -41,7 +45,7 @@ object DynamicSignUpDialog {
 
         tv_signUp?.setOnClickListener {
             dialog?.dismiss()
-            DynamicSignUpAfterDialog.sginUpShow(context)
+
         }
         iv_cancel?.setOnClickListener {
             dialog?.dismiss()

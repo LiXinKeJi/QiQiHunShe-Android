@@ -17,28 +17,30 @@ class SignUpRecordAcivity : BaseActivity<ActivitySignupRecordBinding, SignUpReco
 
     override fun getLayoutId() = R.layout.activity_signup_record
 
-    var page=1
+    var page = 1
 
     override fun init() {
         WhiteStatusBar()
         initTitle("报名记录")
 
         viewModel?.let {
-            binding.viewmodel=it
-            it.bind=binding
+            binding.viewmodel = it
+            it.bind = binding
             it.initViewModel()
+            viewModel!!.getData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+
+            it.adapter.setLoadMore {
+                it.page++
+                if (it.page <= it.totalPage) {
+                    viewModel!!.getData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            }
         }
     }
 
     override fun loadData() {
 
-        val json = "{\"cmd\":\"userActivity"  +
-                "\",\"page\":\"" + page+
-                "\",\"uid\":\"" + StaticUtil.uid+
-                "\"}"
-        viewModel!!.getData(json).bindLifeCycle(this)
-            .subscribe({}, { toastFailure(it) }
-            )
+
     }
 
 

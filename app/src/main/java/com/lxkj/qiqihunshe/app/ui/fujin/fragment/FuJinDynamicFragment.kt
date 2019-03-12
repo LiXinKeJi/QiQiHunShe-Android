@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.fragment
 
+import android.os.Bundle
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
@@ -28,8 +29,10 @@ class FuJinDynamicFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJinDyn
         }
         fab.visibility = View.VISIBLE
         fab.attachToRecyclerView(xRecyclerView)
-        fab.setOnClickListener {
-            MyApplication.openActivity(activity, ReleaseDynamicActivity::class.java)
+        fab.setOnClickListener {// flag = -1//0普通动态，1情感动态
+            val bundle=Bundle()
+            bundle.putInt("flag",0)
+            MyApplication.openActivity(activity, ReleaseDynamicActivity::class.java,bundle)
         }
     }
 

@@ -8,10 +8,11 @@ import com.lxkj.qiqihunshe.app.base.BaseModel
 class ContactUsModel : BaseModel() {
 
 
-    var name = "七七婚社"
-    var phone = "400--4245475"
+    var company = " "
+    var phone = " "
 
-    var address = "商都世贸中心D座"
-    var mail = "5587245@163.com"
-    var http = "www.baidu.com"
+    var address = " "
+    var email = " "
+    var web = " "
+
 }

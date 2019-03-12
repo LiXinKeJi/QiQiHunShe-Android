@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ea423889-178c-4913-9d1d-15297b496601" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../loopview/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../loopview/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../loopview/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../loopview/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../loopview/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../loopview/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/com/bumptech/glide/R.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/com/bumptech/glide/gifdecoder/R.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/com/daimajia/swipe/R.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/com/zhy/http/okhttp/R.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$attr.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$bool.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$color.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$dimen.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$drawable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$id.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$integer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$layout.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$string.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$style.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R$styleable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/R.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/bumptech/glide/gifdecoder/R.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$attr.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$bool.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$color.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$dimen.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$drawable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$id.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$integer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$layout.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$string.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$style.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R$styleable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/daimajia/swipe/R.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/PermissionHelper$PermissionListener.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/PermissionHelper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/ReportActivity$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/ReportActivity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/StatusBarUtil$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/StatusBarUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/api/StrCallback.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/actions/AudioRecordAction$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/actions/AudioRecordAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/activity/UI$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/zhy/http/okhttp/R.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugResources/merged.dir/values-en/values-en.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_action_photo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_action_video.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_add_friend2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_diandian.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_duihua11.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_duihua22.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_empty_msg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_jianpan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_liaotian.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_luyin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_send.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_tupian.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_xiaolian.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable-xhdpi-v4/ic_yuyin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable/bg_button_stroke.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable/shape_search_lable_false.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/in_toolbar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/suggest_back_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/menu/custom_notification_activity_menu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/packageDebugResources/merged.dir/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/release/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/../app/release/output.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lixin/amuseadjacent/app/ui/entrance/request/PhoneVerification_10.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lixin/amuseadjacent/app/ui/entrance/request/PhoneVerification_10.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_personal_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_personal_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_shop.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_shop.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/debug-mergeJniLibs/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/debug-mergeJniLibs/merge-state" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/intermediate-jars/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/intermediate-jars/debug/res.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/intermediate-jars/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/intermediate-jars/debug/res.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/compat/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/compat/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/constraint/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/constraint/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/coreui/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/coreui/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/coreutils/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/coreutils/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/design/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/design/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/fragment/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/fragment/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/graphics/drawable/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/graphics/drawable/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/graphics/drawable/animated/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/graphics/drawable/animated/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/mediacompat/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/mediacompat/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/transition/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/transition/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/v4/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/v4/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/v7/appcompat/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/v7/recyclerview/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/android/support/v7/recyclerview/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/com/netease/nim/uikit/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/com/netease/nim/uikit/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/me/everything/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/generated/source/r/debug/me/everything/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/compat/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/constraint/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/constraint/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/constraint/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/constraint/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/constraint/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/constraint/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreui/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/coreutils/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/design/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/fragment/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/mediacompat/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/transition/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v4/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/appcompat/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/android/support/v7/recyclerview/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$bool.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$bool.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$color.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$dimen.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$dimen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$drawable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$drawable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$integer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$integer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$menu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$raw.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$raw.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$style.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$style.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$xml.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/R$xml.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsCallback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$16.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$17.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$18.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$19.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$5$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$5$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$7$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$7$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/RecentContactsFragment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/recent/holder/RecentViewHolder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/actions/LocationAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/actions/LocationAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/actions/PickImageAction$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/actions/PickImageAction$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/actions/PickImageAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/actions/PickImageAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/activity/P2PMessageActivity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/emoji/EmoticonPickerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/emoji/EmoticonPickerView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/fragment/MessageFragment$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/fragment/MessageFragment$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/fragment/MessageFragment$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/fragment/MessageFragment$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/fragment/MessageFragment$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/fragment/MessageFragment$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/fragment/MessageFragment.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/fragment/MessageFragment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/helper/VideoMessageHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/helper/VideoMessageHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/input/ActionsPagerAdapter$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/input/ActionsPagerAdapter$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/input/ActionsPagerAdapter$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/input/ActionsPagerAdapter$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/input/ActionsPagerAdapter$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/input/ActionsPagerAdapter$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/input/ActionsPagerAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/input/ActionsPagerAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$10$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$10$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx$MsgItemEventListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/module/list/MessageListPanelEx.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderBase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderText.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderText.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderVideo.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/session/viewholder/MsgViewHolderVideo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/uinfo/UserInfoHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/business/uinfo/UserInfoHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/activity/UI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/activity/UI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/activity/UI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/activity/UI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/activity/UI.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/activity/UI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/media/picker/PickImageHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/media/picker/PickImageHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/ui/drop/DropManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/ui/drop/DropManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/util/C.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/com/netease/nim/uikit/common/util/C.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/me/everything/R$attr.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/me/everything/R$attr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/me/everything/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/classes/debug/me/everything/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugResources/merged.dir/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugResources/merged.dir/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/arm64-v8a/libRSSupport.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/arm64-v8a/libne_audio.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/arm64-v8a/librsjni.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/armeabi-v7a/libRSSupport.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/armeabi-v7a/libne_audio.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/armeabi-v7a/librsjni.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/mips/libRSSupport.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/mips/librsjni.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/x86/libRSSupport.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/x86/libne_audio.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/x86/librsjni.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/x86_64/libRSSupport.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/x86_64/libne_audio.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/jni/x86_64/librsjni.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/intermediate-jars/debug/res.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable/nim_message_plus_photo_selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable/nim_message_plus_photo_selector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable/nim_message_plus_video_selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable/nim_message_plus_video_selector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable/nim_message_view_bottom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/drawable/nim_message_view_bottom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_emoji_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_emoji_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_activity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_activity_actions_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_activity_actions_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_activity_text_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_activity_text_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_item_text.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_item_text.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_item_video.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_message_item_video.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_recent_contact_list_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_recent_contact_list_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_recent_contacts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/layout/nim_recent_contacts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/packaged_res/debug/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/intermediates/symbols/debug/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/intermediates/symbols/debug/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../uikit/res/layout/item_msg1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../uikit/res/layout/item_msg1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/compat/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/compat/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/coreui/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/coreui/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/coreutils/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/coreutils/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/fragment/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/fragment/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/graphics/drawable/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/graphics/drawable/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/graphics/drawable/animated/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/graphics/drawable/animated/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/v7/appcompat/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/v7/recyclerview/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/android/support/v7/recyclerview/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/com/example/xrecyclerview/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/generated/source/r/debug/com/example/xrecyclerview/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/compat/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/compat/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/coreui/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/coreui/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/coreutils/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/coreutils/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/fragment/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/fragment/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/graphics/drawable/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/graphics/drawable/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/graphics/drawable/animated/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/v7/recyclerview/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/android/support/v7/recyclerview/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/LoadingMoreFooter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/LoadingMoreFooter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$id.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$id.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$integer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$integer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$layout.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$layout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$string.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$string.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$style.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$style.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$styleable.class" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/classes/debug/com/example/xrecyclerview/R$styleable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/debug-mergeJniLibs/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/debug-mergeJniLibs/merge-state" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/intermediate-jars/debug/classes.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/intermediate-jars/debug/res.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/packaged_res/debug/layout/kaws_refresh_header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/packaged_res/debug/layout/kaws_refresh_header.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/packaged_res/debug/layout/yun_refresh_footer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/packaged_res/debug/layout/yun_refresh_footer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/packaged_res/debug/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/packaged_res/debug/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/symbols/debug/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/intermediates/symbols/debug/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../xrecyclerview/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../xrecyclerview/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1641547491">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="E:/DemoSpace/BadgeForAppIcon" value="PREVIEW" />
+        <entry key="E:/DemoSpace/CustomGroup" value="PREVIEW" />
+        <entry key="E:/DemoSpace/JiaoZiVideoPlayer" value="PREVIEW" />
+        <entry key="E:/DemoSpace/LifeStyle" value="PREVIEW" />
+        <entry key="E:/DemoSpace/Matisse" value="PREVIEW" />
+        <entry key="E:/DemoSpace/RxJavaSamples" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-241" />
+    <option name="y" value="304" />
+    <option name="width" value="1619" />
+    <option name="height" value="912" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea423889-178c-4913-9d1d-15297b496601" name="Default Changelist" comment="" />
+      <created>1552354175850</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1552354175850</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-241" y="304" width="1619" height="912" extended-state="0" />
+    <layout>
+      <window_info id="Designer" />
+      <window_info id="Capture Tool" />
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.39666238" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Build Variants" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Statistic" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" visible="true" weight="0.3901809" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Android WiFi ADB" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>Android API 8 Platform</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

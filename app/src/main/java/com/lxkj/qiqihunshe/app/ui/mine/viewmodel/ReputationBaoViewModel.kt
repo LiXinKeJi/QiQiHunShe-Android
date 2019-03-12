@@ -24,6 +24,7 @@ class ReputationBaoViewModel : BaseViewModel() {
     var bind: ActivityReputationBaoBinding? = null
 
     var page = 1
+    var totalPage = 1
 
     fun getUserCredit(): Single<String> {
         val json = "{\"cmd\":\"getUserCredit\",\"uid\":\"" + StaticUtil.uid + "\"}"
@@ -41,10 +42,9 @@ class ReputationBaoViewModel : BaseViewModel() {
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, ReputationBaoModel::class.java)
-                if(page>model.totalPage){
-                    return
-                }
+
                 if (page == 1) {
+                    totalPage=model.totalPage
                     if (model.totalPage == 1) {
                         adapter.flag = 0
                     }

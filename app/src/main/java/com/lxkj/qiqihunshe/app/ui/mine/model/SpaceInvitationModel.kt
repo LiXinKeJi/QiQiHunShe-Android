@@ -33,6 +33,11 @@ class SpaceInvitationModel : BaseModel() {
 
         var wait = ""// 待审核人数
         var no = ""// 拒绝人数
+
+        var age=""
+        var nickname=""
+
+        var job=""
     }
 
 }

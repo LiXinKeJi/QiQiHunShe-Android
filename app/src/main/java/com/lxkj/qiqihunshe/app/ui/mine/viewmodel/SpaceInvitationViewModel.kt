@@ -72,7 +72,7 @@ class SpaceInvitationViewModel : BaseViewModel() {
     //删除动态
     fun DelInvitation(position: Int): Single<String> {
         val json =
-            "{\"cmd\":\"delDongtai\",\"uid\":\"" + StaticUtil.uid + "\",\"dongtaiId\":\"" + adapter.getList()[position].yaoyueId + "\"}"
+            "{\"cmd\":\"delYaoyue\",\"uid\":\"" + StaticUtil.uid + "\",\"yaoyueId\":\"" + adapter.getList()[position].yaoyueId + "\"}"
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {

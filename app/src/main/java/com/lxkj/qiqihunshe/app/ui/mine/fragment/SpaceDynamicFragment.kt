@@ -33,13 +33,20 @@ class SpaceDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceDyna
         viewModel?.let {
             it.bind = binding
             it.initViewModel()
+
+            it.adapter.setLoadMore {
+                it.page++
+                if (it.page <= it.totalpage) {
+                    it.getMyDynamic().bindLifeCycle(this)
+                        .subscribe({}, { toastFailure(it) })
+                }
+            }
         }
 
         refresh.setOnRefreshListener {
             viewModel?.let {
                 it.page = 1
-                it.getMyDynamic().bindLifeCycle(this)
-                    .subscribe({}, { toastFailure(it) })
+
             }
         }
 

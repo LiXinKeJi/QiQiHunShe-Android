@@ -15,7 +15,7 @@ class MyInvitationDetailsAdapter(val type: Int) :
         itembean: MyInvitationDetailsModel.dataModel,
         position: Int
     ) {
-
+        view.setData(itembean, position)
     }
 
 
@@ -24,7 +24,7 @@ class MyInvitationDetailsAdapter(val type: Int) :
     }
 
     override fun refreshItemView(view: MyInvitationDetailsItemView, itembean: MyInvitationDetailsModel.dataModel) {
-        view.setData(itembean, i)
+
     }
 
 

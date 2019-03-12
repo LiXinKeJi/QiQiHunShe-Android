@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PayViewModel"/>
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:fitsSystemWindows="true"
+            android:layout_height="match_parent">
+
+
+        <include
+                android:id="@+id/include"
+                layout="@layout/include_title"/>
+
+        <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.bannale}"
+                app:layout_constraintTop_toBottomOf="@+id/include"
+                android:textColor="@color/colorTabTexts"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/money2"
+                android:textSize="45sp"
+                android:layout_marginTop="70dp"
+                app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需支付"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintTop_toBottomOf="@+id/tv_money"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                android:id="@+id/money2"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_marginBottom="8dp"
+                android:text="￥"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:textColor="@color/colorTabTexts"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_money"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_money"
+                android:layout_marginEnd="5dp" android:layout_marginRight="5dp"/>
+
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_balance"
+                  android:text="余额支付"
+                  android:textSize="15sp"
+                  android:textColor="@color/colorTabTexts"
+                  android:drawableLeft="@drawable/zhifu_yue"
+                  android:drawablePadding="10dp"
+                  android:gravity="center_vertical"
+                  android:layout_marginTop="60dp"
+                  app:layout_constraintTop_toBottomOf="@+id/money"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
+
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_weixin"
+                  android:text="微信支付"
+                  android:textSize="15sp"
+                  android:textColor="@color/colorTabTexts"
+                  android:drawableLeft="@drawable/zhifu_weixin"
+                  android:drawablePadding="10dp"
+                  android:gravity="center_vertical"
+                  android:layout_marginTop="25dp"
+                  app:layout_constraintTop_toBottomOf="@+id/tv_balance"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
+
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_zhifubao"
+                  android:text="支付宝支付"
+                  android:textSize="15sp"
+                  android:drawableLeft="@drawable/zhifu_zhifubao"
+                  android:drawablePadding="10dp"
+                  android:gravity="center_vertical"
+                  android:textColor="@color/colorTabTexts"
+                  android:layout_marginTop="25dp"
+                  app:layout_constraintTop_toBottomOf="@+id/tv_weixin"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
+
+
+        <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/cb_balance"
+                  android:drawableLeft="@drawable/rb_click3"
+                  android:button="@null"
+                  app:layout_constraintTop_toTopOf="@+id/tv_balance"
+                  app:layout_constraintBottom_toBottomOf="@+id/tv_balance"
+                  app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="30dp"
+                  android:layout_marginRight="30dp"/>
+
+        <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/cb_weixin"
+                  android:drawableLeft="@drawable/rb_click3"
+                  android:button="@null"
+                  app:layout_constraintTop_toTopOf="@+id/tv_weixin"
+                  app:layout_constraintBottom_toBottomOf="@+id/tv_weixin"
+                  app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="30dp"
+                  android:layout_marginRight="30dp"/>
+
+        <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/cb_zhifubao"
+                  android:drawableLeft="@drawable/rb_click3"
+                  android:button="@null"
+                  app:layout_constraintTop_toTopOf="@+id/tv_zhifubao"
+                  app:layout_constraintBottom_toBottomOf="@+id/tv_zhifubao"
+                  app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="30dp"
+                  android:layout_marginRight="30dp"/>
+
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/tv_pay"
+                  android:text="确认"
+                  android:textSize="15sp"
+                  android:textColor="@color/white"
+                  android:background="@drawable/button_click5"
+                  android:padding="12dp"
+                  android:gravity="center"
+                  android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/tv_zhifubao"
+                  android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                  android:layout_marginLeft="30dp" android:layout_marginStart="30dp"
+                  android:layout_marginEnd="30dp" android:layout_marginRight="30dp"
+                  app:layout_constraintVertical_bias="0.81"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>
+

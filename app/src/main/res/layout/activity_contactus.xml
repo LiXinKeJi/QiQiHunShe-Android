@@ -64,7 +64,7 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_name"
-                      android:text="@{model.name}"
+                      android:text="@{model.company}"
                       android:layout_alignParentRight="true"
                       android:layout_centerVertical="true"
                       android:textColor="@color/colorSubtitle"
@@ -115,7 +115,7 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_mail"
-                      android:text="@{model.mail}"
+                      android:text="@{model.email}"
                       android:layout_alignParentRight="true"
                       android:layout_centerVertical="true"
                       android:textColor="@color/colorSubtitle"
@@ -142,7 +142,7 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_http"
-                      android:text="@{model.http}"
+                      android:text="@{model.web}"
                       android:layout_alignParentRight="true"
                       android:layout_centerVertical="true"
                       android:textColor="@color/colorSubtitle"

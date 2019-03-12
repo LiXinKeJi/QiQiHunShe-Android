@@ -5,6 +5,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.DynamicSignUpAfterDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.DynamicSignUpDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationDetailsViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityPersonInvitationDetailsBinding
@@ -33,9 +34,9 @@ class PersonInvitationDetailsActivity :
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
-            it.yaoyueId=intent.getStringExtra("id")
+            it.yaoyueId = intent.getStringExtra("id")
             it.initViewmodel()
-            it.getYaoyueDetails().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.getYaoyueDetails().bindLifeCycle(this).subscribe({ }, { toastFailure(it) })
         }
 
     }
@@ -46,12 +47,13 @@ class PersonInvitationDetailsActivity :
             R.id.tv_report -> {
                 ReportDialog1.show(this, object : ReportDialog1.ReportCallBack {
                     override fun report(report: String) {
-
+                        viewModel!!.yaoyueReport(report).bindLifeCycle(this@PersonInvitationDetailsActivity)
+                            .subscribe({}, { toastFailure(it) })
                     }
                 })
             }
             R.id.tv_signup -> {
-                DynamicSignUpAfterDialog.sginUpShow(this)
+                viewModel!!.singUp().bindLifeCycle(this).subscribe({},{toastFailure(it)})
             }
         }
     }

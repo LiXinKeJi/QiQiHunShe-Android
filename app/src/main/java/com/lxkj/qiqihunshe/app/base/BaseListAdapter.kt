@@ -8,7 +8,6 @@ import android.view.animation.DecelerateInterpolator
 import com.lxkj.qiqihunshe.app.base.animators.ItemAnimator
 import com.lxkj.qiqihunshe.app.base.animators.ScaleInItemAnimator
 import com.lxkj.qiqihunshe.app.ui.mine.widget.LoadMoreView
-import com.lxkj.qiqihunshe.app.util.ToastUtil
 
 /**
  * Creater Slingge by 2018/12/26 0026
@@ -25,8 +24,6 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     var isFirstOnly = false
     var mLastPosition = -1
 
-    var i = 0//下标
-
 
     fun getList(): ArrayList<ITEMBEAN> {
         return list
@@ -41,7 +38,8 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
      * 刷新条目
      * */
     abstract fun refreshItemView(view: ITEMVIEW, itembean: ITEMBEAN)
-    abstract fun refreshItemView(view: ITEMVIEW, itembean: ITEMBEAN,position: Int)
+
+    abstract fun refreshItemView(view: ITEMVIEW, itembean: ITEMBEAN, position: Int)
 
     var flag = -1//0，最后一页加载完成，1不支持加载更多，隐藏加载（包括加载完成）,2刷新重新显示加载中
 
@@ -83,10 +81,9 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         if (position == list.size) {
             val view = holder.itemView as LoadMoreView
             if (list.size == 0) {
-                view.Loaded()
+                view.Done()
                 return
             }
-
             when (flag) {
                 0 -> {
                     view.Loaded()
@@ -100,13 +97,11 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
             }
         } else {
             val view = holder.itemView as ITEMVIEW
-            refreshItemView(view, list[position],position)
+            refreshItemView(view, list[position], position)
         }
-        this.i = position
 
         holder.itemView.setOnClickListener { v ->
-
-            if (position >= list.size || position < 0) {
+            if (flag == 0 || flag == 1 || list.size == 0) {
                 return@setOnClickListener
             }
             listener?.let {

@@ -26,10 +26,12 @@ import org.json.JSONObject
  */
 class QiQiDynamicViewModel : BaseViewModel() {
 
-
-    private val adapter by lazy { QiQiDynamicAdapter() }
+    val adapter by lazy { QiQiDynamicAdapter() }
 
     var bind: ActivityQiqiDynamicBinding? = null
+
+    var page = 1
+    var totalPage = 1
 
     fun initViewModel() {
         bind!!.rvDyna.isFocusable = false
@@ -37,34 +39,37 @@ class QiQiDynamicViewModel : BaseViewModel() {
 
         bind!!.rvDyna.adapter = adapter
 
-        val list = ArrayList<QiQiDynamicModel>()
-//        for (i in 0 until 5) {
-//            val model = QiQiDynamicModel()
-//            list.add(model)
-//        }
-        adapter.upData(list)
-
         adapter.setMyListener { itemBean, position ->
-            var bundle=Bundle()
-            bundle.putSerializable("data",itemBean)
-            MyApplication.openActivity(activity, QiQiDynamicDetailsActivity::class.java,bundle)
+            var bundle = Bundle()
+            bundle.putSerializable("id", itemBean.activityId)
+            MyApplication.openActivity(activity, QiQiDynamicDetailsActivity::class.java, bundle)
         }
     }
 
-    fun getData(json: String): Single<String> = retrofit.getData(json)
-        .async().compose(SingleCompose.compose(object : SingleObserverInterface {
-            override fun onSuccess(response: String) {
-                Log.i("sss","response-------------->"+response)
-                var json=JSONObject(response)
-                var list= Gson().fromJson<ArrayList<QiQiDynamicModel>>(json.getString("dataList"),object:
-                    TypeToken<ArrayList<QiQiDynamicModel>>(){}.type)
-                adapter.loadMore(list,1)
+    fun getData(): Single<String> {
+        val json = "{\"cmd\":\"activityList" +
+                "\",\"page\":\"" + page +
+                "\"}"
+        return retrofit.getData(json)
+            .async().compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val model = Gson().fromJson(response, QiQiDynamicModel::class.java)
+                    if (page == 1) {
+                        totalPage = model.totalPage
+                        if (totalPage == 1) {
+                            adapter.loadMore(model.dataList, 1)
+                        } else {
+                            if (page == totalPage) {
+                                adapter.loadMore(model.dataList, 1)
+                            } else {
+                                adapter.loadMore(model.dataList, -1)
+                            }
+                        }
+                    }
+                }
 
-            }
-
-        }, activity))
-
-
+            }, activity))
+    }
 
 
 }

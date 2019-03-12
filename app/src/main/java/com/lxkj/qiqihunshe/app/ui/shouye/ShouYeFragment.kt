@@ -62,5 +62,9 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
     override fun loadData() {
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        ScreenShouYeDialog.diss()
+    }
 
 }

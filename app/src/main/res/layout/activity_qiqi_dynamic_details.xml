@@ -22,32 +22,35 @@
         <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
                                                     android:layout_height="wrap_content">
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:orientation="vertical">
+            <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
 
-                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:paddingTop="15dp"
-                                android:paddingLeft="15dp"
-                                android:visibility="gone"
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:paddingRight="15dp"
+                                android:paddingBottom="15dp"
+                                android:visibility="gone"
                                 android:id="@+id/rl_call"
 
                 >
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="联系人："
+                              android:text="@{`联系人：`+model.username}"
                               android:textColor="@color/colorTabText"
-                              android:textSize="15sp"
+                              android:textSize="15sp" android:layout_marginLeft="15dp"
+                              android:layout_marginTop="15dp"
                               android:id="@+id/tv_name"
                     />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="联系电话："
+                              android:text="@{`联系电话：`+model.phone"
                               android:textColor="@color/colorTabText"
                               android:textSize="15sp"
                               android:id="@+id/tv_phone"
+                              android:layout_marginLeft="15dp"
                               android:layout_below="@+id/tv_name"
                               android:layout_marginTop="10dp"
-                    />
+                              android:layout_alignParentBottom="true" android:layout_marginBottom="0dp"/>
 
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                               android:id="@+id/tv_call"
@@ -55,19 +58,29 @@
                               android:textSize="14sp"
                               android:background="@drawable/button_click5"
                               android:layout_alignParentRight="true"
-                              android:layout_centerVertical="true"
+                              android:layout_alignBottom="@+id/tv_phone"
                               android:textColor="@color/white"
                               android:paddingTop="5dp"
                               android:paddingBottom="5dp"
                               android:paddingLeft="18dp"
                               android:paddingRight="18dp"
+
                     />
+
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                               android:id="@+id/iv_state"
+                               android:src="@drawable/weitongguo"
+                               android:layout_alignParentRight="true"
+
+                    />
+
 
                 </RelativeLayout>
 
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:id="@+id/tv_title"
                           android:textSize="16sp"
+                          android:text="@{model.title}"
                           android:textColor="@color/colorBlack"
                           android:layout_marginLeft="15dp"
                           android:layout_marginRight="15dp"
@@ -76,14 +89,14 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_time"
                           android:textSize="13sp"
+                          android:text="@{model.adtime}"
                           android:layout_marginLeft="15dp"
                           android:textColor="@color/colorSubtitle"
                           android:layout_marginTop="8dp"
                 />
-
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:id="@+id/tv_brief"
-                          android:text="简介："
+                          android:text="@{model.introduction}"
                           android:layout_marginRight="15dp"
                           android:textSize="13sp"
                           android:layout_marginLeft="15dp"
@@ -91,39 +104,27 @@
                           android:layout_marginTop="8dp"
                 />
 
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/content"
-                          android:text="活动内容"
+                          android:text="活动内容："
                           android:layout_marginRight="15dp"
-                          android:textSize="13sp"
+                          android:textSize="15sp"
                           android:layout_marginLeft="15dp"
                           android:textColor="@color/black"
                           android:layout_marginTop="15dp"
                 />
 
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:id="@+id/tv_content"
-                          android:text="内容"
-                          android:layout_marginRight="15dp"
-                          android:textSize="13sp"
-                          android:layout_marginLeft="15dp"
-                          android:textColor="@color/colorTabText"
-                          android:layout_marginTop="8dp"
-                />
-
-
-                <ImageView android:layout_width="match_parent" android:layout_height="200dp"
-                           android:src="@mipmap/ic_launcher"
-                           android:scaleType="centerCrop"
-                           android:layout_marginTop="18dp"
-                           android:layout_marginLeft="15dp"
-                           android:layout_marginRight="15dp"
-                           android:layout_marginBottom="30dp"
+                <com.lxkj.qiqihunshe.app.customview.MyWebView
+                        android:layout_width="match_parent"
+                        android:layout_margin="12dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/myWebView"
                 />
 
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_sginup"
+                          android:layout_marginTop="30dp"
                           android:text="报名"
                           android:layout_gravity="center_horizontal"
                           android:textSize="14sp"

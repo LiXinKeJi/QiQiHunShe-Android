@@ -1,7 +1,9 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
+import android.text.TextUtils
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.model.ModifyPassModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ModifyPassViewModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
@@ -15,8 +17,6 @@ import kotlinx.android.synthetic.main.activity_modify_pass.*
 class ModifyPassActivity : BaseActivity<ActivityModifyPassBinding, ModifyPassViewModel>() {
 
 
-    private val model by lazy { ModifyPassModel() }
-
     override fun getBaseViewModel() = ModifyPassViewModel()
 
     override fun getLayoutId() = R.layout.activity_modify_pass
@@ -24,17 +24,29 @@ class ModifyPassActivity : BaseActivity<ActivityModifyPassBinding, ModifyPassVie
     override fun init() {
         initTitle("修改密码")
 
-        tv_enter.setOnClickListener {
-            model.noify()
-            ToastUtil.showToast(model.newPass)
-        }
-
         viewModel?.let {
             binding.viewmodel = it
-            binding.model = model
-
-
+            binding.model = it.model
+            it.flag = intent.getIntExtra("flag", 0)
+            it.phone = intent.getStringExtra("phone")
+            it.code = intent.getStringExtra("code")
         }
+
+        tv_enter.setOnClickListener {
+            viewModel?.let {
+                it.model.noify()
+                if (TextUtils.isEmpty(it.model.oldPass)) {
+                    ToastUtil.showTopSnackBar(this, "请输入当前密码")
+                    return@setOnClickListener
+                }
+                if (TextUtils.isEmpty(it.model.newPass)) {
+                    ToastUtil.showTopSnackBar(this, "请输入新密码")
+                    return@setOnClickListener
+                }
+                viewModel!!.modify().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            }
+        }
+
     }
 
 

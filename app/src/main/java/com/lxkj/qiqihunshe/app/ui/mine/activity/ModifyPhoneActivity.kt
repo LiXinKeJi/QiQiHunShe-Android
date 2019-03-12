@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
+import android.text.TextUtils
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.ModifyPassModel
@@ -29,7 +30,14 @@ class ModifyPhoneActivity : BaseActivity<ActivityModifyPhoneBinding, ModifyPhone
             ToastUtil.showToast(model.newPass)
         }
         tv_getcode.setOnClickListener {
-            viewModel?.getCode()
+            viewModel?.let {
+                if (TextUtils.isEmpty(it.phone.get())) {
+                ToastUtil.showTopSnackBar(this,"请输入新手机号")
+                    return@setOnClickListener
+                }
+                viewModel?.getCode()
+            }
+
         }
 
         viewModel?.let {

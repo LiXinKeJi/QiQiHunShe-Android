@@ -26,7 +26,14 @@ class MyBillActivity : BaseActivity<ActivityMybillBinding, MyBillViewModel>() {
             it.bind = binding
             it.initViewModel()
 
-//            it.getBill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.getBill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+
+            it.adapter.setLoadMore {
+                it.page++
+                if (it.page <= it.totalPage) {
+                    it.getBill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            }
         }
 
 

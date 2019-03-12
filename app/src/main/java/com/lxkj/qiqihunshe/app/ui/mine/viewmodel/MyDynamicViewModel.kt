@@ -35,6 +35,7 @@ class MyDynamicViewModel : BaseViewModel() {
     var model = SpaceDynamicModel.dataModel()
 
     var page = 1
+    var totalPage = 1
     private val imageInfoList = ArrayList<ImageInfo>()
 
     var bind: ActivityMydynamicBinding? = null
@@ -73,10 +74,11 @@ class MyDynamicViewModel : BaseViewModel() {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, CommentModel::class.java)
                 if (page == 1) {
+                    totalPage=model.totalPage
                     bind!!.tvComment.text = "最新评论（${model.commentCount}）"
                     if (model.dataList.isEmpty()) {
                         adapter.flag = 1
-                        bind!!.rvComment.visibility -= View.GONE
+                        bind!!.rvComment.visibility = View.GONE
                         return
                     }
                     if (model.totalPage == 1) {

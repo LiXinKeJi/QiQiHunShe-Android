@@ -24,7 +24,12 @@ object DynamicSignUpAfterDialog {
     private var tv_enter: TextView? = null
     private var iv_cancel: ImageView? = null
 
-    fun sginUpShow(context: Activity) {
+
+    interface SignUpCallBack {
+        fun signFinish()
+    }
+
+    fun sginUpShow(context: Activity, signUpCallBack: SignUpCallBack) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -38,6 +43,7 @@ object DynamicSignUpAfterDialog {
         }
 
         tv_content?.setOnClickListener {
+            signUpCallBack.signFinish()
             dialog?.dismiss()
         }
         tv_enter?.setOnClickListener {

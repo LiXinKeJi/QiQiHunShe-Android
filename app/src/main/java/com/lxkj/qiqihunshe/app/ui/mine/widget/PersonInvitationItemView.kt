@@ -42,6 +42,11 @@ class PersonInvitationItemView : RelativeLayout {
         tv_content.text = "活动内容：${bean.content}"
         tv_address.text = "活动地点：${bean.address}"
 
+        tv_age.text = bean.age
+
+        tv_name.text = bean.nickname
+        tv_occupation.text ="职业："+ bean.job
+
         if (bean.image.isEmpty()) {
             iv_1.visibility = View.GONE
             iv_2.visibility = View.GONE

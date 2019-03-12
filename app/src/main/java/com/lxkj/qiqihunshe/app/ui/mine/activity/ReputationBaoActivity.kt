@@ -33,8 +33,10 @@ class ReputationBaoActivity : BaseActivity<ActivityReputationBaoBinding, Reputat
 
             it.getCreditList().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             it.adapter.setLoadMore {
-                viewModel!!.page++
-                it.getCreditList().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                it.page++
+                if (it.page <= it.totalPage) {
+                    it.getCreditList().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
             }
         }
 

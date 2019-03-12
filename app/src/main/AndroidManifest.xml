@@ -26,6 +26,12 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
 
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -159,6 +165,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.MySkillDetailsActiivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.PayActivity"
+                  android:screenOrientation="portrait"/>
 
         <!--////////////////////////////////首页\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
         <activity android:name=".app.ui.shouye.activity.MatchingActivity"
@@ -174,7 +182,7 @@
         <activity android:name=".app.ui.shouye.activity.StrokeActivity"
                   android:screenOrientation="portrait"/>
 
-                               <!--区域-->
+        <!--区域-->
         <activity android:name=".app.ui.quyu.activity.FwqyActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.quyu.activity.DdtjActivity"
@@ -182,22 +190,11 @@
         <activity android:name=".app.ui.quyu.activity.ShopDetailActivity"
                   android:screenOrientation="portrait"/>
 
-
         <activity android:name=".app.ui.map.activity.SelectAddressMapActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".app.ui.map.activity.ChooseAddressActivity"
                   android:screenOrientation="portrait"/>
-
-        <!--百度地图-->
-        <meta-data
-                android:name="com.baidu.lbsapi.API_KEY"
-                android:value="PlChs1C7ijPY9uuPCXQvxxsemnziVheT"/>
-
-        <service android:name="com.baidu.location.f"
-                 android:enabled="true"
-                 android:process=":remote"/>
-        <service android:name=".app.service.LocationService"/>
 
 
         <!--//////////////////////////////////////////消息\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
@@ -215,6 +212,66 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.xiaoxi.activity.MsgDetailsActivity"
                   android:screenOrientation="portrait"/>
+
+
+        <activity android:name=".app.ui.xiaoxi.activity.ChatActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="com.lxkj.qiqihunshe"
+                        android:pathPrefix="/conversation/"
+                        android:scheme="rong"/>
+            </intent-filter>
+
+        </activity>
+
+
+        <!--百度地图-->
+        <meta-data
+                android:name="com.baidu.lbsapi.API_KEY"
+                android:value="PlChs1C7ijPY9uuPCXQvxxsemnziVheT"/>
+
+        <service android:name="com.baidu.location.f"
+                 android:enabled="true"
+                 android:process=":remote"/>
+        <service android:name=".app.service.LocationService"/>
+
+
+        <!--友盟-->
+        <meta-data
+                android:name="UMENG_APPKEY"
+                android:value="5c8715903fc195b79d00078e"/>
+
+
+        <activity
+                android:name="com.tencent.connect.common.AssistActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!--微信-->
+        <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+
+        <activity
+                android:name="cn.beecloud.BCWechatPaymentActivity"
+                android:launchMode="singleTop"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity-alias
+                android:name=".wxapi.WXPayEntryActivity"
+                android:exported="true"
+                android:targetActivity="cn.beecloud.BCWechatPaymentActivity"/>
+
 
     </application>
 

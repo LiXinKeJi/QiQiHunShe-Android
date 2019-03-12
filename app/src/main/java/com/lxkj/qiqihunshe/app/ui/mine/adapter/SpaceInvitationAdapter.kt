@@ -15,7 +15,7 @@ class SpaceInvitationAdapter : BaseListAdapter<SpaceInvitationModel.dataModel, S
         itembean: SpaceInvitationModel.dataModel,
         position: Int
     ) {
-         
+        view.setData(itembean, position)
     }
 
 
@@ -24,7 +24,7 @@ class SpaceInvitationAdapter : BaseListAdapter<SpaceInvitationModel.dataModel, S
     }
 
     override fun refreshItemView(view: SpaceInvitationitenView, itembean: SpaceInvitationModel.dataModel) {
-        view.setData(itembean, i + 1)
+
     }
 
 

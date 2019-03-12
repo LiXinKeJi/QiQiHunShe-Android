@@ -10,9 +10,9 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.QiQiRuleItemView
 /**
  * Created by Slingge on 2019/2/21
  */
-class QiQiDynamicAdapter : BaseListAdapter<QiQiDynamicModel, QiQiDynamicItemView>() {
-    override fun refreshItemView(view: QiQiDynamicItemView, itembean: QiQiDynamicModel, position: Int) {
-
+class QiQiDynamicAdapter : BaseListAdapter<QiQiDynamicModel.dataModel, QiQiDynamicItemView>() {
+    override fun refreshItemView(view: QiQiDynamicItemView, itembean: QiQiDynamicModel.dataModel, position: Int) {
+        view.setData(itembean,position)
     }
 
 
@@ -20,8 +20,8 @@ class QiQiDynamicAdapter : BaseListAdapter<QiQiDynamicModel, QiQiDynamicItemView
         return QiQiDynamicItemView(context)
     }
 
-    override fun refreshItemView(view: QiQiDynamicItemView, itembean: QiQiDynamicModel) {
-        view.setData(itembean)
+    override fun refreshItemView(view: QiQiDynamicItemView, itembean: QiQiDynamicModel.dataModel) {
+
     }
 
 }

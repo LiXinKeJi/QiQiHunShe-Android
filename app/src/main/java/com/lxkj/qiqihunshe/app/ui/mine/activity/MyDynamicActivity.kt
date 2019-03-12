@@ -63,7 +63,9 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
 
             it.adapter.setLoadMore {
                 it.page++
-                it.getComment().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                if(it.page<=it.totalPage){
+                    it.getComment().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
             }
 
             it.getComment().bindLifeCycle(this).subscribe({}, { toastFailure(it) })

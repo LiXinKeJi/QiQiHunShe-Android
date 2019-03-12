@@ -3,8 +3,10 @@ package com.lxkj.qiqihunshe.app;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
+import android.text.TextUtils;
 import android.view.View;
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import com.lxkj.qiqihunshe.R;
@@ -12,11 +14,19 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.lxkj.qiqihunshe.app.retrofitnet.BaseNetProvider;
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil;
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil;
+import com.lxkj.qiqihunshe.app.util.StaticUtil;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
 import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tencent.smtt.sdk.QbSdk;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+import io.rong.calllib.IRongReceivedCallListener;
+import io.rong.calllib.RongCallClient;
+import io.rong.calllib.RongCallSession;
+import io.rong.imkit.RongIM;
 
 /**
  * Created by Slingge on 2017/1/6 0006.
@@ -53,11 +63,15 @@ public class MyApplication extends MultiDexApplication {
         myApplication = this;
         CONTEXT = getApplicationContext();
 
-        uId = SharedPreferencesUtil.getSharePreStr(CONTEXT, "uid");
+        SharedPreferences sp = this
+                .getSharedPreferences(SharedPreferencesUtil.NAME, 0);
+
+        uId = sp.getString("uid", "");
+        StaticUtil.INSTANCE.setUid(uId);
+        StaticUtil.INSTANCE.setRytoken(sp.getString("rytoken", ""));
+
 
         Logger.addLogAdapter(new AndroidLogAdapter());
-
-        RetrofitUtil.INSTANCE.registerProvider(new BaseNetProvider(CONTEXT));
 
         initTBS();
 
@@ -68,7 +82,41 @@ public class MyApplication extends MultiDexApplication {
         SDKInitializer.setCoordType(CoordType.BD09LL);
 
 
+        UMShareAPI.get(this);
+        PlatformConfig.setWeixin(StaticUtil.INSTANCE.getWeixin_Appid(), StaticUtil.INSTANCE.getWeixin_AppSecret());
+        PlatformConfig.setQQZone("1106937627", "KePldFLgZzyUZ47F");
 
+
+        RongIM.init(this, "3argexb63qm0e");
+
+        if (!TextUtils.isEmpty(StaticUtil.INSTANCE.getRytoken())) {
+            RongYunUtil.INSTANCE.initService();
+        }
+        /* RongCallClient.setReceivedCallListener(new IRongReceivedCallListener() {
+         *//**
+         * 来电回调
+         * @param callSession 通话实体
+         *//*
+            @Override
+            public void onReceivedCall(RongCallSession callSession) {
+                //accept or hangup the call
+            }
+
+            *//**
+         * targetSDKVersion>＝23时检查权限的回调。当targetSDKVersion<23的时候不需要实现。
+         * 在这个回调里用户需要使用Android6.0新增的动态权限分配接口requestCallPermissions通知用户授权，
+         * 然后在onRequestPermissionResult回调里根据用户授权或者不授权分别回调
+         * RongCallClient.getInstance().onPermissionGranted()和
+         * RongCallClient.getInstance().onPermissionDenied()来通知CallLib。
+         * 其中audio call需要获取Manifest.permission.RECORD_AUDIO权限；
+         * video call需要获取Manifest.permission.RECORD_AUDIO和Manifest.permission.CAMERA两项权限。
+         * @param callSession 通话实体
+         *//*
+            @Override
+            public void onCheckPermission(RongCallSession callSession) {
+
+            }
+        });*/
     }
 
 

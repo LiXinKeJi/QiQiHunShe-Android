@@ -11,7 +11,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.SpaceDynamicItemView
  */
 class SpaceDynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, SpaceDynamicItemView>() {
     override fun refreshItemView(view: SpaceDynamicItemView, itembean: SpaceDynamicModel.dataModel, position: Int) {
-
+        view.setData(itembean, position)
     }
 
 
@@ -20,7 +20,7 @@ class SpaceDynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, SpaceDy
     }
 
     override fun refreshItemView(view: SpaceDynamicItemView, itembean: SpaceDynamicModel.dataModel) {
-        view.setData(itembean, i+1)
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.fragment
 
+import android.os.Bundle
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
@@ -23,7 +24,9 @@ class FuJinInvitationFragment : BaseFragment<FragmentFujinInvitationBinding, FuJ
 
         fab.attachToRecyclerView(xRecyclerView)
         fab.setOnClickListener {
-            MyApplication.openActivity(activity, ReleaseInvitationTypeActivity::class.java)
+            val bundle = Bundle()
+            bundle.putInt("type", 0)
+            MyApplication.openActivity(activity, ReleaseInvitationTypeActivity::class.java, bundle)
         }
 
         viewModel?.let {
@@ -43,24 +46,24 @@ class FuJinInvitationFragment : BaseFragment<FragmentFujinInvitationBinding, FuJ
     }
 
     override fun onClick(view: View?) {
-        when(view?.id){
-            R.id.rba ->{
+        when (view?.id) {
+            R.id.rba -> {
                 viewModel!!.typeId = ""
                 xRecyclerView.refresh()
             }
-            R.id.tv_food ->{
+            R.id.tv_food -> {
                 viewModel!!.typeId = "1"
                 xRecyclerView.refresh()
             }
-            R.id.tv_movie ->{
+            R.id.tv_movie -> {
                 viewModel!!.typeId = "2"
                 xRecyclerView.refresh()
             }
-            R.id.tv_travel ->{
+            R.id.tv_travel -> {
                 viewModel!!.typeId = "3"
                 xRecyclerView.refresh()
             }
-            R.id.tv_other ->{
+            R.id.tv_other -> {
                 viewModel!!.typeId = "4"
                 xRecyclerView.refresh()
             }

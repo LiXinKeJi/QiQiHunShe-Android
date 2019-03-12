@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SeenSkillViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 
@@ -20,6 +21,15 @@ class SeenSkillActivity : BaseActivity<ActivityRecyvlerviewBinding, SeenSkillVie
         viewModel?.let {
             it.bind = binding
             it.initViewModel()
+
+            it.getSeenSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+
+            it.adapter.setLoadMore {
+                it.page++
+                if (it.page <= it.totalPage) {
+                    it.getSeenSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            }
         }
     }
 }

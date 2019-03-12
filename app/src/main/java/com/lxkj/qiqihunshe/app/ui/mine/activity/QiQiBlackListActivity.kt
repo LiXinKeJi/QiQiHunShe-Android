@@ -16,8 +16,7 @@ class QiQiBlackListActivity : BaseActivity<ActivityRecyvlerviewBinding, QiQiBlac
     override fun getBaseViewModel() = QiQiBlackListViewModel()
 
     override fun getLayoutId() = R.layout.activity_recyvlerview
-    var page=0
-    val TAG="QiQiBlackListActivity"
+    var page = 0
 
 
     override fun init() {
@@ -25,27 +24,26 @@ class QiQiBlackListActivity : BaseActivity<ActivityRecyvlerviewBinding, QiQiBlac
         viewModel?.let {
             it.bind = binding
             it.initViewModel()
+
+            it.adapter.setLoadMore {
+                it.page++
+                if (it.page <= it.totalpage) {
+                    viewModel!!.getBlackData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            }
         }
 
         refresh.setOnRefreshListener {
-
-
-
-            page=1
+            page = 1
             loadData()
         }
 
     }
 
     override fun loadData() {
-        val json = "{\"cmd\":\"blacklist"  +
-                "\",\"page\":\"" + page+
-                "\"}"
-
-        viewModel!!.getBlackData(json).bindLifeCycle(this)
+        viewModel!!.getBlackData().bindLifeCycle(this)
             .subscribe({}, { toastFailure(it) })
     }
-
 
 
 }

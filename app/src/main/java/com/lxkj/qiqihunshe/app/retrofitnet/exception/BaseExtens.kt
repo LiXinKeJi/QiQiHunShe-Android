@@ -9,7 +9,6 @@ import android.support.annotation.ColorRes
 import android.support.annotation.DimenRes
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
-import com.ditclear.paonet.model.remote.exception.EmptyException
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.uber.autodispose.AutoDispose
@@ -20,9 +19,12 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.MainThreadDisposable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import java.util.concurrent.TimeUnit
 
 /**
  * 页面描述：一些扩展
@@ -37,20 +39,37 @@ fun dispatchFailure(activity: Activity, error: Throwable?) {
         if (abLog.E) {
             it.printStackTrace()
         }
-        if (it is EmptyException) {
-
-        } else if (error is SocketTimeoutException) {
+      if (it is SocketTimeoutException) {
             it.message?.let { ToastUtil.showTopSnackBar(activity, "网络连接超时") }
-
         } else if (it is UnknownHostException || it is ConnectException) {
             //网络未连接
-            it.message?.let { ToastUtil.showTopSnackBar(activity, "网络未连接") }
-
+            it.message?.let { ToastUtil.showTopSnackBar(activity, "连接服务器失败") }
         } else {
             it.message?.let { ToastUtil.showTopSnackBar(activity, it) }
         }
     }
 }
+
+//请求延迟时间
+fun <T> Single<T>.async(withDelay: Long = 0): Single<T> =
+    this.subscribeOn(Schedulers.io())
+        .delay(withDelay, TimeUnit.MILLISECONDS)
+        .observeOn(AndroidSchedulers.mainThread())
+
+fun <T> Single<T>.async(): Single<T> =
+    this.subscribeOn(Schedulers.io())
+//                .delay(withDelay, TimeUnit.MILLISECONDS)
+        .observeOn(AndroidSchedulers.mainThread())
+
+//绑定生命周期
+fun <T> Single<T>.bindLifeCycle(owner: LifecycleOwner): SingleSubscribeProxy<T> {
+    return this.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner)))
+}
+
+fun <T> Flowable<T>.bindLifeCycle(owner: LifecycleOwner): FlowableSubscribeProxy<T> =
+    this.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, Lifecycle.Event.ON_DESTROY)))
+
+
 
 fun <T : Any> FragmentActivity.argument(key: String) =
     lazy { intent.extras[key] as? T ?: error("Intent Argument $key is missing") }
@@ -59,11 +78,8 @@ fun <T : Any> FragmentActivity.argument(key: String) =
 fun Activity.dpToPx(@DimenRes resID: Int): Int = this.resources.getDimensionPixelOffset(resID)
 
 
-fun <T> Single<T>.bindLifeCycle(owner: LifecycleOwner): SingleSubscribeProxy<T> =
-    this.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, Lifecycle.Event.ON_DESTROY)))
 
-fun <T> Flowable<T>.bindLifeCycle(owner: LifecycleOwner): FlowableSubscribeProxy<T> =
-    this.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, Lifecycle.Event.ON_DESTROY)))
+
 
 
 //////////////////////////LiveData///////////////////////////////////

@@ -103,17 +103,17 @@ public class ActivityRecordAdapter extends RecyclerView.Adapter<ActivityRecordAd
             case 1:
                 GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getImage().get(0), holder.iv1);
                 holder.iv1.setVisibility(View.VISIBLE);
-                holder.iv2.setVisibility(View.GONE);
-                holder.iv3.setVisibility(View.GONE);
-                holder.tvTotalnum.setVisibility(View.GONE);
+                holder.iv2.setVisibility(View.INVISIBLE);
+                holder.iv3.setVisibility(View.INVISIBLE);
+                holder.tvTotalnum.setVisibility(View.INVISIBLE);
                 break;
             case 2:
                 GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getImage().get(0), holder.iv1);
                 GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getImage().get(1), holder.iv2);
                 holder.iv1.setVisibility(View.VISIBLE);
                 holder.iv2.setVisibility(View.VISIBLE);
-                holder.iv3.setVisibility(View.GONE);
-                holder.tvTotalnum.setVisibility(View.GONE);
+                holder.iv3.setVisibility(View.INVISIBLE);
+                holder.tvTotalnum.setVisibility(View.INVISIBLE);
                 break;
             case 3:
                 GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getImage().get(0), holder.iv1);
@@ -122,7 +122,7 @@ public class ActivityRecordAdapter extends RecyclerView.Adapter<ActivityRecordAd
                 holder.iv1.setVisibility(View.VISIBLE);
                 holder.iv2.setVisibility(View.VISIBLE);
                 holder.iv3.setVisibility(View.VISIBLE);
-                holder.tvTotalnum.setVisibility(View.GONE);
+                holder.tvTotalnum.setVisibility(View.INVISIBLE);
                 break;
             default:
                 GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getImage().get(0), holder.iv1);

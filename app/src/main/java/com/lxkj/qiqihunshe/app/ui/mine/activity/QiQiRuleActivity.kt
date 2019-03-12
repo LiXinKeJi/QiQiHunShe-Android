@@ -19,7 +19,7 @@ class QiQiRuleActivity : BaseActivity<ActivityQiqiRuleBinding, QiQiRuleViewModel
     override fun getBaseViewModel() = QiQiRuleViewModel()
 
     override fun getLayoutId() = R.layout.activity_qiqi_rule
-    val TAG="QiQiRuleActivity"
+    val TAG = "QiQiRuleActivity"
 
     override fun init() {
         initTitle("七七规则")
@@ -34,11 +34,10 @@ class QiQiRuleActivity : BaseActivity<ActivityQiqiRuleBinding, QiQiRuleViewModel
     override fun loadData() {
         super.loadData()
 
-        val json = "{\"cmd\":\"getRuleList"  +
+        val json = "{\"cmd\":\"getRuleList" +
                 "\"}"
         viewModel!!.getRule(json).bindLifeCycle(this)
             .subscribe({
-
             }, { toastFailure(it) })
     }
 

@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiDynamicModel
+import com.lxkj.qiqihunshe.app.util.GlideUtil
 import kotlinx.android.synthetic.main.item_qiqi_dynamic.view.*
+import java.text.FieldPosition
 
 /**
  * Created by Slingge on 2019/2/21
@@ -24,9 +26,12 @@ class QiQiDynamicSignUpRecordItemView : RelativeLayout  {
         View.inflate(context, R.layout.item_qiqi_dynamic, this)
     }
 
-    fun setData(bean: QiQiDynamicModel) {
+    fun setData(bean: QiQiDynamicModel.dataModel,position: Int) {
 
+        tv_title.text=bean.title
+        tv_content.text=bean.introduction
 
+        GlideUtil.glideLoad(context,bean.image,image_view)
     }
 
 

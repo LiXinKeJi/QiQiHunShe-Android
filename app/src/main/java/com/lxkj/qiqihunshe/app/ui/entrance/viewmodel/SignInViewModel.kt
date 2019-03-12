@@ -5,9 +5,11 @@ import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.*
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.MainActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
 import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
+import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivitySigninBinding
@@ -32,6 +34,11 @@ class SignInViewModel : BaseViewModel() {
                     val model = Gson().fromJson(response, SignInModel::class.java)
                     StaticUtil.uid = model.uid
                     StaticUtil.fill = model.fill
+                    StaticUtil.rytoken = model.rytoken
+
+                    val sp = activity!!.getSharedPreferences(SharedPreferencesUtil.NAME, 0)
+                    sp.edit().putString("uid", model.uid).putString("rytoken", model.rytoken).commit()
+                    RongYunUtil.initService()
                     if (model.fill == "0") {
                         MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java)
                     } else {

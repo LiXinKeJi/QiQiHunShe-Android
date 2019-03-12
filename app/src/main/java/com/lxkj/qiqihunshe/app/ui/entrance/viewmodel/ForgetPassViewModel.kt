@@ -21,17 +21,16 @@ class ForgetPassViewModel : BaseViewModel() {
     private val timerUtil by lazy { TimerUtil(bind?.tvGetCode) }
 
 
-    fun getCode() {
+    fun getcode(json: String): Single<String> {
         timerUtil.startTimer()
-    }
-
-    fun getcode(json: String): Single<String> =
-        retrofit.getData(json)
+        return retrofit.getData(json)
             .async().compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    ToastUtil.showTopSnackBar(activity!!, "验证码发送成功，请注意查收")
+                    ToastUtil.showTopSnackBar(activity!!, "验证码已发送，请注意查收")
                 }
             }, activity))
+    }
+
 
     fun ForgetPass(json: String): Single<String> =
         retrofit.getData(json).async()

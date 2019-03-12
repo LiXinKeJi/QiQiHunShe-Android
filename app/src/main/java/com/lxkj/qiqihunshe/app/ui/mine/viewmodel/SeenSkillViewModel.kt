@@ -1,11 +1,14 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.ui.fujin.fragment.SkillFragment
+import com.lxkj.qiqihunshe.app.ui.mine.activity.MySkillDetailsActiivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.SeenSkillAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.SeenSkillModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -18,9 +21,10 @@ import io.reactivex.Single
 class SeenSkillViewModel : BaseViewModel() {
 
 
-    private val adapter by lazy { SeenSkillAdapter() }
+      val adapter by lazy { SeenSkillAdapter() }
 
     var page = 1
+    var totalPage = 1
 
     var bind: ActivityRecyvlerviewBinding? = null
 
@@ -29,8 +33,9 @@ class SeenSkillViewModel : BaseViewModel() {
         bind!!.recycler.adapter = adapter
 
         adapter.setMyListener { itemBean, position ->
-
-
+            val bundle = Bundle()
+            bundle.putString("id", itemBean.caiyiId)
+            MyApplication.openActivity(activity, MySkillDetailsActiivity::class.java::class.java, bundle)
         }
     }
 
@@ -40,17 +45,15 @@ class SeenSkillViewModel : BaseViewModel() {
         return retrofit.getData(json).compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, SeenSkillModel::class.java)
-                if(page>model.totalPage){
-                    return
-                }
                 if (page == 1) {
-                    bind!!.refresh.isRefreshing=false
+                    totalPage = model.totalPage
+                    bind!!.refresh.isRefreshing = false
                     if (model.totalPage == 1) {
                         adapter.flag = 0
                     }
                     adapter.upData(model.dataList)
                 } else {
-                    if (page==model.totalPage) {
+                    if (page == model.totalPage) {
                         adapter.loadMore(model.dataList, 0)
                     } else {
                         adapter.loadMore(model.dataList, -1)

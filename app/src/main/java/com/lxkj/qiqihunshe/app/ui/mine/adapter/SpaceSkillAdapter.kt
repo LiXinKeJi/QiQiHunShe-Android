@@ -11,7 +11,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.SpaceSkillItemView
  */
 class SpaceSkillAdapter : BaseListAdapter<SpaceSkillModel.dataModel, SpaceSkillItemView>() {
     override fun refreshItemView(view: SpaceSkillItemView, itembean: SpaceSkillModel.dataModel, position: Int) {
-
+        view.setData(itembean,position)
     }
 
 
@@ -20,7 +20,7 @@ class SpaceSkillAdapter : BaseListAdapter<SpaceSkillModel.dataModel, SpaceSkillI
     }
 
     override fun refreshItemView(view: SpaceSkillItemView, itembean: SpaceSkillModel.dataModel) {
-        view.setData(itembean,i+1)
+
     }
 
 

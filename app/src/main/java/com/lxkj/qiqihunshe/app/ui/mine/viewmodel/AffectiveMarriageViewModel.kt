@@ -25,6 +25,7 @@ class AffectiveMarriageViewModel : BaseViewModel() {
 
     val adapter by lazy { AffectiveMarriageAdapter() }
     var page = 1
+    var totalPage = 1
     var bind: ActivityRecyvlerviewBinding? = null
 
     fun initViewModel() {
@@ -42,15 +43,13 @@ class AffectiveMarriageViewModel : BaseViewModel() {
 
 
     fun getYaoyue(): Single<String> {
-        val json = "{\"cmd\":\"userYaoyue\",\"uid\":\"" + StaticUtil.uid + "\",\"category\":\"" + "1" +
-                "\",\"page\":\"" + page + "\"}"
+        val json = "{\"cmd\":\"nearbyYaoyue\",\"uid\":\"" + StaticUtil.uid + "\",\"typeId\":\"" + "" +
+                "\",\"category\":\"" + "1" + "\",\"page\":\"" + page +"\",\"lon\":\"" + StaticUtil.lng + "\",\"lat\":\"" + StaticUtil.lat +  "\"}"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, SpaceInvitationModel::class.java)
                 bind!!.refresh.isRefreshing = false
-                if (page > model.totalPage) {
-                    return
-                }
+
                 if (page == 1) {
                     if (model.totalPage == 1) {
                         adapter.flag = 0
