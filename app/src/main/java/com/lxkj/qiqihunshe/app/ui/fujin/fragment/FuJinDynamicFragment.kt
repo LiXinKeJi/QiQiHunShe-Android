@@ -29,16 +29,16 @@ class FuJinDynamicFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJinDyn
         }
         fab.visibility = View.VISIBLE
         fab.attachToRecyclerView(xRecyclerView)
-        fab.setOnClickListener {// flag = -1//0普通动态，1情感动态
-            val bundle=Bundle()
-            bundle.putInt("flag",0)
-            MyApplication.openActivity(activity, ReleaseDynamicActivity::class.java,bundle)
+        fab.setOnClickListener {
+            // flag = -1//0普通动态，1情感动态
+            val bundle = Bundle()
+            bundle.putInt("flag", 0)
+            MyApplication.openActivity(activity, ReleaseDynamicActivity::class.java, bundle)
         }
     }
 
     override fun loadData() {
-
-
+        viewModel!!.getList()
     }
 
 

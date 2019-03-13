@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
+import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel;
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
@@ -26,7 +27,7 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
 
 
     private Context context;
-    private List<DataListModel> list;
+    private List<SpaceDynamicModel.dataModel> list;
     private OnItemClickListener onItemClickListener;
 
     public NearDynamicAdapter(Context context, List list) {

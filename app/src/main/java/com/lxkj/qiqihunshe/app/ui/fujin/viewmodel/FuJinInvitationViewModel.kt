@@ -20,6 +20,7 @@ import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FragmentFujinInvitationBinding
 
 /**
@@ -58,16 +59,15 @@ class FuJinInvitationViewModel : BaseViewModel() {
         })
         adapter = NearInvitationAdapter(fragment?.context, list)
         adapter?.setOnItemClickListener {
-            ToastUtil.showTopSnackBar(fragment,it.toString())
+            ToastUtil.showTopSnackBar(fragment, it.toString())
         }
 
         bind?.xRecyclerView?.adapter = adapter
-        getList()
     }
 
     //获取列表
-    fun getList(){
-        var params = HashMap<String,String>()
+    fun getList() {
+        var params = HashMap<String, String>()
         params["cmd"] = "nearbyYaoyue"
         params["uid"] = StaticUtil.uid
         params["typeId"] = typeId
@@ -75,6 +75,7 @@ class FuJinInvitationViewModel : BaseViewModel() {
         params["lon"] = StaticUtil.lng
         params["lat"] = StaticUtil.lat
         params["page"] = page.toString()
+        abLog.e("附近邀约", Gson().toJson(params))
         retrofit.getData(Gson().toJson(params))
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {

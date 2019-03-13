@@ -1,11 +1,8 @@
 package com.lxkj.qiqihunshe.app.ui.mine.fragment
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonDataViewModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentPersonDataBinding
@@ -21,15 +18,15 @@ class PersonDataFragment : BaseFragment<FragmentPersonDataBinding, PersonDataVie
     override fun getLayoutId() = R.layout.fragment_person_data
 
     override fun init() {
+        viewModel?.let {
+            binding.viewmodel = it
+            it.bind = binding
+            it.userId = arguments!!.getString("id")
+        }
     }
 
     override fun loadData() {
-        ToastUtil.showToast("资料")
-
-        viewModel?.let {
-            binding.viewmodel=it
-        }
-
+        viewModel!!.getPersonData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
     }
 
 

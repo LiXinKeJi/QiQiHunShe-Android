@@ -32,7 +32,7 @@ class FuJinFragment : BaseFragment<FragmentFujinBinding, FuJinViewModel>() {
 
         tv_title.visibility = View.GONE
 
-        tv_right.text=""
+        tv_right.text = ""
         AbStrUtil.setDrawableLeft(activity!!, R.drawable.ic_screen, tv_right, 0)
         tv_right.setOnClickListener {
             ScreenPersonDialog.show(activity!!)

@@ -43,6 +43,7 @@ class FuJinInvitationFragment : BaseFragment<FragmentFujinInvitationBinding, FuJ
     }
 
     override fun loadData() {
+        viewModel?.getList()
     }
 
     override fun onClick(view: View?) {

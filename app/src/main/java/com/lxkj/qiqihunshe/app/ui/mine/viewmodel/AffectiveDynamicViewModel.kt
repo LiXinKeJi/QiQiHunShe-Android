@@ -41,7 +41,7 @@ class AffectiveDynamicViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putInt("flag", 1)
             bundle.putSerializable("bean", itemBean)
-            MyApplication.openActivity(fragment!!.context, MyDynamicActivity::class.java, bundle)
+            MyApplication.openActivityForResult(fragment!!.activity, MyDynamicActivity::class.java, bundle,0)
         }
     }
 

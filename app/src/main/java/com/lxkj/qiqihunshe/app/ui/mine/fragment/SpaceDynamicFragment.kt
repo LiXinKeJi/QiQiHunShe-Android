@@ -46,7 +46,8 @@ class SpaceDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceDyna
         refresh.setOnRefreshListener {
             viewModel?.let {
                 it.page = 1
-
+                it.getMyDynamic().bindLifeCycle(this)
+                    .subscribe({}, { toastFailure(it) })
             }
         }
 
@@ -81,7 +82,6 @@ class SpaceDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceDyna
             } else {
                 viewModel!!.removeItem(data.getIntExtra("position", -1))
             }
-
         }
 
     }

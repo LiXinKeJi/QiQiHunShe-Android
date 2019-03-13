@@ -67,7 +67,6 @@ class FuJInPersonViewModel:BaseViewModel() {
         }
 
         bind?.xRecyclerView?.adapter = adapter
-        getList()
     }
 
     //获取列表

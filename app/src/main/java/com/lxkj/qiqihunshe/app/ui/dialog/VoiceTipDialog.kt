@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import com.lxkj.qiqihunshe.R
-import com.lxkj.qiqihunshe.app.util.ToastUtil
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -25,7 +24,7 @@ object VoiceTipDialog {
     private var tv_play: TextView? = null
 
 
-    fun show(context: Activity, name: String,type: String) {
+    fun show(context: Activity, name: String, type: String, money: String) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -47,7 +46,7 @@ object VoiceTipDialog {
             diss()
         }
 
-        tv_tip?.text = "与${name}发起${type}通话需要XX元一分钟"
+        tv_tip?.text = "与${name}发起${type}通话需要${money}元一分钟"
 
         val dialogWindow = dialog!!.window
         dialogWindow.setWindowAnimations(R.style.dialogAnim)//淡入、淡出动画

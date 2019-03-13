@@ -10,29 +10,31 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.ui.fujin.fragment.FuJinInvitationFragment
 import com.lxkj.qiqihunshe.app.ui.fujin.fragment.SkillFragment
 import com.lxkj.qiqihunshe.app.ui.fujin.model.FuJinModel
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.FragmentFujinSkillBinding
+import kotlinx.android.synthetic.main.activity_personal_info.*
 import kotlinx.android.synthetic.main.fragment_fujin_skill.*
 import java.util.ArrayList
 
 /**
  * Created by kxn on 2019/3/7 0007.
  */
-class FuJinSkillViewModel : BaseViewModel(){
+class FuJinSkillViewModel : BaseViewModel() {
     var page = 1
     var totalPage = 1
     var bind: FragmentFujinSkillBinding? = null
-    val list = ArrayList<Fragment>()
-    var adapter : FragmentPagerAdapter ? = null
-    fun init(){
+    val list by lazy { ArrayList<Fragment>() }
+    var adapter: FragmentPagerAdapter? = null
+    fun init() {
         adapter = FragmentPagerAdapter(fragment!!.childFragmentManager, list)
         bind?.viewPager?.adapter = adapter
-        getNearbyCaiyi()
-        bind?.viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+
+        bind?.viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
             }
 
@@ -40,16 +42,16 @@ class FuJinSkillViewModel : BaseViewModel(){
             }
 
             override fun onPageSelected(p0: Int) {
-                    if (p0 == list.size - 1 && page < totalPage){
-                        totalPage++
-                        getNearbyCaiyi()
-                    }
+                if (p0 == list.size - 1 && page < totalPage) {
+                    totalPage++
+                    getNearbyCaiyi()
+                }
             }
         })
     }
 
-    fun getNearbyCaiyi(){
-        var params = HashMap<String,String>()
+    fun getNearbyCaiyi() {
+        var params = HashMap<String, String>()
         params["cmd"] = "nearbyCaiyi"
         params["uid"] = StaticUtil.uid
         params["lon"] = StaticUtil.lng
@@ -61,12 +63,14 @@ class FuJinSkillViewModel : BaseViewModel(){
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, FuJinModel::class.java)
                     totalPage = model.totalPage.toInt()
-                    for (i in 0..model.dataList.size) {
+                    for (model in model.dataList) {
                         var bundle = Bundle()
-                        bundle.putSerializable("model",model.dataList[i])
-                        list.add(Fragment.instantiate(activity, SkillFragment::class.java.name,bundle))
+                        bundle.putSerializable("model", model)
+                        val fragment = SkillFragment()
+                        fragment.arguments = bundle
+                        list.add(fragment)
                     }
-                   adapter?.notifyDataSetChanged()
+                    adapter?.notifyDataSetChanged()
                 }
             }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
             }, {

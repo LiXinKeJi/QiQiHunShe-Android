@@ -1,10 +1,12 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
@@ -12,8 +14,10 @@ import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.fujin.adapter.NearDynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.fujin.adapter.NearInvitationAdapter
+import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.DynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.DynamicModel
+import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -27,7 +31,7 @@ class FuJinDynamicViewModel : BaseViewModel() {
 
     var bind: ActivityXrecyclerviewBinding? = null
     var adapter: NearDynamicAdapter? = null
-    var list = ArrayList<DataListModel>()
+    var list = ArrayList<SpaceDynamicModel.dataModel>()
     var page = 1
     var totalPage = 1
 
@@ -55,16 +59,17 @@ class FuJinDynamicViewModel : BaseViewModel() {
         })
         adapter = NearDynamicAdapter(fragment?.context, list)
         adapter?.setOnItemClickListener {
-            ToastUtil.showTopSnackBar(fragment,it.toString())
+            val bundle = Bundle()
+            bundle.putSerializable("bean", list[it])
+            MyApplication.openActivity(fragment?.activity, MyDynamicActivity::class.java, bundle)
         }
 
         bind?.xRecyclerView?.adapter = adapter
-        getList()
     }
 
     //获取列表
-    fun getList(){
-        var params = HashMap<String,String>()
+    fun getList() {
+        var params = HashMap<String, String>()
         params["cmd"] = "nearbyDongtai"
         params["uid"] = StaticUtil.uid
         params["type"] = "0"
@@ -75,8 +80,8 @@ class FuJinDynamicViewModel : BaseViewModel() {
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    val model = Gson().fromJson(response, XxModel::class.java)
-                    totalPage = model.totalPage.toInt()
+                    val model = Gson().fromJson(response, SpaceDynamicModel::class.java)
+                    totalPage = model.totalPage
                     bind?.xRecyclerView?.refreshComplete()
                     bind?.xRecyclerView?.loadMoreComplete()
                     if (page == 1)

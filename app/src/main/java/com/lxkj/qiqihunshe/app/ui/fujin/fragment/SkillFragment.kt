@@ -1,27 +1,31 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.fragment
 
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.os.IBinder
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout
 import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
 import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.bindLifeCycle
+import com.lxkj.qiqihunshe.app.service.CallKitService
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.VoiceTipDialog
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.SkillViewModel
-import com.lxkj.qiqihunshe.app.util.GlideUtil
-import com.lxkj.qiqihunshe.app.util.StatusBarUtil
-import com.lxkj.qiqihunshe.app.util.StringUtil
-import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.FragmentSkillBinding
+import io.rong.callkit.RongCallKit
+import kotlinx.android.synthetic.main.activity_recharge.*
 import kotlinx.android.synthetic.main.fragment_skill.*
-import kotlinx.android.synthetic.main.item_image.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -29,26 +33,31 @@ import org.greenrobot.eventbus.Subscribe
  * Created by Slingge on 2019/3/2
  */
 class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View.OnClickListener,
-    BGARefreshLayout.BGARefreshLayoutDelegate {
+    BGARefreshLayout.BGARefreshLayoutDelegate, CallKitService.CallKitEndCallBack {
 
 
     var model: DataListModel? = null
-    var type = 0 //通话类型 0 语音 1 视频
+
 
     override fun getBaseViewModel() = SkillViewModel()
 
     override fun getLayoutId() = R.layout.fragment_skill
 
+    private var callService: CallKitService? = null
+    val intent by lazy { Intent(activity, CallKitService::class.java) }
+
+
     override fun init() {
 
-        var model = arguments?.getSerializable("model") as DataListModel
+        model = arguments?.getSerializable("model") as DataListModel
         viewModel?.model = model
 
+
         //视频封面图
-        GlideUtil.glideLoad(context,model?.image,jc_video?.thumbImageView)
+        GlideUtil.glideLoad(context, model?.image, jc_video?.thumbImageView)
         //用户头像
-        GlideUtil.glideLoad(context,model?.icon,iv_header)
-        tv_playnum?.text= "播放量：" + model?.count
+        GlideUtil.glideLoad(context, model?.icon, iv_header)
+        tv_playnum?.text = "播放量：" + model?.count
         tv_time.text = model?.adtime
         tv_name.text = model?.title
         tv_address.text = model?.location
@@ -73,12 +82,8 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         viewModel?.let {
             it.bind = binding
             it.initViewModel()
+            it.getBannel().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
-
-
-        bgRefreshLayout.setPullDownRefreshEnable(false)
-        bgRefreshLayout.setDelegate(this)
-        bgRefreshLayout.setRefreshViewHolder(BGANormalRefreshViewHolder(context, true))
 
     }
 
@@ -91,26 +96,25 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.iv_voice -> {
-                type = 0
-                VoiceTipDialog.show(activity!!, model!!.userName, "语音")
+                viewModel?.type = 1
+                VoiceTipDialog.show(activity!!, model!!.userName, "语音", model!!.voice)
             }
             R.id.iv_video -> {
-                type = 1
-                VoiceTipDialog.show(activity!!, model!!.userName, "视频")
+                viewModel?.type = 2
+                VoiceTipDialog.show(activity!!, model!!.userName, "视频", model!!.video)
             }
             R.id.iv_dashang -> {
-                DaShangDialog.show(activity!!,object :DaShangDialog.DaShangCallBack{
+                DaShangDialog.show(activity!!, object : DaShangDialog.DaShangCallBack {
                     override fun dashang(money: String) {
-
+                        viewModel!!.dashang(money).bindLifeCycle(this@SkillFragment).subscribe({}, { toastFailure(it) })
                     }
-
                 })
             }
             R.id.iv_send -> {
                 if (StringUtil.isEmpty(et_comment.text.toString())) {
                     ToastUtil.showTopSnackBar(activity, "请输入评论内容！")
                 } else
-                   viewModel?.addCaiyiComment(et_comment.text.toString())
+                    viewModel?.addCaiyiComment(et_comment.text.toString())
             }
         }
     }
@@ -133,16 +137,65 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
     @Subscribe
     fun onEvent(next: String) {
         if (next == "next") {
-            when (type) {
-                0 -> {
-                    ToastUtil.showTopSnackBar(this, "语音通话")
+            when (viewModel?.type) {
+                1 -> {//音频通话
+                    viewModel?.let {
+                        abLog.e("费用", StaticUtil.amount + ",,,," + model!!.voice)
+                        if (StaticUtil.amount.toDouble() < model!!.voice.toDouble()) {
+                            ToastUtil.showTopSnackBar(activity, "余额不足")
+                            return
+                        }
+                        it.money = it.model!!.voice
+                        openService()
+                    }
+                    RongCallKit.startSingleCall(
+                        activity, model!!.userId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO
+                    )
                 }
-                1 -> {
-                    ToastUtil.showTopSnackBar(this, "视频通话")
+                2 -> {//视频通话
+                    viewModel?.let {
+                        if (StaticUtil.amount.toDouble() < model!!.video.toDouble()) {
+                            ToastUtil.showTopSnackBar(activity, "余额不足")
+                            return
+                        }
+                        it.money = it.model!!.video
+                        openService()
+                    }
+                    RongCallKit.startSingleCall(
+                        activity, model!!.userId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO
+                    )
                 }
             }
-
         }
+    }
+
+    fun openService() {
+        if (viewModel?.type == 1) {//音频
+            intent.putExtra("price", model!!.voice)
+        } else {
+            intent.putExtra("price", model!!.video)
+        }
+        activity!!.bindService(intent, locationConnection, Context.BIND_AUTO_CREATE)
+        activity!!.startService(intent)
+    }
+
+    override fun callEnd(minute: String, adtime: String) {
+        val json = "{\"cmd\":\"changefee\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + model?.userId +
+                "\",\"price\":\"" + viewModel?.money + "\",\"minute\":\"" + minute + "\",\"type\":\"" + viewModel?.type +
+                "\",\"adtime\":\"" + adtime + "\"}"
+        abLog.e("通话", json)
+        viewModel?.changefee(json)!!.bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+    }
+
+
+    private val locationConnection = object : ServiceConnection {
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            val binder = service as CallKitService.Binder
+            callService = binder.service
+            callService?.sCallKitEndCallBac(this@SkillFragment)
+        }
+
+        override fun onServiceDisconnected(className: ComponentName) {}
     }
 
 
@@ -155,6 +208,7 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         super.onDestroy()
         EventBus.getDefault().unregister(this)
         VoiceTipDialog.diss()
+        activity!!.stopService(intent)
     }
 
     override fun onBGARefreshLayoutBeginLoadingMore(refreshLayout: BGARefreshLayout?): Boolean {

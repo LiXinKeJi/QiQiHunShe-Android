@@ -1,14 +1,9 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.fragment
 
-import android.support.v4.app.Fragment
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.FuJinSkillViewModel
-import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.SkillViewModel
-import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
 import com.lxkj.qiqihunshe.databinding.FragmentFujinSkillBinding
-import kotlinx.android.synthetic.main.fragment_fujin_skill.*
-import java.util.ArrayList
 
 
 /**
@@ -31,7 +26,7 @@ class FuJinSkillFragment : BaseFragment<FragmentFujinSkillBinding, FuJinSkillVie
 
 
     override fun loadData() {
-
+        viewModel?.getNearbyCaiyi()
     }
 
 

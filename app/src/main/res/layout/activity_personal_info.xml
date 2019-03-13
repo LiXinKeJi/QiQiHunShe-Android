@@ -57,13 +57,14 @@
                                    android:padding="12dp"
                                    android:layout_below="@+id/view_staus"/>
 
+
                         <ImageView android:layout_width="wrap_content"
                                    android:layout_height="wrap_content"
                                    android:id="@+id/iv_edit"
-                                   android:layout_below="@+id/view_staus"
                                    android:src="@drawable/ic_edit2"
                                    android:layout_alignParentRight="true"
                                    android:padding="12dp"
+                                   android:layout_below="@+id/view_staus"
                         />
 
                         <TextView android:layout_width="match_parent" android:layout_height="38dp"
@@ -102,7 +103,7 @@
                                   android:id="@+id/tv_name"
                                   android:textSize="18sp"
                                   android:textColor="@color/black"
-                                  android:text="洛克贝尔"
+                                  android:text="@{model.nickname}"
                                   android:layout_below="@+id/banner"
                                   android:layout_marginLeft="15dp"
                                   android:layout_marginTop="12dp"
@@ -119,7 +120,7 @@
 
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tv_age"
-                                  android:text="19"
+                                  android:text="@{model.age}"
                                   android:textColor="@color/white"
                                   android:background="@drawable/bg_girl"
                                   android:layout_toRightOf="@+id/tv_name"
@@ -135,8 +136,8 @@
 
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tv_distance"
-                                  android:text="1km"
-                                  android:drawableLeft="@drawable/ic_back"
+                                  android:text="@{model.distance}"
+                                  android:drawableLeft="@drawable/ic_address"
                                   android:layout_below="@+id/tv_name"
                                   android:drawablePadding="5dp"
                                   android:layout_marginLeft="15dp"
@@ -146,7 +147,7 @@
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tv_reputation"
                                   android:background="@drawable/thems_bg35"
-                                  android:text="信誉值：0"
+                                  android:text="@{`信誉值：`+model.credit}"
                                   android:textSize="11sp"
                                   android:textColor="@color/colorTheme"
                                   android:layout_below="@+id/tv_distance"
@@ -158,10 +159,11 @@
                                   android:paddingRight="10dp"
                         />
 
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+                        <TextView android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
                                   android:id="@+id/tv_feel"
                                   android:background="@drawable/thems_bg35"
-                                  android:text="言礼值：0"
                                   android:textSize="11sp"
                                   android:layout_toRightOf="@+id/tv_reputation"
                                   android:textColor="@color/colorTheme"
@@ -177,7 +179,7 @@
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tv_security"
                                   android:background="@drawable/thems_bg35"
-                                  android:text="综合安全值：0"
+                                  android:text="@{`综合安全值：`+model.safe}"
                                   android:textSize="11sp"
                                   android:layout_toRightOf="@+id/tv_feel"
                                   android:textColor="@color/colorTheme"
@@ -190,21 +192,28 @@
                                   android:paddingRight="10dp"
                         />
 
-                        <com.lxkj.qiqihunshe.app.customview.CustomShapTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/tv_fllow"
-                                android:drawableTop="@drawable/ic_xin"
-                                android:text="0"
-                                android:gravity="center_horizontal"
+                        <android.support.v7.widget.CardView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                app:cardCornerRadius="60dp"
+                                app:cardElevation="2dp"
                                 android:layout_below="@+id/banner"
                                 android:layout_alignParentRight="true"
-                                app:paintNormalColor="@color/gray"
-                                app:paintSelectColor="@color/blue"
-                                android:layout_marginTop="20dp"
-                                android:padding="10dp"
+                                android:layout_marginTop="12dp"
                                 android:layout_marginRight="5dp"
-                        />
+                        >
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/tv_fllow"
+                                    android:drawableTop="@drawable/ic_xin"
+                                    android:drawablePadding="5dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="喜欢"
+                            />
+                        </android.support.v7.widget.CardView>
+
 
                         <include layout="@layout/include_line07"
                                  android:id="@+id/line"

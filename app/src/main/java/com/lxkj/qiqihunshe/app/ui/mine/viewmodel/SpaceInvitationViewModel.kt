@@ -12,8 +12,6 @@ import com.lxkj.qiqihunshe.app.ui.mine.activity.MyInvitationDetailsActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.SpaceInvitationAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceInvitationModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
-import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import io.reactivex.Single
 

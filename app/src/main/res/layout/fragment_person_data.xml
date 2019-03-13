@@ -3,17 +3,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable name="model" type="com.lxkj.qiqihunshe.app.ui.mine.model.PersonDataModel"/>
         <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonDataViewModel"/>
 
     </data>
 
-    <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
-                                                android:layout_height="wrap_content">
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="vertical"
+                android:id="@+id/ll_main"
         >
 
 
@@ -45,7 +48,7 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_account"
-                      android:text="七七账号:"
+                      android:text="@{`七七账号：`+model.account}"
                       android:layout_marginLeft="15dp"
                       android:layout_marginTop="10dp"
                       android:textSize="13sp"
@@ -54,7 +57,7 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_data"
-                      android:text="注册日期:"
+                      android:text="@{`注册日期：`+model.adtime}"
                       android:layout_marginLeft="15dp"
                       android:layout_marginTop="10dp"
                       android:textSize="13sp"
@@ -74,7 +77,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_plan"
-                          android:text="情感计划:"
+                          android:text="@{`情感计划：`+model.plan}"
                           android:textSize="13sp"
                           android:textColor="@color/colorTabText"
                           android:layout_toRightOf="@+id/info"
@@ -83,7 +86,7 @@
                 />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_hometown"
-                          android:text="家乡："
+                          android:text="@{`家乡：`+model.birthplace}"
                           android:textSize="13sp"
                           android:textColor="@color/colorTabText"
                           android:layout_below="@+id/info"
@@ -92,7 +95,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_current"
-                          android:text="现居："
+                          android:text="@{`现居：`+model.residence}"
                           android:textSize="13sp"
                           android:layout_toRightOf="@+id/tv_hometown"
                           android:layout_marginLeft="18dp"
@@ -103,7 +106,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_nation"
-                          android:text="民族："
+                          android:text="@{`民族：`+model.nation}"
                           android:textSize="13sp"
                           android:layout_toRightOf="@+id/tv_current"
                           android:layout_marginLeft="18dp"
@@ -114,7 +117,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_age"
-                          android:text="年龄："
+                          android:text="@{`年龄：`+model.age}"
                           android:textSize="13sp"
                           android:textColor="@color/colorTabText"
                           android:layout_below="@+id/tv_hometown"
@@ -122,7 +125,7 @@
                 />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_occupation"
-                          android:text="职业："
+                          android:text="@{`职业：`+model.job}"
                           android:textSize="13sp"
                           android:layout_toRightOf="@+id/tv_age"
                           android:layout_marginLeft="18dp"
@@ -142,7 +145,7 @@
                 />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_height"
-                          android:text="身高："
+                          android:text="@{`身高：`+model.height}"
                           android:textSize="13sp"
                           android:textColor="@color/colorTabText"
                           android:layout_below="@+id/tv_age"
@@ -151,7 +154,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_type"
-                          android:text="类型："
+                          android:text="@{`类型：`+model.type}"
                           android:textSize="13sp"
                           android:layout_marginLeft="18dp"
                           android:layout_toRightOf="@+id/tv_height"
@@ -178,7 +181,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_tv_education"
-                          android:text="学历："
+                          android:text="@{`学历：`+model.education}"
                           android:textSize="13sp"
                           android:textColor="@color/colorTabText"
                           android:layout_below="@+id/economics"
@@ -187,7 +190,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_salary"
-                          android:text="月薪："
+                          android:text="@{`月薪：`+model.salary}"
                           android:textSize="13sp"
                           android:layout_toRightOf="@+id/tv_tv_education"
                           android:layout_marginLeft="18dp"
@@ -198,7 +201,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_car"
-                          android:text="车："
+                          android:text="@{`车：`+model.car}"
                           android:textSize="13sp"
                           android:layout_toRightOf="@+id/tv_salary"
                           android:layout_marginLeft="18dp"
@@ -209,7 +212,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_room"
-                          android:text="房："
+                          android:text="@{`房：`+model.house}"
                           android:textSize="13sp"
                           android:textColor="@color/colorTabText"
                           android:layout_below="@+id/tv_tv_education"
@@ -230,7 +233,7 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:id="@+id/tv_signature"
-                      android:text="个人签名"
+                      android:text="@{`个人签名：`+model.introduction}"
                       android:textSize="13sp"
                       android:layout_marginLeft="15dp"
                       android:layout_marginRight="15dp"
@@ -284,10 +287,12 @@
                     android:layout_marginTop="15dp"
             />
 
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_accord"
-                          android:text="相符："
+                          android:text="@{`相符：`+model.match}"
                           android:textSize="13sp"
                           android:layout_marginLeft="15dp"
                           android:layout_marginRight="15dp"
@@ -297,7 +302,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_impression"
-                          android:text="印象："
+                          android:text="@{`印象：`+model.impression}"
                           android:layout_toRightOf="@+id/tv_accord"
                           android:textSize="13sp"
                           android:layout_marginLeft="15dp"
@@ -308,7 +313,7 @@
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_num"
-                          android:text="评分人数："
+                          android:text="@{`评分人数：`+model.count}"
                           android:layout_toRightOf="@+id/tv_impression"
                           android:textSize="13sp"
                           android:layout_marginLeft="15dp"

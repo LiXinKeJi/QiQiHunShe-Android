@@ -23,6 +23,7 @@ class FuJInPersonFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJInPers
     override fun getLayoutId() = R.layout.activity_xrecyclerview
 
     override fun init() {
+        include.visibility = View.GONE
         EventBus.getDefault().register(this)
         viewModel?.let {
             it.bind = binding
@@ -31,7 +32,7 @@ class FuJInPersonFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJInPers
     }
 
     override fun loadData() {
-        include.visibility = View.GONE
+        viewModel?.getList()
     }
 
     @Subscribe

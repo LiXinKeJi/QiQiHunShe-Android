@@ -6,19 +6,12 @@
         <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationFragmentViewModel"/>
     </data>
 
-    <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
-                                                android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_dynamic"
-                android:nestedScrollingEnabled="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_dynamic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-
-        </android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.NestedScrollView>
 
 </layout>
 
