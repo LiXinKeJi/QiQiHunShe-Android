@@ -12,9 +12,9 @@ import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
-import com.lxkj.qiqihunshe.app.retrofitnet.BaseNetProvider;
-import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil;
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil;
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.message.CustomizeMessage;
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.message.CustomizeMessageItemProvider;
 import com.lxkj.qiqihunshe.app.util.StaticUtil;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
 import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil;
@@ -23,9 +23,6 @@ import com.orhanobut.logger.Logger;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
-import io.rong.calllib.IRongReceivedCallListener;
-import io.rong.calllib.RongCallClient;
-import io.rong.calllib.RongCallSession;
 import io.rong.imkit.RongIM;
 
 /**
@@ -88,6 +85,8 @@ public class MyApplication extends MultiDexApplication {
 
 
         RongIM.init(this, "3argexb63qm0e");
+        RongIM.registerMessageType(CustomizeMessage.class);//注册自定义消息
+//        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider());
 
         if (!TextUtils.isEmpty(StaticUtil.INSTANCE.getRytoken())) {
             RongYunUtil.INSTANCE.initService();

@@ -177,4 +177,5 @@ dependencies {
     implementation project(':IMLib')
     implementation project(':RCSticker')
     implementation project(':Sight')
+    implementation project(':lfilepickerlibrary')
 }

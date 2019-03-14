@@ -19,7 +19,6 @@ class WebViewViewModel : BaseViewModel() {
     fun setUrl(url:String) {
         webView = bind!!.mywebview.webView
         initWebViewSettings()
-
         webView?.loadUrl(url)
     }
 

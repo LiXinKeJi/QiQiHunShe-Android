@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.retrofitnet
 
-import com.google.gson.GsonBuilder
 import com.lxkj.qiqihunshe.app.MyApplication
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,12 +7,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.io.File
-import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
 /**
@@ -22,9 +15,9 @@ import java.util.concurrent.TimeUnit
 object RetrofitUtil {
 
 
-    private val url = "http://192.168.3.2:8090/77hunshe/api/"
+    val url = "http://192.168.3.2:8090/77hunshe/"
 
-    val upLoad = "http://192.168.3.2:8090/77hunshe/api/uploadFile"
+    val upLoad =url+ "api/uploadFile"
 
 
     fun getClient(): OkHttpClient {
@@ -52,10 +45,6 @@ object RetrofitUtil {
             .build()
         return retrofit
     }
-
-
-
-
 
 
 }

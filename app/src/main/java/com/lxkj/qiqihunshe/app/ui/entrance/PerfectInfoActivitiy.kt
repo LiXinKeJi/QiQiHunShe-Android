@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.text.TextUtils
 import android.view.View
+import android.view.WindowManager
 import android.widget.RadioGroup
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
@@ -16,6 +17,7 @@ import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.customview.SwitchView
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.PerfectInfoViewModel
 import com.lxkj.qiqihunshe.app.util.*
@@ -44,6 +46,9 @@ class PerfectInfoActivitiy :
 
 
     override fun init() {
+        this.window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        )
         initTitle("完善资料")
 
         tv_right.visibility = View.VISIBLE
@@ -63,8 +68,12 @@ class PerfectInfoActivitiy :
             binding.model = it.model
             it.birthplace2.set("请选择")
             it.residence2.set("请选择")
-        }
 
+            if (intent.getIntExtra("flag", -1) == 0) {
+                it.getData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            }
+
+        }
 
         rg_sex.setOnCheckedChangeListener(this)
         rl_birthday.setOnClickListener(this)
@@ -146,11 +155,11 @@ class PerfectInfoActivitiy :
             R.id.rl_he_room -> {//他的房
                 viewModel?.getHeRoom()
             }
-            R.id.rl_he_education -> {//他的学历
-                viewModel?.getEdu()
-            }
-            R.id.tv_agree -> {
+            R.id.rl_he_education -> {////他的学历
                 viewModel?.showHeEdu()
+            }
+            R.id.tv_agree -> {//服务协议
+
             }
             R.id.rl_header -> {
                 ImageList.clear()
@@ -227,22 +236,56 @@ class PerfectInfoActivitiy :
                     ToastUtil.showTopSnackBar(this, "请选择我的类型")
                     return
                 }
-                if (TextUtils.isEmpty(viewModel?.model?.interest)) {
+                if (TextUtils.isEmpty(viewModel?.model?.interests)) {
                     ToastUtil.showTopSnackBar(this, "请选择兴趣爱好")
                     return
                 }
-                if (TextUtils.isEmpty(viewModel?.model?.locale)) {
+                if (TextUtils.isEmpty(viewModel?.model?.locales)) {
                     ToastUtil.showTopSnackBar(this, "请选择地点标签")
                     return
                 }
 
                 if (sw_mate.isOpened) {
-                    if (TextUtils.isEmpty(viewModel?.model?.locale)) {
-                        ToastUtil.showTopSnackBar(this, "请选择地点标签")
+                    if (TextUtils.isEmpty(viewModel?.model?.type2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶类型")
                         return
                     }
-
-
+                    if (TextUtils.isEmpty(viewModel?.model?.birthplace2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶家乡")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel?.model?.residence2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶现居")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel?.model?.height2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶身高")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel?.model?.marriage2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶情感状态")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel?.model?.plan2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶情感计划")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel?.model?.salary2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶薪资范围")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel?.model?.car2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶车辆")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel?.model?.house2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶情房子")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel?.model?.education2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择择偶学历")
+                        return
+                    }
                 }
 
 
@@ -252,7 +295,6 @@ class PerfectInfoActivitiy :
                     pathList.add(ImageList[i].path)
                 }
                 upload.setListPath(pathList)
-
             }
         }
     }
@@ -306,13 +348,13 @@ class PerfectInfoActivitiy :
             }
             2 -> {//兴趣爱好
                 abLog.e("兴趣爱好", data.getStringExtra("lable"))
-                viewModel!!.model.interest = data.getStringExtra("lable")
-                tv_hobby.text = viewModel!!.model.interest
+                viewModel!!.model.interests = data.getStringExtra("lable")
+                tv_hobby.text = viewModel!!.model.interests
             }
             3 -> {//地点标签
                 abLog.e("地点标签", data.getStringExtra("lable"))
-                viewModel!!.model.locale = data.getStringExtra("lable")
-                tv_label.text = viewModel!!.model.locale
+                viewModel!!.model.locales = data.getStringExtra("lable")
+                tv_label.text = viewModel!!.model.locales
             }
             4 -> {//他的类型
                 abLog.e("他的类型", data.getStringExtra("lable"))
@@ -334,8 +376,8 @@ class PerfectInfoActivitiy :
             sb.append(url[i] + "|")
         }
 
-        viewModel!!.model.icon = sb.toString().substring(0, sb.toString().length - 1)
-
+        viewModel!!.model.icons = sb.toString().substring(0, sb.toString().length - 1)
+        viewModel!!.saveData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
     }
 
 

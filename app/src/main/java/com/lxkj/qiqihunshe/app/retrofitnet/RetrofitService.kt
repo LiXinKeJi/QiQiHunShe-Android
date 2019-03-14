@@ -10,7 +10,7 @@ import retrofit2.http.POST
  */
 interface RetrofitService {
 
-    @POST("service")
+    @POST("api/service")
     fun getData(@Query("json") json: String): Single<String>
 
 

@@ -69,7 +69,9 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 viewModel?.selectState()
             }
             R.id.tv_editInfo -> {//完善资料
-                MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java)
+                val bundle=Bundle()
+                bundle.putInt("flag",0)
+                MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java,bundle)
             }
             R.id.tv_authent -> {//实名认证
                 MyApplication.openActivity(activity, RealNameAuthenActivity::class.java)

@@ -10,6 +10,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.model.RealNameAuthenModel
 import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
+import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/2/20
@@ -38,41 +39,15 @@ class RealNameAuthenViewModel : BaseViewModel(), UpLoadFileCallBack {
     }
 
     @SuppressLint("CheckResult")
-    fun UpData() {
-        if (TextUtils.isEmpty(model.video)) {
-            ToastUtil.showTopSnackBar(activity, "请选择3秒短视频")
-            return
-        }
-        if (TextUtils.isEmpty(model.idnumber)) {
-            ToastUtil.showTopSnackBar(activity, "请选择身份证照")
-            return
-        }
-        if (TextUtils.isEmpty(model.car)) {
-            ToastUtil.showTopSnackBar(activity, "请选择驾驶证照")
-            return
-        }
-        if (TextUtils.isEmpty(model.house)) {
-            ToastUtil.showTopSnackBar(activity, "请选择房产证照")
-            return
-        }
-        if (TextUtils.isEmpty(model.salary)) {
-            ToastUtil.showTopSnackBar(activity, "请选择工作证照")
-            return
-        }
-        if (TextUtils.isEmpty(model.education)) {
-            ToastUtil.showTopSnackBar(activity, "请选择学历证书")
-            return
-        }
-
-
-        retrofit.getData(Gson().toJson(model)).async()
+    fun UpData(): Single<String> {
+        abLog.e("实名认证", Gson().toJson(model))
+        return retrofit.getData(Gson().toJson(model)).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     ToastUtil.showTopSnackBar(activity, "提交成功")
                     activity?.finish()
                 }
             }, activity))
-            .subscribe({}, { toastFailure(it) })
 
     }
 

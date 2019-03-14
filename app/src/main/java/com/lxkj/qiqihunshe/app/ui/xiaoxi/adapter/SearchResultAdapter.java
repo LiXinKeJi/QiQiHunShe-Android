@@ -44,22 +44,17 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_lookup_result, parent, false);
-
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.ivHeader);
-        if (null != list.get(position).getAge())
-            holder.tvAge.setText(list.get(position).getAge());
-        else
-            holder.tvAge.setText("");
 
-        if (null != list.get(position).getRealname())
-            holder.tvName.setText(list.get(position).getRealname());
-        else
-            holder.tvName.setText("");
+        holder.tvAge.setText(list.get(position).getAge());
+
+        holder.tvName.setText(list.get(position).getRealname());
+
         if (null != list.get(position).getJob())
             holder.tvZhiye.setText("职业：" + list.get(position).getJob());
         if (null != list.get(position).getPlan())

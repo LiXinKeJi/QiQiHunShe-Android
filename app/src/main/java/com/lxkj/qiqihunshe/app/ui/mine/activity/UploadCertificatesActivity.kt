@@ -85,7 +85,11 @@ class UploadCertificatesActivity :
                         return
                     }
                     if (TextUtils.isEmpty(viewModel!!.url1) || TextUtils.isEmpty(viewModel!!.url1)) {
-                        ToastUtil.showTopSnackBar(this, "请选择身份证照")
+                        ToastUtil.showTopSnackBar(this, "请选择身份人像面")
+                        return
+                    }
+                    if (TextUtils.isEmpty(viewModel!!.url1) || TextUtils.isEmpty(viewModel!!.url2)) {
+                        ToastUtil.showTopSnackBar(this, "请选择身份证国徽面")
                         return
                     }
                 } else {

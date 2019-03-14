@@ -1,6 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
 import android.content.Intent
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.lxkj.qiqihunshe.R
@@ -78,7 +79,12 @@ class MyTypeViewModel : BaseViewModel() {
         }
 
         val intetent = Intent()
-        intetent.putExtra("lable", sb.toString().substring(0, sb.toString().length - 1))
+        if (TextUtils.isEmpty(sb.toString())) {
+            intetent.putExtra("lable", "")
+        } else {
+            intetent.putExtra("lable", sb.toString().substring(0, sb.toString().length - 1))
+        }
+
         activity?.let {
             it.setResult(0, intetent)
             it.finish()

@@ -57,7 +57,7 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_address -> {
-                MyApplication.openActivityForResult(this, ChooseAddressActivity::class.java, 0)
+                MyApplication.openActivityForResult(this, ChooseAddressActivity::class.java, 1)
             }
             R.id.tv_send -> {
                 viewModel?.let {
@@ -125,7 +125,7 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
             }
         }
 
-        if (requestCode == 0 && resultCode == 1) {
+        if (requestCode == 1) {
             var poi = data.getParcelableExtra("poi") as PoiInfo
             if (null != poi) {
                 binding.model?.lat = poi.location.latitude.toString()

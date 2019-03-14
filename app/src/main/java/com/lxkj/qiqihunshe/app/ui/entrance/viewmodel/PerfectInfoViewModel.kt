@@ -10,15 +10,22 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.GetTagUtil
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.dialog.AddressPop
 import com.lxkj.qiqihunshe.app.ui.dialog.DateBirthdayPop
 import com.lxkj.qiqihunshe.app.ui.dialog.StringSelectPop
 import com.lxkj.qiqihunshe.app.ui.entrance.MyTypeActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.model.PerfectInfoModel
+import com.lxkj.qiqihunshe.app.ui.mine.model.PersonalInfoModel
 import com.lxkj.qiqihunshe.app.ui.model.CityModel
 import com.lxkj.qiqihunshe.app.util.AppJsonFileReader
+import com.lxkj.qiqihunshe.app.util.GlideUtil
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPerfectInfoBinding
+import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/2/19
@@ -29,7 +36,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
 
     var bind: ActivityPerfectInfoBinding? = null
 
-    val model by lazy { PerfectInfoModel() }
+    var model = PerfectInfoModel()
 
     private var dateBirthdayPop: DateBirthdayPop? = null
     private var addressPop: AddressPop? = null
@@ -42,7 +49,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
     val residence2 = ObservableField<String>()//ta的现居
 
 
-    private var SelectString = -1//0民族，1学历,2我的情感状态,3我的情感计划，4他的情感状态,5他的情感计划，6他的薪资范围
+    private var SelectString = -1//0民族，1学历,2我的情感状态,3我的情感计划，4他的情感状态,5他的情感计划，6他的薪资范围，9他的学历
 
     private var stringPop: StringSelectPop? = null
     private var nationList: ArrayList<String>? = null
@@ -320,7 +327,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                     MyTypeList.addAll(tagList)
                     val bundle = Bundle()
                     bundle.putStringArrayList("list", MyTypeList)
-                    bundle.putInt("flag",1)
+                    bundle.putInt("flag", 1)
                     MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 1)
                 }
             }).getTag(model.sex, "2")
@@ -358,7 +365,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
         if (labelList.isEmpty()) {
             GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
                 override fun TagList(tagList: ArrayList<String>) {
-                    hobbyList.addAll(tagList)
+                    labelList.addAll(tagList)
                     val bundle = Bundle()
                     bundle.putStringArrayList("list", labelList)
                     bundle.putInt("flag", 3)
@@ -434,8 +441,8 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
             GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
                 override fun TagList(tagList: ArrayList<String>) {
                     HeRoomList.addAll(tagList)
-                    if(HeRoomList.isEmpty()){
-                        ToastUtil.showTopSnackBar(activity,"暂无分类")
+                    if (HeRoomList.isEmpty()) {
+                        ToastUtil.showTopSnackBar(activity, "暂无分类")
                         return
                     }
                     SelectString = 8
@@ -446,6 +453,109 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
             SelectString = 8
             showStringWheel(HeRoomList)
         }
+    }
+
+
+    fun saveData(): Single<String> {
+        return retrofit.getData(Gson().toJson(model)).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    ToastUtil.showToast("保存成功")
+                    activity?.finish()
+                }
+            }, activity))
+    }
+
+    fun getData(): Single<String> {
+        val json = "{\"cmd\":\"userData\",\"userId\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    model = Gson().fromJson(response, PerfectInfoModel::class.java)
+                    bind?.let {
+
+                        if (model.icon.isNotEmpty()) {
+                            GlideUtil.glideHeaderLoad(activity, model.icon[0], it.ivHeader)
+                        }
+
+                        if (model.sex == "0") {
+                            it.rbGirl.isChecked = true
+                        } else if (model.sex == "1") {
+                            it.rbBoy.isChecked = true
+                        }
+
+                        if (model.marriage == "0") {// 情感状态 0未婚 1已婚 2离异
+                            it.tvEmotionalState.text = "未婚"
+                        } else if (model.marriage == "1") {
+                            it.tvEmotionalState.text = "已婚"
+                        } else {
+                            it.tvEmotionalState.text = "离异"
+                        }
+
+                        var sb = StringBuffer()
+                        for (str in model.interest) {
+                            sb.append("$str,")
+                        }
+                        if (!TextUtils.isEmpty(sb.toString())) {
+                            it.tvHobby.text = sb.toString().substring(0, sb.toString().length - 1)
+                        }
+
+
+                        sb = StringBuffer()
+                        for (str in model.locale) {
+                            sb.append("$str,")
+                        }
+                        if (!TextUtils.isEmpty(sb.toString())) {
+                            it.tvLabel.text = sb.toString().substring(0, sb.toString().length - 1)
+                        }
+
+                        if (!TextUtils.isEmpty(model.zeou_height)) {
+                            it.swMate.isOpened = true
+                        }
+
+                        it.tvHeType.text = model.zeou_type
+                        model.type2 = model.zeou_type
+
+                        it.tvHeHometown.text = model.zeou_birthplace
+                        model.birthplace2 = model.zeou_birthplace
+
+                        it.tvHeResidence.text = model.zeou_residence
+                        model.residence2 = model.zeou_residence
+
+                        it.etHeHeight.setText(model.zeou_height)
+                        model.height2 = model.zeou_height
+
+                        if (model.zeou_marriage == "0") {// 情感状态 0未婚 1已婚 2离异（择偶条件）
+                            it.tvHeEmotionalState.text = "未婚"
+                        } else if (model.zeou_marriage == "1") {
+                            it.tvHeEmotionalState.text = "已婚"
+                        } else if (model.zeou_marriage == "2") {
+                            it.tvHeEmotionalState.text = "离异"
+                        }
+                        model.marriage2 = model.zeou_marriage
+
+                        it.tvHeEmotionalPlanning.text = model.zeou_plan
+                        model.plan2 = model.zeou_plan
+
+                        it.tvHeSalary.text = model.zeou_salary
+                        model.salary2 = model.zeou_salary
+
+                        it.tvHeCar.text = model.zeou_car
+                        model.car2 = model.zeou_car
+
+                        it.tvHeRoom.text = model.zeou_house
+                        model.house2 = model.zeou_house
+
+
+                        it.tvHeEducation.text = model.zeou_education
+                        model.education2 = model.zeou_education
+
+
+                        it.model = model
+                    }
+
+                }
+            }, activity))
     }
 
 }

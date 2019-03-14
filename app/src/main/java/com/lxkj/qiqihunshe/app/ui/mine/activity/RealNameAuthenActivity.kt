@@ -7,17 +7,20 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.RealNameAuthenViewModel
 import com.lxkj.qiqihunshe.app.util.ImageUtil
 import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
 import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRealnameAuthenBinding
 import kotlinx.android.synthetic.main.activity_realname_authen.*
 import kotlinx.android.synthetic.main.include_title.*
@@ -50,7 +53,37 @@ class RealNameAuthenActivity : BaseActivity<ActivityRealnameAuthenBinding, RealN
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_right -> {
-                viewModel?.UpData()
+                viewModel!!.model.let {
+                    if (TextUtils.isEmpty(it.video)) {
+                        ToastUtil.showTopSnackBar(this, "请选择3秒短视频")
+                        return
+                    }
+                    if (TextUtils.isEmpty(it.idnumber)) {
+                        ToastUtil.showTopSnackBar(this, "请选择身份证照")
+                        return
+                    }
+                    if (TextUtils.isEmpty(it.car)) {
+                        ToastUtil.showTopSnackBar(this, "请选择驾驶证照")
+                        return
+                    }
+                    if (TextUtils.isEmpty(it.house)) {
+                        ToastUtil.showTopSnackBar(this, "请选择房产证照")
+                        return
+                    }
+                    if (TextUtils.isEmpty(it.salary)) {
+                        ToastUtil.showTopSnackBar(this, "请选择工作证照")
+                        return
+                    }
+                    if (TextUtils.isEmpty(it.education)) {
+                        ToastUtil.showTopSnackBar(this, "请选择学历证书")
+                        return
+                    }
+                    if (tv6.text.toString() != "已认证") {
+                        ToastUtil.showTopSnackBar(this, "请回答认证")
+                        return
+                    }
+                }
+                viewModel!!.UpData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
             R.id.iv_video -> {
                 SelectPictureUtil.selectVodeo3(this, 1, 6)
@@ -121,7 +154,7 @@ class RealNameAuthenActivity : BaseActivity<ActivityRealnameAuthenBinding, RealN
             }
             5 -> {//问答
                 viewModel!!.Questions = true
-                tv6.text = "已回答"
+                tv6.text = "已认证"
             }
             6 -> {
                 if (PictureSelector.obtainMultipleResult(data).isNotEmpty()) {

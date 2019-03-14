@@ -12,16 +12,10 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.AddFriendActivity
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.LookupResultActivity
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.LookupResultAdapter
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.NewFriendAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.SearchResultAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.LookResultModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
-import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityLookupResultBinding
-import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/3/1
@@ -72,7 +66,7 @@ class LookupResultViewModel : BaseViewModel() {
                 }
             }
         })
-        adapter = SearchResultAdapter(fragment?.context, list)
+        adapter = SearchResultAdapter(activity, list)
 
         adapter?.setOnAddListener {
             doPositon = it
@@ -99,9 +93,8 @@ class LookupResultViewModel : BaseViewModel() {
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, XxModel::class.java)
-                    totalPage = model.totalPage.toInt()
                     bind?.xRecyclerView?.refreshComplete()
-                    bind?.xRecyclerView?.loadMoreComplete()
+                    bind?.xRecyclerView?.setLoadingMoreEnabled(false)
                     if (page == 1)
                         list.clear()
 

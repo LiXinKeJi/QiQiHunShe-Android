@@ -11,6 +11,8 @@ import android.widget.TextView
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.customview.FlowLayout
+import com.lxkj.qiqihunshe.app.util.PermissionUtil
+import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 
 
@@ -19,7 +21,7 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
  * Created by Slingge on 2019/2/22
  */
 @SuppressLint("StaticFieldLeak")
-object ReportDialog2 {
+object ReportDialog2 : DatePop.DateCallBack {
 
     private var dialog: AlertDialog? = null
     private var tv_enter: TextView? = null
@@ -30,10 +32,13 @@ object ReportDialog2 {
     private var tv_endTime: TextView? = null
     private var tv_upfile: TextView? = null
 
+    private var fl_jubao: FlowLayout? = null
+    private var fl_main: FrameLayout? = null
 
+    private val reportList by lazy { ArrayList<String>() }
     private val list by lazy { ArrayList<String>() }
 
-    fun show(context: Activity) {
+    fun show(context: Activity, array: ArrayList<String>) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -46,17 +51,26 @@ object ReportDialog2 {
             tv_endTime = view.findViewById(R.id.tv_endTime)
             tv_upfile = view.findViewById(R.id.tv_upfile)
 
+            fl_jubao = view.findViewById(R.id.fl_jubao)
+            fl_main = view.findViewById(R.id.fl_main)
+
             dialog!!.window.setContentView(view)
 
-            initTLable(context, view.findViewById(R.id.fl_jubao), view.findViewById(R.id.fl_main))
         } else {
             dialog?.show()
         }
 
+        if (list.isNotEmpty()) {
+            list.clear()
+        }
+        if (reportList.isEmpty()) {
+            reportList.addAll(array)
+        }
+
+        initTLable(context, fl_jubao!!, fl_main!!)
 
         tv_cancel?.setOnClickListener {
             dialog?.dismiss()
-
         }
         tv_enter?.setOnClickListener {
             ToastUtil.showToast(Gson().toJson(list))
@@ -66,11 +80,26 @@ object ReportDialog2 {
             dialog?.dismiss()
         }
 
+        tv_startTime?.setOnClickListener {
+            flag = 0
+            showDate(context, fl_main!!)
+        }
+        tv_endTime?.setOnClickListener {
+            flag = 1
+            showDate(context, fl_main!!)
+        }
+
+        tv_upfile?.setOnClickListener {
+            if (PermissionUtil.ApplyPermissionAlbum(context, 0)) {
+                SelectPictureUtil.selectPicture(context, 9, 0, false)
+            }
+        }
+
         val dialogWindow = dialog!!.window
         dialogWindow.setWindowAnimations(R.style.dialogAnim)//淡入、淡出动画
         dialogWindow.setGravity(Gravity.BOTTOM)//显示在底部
         val m = context.windowManager
-        val d = m.defaultDisplay; // 获取屏幕宽、高用
+        val d = m.defaultDisplay // 获取屏幕宽、高用
         val p = dialogWindow.attributes; // 获取对话框当前的参数值
 //        p.height = (d.height * 0.5).toInt() // 高度设置为屏幕的0.5
         p.width = d.width   // 宽度设置为屏幕的0.65
@@ -79,7 +108,7 @@ object ReportDialog2 {
 
 
     fun initTLable(context: Activity, flType: FlowLayout, fl: FrameLayout) {
-
+        flType.removeAllViews()
         val array = context.resources.getStringArray(R.array.report)
 
         for (i in 0 until array.size) {
@@ -104,6 +133,32 @@ object ReportDialog2 {
             }
 
             flType.addView(tv)
+        }
+    }
+
+
+    private var statTime = ""
+    private var endTime = ""
+    private var flag = -1//0开始时间，1结束时间
+    private var dateBirthdayPop: DatePop? = null
+    fun showDate(activity: Activity, fl: FrameLayout) {
+        //flag 0我的出生日期
+        if (dateBirthdayPop == null) {
+            dateBirthdayPop = DatePop(activity, this)
+        }
+        if (!dateBirthdayPop!!.isShowing) {
+            dateBirthdayPop!!.showAtLocation(fl, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
+        }
+    }
+
+
+    override fun position(position1: String, position2: String, position3: String) {
+        if (flag == 0) {
+            statTime = "$position1-$position2-$position3"
+            tv_startTime!!.text = statTime
+        } else if (flag == 1) {
+            endTime = "$position1-$position2-$position3"
+            tv_endTime!!.text = endTime
         }
     }
 

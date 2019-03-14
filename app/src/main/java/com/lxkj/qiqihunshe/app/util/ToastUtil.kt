@@ -68,15 +68,15 @@ object ToastUtil {
                 .autoHide(true) // Auto hide Sneaker view
                 .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT) // Height of the Sneaker layout
 //                .setIcon(R.drawable.ic_no_connection, R.color.white, false) // Icon, icon tint color and circular icon view
-                .setTypeface(
+               /* .setTypeface(
                     Typeface.createFromAsset(
                         activity.assets,
                         "font/RobotoCondensed-Regular.ttf"
                     )
-                ) // Custom font for title and message
+                )*/ // Custom font for title and message
 //                .setOnSneakerClickListener(this) // Click listener for Sneaker
 //                .setOnSneakerDismissListener(this) // Dismiss listener for Sneaker. - Version 1.0.2
-                .setCornerRadius(4, 1) // Radius and margin for round corner Sneaker. - Version 1.0.2
+                .setCornerRadius(0, 0) // Radius and margin for round corner Sneaker. - Version 1.0.2
                 .sneak(R.color.colorPrimaryDark) // Sneak with background color
         }
     }
@@ -91,12 +91,12 @@ object ToastUtil {
                 .autoHide(true) // Auto hide Sneaker view
                 .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT) // Height of the Sneaker layout
 //                .setIcon(R.drawable.ic_no_connection, R.color.white, false) // Icon, icon tint color and circular icon view
-                .setTypeface(
+               /* .setTypeface(
                     Typeface.createFromAsset(
                         activity.activity!!.assets,
                         "font/RobotoCondensed-Regular.ttf"
                     )
-                ) // Custom font for title and message
+                )*/ // Custom font for title and message
 //                .setOnSneakerClickListener(this) // Click listener for Sneaker
 //                .setOnSneakerDismissListener(this) // Dismiss listener for Sneaker. - Version 1.0.2
                 .setCornerRadius(4, 1) // Radius and margin for round corner Sneaker. - Version 1.0.2

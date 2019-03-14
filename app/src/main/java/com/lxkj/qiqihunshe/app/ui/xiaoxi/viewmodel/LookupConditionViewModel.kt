@@ -1,12 +1,9 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
-import android.os.Bundle
-import android.text.TextUtils
 import android.view.Gravity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lxkj.qiqihunshe.R
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.GetTagUtil
 import com.lxkj.qiqihunshe.app.ui.dialog.AddressPop
@@ -14,14 +11,13 @@ import com.lxkj.qiqihunshe.app.ui.dialog.StringSelectPop
 import com.lxkj.qiqihunshe.app.ui.model.CityModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.ParamsModel
 import com.lxkj.qiqihunshe.app.util.AppJsonFileReader
-import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentLookupConditionBinding
 
 /**
  * Created by Slingge on 2019/3/1
  */
-class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, StringSelectPop.StringCallBack {
+class LookupConditionViewModel : BaseViewModel(), AddressPop.AddressCallBack, StringSelectPop.StringCallBack {
 
     var bind: FragmentLookupConditionBinding? = null
 
@@ -43,8 +39,7 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
 
     private val planningList by lazy { ArrayList<String>() }//我的情感计划集合
 
-
-
+    private   var sex=""
 
 
     //flag 0我的家乡，1我的现居
@@ -52,8 +47,11 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
         this.flag = flag
         ToastUtil.showToast(flag.toString())
         if (cityList.isEmpty()) {
-            cityList = Gson().fromJson(AppJsonFileReader.getJsons(fragment?.activity, 0), object : TypeToken<List<CityModel>>() {
-            }.type)
+            cityList = Gson().fromJson(
+                AppJsonFileReader.getJsons(fragment?.activity, 0),
+                object : TypeToken<List<CityModel>>() {
+                }.type
+            )
         }
         if (addressPop == null) {
             addressPop = AddressPop(fragment?.context, cityList, this)
@@ -62,8 +60,6 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
             addressPop!!.showAtLocation(bind?.llMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
         }
     }
-
-
 
 
     //家乡
@@ -86,8 +82,6 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
     }
 
 
-
-
     //情感状态、情感计划
     override fun position(position1: Int) {
         when (SelectString) {
@@ -102,11 +96,16 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
             4 -> {//性别
                 model.sex = sexList[position1]
                 bind?.tvSex?.text = model.sex
+
+                if(model.sex=="男"){
+                    sex="1"
+                }else{
+                    sex="0"
+                }
+                model.sex = sex
             }
         }
     }
-
-
 
 
     //get我的情感状态
@@ -117,6 +116,7 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
         SelectString = 2
         showStringWheel(emotionalList)
     }
+
     //get性别
     fun getSex() {
         if (sexList.isEmpty()) {
@@ -125,7 +125,6 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
         SelectString = 4
         showStringWheel(sexList)
     }
-
 
 
     fun showStringWheel(list: ArrayList<String>) {
@@ -137,7 +136,7 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
 
 
     //get情感计划
-    fun getEmotionalPlanning() {
+    fun getEmotionalPlanning( ) {
         if (planningList.isEmpty()) {
             GetTagUtil(fragment?.activity!!, object : GetTagUtil.TagListCallback {
                 override fun TagList(tagList: ArrayList<String>) {
@@ -145,17 +144,12 @@ class LookupConditionViewModel:BaseViewModel(), AddressPop.AddressCallBack, Stri
                     SelectString = 3
                     showStringWheel(planningList)
                 }
-            }).getTag(StaticUtil.sex, "1")
+            }).getTag(sex, "1")
         } else {
             SelectString = 3
             showStringWheel(planningList)
         }
     }
-
-
-
-
-
 
 
 }

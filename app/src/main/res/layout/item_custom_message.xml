@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <!--自定义消息布局-->
+
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_main"
+    >
+
+        <TextView android:layout_width="20dp" android:layout_height="20dp"
+                  android:id="@+id/tv_num"
+                  android:text="1"
+                  android:gravity="center"
+                  android:background="@drawable/circle_them"
+                  android:textColor="@color/white"
+                  android:textSize="11sp"
+                  android:padding="3dp"
+                  android:layout_centerVertical="true"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginLeft="15dp" android:layout_marginStart="15dp"/>
+
+        <View android:layout_width="1dp" android:layout_height="0dp"
+              android:id="@+id/line0"
+              android:background="@color/colorChoosePress"
+              android:layout_below="@+id/tv_num"
+              app:layout_constraintTop_toBottomOf="@+id/tv_num"
+              app:layout_constraintEnd_toEndOf="@+id/tv_num"
+              app:layout_constraintStart_toStartOf="@+id/tv_num"
+              app:layout_constraintBottom_toBottomOf="@+id/cardView2"/>
+
+        <View android:layout_width="1dp" android:layout_height="0dp"
+              android:id="@+id/line1"
+              android:background="@color/colorChoosePress"
+              android:layout_below="@+id/tv_num"
+              android:visibility="gone"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toTopOf="@+id/tv_num"
+              app:layout_constraintEnd_toEndOf="@+id/tv_num"
+              app:layout_constraintStart_toStartOf="@+id/tv_num"
+        />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tv_tip"
+                  android:text="已发起遇见信息，请等待"
+                  android:background="@drawable/bg_grays_60"
+                  android:paddingLeft="30dp"
+                  android:paddingRight="30dp"
+                  android:textSize="11sp"
+                  android:paddingTop="3dp"
+                  android:paddingBottom="3dp"
+                  app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                  android:layout_marginRight="8dp" app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+                  app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_toRightOf="@+id/tv_num"
+                app:cardElevation="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_num"
+                android:id="@+id/cardView2" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tip">
+
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="12dp"
+                    android:paddingLeft="15dp"
+                    android:paddingBottom="12dp"
+                    android:paddingRight="15dp">
+
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:id="@+id/tv_msg"
+                          android:text="约您见面是否答应？"
+                          android:textSize="15sp"
+                          android:textColor="@color/colorTabTexts"
+                          app:layout_constraintTop_toTopOf="parent"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_no"
+                          android:text="拒绝"
+                          android:textSize="13sp"
+                          android:paddingLeft="16dp"
+                          android:paddingRight="16dp"
+                          android:paddingTop="5dp"
+                          android:paddingBottom="5dp"
+                          android:textColor="@color/colorTabText"
+                          android:background="@drawable/gray_bg30"
+                          app:layout_constraintEnd_toStartOf="@+id/tv_yes"
+                          android:layout_marginRight="15dp"
+                          android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/tv_time"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/tv_yes"
+                          android:text="同意"
+                          android:textSize="13sp"
+                          android:paddingLeft="16dp"
+                          android:paddingRight="16dp"
+                          android:paddingTop="5dp"
+                          android:paddingBottom="5dp"
+                          android:textColor="@color/white"
+                          android:background="@drawable/them_bg35"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/tv_time"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:id="@+id/tv_address"
+                          android:text="地址"
+                          android:textSize="11sp"
+                          android:visibility="gone"
+                          android:textColor="@color/colorTabText"
+                          android:drawableLeft="@drawable/ic_address"
+                          android:drawablePadding="5dp"
+                          android:gravity="center|left"
+                          android:layout_marginTop="10dp"
+                          app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+                          app:layout_constraintStart_toStartOf="@+id/tv_msg"
+                          app:layout_constraintEnd_toEndOf="parent"/>
+
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:id="@+id/tv_time"
+                          android:text="到场时间："
+                          android:textSize="11sp"
+                          android:textColor="@color/colorTabText"
+                          android:visibility="gone"
+                          android:gravity="center|left"
+                          app:layout_constraintStart_toStartOf="@+id/tv_msg"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          android:layout_marginTop="5dp" app:layout_constraintTop_toBottomOf="@+id/tv_address"/>
+
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_selectAdd"
+                          android:text="选择地点"
+                          android:textSize="13sp"
+                          android:visibility="gone"
+                          android:textColor="@color/colorTabText"
+                          android:drawableLeft="@drawable/xuanzedidian"
+                          android:drawablePadding="5dp"
+                          app:layout_constraintTop_toTopOf="@+id/tv_no"
+                          app:layout_constraintBottom_toBottomOf="@+id/tv_no"
+                          app:layout_constraintStart_toStartOf="@+id/tv_msg"
+                />
+
+
+                <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                         android:id="@+id/sp_shiyue"
+                         android:layout_marginTop="1dp"
+                         android:minWidth="60dp"
+                         android:minHeight="25dp"
+                         android:visibility="gone"
+                         android:background="@drawable/gray_line60"
+                         android:layout_marginBottom="1dp"
+                         app:layout_constraintTop_toTopOf="@+id/tv_no"
+                         app:layout_constraintBottom_toBottomOf="@+id/tv_no"
+                         app:layout_constraintStart_toStartOf="@+id/tv_msg"/>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>

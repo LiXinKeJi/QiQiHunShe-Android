@@ -5,6 +5,7 @@ import android.text.TextUtils
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.ui.model.GetTagModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import io.reactivex.Single
 
 /**
@@ -14,7 +15,7 @@ import io.reactivex.Single
 class GetTagUtil(val activity: Activity, val tagListCallback: TagListCallback) {
 
 
-    public interface TagListCallback {
+    interface TagListCallback {
         fun TagList(tagList: ArrayList<String>)
     }
 
@@ -23,13 +24,14 @@ class GetTagUtil(val activity: Activity, val tagListCallback: TagListCallback) {
     //type 1情感计划 2我的类型 3兴趣爱好 4地点标签 5薪资范围 6车辆价格 7房屋面积 8学历 9实名认证问题
     //sex 0女 1男
     fun getTag(sex: String, type: String) {
-        if(TextUtils.isEmpty(sex)){
-            ToastUtil.showTopSnackBar(activity,"请选择性别")
+        if (TextUtils.isEmpty(sex)) {
+            ToastUtil.showTopSnackBar(activity, "请选择性别")
             return
         }
         val model = GetTagModel()
         model.type = type
         model.sex = sex
+        abLog.e("地点标签", Gson().toJson(model))
         gettags(Gson().toJson(model)).subscribe()
 
     }
@@ -44,7 +46,6 @@ class GetTagUtil(val activity: Activity, val tagListCallback: TagListCallback) {
                     model.dataList?.let {
                         tagListCallback.TagList(model.dataList)
                     }
-
                 }
             }, activity))
     }

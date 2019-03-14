@@ -1,6 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.entrance
 
 import android.graphics.Paint
+import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import com.lxkj.qiqihunshe.R
@@ -11,6 +12,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.entrance.model.RegisterModel
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.RegisterViewModel
+import com.lxkj.qiqihunshe.app.ui.mine.activity.WebViewActivity
 import com.lxkj.qiqihunshe.app.util.Md5Util
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRegisterBinding
@@ -23,7 +25,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
 
 
     override fun getBaseViewModel() =
-        RegisterViewModel( )
+        RegisterViewModel()
 
     override fun getLayoutId() = R.layout.activity_register
 
@@ -39,6 +41,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
 
         tv_agree.paint.flags = Paint.UNDERLINE_TEXT_FLAG //下划线
         tv_agree.paint.isAntiAlias = true//抗锯齿
+        tv_agree.setOnClickListener(this)
 
         viewModel?.let {
             binding.model = model
@@ -50,6 +53,11 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.tv_agree -> {
+                val bundle = Bundle()
+                bundle.putInt("flag", 0)
+                MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
+            }
             R.id.tv_getCode -> {
                 model.notif()
                 if (TextUtils.isEmpty(model.phone)) {
@@ -87,7 +95,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
                     return
                 }
 
-                if(!rb_agree.isChecked){
+                if (!rb_agree.isChecked) {
                     ToastUtil.showTopSnackBar(this, "请阅读并同意服务协议")
                     return
                 }

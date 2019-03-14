@@ -8,7 +8,7 @@ import com.lxkj.qiqihunshe.app.util.StaticUtil
  */
 class RealNameAuthenModel : BaseModel() {
 
-    val cme = "userAuth"
+    val cmd = "userAuth"
 
     val uid = StaticUtil.uid
 
