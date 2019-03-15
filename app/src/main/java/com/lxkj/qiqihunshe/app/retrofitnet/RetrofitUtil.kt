@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitUtil {
 
 
-    val url = "http://192.168.3.2:8090/77hunshe/"
+    val url = "http://47.103.41.198/"
 
     val upLoad =url+ "api/uploadFile"
 

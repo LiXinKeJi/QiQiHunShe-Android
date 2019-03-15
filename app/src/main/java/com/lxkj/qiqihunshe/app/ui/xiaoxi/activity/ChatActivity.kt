@@ -37,6 +37,14 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
         iv_del.setOnClickListener(this)
         iv_yuejian.setOnClickListener(this)
         iv_jubao.setOnClickListener(this)
+
+        viewModel?.let {
+            binding.viewmodel = it
+            val uri = intent.data
+            it.title = uri.getQueryParameter("title")
+            it.targetId = uri.getQueryParameter("targetId")
+            initTitle(it.title)
+        }
     }
 
 
@@ -47,11 +55,13 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 tv_tip0.visibility = View.GONE
             }
             R.id.iv_yuejian -> {
-
+                viewModel?.let {
+                    it.sendMessage1()
+                }
             }
             R.id.tv_right -> {
                 val bundle = Bundle()
-                bundle.putString("userId", StaticUtil.uid)
+                bundle.putString("userId", viewModel?.targetId)
                 MyApplication.openActivity(this, PersonalInfoActivity::class.java, bundle)
             }
             R.id.iv_jubao -> {

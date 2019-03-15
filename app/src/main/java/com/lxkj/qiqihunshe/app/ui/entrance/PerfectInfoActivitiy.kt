@@ -218,10 +218,10 @@ class PerfectInfoActivitiy :
                     ToastUtil.showTopSnackBar(this, "请输入职业")
                     return
                 }
-                if (TextUtils.isEmpty(viewModel?.model?.education)) {
+               /* if (TextUtils.isEmpty(viewModel?.model?.education)) {
                     ToastUtil.showTopSnackBar(this, "请选择学历")
                     return
-                }
+                }*/
 
                 if (TextUtils.isEmpty(viewModel?.model?.marriage)) {
                     ToastUtil.showTopSnackBar(this, "请选择情感状态")

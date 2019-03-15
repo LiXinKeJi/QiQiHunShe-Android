@@ -39,13 +39,29 @@ fun dispatchFailure(activity: Activity, error: Throwable?) {
         if (abLog.E) {
             it.printStackTrace()
         }
-      if (it is SocketTimeoutException) {
+        if (it is SocketTimeoutException) {
             it.message?.let { ToastUtil.showTopSnackBar(activity, "网络连接超时") }
         } else if (it is UnknownHostException || it is ConnectException) {
             //网络未连接
             it.message?.let { ToastUtil.showTopSnackBar(activity, "连接服务器失败") }
         } else {
             it.message?.let { ToastUtil.showTopSnackBar(activity, it) }
+        }
+    }
+}
+
+fun dispatchFailure(error: Throwable?) {
+    error?.let {
+        if (abLog.E) {
+            it.printStackTrace()
+        }
+        if (it is SocketTimeoutException) {
+            it.message?.let { ToastUtil.showToast( "网络连接超时") }
+        } else if (it is UnknownHostException || it is ConnectException) {
+            //网络未连接
+            it.message?.let { ToastUtil.showToast( "连接服务器失败") }
+        } else {
+            it.message?.let { ToastUtil.showToast( it) }
         }
     }
 }
@@ -70,16 +86,11 @@ fun <T> Flowable<T>.bindLifeCycle(owner: LifecycleOwner): FlowableSubscribeProxy
     this.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, Lifecycle.Event.ON_DESTROY)))
 
 
-
 fun <T : Any> FragmentActivity.argument(key: String) =
     lazy { intent.extras[key] as? T ?: error("Intent Argument $key is missing") }
 
 
 fun Activity.dpToPx(@DimenRes resID: Int): Int = this.resources.getDimensionPixelOffset(resID)
-
-
-
-
 
 
 //////////////////////////LiveData///////////////////////////////////

@@ -47,7 +47,6 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_new_friends, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -82,7 +81,7 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
             }
         }
 
-        holder.llItem.setOnClickListener(new View.OnClickListener() {
+        holder.ll_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (null != onItemClickListener)
@@ -125,6 +124,9 @@ public class NewPeopleAdapter extends RecyclerView.Adapter<NewPeopleAdapter.View
         Button btnDelete;
         @BindView(R.id.ll_item)
         LinearLayout llItem;
+        @BindView(R.id.ll_main)
+        LinearLayout ll_main;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

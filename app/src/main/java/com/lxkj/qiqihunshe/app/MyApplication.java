@@ -13,8 +13,8 @@ import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil;
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.message.CustomizeMessage;
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.message.CustomizeMessageItemProvider;
+import com.lxkj.qiqihunshe.app.rongrun.message.CustomizeMessage1;
+import com.lxkj.qiqihunshe.app.rongrun.message.CustomizeMessageItemProvider1;
 import com.lxkj.qiqihunshe.app.util.StaticUtil;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
 import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil;
@@ -85,8 +85,9 @@ public class MyApplication extends MultiDexApplication {
 
 
         RongIM.init(this, "3argexb63qm0e");
-        RongIM.registerMessageType(CustomizeMessage.class);//注册自定义消息
-//        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider());
+        RongIM.getInstance().setMessageAttachedUserInfo(true);
+        RongIM.registerMessageType(CustomizeMessage1.class);//注册自定义消息
+        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider1(this));
 
         if (!TextUtils.isEmpty(StaticUtil.INSTANCE.getRytoken())) {
             RongYunUtil.INSTANCE.initService();

@@ -29,7 +29,7 @@ class ReleaseInvitationActivity :
     RadioGroup.OnCheckedChangeListener, UpLoadFileCallBack {
 
 
-    private var flag = -1//0吃饭，1旅行，2运动，3电影，4其他
+    private var flag = -1//1吃饭，2旅行，3运动，4电影，5其他
 
     private var type = -1//0普通邀约，1情感邀约
 

@@ -17,6 +17,7 @@ import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FraCommunicationBinding
 import io.reactivex.Single
+import io.rong.imkit.RongIM
 import kotlinx.android.synthetic.main.fra_communication.*
 
 /**
@@ -55,11 +56,11 @@ class CommunicationViewModel : BaseViewModel() {
         })
         adapter = NewPeopleAdapter(fragment?.context, list)
         adapter?.setOnItemClickListener {
-            ToastUtil.showTopSnackBar(fragment,it.toString())
+            RongIM.getInstance().startPrivateChat(fragment?.activity, list[it].userId, list[it].nickname)
         }
 
         adapter?.setOnItemDeleteListener {
-           delFriend(it)
+            delFriend(it)
         }
         bind?.xRecyclerView?.adapter = adapter
 
@@ -67,8 +68,8 @@ class CommunicationViewModel : BaseViewModel() {
     }
 
     //获取好友
-    fun getFriendList(){
-        var params = HashMap<String,String>()
+    fun getFriendList() {
+        var params = HashMap<String, String>()
         params["cmd"] = "friendList"
         params["uid"] = StaticUtil.uid
         params["page"] = page.toString()
@@ -77,7 +78,7 @@ class CommunicationViewModel : BaseViewModel() {
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, XxModel::class.java)
-                    totalPage = model.totalPage.toInt()
+                    totalPage = model.totalPage
                     bind?.xRecyclerView?.refreshComplete()
                     bind?.xRecyclerView?.loadMoreComplete()
                     if (page == 1)
@@ -97,10 +98,9 @@ class CommunicationViewModel : BaseViewModel() {
     }
 
 
-
     //删除好友
-    fun delFriend(position : Int){
-        var params = HashMap<String,String>()
+    fun delFriend(position: Int) {
+        var params = HashMap<String, String>()
         params["cmd"] = "delFriend"
         params["uid"] = StaticUtil.uid
         params["userId"] = list[position].userId

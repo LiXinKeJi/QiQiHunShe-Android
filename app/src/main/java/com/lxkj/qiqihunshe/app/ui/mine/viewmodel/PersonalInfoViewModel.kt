@@ -31,20 +31,21 @@ class PersonalInfoViewModel : BaseViewModel() {
 
         bind!!.banner.updateBannerStyle(BannerConfig.NUM_INDICATOR)
 
-
-        if (userId == StaticUtil.uid) {
-            bind?.let {
+        bind?.let {
+            if (userId == StaticUtil.uid) {
                 it.tvPerfect.visibility = View.GONE
                 it.ivEdit.visibility = View.GONE
                 it.ll3.visibility = View.GONE
+            } else {
+                it. tvPerfect.visibility = View.GONE
+                it. ivEdit.visibility = View.GONE
             }
         }
-
     }
 
 
     fun getUserData(): Single<String> {
-        val json = "{\"cmd\":\"userDetail\",\"uid\":\"" +StaticUtil.uid + "\",\"userId\":\"" + userId +
+        val json = "{\"cmd\":\"userDetail\",\"uid\":\"" + StaticUtil.uid + "\",\"userId\":\"" + userId +
                 "\",\"lat\":\"" + StaticUtil.lat + "\",\"lon\":\"" + StaticUtil.lng + "\"}"
         abLog.e("获取个人信息", json)
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
@@ -52,7 +53,6 @@ class PersonalInfoViewModel : BaseViewModel() {
                 val model = Gson().fromJson(response, PersonalInfoModel::class.java)
                 bind!!.model = model
                 bind!!.tvFeel.text = "言礼值：" + model.polite
-
 
                 if (model.icon.isNotEmpty()) {
                     bind!!.banner.setImages(model.icon)

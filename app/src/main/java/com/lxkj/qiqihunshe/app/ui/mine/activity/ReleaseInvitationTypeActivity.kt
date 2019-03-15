@@ -39,19 +39,19 @@ class ReleaseInvitationTypeActivity :
         val bundle = Bundle()
         when (v?.id) {
             R.id.iv_chifan -> {
-                bundle.putInt("flag", 0)
-            }
-            R.id.iv_lvxing -> {
                 bundle.putInt("flag", 1)
             }
-            R.id.iv_yundong -> {
+            R.id.iv_lvxing -> {
                 bundle.putInt("flag", 2)
             }
-            R.id.iv_dianying -> {
+            R.id.iv_yundong -> {
                 bundle.putInt("flag", 3)
             }
-            R.id.iv_qita -> {
+            R.id.iv_dianying -> {
                 bundle.putInt("flag", 4)
+            }
+            R.id.iv_qita -> {
+                bundle.putInt("flag", 5)
             }
         }
         bundle.putInt("type", intent.getIntExtra("type", -1))

@@ -8,7 +8,6 @@ import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.MessageModel
 import com.lxkj.qiqihunshe.app.util.RecyclerItemTouchListener
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
-import io.rong.imkit.RongIM
 
 /**
  * Created by Slingge on 2019/3/1
@@ -39,7 +38,9 @@ class YueHuiVieModel : BaseViewModel() {
 
         bind!!.recycler.addOnItemTouchListener(object :RecyclerItemTouchListener(bind!!.recycler){
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                RongIM.getInstance().startPrivateChat(fragment?.activity, "9527", "标题")
+                val i=vh!!.adapterPosition
+                ToastUtil.showToast(i.toString())
+//                RongIM.getInstance().startPrivateChat(fragment?.activity, "", "昵称")
             }
         })
     }

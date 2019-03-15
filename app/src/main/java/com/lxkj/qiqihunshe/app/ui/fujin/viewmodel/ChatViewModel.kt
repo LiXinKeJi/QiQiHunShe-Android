@@ -5,8 +5,10 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog2
 import com.lxkj.qiqihunshe.app.ui.model.JuBaoModel
+import com.lxkj.qiqihunshe.app.rongrun.message.CustomizeMessage1
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.ChatReportModel
 import io.reactivex.Single
 
@@ -18,6 +20,9 @@ class ChatViewModel : BaseViewModel() {
     val JuBaoList by lazy { ArrayList<String>() }
 
     val reportModel by lazy { ChatReportModel() }
+
+    var targetId = ""//对方id
+    var title = ""//标题，对方昵称
 
     fun jubao() {}
 
@@ -33,5 +38,14 @@ class ChatViewModel : BaseViewModel() {
                 }
             }, activity))
     }
+
+
+    fun sendMessage1() {
+        val shopMessage = CustomizeMessage1()
+        shopMessage.reject="0"
+        shopMessage.content = "消息1"
+        RongYunUtil.sendMessage1(targetId, shopMessage, "")
+    }
+
 
 }

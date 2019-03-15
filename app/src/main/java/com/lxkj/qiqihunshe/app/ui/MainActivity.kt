@@ -1,11 +1,15 @@
 package com.lxkj.qiqihunshe.app.ui
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import cn.jzvd.Jzvd
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
 import com.lxkj.qiqihunshe.app.AppConsts
+import com.lxkj.qiqihunshe.app.service.LocationService
+import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.util.*
 
 
@@ -30,9 +34,29 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             it.initBind()
         }
 
+        if (PermissionUtil.LocationPermissionAlbum(this, 0)) {
+            initLocationOption()
+        }
     }
 
 
+    /**
+     * 申请权限结果回调
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == 0) {//询问结果
+            initLocationOption()
+        } else {//禁止使用权限，询问是否设置允许
+            PermissionsDialog.dialog(this, "需要定位权限")
+        }
+    }
+
+
+    private fun initLocationOption() {
+        val intentOne = Intent(this, LocationService::class.java)
+        startService(intentOne)
+    }
 
 
     override fun onBackPressed() {

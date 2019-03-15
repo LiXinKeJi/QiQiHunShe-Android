@@ -20,7 +20,7 @@ class AnswerProblemViewModel : BaseViewModel() {
 
 
     fun getproblem(): Single<String> {
-        val json = "{\"cmd\":\"getQuestion\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        val json = "{\"cmd\":\"getUserQuestion\",\"uid\":\"" + StaticUtil.uid + "\"}"
 
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {

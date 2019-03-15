@@ -20,6 +20,7 @@ import com.lxkj.qiqihunshe.databinding.ActivitySetupBinding
 import io.reactivex.Single
 import java.io.File
 import android.support.v7.app.AlertDialog
+import io.rong.imkit.RongIM
 
 
 /**
@@ -32,15 +33,19 @@ class SetUpViewModel : BaseViewModel() {
     private var upDataModel = UpDataModel()
 
     fun sginout(): Single<String> {
+        RongIM.getInstance().logout()
         val json = "{\"cmd\":\"userLogout\",\"uid\":\"" + StaticUtil.uid + "\"}"
-        return retrofit.getData(json).compose(SingleCompose.compose(object :SingleObserverInterface{
+        abLog.e("退出登录", json)
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 SharedPreferencesUtil.putSharePre(activity, "uid", "")
+                SharedPreferencesUtil.putSharePre(activity, "rytoken", "")
                 MyApplication.uId = ""
                 AppManager.finishAllActivity()
+                System.exit(0)
                 MyApplication.openActivity(activity, SignInActivity::class.java)
             }
-        },activity))
+        }, activity))
 
     }
 

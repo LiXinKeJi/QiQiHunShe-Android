@@ -21,7 +21,7 @@ import com.lxkj.qiqihunshe.databinding.ActivityNewFriendBinding
 /**
  * Created by Slingge on 2019/3/1
  */
-class NewFirendViewModel:BaseViewModel (){
+class NewFirendViewModel : BaseViewModel() {
 
     var bind: ActivityNewFriendBinding? = null
 
@@ -53,7 +53,7 @@ class NewFirendViewModel:BaseViewModel (){
                 getNewFriendsList()
             }
         })
-        adapter = NewFriendAdapter(fragment?.context, list)
+        adapter = NewFriendAdapter(activity, list)
         adapter?.setOnAgreeClickListener {
             editFriend(it)
         }
@@ -64,8 +64,8 @@ class NewFirendViewModel:BaseViewModel (){
     }
 
     //获取新朋友
-    fun getNewFriendsList(){
-        var params = HashMap<String,String>()
+    fun getNewFriendsList() {
+        var params = HashMap<String, String>()
         params["cmd"] = "newFriends"
         params["uid"] = StaticUtil.uid
         params["page"] = page.toString()
@@ -95,8 +95,8 @@ class NewFirendViewModel:BaseViewModel (){
 
 
     //同意/拒绝好友请求
-    fun editFriend(position: Int){
-        var params = HashMap<String,String>()
+    fun editFriend(position: Int) {
+        var params = HashMap<String, String>()
         params["cmd"] = "editFriend"
         params["uid"] = StaticUtil.uid
         params["fid"] = list[position].fid
@@ -108,12 +108,10 @@ class NewFirendViewModel:BaseViewModel (){
                     list[position].status = "1"
                     adapter?.notifyDataSetChanged()
                 }
-            }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
+            }, activity)).subscribe({
             }, {
             })
     }
-
-
 
 
 }

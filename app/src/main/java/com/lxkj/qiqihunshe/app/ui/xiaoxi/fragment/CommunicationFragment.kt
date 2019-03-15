@@ -1,10 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.fragment
 
-import android.support.v7.widget.GridLayoutManager
 import android.view.View
-import com.google.gson.Gson
-import com.jcodecraeer.xrecyclerview.ProgressStyle
-import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment

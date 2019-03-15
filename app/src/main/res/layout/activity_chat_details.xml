@@ -62,7 +62,8 @@
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                    android:id="@+id/iv_jubao"
                    android:src="@drawable/jubao2"
-                   app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="60dp"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:layout_marginBottom="90dp"
                    app:layout_constraintBottom_toBottomOf="parent"
         />
 
