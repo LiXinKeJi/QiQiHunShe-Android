@@ -90,7 +90,9 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         tv_fwwd.setOnClickListener(this)
         tv_toMyLocation.setOnClickListener(this)
         iv_close.setOnClickListener(this)
+        tv_Qdh.setOnClickListener(this)
 
+        loadData()
     }
 
     override fun loadData() {
@@ -183,7 +185,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 //                MyApplication.openActivity(activity, SelectAddressMapActivity::class.java, bundle)
             }
             R.id.iv_sayHi -> {
-                viewModel!!.hiList?.let {
+                if(viewModel!!.hiList.isEmpty()){
                     ToastUtil.showTopSnackBar(this, "暂无打招呼内容")
                     return
                 }
@@ -212,6 +214,11 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
                 val builder = MapStatus.Builder()
                 builder.target(currentPosition)
                 mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
+            }
+
+            R.id.tv_Qdh -> {
+                var mapNavigationUtil = MapNavigationUtil(context)
+                mapNavigationUtil?.goToBaiduMap(viewModel?.serviceOffice?.lat, viewModel?.serviceOffice?.lon, viewModel?.serviceOffice?.address)
             }
 
             R.id.iv_close -> {
@@ -264,7 +271,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
                 val ll = LatLng(location.getLatitude(), location.getLongitude())
                 val builder = MapStatus.Builder()
-                builder.target(ll).zoom(18.0f)
+                builder.target(ll).zoom(13.0f)
                 mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
                 getData()
             }

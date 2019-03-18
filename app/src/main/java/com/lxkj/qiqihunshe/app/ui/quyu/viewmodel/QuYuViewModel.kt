@@ -59,13 +59,15 @@ class QuYuViewModel : BaseViewModel() {
                     //最近的服务网点
                     serviceOffice = model.dataList[servicePosition]
 
-                    if (null != headOffice) {
-                        if (headOffice.distance.toInt() > 10000)
-                            bind!!.tvNoRange.visibility = GONE
-                        else
+                    if (null != serviceOffice) {
+                        if (serviceOffice.distance.toInt() > 10000)
                             bind!!.tvNoRange.visibility = VISIBLE
+                        else
+                            bind!!.tvNoRange.visibility = GONE
+
+                        setData(serviceOffice)
                     } else
-                        bind!!.tvNoRange.visibility = GONE
+                        bind!!.tvNoRange.visibility = VISIBLE
 
                 }
             }, fragment?.activity))
@@ -94,7 +96,8 @@ class QuYuViewModel : BaseViewModel() {
 
 
     fun setData(data: DataListModel) {
-        GlideUtil.glideLoad(fragment!!.context, data?.logo, bind?.ivFwqy)
+        bind?.bmapView?.map!!.clear()
+        GlideUtil.glideLoad(fragment!!.context, data?.logo, bind?.headOfficeIv)
         addOverlay(data)
     }
 
@@ -115,7 +118,7 @@ class QuYuViewModel : BaseViewModel() {
 
         //构造CircleOptions对象
         val mCircleOptions = CircleOptions().center(point)
-            .radius(100000)//单位米
+            .radius(10000)//单位米
             .fillColor(R.color.map_round) //填充颜色
         //在地图上显示圆
         mMapView.addOverlay(mCircleOptions)
