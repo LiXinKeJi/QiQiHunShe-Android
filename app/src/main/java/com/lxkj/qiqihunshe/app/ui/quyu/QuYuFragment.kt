@@ -32,7 +32,6 @@ import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
 import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.dialog.AqxzDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.FwwdDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
@@ -55,6 +54,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
     SayHolleDialog.OnSayHiListener {
 
 
+
     val mMapView by lazy { bmapView.map }
     val mLocationClient by lazy { LocationClient(context) }
     var isFirst = true
@@ -73,7 +73,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
         viewModel?.bind = binding
 
-        mMapView.isMyLocationEnabled = true
+        mMapView.setMyLocationEnabled(true)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             MPermissions.requestPermissions(
                 this, AppConsts.PMS_LOCATION,
@@ -90,9 +90,9 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         tv_fwwd.setOnClickListener(this)
         tv_toMyLocation.setOnClickListener(this)
         iv_close.setOnClickListener(this)
-
         tv_Qdh.setOnClickListener(this)
-        tv_Lxkf.setOnClickListener(this)
+
+        loadData()
     }
 
     override fun loadData() {
@@ -169,7 +169,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
     override fun onDestroy() {
         mLocationClient.stop()
-        mMapView.isMyLocationEnabled = false
+        mMapView.setMyLocationEnabled(false)
         super.onDestroy()
     }
 
@@ -185,8 +185,8 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 //                MyApplication.openActivity(activity, SelectAddressMapActivity::class.java, bundle)
             }
             R.id.iv_sayHi -> {
-                viewModel!!.hiList?.let {
-                    ToastUtil.showTopSnackBar(activity, "暂无打招呼内容")
+                if(viewModel!!.hiList.isEmpty()){
+                    ToastUtil.showTopSnackBar(this, "暂无打招呼内容")
                     return
                 }
                 SayHolleDialog.show(activity!!, viewModel!!.hiList)
@@ -216,14 +216,13 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
                 mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
             }
 
-            R.id.iv_close -> {
-                ll_hint.visibility = View.GONE
+            R.id.tv_Qdh -> {
+                var mapNavigationUtil = MapNavigationUtil(context)
+                mapNavigationUtil?.goToBaiduMap(viewModel?.serviceOffice?.lat, viewModel?.serviceOffice?.lon, viewModel?.serviceOffice?.address)
             }
-            R.id.tv_Qdh -> {//导航
 
-            }
-            R.id.tv_Lxkf -> {//联系客服
-                RongYunUtil.toService(activity)
+            R.id.iv_close -> {
+               ll_hint.visibility = View.GONE
             }
         }
 
@@ -261,8 +260,8 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
             lng = location.longitude
             StaticUtil.lat = lat.toString()
             StaticUtil.lng = lng.toString()
-            SharePrefUtil.saveString(context, AppConsts.LAT, lat.toString())
-            SharePrefUtil.saveString(context, AppConsts.LNG, lng.toString())
+            SharePrefUtil.saveString(context,AppConsts.LAT,lat.toString())
+            SharePrefUtil.saveString(context,AppConsts.LNG,lng.toString())
 
             tv_address.text = (location.addrStr)
             tv_toMyLocation.text = (location.addrStr)
@@ -272,7 +271,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
                 val ll = LatLng(location.getLatitude(), location.getLongitude())
                 val builder = MapStatus.Builder()
-                builder.target(ll).zoom(18.0f)
+                builder.target(ll).zoom(13.0f)
                 mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
                 getData()
             }
