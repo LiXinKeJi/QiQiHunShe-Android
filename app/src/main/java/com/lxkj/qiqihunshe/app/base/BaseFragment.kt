@@ -68,7 +68,6 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment
     }
 
     companion object {
-
         var refreshData: Boolean = false
     }
 

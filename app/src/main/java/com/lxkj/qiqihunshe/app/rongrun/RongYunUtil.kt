@@ -1,5 +1,7 @@
 package com.lxkj.qiqihunshe.app.rongrun
 
+import android.app.Activity
+import android.text.TextUtils
 import com.lxkj.qiqihunshe.app.rongrun.message.*
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
@@ -7,6 +9,7 @@ import com.lxkj.qiqihunshe.app.util.abLog
 import io.rong.imkit.RongIM
 import io.rong.imlib.IRongCallback
 import io.rong.imlib.RongIMClient
+import io.rong.imlib.model.CSCustomServiceInfo
 import io.rong.imlib.model.Conversation
 import io.rong.imlib.model.Message
 
@@ -32,6 +35,18 @@ object RongYunUtil {
             override fun onTokenIncorrect() {
             }
         })
+    }
+
+
+    //去客服
+    fun toService(activity: Activity?) {
+        if (TextUtils.isEmpty(StaticUtil.rytoken)) {
+            ToastUtil.showTopSnackBar(activity, "IM初始化错误")
+            return
+        }
+        val csBuilder = CSCustomServiceInfo.Builder()
+        val csInfo = csBuilder.nickName("融云").build()
+        RongIM.getInstance().startCustomerServiceChat(activity, "客服id", "在线客服", csInfo)
     }
 
 
@@ -183,25 +198,29 @@ object RongYunUtil {
 
     fun sendMessage7(targetId: String, shopMessage7: CustomizeMessage7, s: String) {
         RongIM.getInstance()
-            .sendMessage(Message.obtain(targetId, Conversation.ConversationType.PRIVATE, shopMessage7), s, null, object :
-                IRongCallback.ISendMessageCallback {
-                override fun onAttached(message: Message) {
-                    abLog.e("sendMessage1", "消息发送")
-                }
-
-                override fun onSuccess(message: Message) {
-                    abLog.e("sendMessage1", "消息发送成功")
-                }
-
-                override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
-                    abLog.e("sendMessage1", errorCode.message)
-                    when (errorCode.message) {
-                        "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                        "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                        else -> ToastUtil.showToast(errorCode.message)
+            .sendMessage(
+                Message.obtain(targetId, Conversation.ConversationType.PRIVATE, shopMessage7),
+                s,
+                null,
+                object :
+                    IRongCallback.ISendMessageCallback {
+                    override fun onAttached(message: Message) {
+                        abLog.e("sendMessage1", "消息发送")
                     }
-                }
-            })
+
+                    override fun onSuccess(message: Message) {
+                        abLog.e("sendMessage1", "消息发送成功")
+                    }
+
+                    override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
+                        abLog.e("sendMessage1", errorCode.message)
+                        when (errorCode.message) {
+                            "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
+                            "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
+                            else -> ToastUtil.showToast(errorCode.message)
+                        }
+                    }
+                })
     }
 
 

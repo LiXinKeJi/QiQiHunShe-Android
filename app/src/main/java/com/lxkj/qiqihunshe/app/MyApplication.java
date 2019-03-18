@@ -65,6 +65,7 @@ public class MyApplication extends MultiDexApplication {
         uId = sp.getString("uid", "");
         StaticUtil.INSTANCE.setUid(uId);
         StaticUtil.INSTANCE.setRytoken(sp.getString("rytoken", ""));
+        StaticUtil.INSTANCE.setHeaderUrl(sp.getString("userIcon", ""));
 
 
         Logger.addLogAdapter(new AndroidLogAdapter());

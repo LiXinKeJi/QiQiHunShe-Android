@@ -36,7 +36,7 @@ class MyDynamicViewModel : BaseViewModel() {
 
     var page = 1
     var totalPage = 1
-    private val imageInfoList = ArrayList<ImageInfo>()
+    private val imageInfoList by lazy { ArrayList<ImageInfo>() }
 
     var bind: ActivityMydynamicBinding? = null
 
@@ -54,13 +54,7 @@ class MyDynamicViewModel : BaseViewModel() {
                 if (i < 0 || i >= model.images.size) {
                     return
                 }
-                for (j in 0 until model.images.size) {
-                    val info = ImageInfo()
-                    info.originUrl = model.images[j]
-                    info.thumbnailUrl = model.images[i]
-                    imageInfoList.add(info)
-                }
-                SeePhotoViewUtil.toPhotoView(activity, imageInfoList, i)
+                SeePhotoViewUtil.toPhotoView(activity, model.images, i)
             }
         })
 
@@ -74,7 +68,7 @@ class MyDynamicViewModel : BaseViewModel() {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, CommentModel::class.java)
                 if (page == 1) {
-                    totalPage=model.totalPage
+                    totalPage = model.totalPage
                     bind!!.tvComment.text = "最新评论（${model.commentCount}）"
                     if (model.dataList.isEmpty()) {
                         adapter.flag = 1

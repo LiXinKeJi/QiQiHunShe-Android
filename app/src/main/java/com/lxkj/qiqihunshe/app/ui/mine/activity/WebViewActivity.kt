@@ -23,7 +23,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding, WebViewViewModel>()
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
-            val flag = intent.getIntExtra("flag", -1)//0注册协议
+            val flag = intent.getIntExtra("flag", -1)//0注册协议,1服务协议
             if (flag == 0) {
                 initTitle("注册协议")
                 it.setUrl(RetrofitUtil.url + "display/agreement?id=1")

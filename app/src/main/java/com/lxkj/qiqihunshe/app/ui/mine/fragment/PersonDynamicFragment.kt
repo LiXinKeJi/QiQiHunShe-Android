@@ -49,6 +49,9 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
 
     @Subscribe
     fun onEvent(model: EventCmdModel) {
+        if (!isDataInitiated) {//不显示此fragment不执行
+            return
+        }
         when (model.cmd) {
             EventBusCmd.DianZan -> {
                 ToastUtil.showToast(model.res.toString())
@@ -71,7 +74,7 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
                 })
             }
             EventBusCmd.fenxaing -> {
-
+                ToastUtil.showTopSnackBar(activity, "分享")
             }
         }
     }
@@ -88,6 +91,9 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
                     it.page = 1
                     it.getMyDynamic().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
+            }
+            if (data.getIntExtra("position", -1) != -1) {//删除动态
+                viewModel?.removeItem(data.getIntExtra("position", -1))
             }
         }
     }

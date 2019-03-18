@@ -51,6 +51,12 @@
                                                  app:image_scale_type="center_crop"
                         />
 
+                        <cn.jzvd.JzvdStd android:layout_width="match_parent"
+                                         android:layout_height="280dp"
+                                         android:id="@+id/jz_video"
+                                         android:visibility="gone"
+                        />
+
                         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                    android:id="@+id/iv_back"
                                    android:src="@drawable/ic_back_w"
@@ -121,14 +127,15 @@
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tv_age"
                                   android:text="@{model.age}"
-                                  android:textColor="@color/white"
+                                  android:textSize="11sp"
+                                  android:textColor="@color/girl"
                                   android:background="@drawable/bg_girl"
                                   android:layout_toRightOf="@+id/tv_name"
                                   android:layout_alignBottom="@+id/tv_name"
                                   android:drawableLeft="@drawable/ic_girl"
-                                  android:drawablePadding="3dp"
-                                  android:paddingTop="2dp"
-                                  android:paddingBottom="2dp"
+                                  android:drawablePadding="5dp"
+                                  android:paddingTop="1dp"
+                                  android:paddingBottom="1dp"
                                   android:gravity="center"
                                   android:paddingLeft="8dp"
                                   android:paddingRight="8dp"/>
@@ -136,7 +143,6 @@
 
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tv_distance"
-                                  android:text="@{model.distance}"
                                   android:drawableLeft="@drawable/ic_address"
                                   android:layout_below="@+id/tv_name"
                                   android:drawablePadding="5dp"
@@ -193,9 +199,10 @@
                         />
 
                         <android.support.v7.widget.CardView
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                app:cardCornerRadius="60dp"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                app:cardCornerRadius="55dp"
+                                android:id="@+id/cv_fllow"
                                 app:cardElevation="2dp"
                                 android:layout_below="@+id/banner"
                                 android:layout_alignParentRight="true"
@@ -210,6 +217,8 @@
                                     android:drawablePadding="5dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorTabText"
                                     android:text="喜欢"
                             />
                         </android.support.v7.widget.CardView>

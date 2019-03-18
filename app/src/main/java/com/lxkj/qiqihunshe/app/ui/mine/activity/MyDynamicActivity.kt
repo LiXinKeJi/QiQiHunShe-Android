@@ -40,7 +40,7 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
 
         if (model.userId==StaticUtil.uid) {
             cl_person.visibility = View.GONE
-            tv_reward.visibility = View.GONE
+            tv_reward.visibility = View.INVISIBLE
 
             tv_right.visibility = View.VISIBLE
             tv_right.text = "删除"

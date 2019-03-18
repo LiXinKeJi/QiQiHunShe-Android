@@ -55,6 +55,9 @@ class QuYuViewModel : BaseViewModel() {
 
                         if (i > 0 && model.dataList[i].distance.toDouble() < model.dataList[i - 1].distance.toDouble())
                             servicePosition = i
+
+
+
                     }
                     //最近的服务网点
                     serviceOffice = model.dataList[servicePosition]

@@ -83,18 +83,17 @@ class PersonDynamicViewModel : BaseViewModel() {
     fun zan(position: Int): Single<String> {
         val json =
             "{\"cmd\":\"zanDongtai\",\"dongtaiId\":\"${adapter.getList()[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\"}"
-
         abLog.e("json", json)
         return retrofit.getData(json).async()
             .doOnSubscribe {
-                if (adapter.getList()[position].zan == "0") {
+                if (adapter.getList()[position].zan == "0") {// 0未点赞 1已点
                     adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() + 1).toString()
                     adapter.getList()[position].zan = "1"
                 } else {
                     adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() - 1).toString()
                     adapter.getList()[position].zan = "0"
                 }
-                adapter.notifyItemChanged(position, false)
+                adapter.zan(adapter.getList()[position].zanNum, adapter.getList()[position].dongtaiId)
             }
 
     }
@@ -120,6 +119,10 @@ class PersonDynamicViewModel : BaseViewModel() {
                 ToastUtil.showTopSnackBar(fragment!!.activity, obj.getString("orderId"))
             }
         }, fragment!!.activity))
+    }
+
+    fun removeItem(position: Int) {
+        adapter.removeItem(position)
     }
 
 

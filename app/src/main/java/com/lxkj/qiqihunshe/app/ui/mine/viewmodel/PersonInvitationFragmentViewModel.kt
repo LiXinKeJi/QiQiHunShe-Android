@@ -12,6 +12,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.activity.MyInvitationDetailsActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.PersonInvitationAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceInvitationModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentPersonInvitationBinding
 import io.reactivex.Single
 
@@ -22,7 +23,7 @@ class PersonInvitationFragmentViewModel : BaseViewModel() {
 
     var userId = ""
 
-      val adapter by lazy { PersonInvitationAdapter() }
+    val adapter by lazy { PersonInvitationAdapter() }
 
     var bind: FragmentPersonInvitationBinding? = null
 
@@ -33,11 +34,11 @@ class PersonInvitationFragmentViewModel : BaseViewModel() {
         bind!!.rvDynamic.layoutManager = LinearLayoutManager(fragment?.context)
 
         bind!!.rvDynamic.adapter = adapter
-
+        adapter.activity = fragment!!.activity
         adapter.setMyListener { itemBean, position ->
             val bundle = Bundle()
             bundle.putString("id", itemBean.yaoyueId)
-            MyApplication.openActivity(fragment?.context, MyInvitationDetailsActivity::class.java,bundle)
+            MyApplication.openActivity(fragment?.context, MyInvitationDetailsActivity::class.java, bundle)
         }
 
     }
@@ -67,7 +68,7 @@ class PersonInvitationFragmentViewModel : BaseViewModel() {
     }
 
 
-    //删除动态
+    //删除邀约
     fun DelInvitation(position: Int): Single<String> {
         val json =
             "{\"cmd\":\"delYaoyue\",\"uid\":\"" + StaticUtil.uid + "\",\"yaoyueId\":\"" + adapter.getList()[position].yaoyueId + "\"}"
@@ -78,10 +79,23 @@ class PersonInvitationFragmentViewModel : BaseViewModel() {
                 }
             }, fragment!!.activity))
     }
+
     fun removeItem(position: Int) {
         adapter.removeItem(position)
     }
 
+    fun jubao(report: String, toInt: Int): Single<String> {
+        val json =
+            "{\"cmd\":\"yaoyueReport\",\"uid\":\"" + StaticUtil.uid + "\",\"yaoyueId\":\"" + adapter.getList()[toInt].yaoyueId +
+                    "\",\"content\":\"" + report + "\"}"
+
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    ToastUtil.showTopSnackBar(fragment!!.activity, "举报成功")
+                }
+            }, fragment!!.activity))
+    }
 
 
 }

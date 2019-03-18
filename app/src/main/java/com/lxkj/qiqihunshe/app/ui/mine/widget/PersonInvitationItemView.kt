@@ -1,23 +1,26 @@
 package com.lxkj.qiqihunshe.app.ui.mine.widget
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceInvitationModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
-import com.lxkj.qiqihunshe.app.util.EventBusCmd
-import com.lxkj.qiqihunshe.app.util.GlideUtil
+import com.lxkj.qiqihunshe.app.util.*
 import kotlinx.android.synthetic.main.item_person_invitation.view.*
 import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Slingge on 2019/2/21
  */
-class PersonInvitationItemView : RelativeLayout {
+class PersonInvitationItemView(activity: Activity, context: Context?) : RelativeLayout(context) {
 
+    private var activity: Activity? = null
 
-    constructor(context: Context) : super(context)
+    init {
+        this.activity = activity
+    }
 
     /**
      * 初始化方法
@@ -28,14 +31,17 @@ class PersonInvitationItemView : RelativeLayout {
 
     fun setData(bean: SpaceInvitationModel.dataModel, positon: Int) {
 
-        /*if (bean.sex == "0") {//0女 1男
+        if (bean.sex == "0") {//0女 1男
             tv_age.setBackgroundResource(R.drawable.bg_girl)
+            tv_age.setTextColor(context.resources.getColor(R.color.girl))
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl, tv_age, 3)
         } else {
             tv_age.setBackgroundResource(R.drawable.thems_bg35)
+            tv_age.setTextColor(context.resources.getColor(R.color.colorThemes))
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy, tv_age, 3)
-        }*/
+        }
 
+        GlideUtil.glideHeaderLoad(context, bean.icon, header)
 
         tv_zhui.text = "主题：${bean.title}"
         tv_time.text = "活动时间：${bean.starttime}"
@@ -45,7 +51,7 @@ class PersonInvitationItemView : RelativeLayout {
         tv_age.text = bean.age
 
         tv_name.text = bean.nickname
-        tv_occupation.text ="职业："+ bean.job
+        tv_occupation.text = "职业：" + bean.job
 
         if (bean.image.isEmpty()) {
             iv_1.visibility = View.GONE
@@ -69,7 +75,19 @@ class PersonInvitationItemView : RelativeLayout {
             tv_totalnum.text = (bean.image.size - 3).toString()
         }
 
+        iv_1.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(activity, bean.image, 0)
+        }
+        iv_2.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(activity, bean.image, 1)
+        }
+        iv_3.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(activity, bean.image, 2)
+        }
+
+
         tv_report.setOnClickListener {
+            ToastUtil.showTopSnackBar(activity,positon.toString())
             EventBus.getDefault().post(EventCmdModel(EventBusCmd.JuBao, positon.toString()))
         }
 
