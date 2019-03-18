@@ -1,21 +1,35 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
+import android.annotation.SuppressLint
+import android.view.Gravity
+import com.baidu.mapapi.search.core.PoiInfo
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
+import com.lxkj.qiqihunshe.app.rongrun.model.YueJianModel
+import com.lxkj.qiqihunshe.app.rongrun.message.*
+import com.lxkj.qiqihunshe.app.rongrun.model.ImpressionScoreModel
+import com.lxkj.qiqihunshe.app.rongrun.model.QiQiAssistModel
+import com.lxkj.qiqihunshe.app.rongrun.model.ShiYueModel
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog2
 import com.lxkj.qiqihunshe.app.ui.model.JuBaoModel
-import com.lxkj.qiqihunshe.app.rongrun.message.CustomizeMessage1
+import com.lxkj.qiqihunshe.app.ui.dialog.DatePop
+import com.lxkj.qiqihunshe.app.ui.fujin.model.DivideModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.ChatReportModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
+import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
 import io.reactivex.Single
+import org.json.JSONObject
 
 /**
  * Created by Slingge on 2019/3/12
  */
-class ChatViewModel : BaseViewModel() {
+class ChatViewModel : BaseViewModel(), DatePop.DateCallBack {
 
     val JuBaoList by lazy { ArrayList<String>() }
 
@@ -23,6 +37,12 @@ class ChatViewModel : BaseViewModel() {
 
     var targetId = ""//对方id
     var title = ""//标题，对方昵称
+
+    var bind: ActivityChatDetailsBinding? = null
+
+    val datePop by lazy { DatePop(activity, this) }
+
+    var info: PoiInfo? = null
 
     fun jubao() {}
 
@@ -42,9 +62,151 @@ class ChatViewModel : BaseViewModel() {
 
     fun sendMessage1() {
         val shopMessage = CustomizeMessage1()
-        shopMessage.reject="0"
+        shopMessage.reject = "0"
         shopMessage.content = "消息1"
         RongYunUtil.sendMessage1(targetId, shopMessage, "")
+    }
+
+    fun sendMessage2(type: String) {
+        val shopMessage = CustomizeMessage2()
+        shopMessage.type = type
+        shopMessage.content = title + "拒绝当前请求"
+        shopMessage.price = "0.0"
+        RongYunUtil.sendMessage2(targetId, shopMessage, "")
+    }
+    fun sendMessage2(type: String,price:String) {
+        val shopMessage = CustomizeMessage2()
+        shopMessage.type = type
+        shopMessage.content = title + "拒绝当前请求"
+        shopMessage.price =price
+        RongYunUtil.sendMessage2(targetId, shopMessage, "")
+    }
+
+    fun sendMessage3() {
+        val shopMessage = CustomizeMessage3()
+        RongYunUtil.sendMessage3(targetId, shopMessage, "")
+    }
+
+
+    fun selectTime() {
+        if (!datePop.isShowing) {
+            datePop.showAtLocation(bind!!.clMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
+        }
+    }
+
+
+    private var dateTime = ""
+    override fun position(
+        position1: String, position2: String, position3: String,
+        position4: String, position5: String, position6: String
+    ) {
+        dateTime = "$position1-$position2-$position3 $position4:$position5:$position6"
+    }
+
+    override fun position() {
+        info?.let {
+            val shopMessage = CustomizeMessage4()
+            shopMessage.content = it.name
+            shopMessage.address = it.name
+            shopMessage.lat = it.location.latitude.toString()
+            shopMessage.lon = it.location.longitude.toString()
+            shopMessage.time = dateTime
+            RongYunUtil.sendMessage4(targetId, shopMessage, "")
+        }
+    }
+
+
+    //两人约见
+    fun yueJian(model: YueJianModel): Single<String> {
+        abLog.e("约见", Gson().toJson(model))
+        return retrofit.getData(Gson().toJson(model)).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val obj = JSONObject(response)
+                    val shopMessage = CustomizeMessage5()
+                    shopMessage.address = model.address
+                    shopMessage.lat = model.lat
+                    shopMessage.lon = model.lon
+                    shopMessage.time = model.arrivaltime
+                    shopMessage.yuejianId = obj.getString("yuejianId")
+                    RongYunUtil.sendMessage5(targetId, shopMessage, "")
+
+                    val shopMessage6 = CustomizeMessage6()
+                    shopMessage6.address = model.address
+                    shopMessage6.lat = model.lat
+                    shopMessage6.lon = model.lon
+                    shopMessage6.yuejianId = obj.getString("yuejianId")
+                    RongYunUtil.sendMessage6(targetId, shopMessage6, "")
+                }
+            }, activity))
+    }
+
+
+    fun shiYue(model: ShiYueModel): Single<String> {
+        return retrofit.getData(Gson().toJson(model)).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    ToastUtil.showTopSnackBar(activity, "提交成功")
+                }
+            }, activity))
+    }
+
+
+    //七七协助
+    fun addHelp(model: QiQiAssistModel): Single<String> {
+        return retrofit.getData(Gson().toJson(model)).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    ToastUtil.showTopSnackBar(activity, "提交成功")
+                }
+            }, activity))
+    }
+
+    //解除关系
+    fun jiechu(): Single<String> {
+        val json = "{\"cmd\":\"relieverelationship\",\"uid\":\"" + StaticUtil.uid + "\",\"tauid\":\"" + targetId + "\"}"
+
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    activity?.let {
+                        ToastUtil.showToast("解除成功")
+                        it.finish()
+                    }
+                }
+            }, activity))
+    }
+
+    //印象评分，解除关系，完成约见
+    @SuppressLint("CheckResult")
+    fun dianping(model: ImpressionScoreModel): Single<String> {
+        abLog.e("解除关系",Gson().toJson(model))
+        return retrofit.getData(Gson().toJson(model)).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    if (model.type == "1") {//1解除关系 2完成约见
+                        activity?.let {
+                            ToastUtil.showToast("解除成功")
+                            it.finish()
+                        }
+                    } else {
+                        ToastUtil.showTopSnackBar(activity, "评分成功")
+                    }
+                }
+            }, activity))
+    }
+
+
+    //消费划分
+    fun huafen(model: DivideModel): Single<String> {
+        return retrofit.getData(Gson().toJson(model)).async().compose(SingleCompose.compose(object :SingleObserverInterface{
+            override fun onSuccess(response: String) {
+                val shopMessage7 = CustomizeMessage7()
+                shopMessage7.price = model.money
+                shopMessage7.yuejianId =model.yuejianId
+                RongYunUtil.sendMessage7(targetId, shopMessage7, "")
+            }
+        },activity))
     }
 
 

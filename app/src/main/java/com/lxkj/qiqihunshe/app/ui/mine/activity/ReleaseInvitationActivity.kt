@@ -5,14 +5,17 @@ import android.content.pm.PackageManager
 import android.text.TextUtils
 import android.view.View
 import android.widget.RadioGroup
+import com.baidu.mapapi.search.core.PoiInfo
 import com.google.gson.Gson
 import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
+import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseInvitationViewModel
 import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
 import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
@@ -59,7 +62,7 @@ class ReleaseInvitationActivity :
         radio_fee.setOnCheckedChangeListener(this)
 
         tv_time.setOnClickListener(this)
-        tv_adress.setOnClickListener(this)
+        tv_address.setOnClickListener(this)
         tv_send.setOnClickListener(this)
     }
 
@@ -69,8 +72,8 @@ class ReleaseInvitationActivity :
             R.id.tv_time -> {
                 viewModel?.showDate()
             }
-            R.id.tv_adress -> {
-                ToastUtil.showTopSnackBar(this, "地址")
+            R.id.tv_address -> {
+                MyApplication.openActivityForResult(this, ChooseAddressActivity::class.java, 1)
             }
             R.id.tv_send -> {
                 viewModel?.let {
@@ -204,6 +207,14 @@ class ReleaseInvitationActivity :
         if (requestCode == 0) {
             if (PictureSelector.obtainMultipleResult(data).isNotEmpty()) {
                 viewModel?.setImage(PictureSelector.obtainMultipleResult(data))
+            }
+        } else if (requestCode == 1) {
+            var poi = data.getParcelableExtra("poi") as PoiInfo
+            if (null != poi) {
+                binding.model?.lat = poi.location.latitude.toString()
+                binding.model?.lon = poi.location.latitude.toString()
+                binding.model?.address = poi.name
+                tv_address.text = poi.name
             }
         }
     }

@@ -8,6 +8,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.model.ActivityRecordModel
 import com.lxkj.qiqihunshe.app.ui.mine.model.CommentRecordModel
 import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiBlackListModel
 import com.lxkj.qiqihunshe.app.util.GlideUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import kotlinx.android.synthetic.main.item_blacklist.view.*
 
 /**
@@ -37,6 +38,8 @@ class QiQiBlackListItemView : RelativeLayout {
         tv_current.text = "家乡：" + bean.residence
         tv_id.text = "身份证号：" + bean.idnumber
         tv_phone.text = "手机号：" + bean.phone
+
+        abLog.e("我的黑名单",position.toString())
     }
 
 

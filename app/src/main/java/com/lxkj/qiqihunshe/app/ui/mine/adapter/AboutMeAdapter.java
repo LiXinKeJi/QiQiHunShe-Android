@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
+import com.lxkj.qiqihunshe.app.util.AbStrUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
 
 import java.util.List;
@@ -52,12 +53,12 @@ public class AboutMeAdapter extends RecyclerView.Adapter<AboutMeAdapter.ViewHold
         else
             holder.tvAge.setText("");
 
-        if (null != list.get(position).getRealname())
-            holder.tvName.setText(list.get(position).getRealname());
+        if (null != list.get(position).getUserNickname())
+            holder.tvName.setText(list.get(position).getUserNickname());
         else
             holder.tvName.setText("");
-        if (null != list.get(position).getJob())
-            holder.tvZhiye.setText("职业：" + list.get(position).getJob());
+        if (null != list.get(position).getUserJob())
+            holder.tvZhiye.setText("职业：" + list.get(position).getUserJob());
         if (null != list.get(position).getPlan())
             holder.tvEmotional.setText("情感计划：" + list.get(position).getPlan());
         if (null != list.get(position).getIntroduction())
@@ -74,16 +75,18 @@ public class AboutMeAdapter extends RecyclerView.Adapter<AboutMeAdapter.ViewHold
 
 
 
-
-        if (null != list.get(position).getSex()) {
-            switch (list.get(position).getSex()) {
+        holder.tvAge.setText(list.get(position).getUserAge());
+        if (null != list.get(position).getUserSex()) {
+            switch (list.get(position).getUserSex()) {
                 case "0"://女
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nv);
+                    holder.tvAge.setBackgroundResource(R.drawable.bg_girl);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.girl));
+                    AbStrUtil.INSTANCE.setDrawableLeft(context,R.drawable.ic_girl,holder.tvAge,3);
                     break;
                 case "1"://男
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nan);
+                    holder.tvAge.setBackgroundResource(R.drawable.thems_bg35);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                    AbStrUtil.INSTANCE.setDrawableLeft(context,R.drawable.ic_boy,holder.tvAge,3);
                     break;
             }
         }

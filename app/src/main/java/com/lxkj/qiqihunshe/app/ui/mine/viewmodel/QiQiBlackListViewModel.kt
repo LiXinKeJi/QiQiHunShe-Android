@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import com.google.gson.Gson
 
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
@@ -14,6 +15,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiBlackListModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 
 import io.reactivex.Single
@@ -41,7 +43,7 @@ class QiQiBlackListViewModel : BaseViewModel() {
 
 
     fun getBlackData(): Single<String> {
-        var json = ""
+        var json: String
         if (flag == 0) {
             json = "{\"cmd\":\"blacklist" + "\",\"page\":\"" + page + "\"}"
         } else {
@@ -51,7 +53,7 @@ class QiQiBlackListViewModel : BaseViewModel() {
         return retrofit.getData(json)
             .async().compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    val model = QiQiBlackListModel()
+                    val model =Gson().fromJson(response, QiQiBlackListModel::class.java)
 
                     if (page == 1) {
                         bind!!.refresh.isRefreshing=false
@@ -59,7 +61,7 @@ class QiQiBlackListViewModel : BaseViewModel() {
                         if (totalpage == 1) {
                             adapter.flag = 1
                         }
-                        adapter.loadMore(model.dataList, 1)
+                        adapter.upData(model.dataList)
                     } else {
                         if (page == totalpage) {
                             adapter.loadMore(model.dataList, 1)

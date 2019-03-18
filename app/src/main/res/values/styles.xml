@@ -92,4 +92,11 @@
         <!--<item name="banner_placeholderDrawable">@drawable/holder</item>-->'
     </style>
 
+
+    <!-- spinner -->
+    <style name="spinner_style">
+        <item name="android:background">@drawable/touch_bg</item>
+    </style>
+
+
 </resources>

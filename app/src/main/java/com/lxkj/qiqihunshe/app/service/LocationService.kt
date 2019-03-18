@@ -63,7 +63,6 @@ class LocationService : Service() {
                 return
             }
 
-            abLog.e("上传用户坐标", "计时")
             if (location != null) {
                 StaticUtil.lat = location.latitude.toString() + ""
                 StaticUtil.lng = location.longitude.toString() + ""

@@ -152,16 +152,18 @@ object ReportDialog2 : DatePop.DateCallBack {
     }
 
 
-    override fun position(position1: String, position2: String, position3: String) {
+    override fun position(position1: String, position2: String, position3: String, position4: String, position5: String, position6: String) {
         if (flag == 0) {
-            statTime = "$position1-$position2-$position3"
+            statTime = "$position1-$position2-$position3 $position4:$position5:$position6"
             tv_startTime!!.text = statTime
         } else if (flag == 1) {
-            endTime = "$position1-$position2-$position3"
+            statTime = "$position1-$position2-$position3 $position4:$position5:$position6"
             tv_endTime!!.text = endTime
         }
     }
+    override fun position() {
 
+    }
 
     fun diss() {
         dialog?.let {

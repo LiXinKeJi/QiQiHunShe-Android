@@ -34,6 +34,8 @@ class QiQiBlackListModel : BaseModel() {
         var idnumber = ""// 身份证号
         var phone = ""
 
+
+
     }
 
 

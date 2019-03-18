@@ -16,9 +16,9 @@ import io.rong.imkit.model.UIMessage
 import io.rong.imkit.widget.provider.IContainerItemProvider
 import io.rong.imlib.model.Message
 
-@ProviderTag(messageContent = CustomizeMessage1::class)
+@ProviderTag(messageContent = CustomizeMessage2::class)
 class CustomizeMessageItemProvider2(private val context: Context) :
-    IContainerItemProvider.MessageProvider<CustomizeMessage1>() {
+    IContainerItemProvider.MessageProvider<CustomizeMessage2>() {
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
@@ -40,36 +40,41 @@ class CustomizeMessageItemProvider2(private val context: Context) :
         return view
     }
 
-    override fun bindView(view: View, i: Int, shopMessage: CustomizeMessage1, message: UIMessage) {
+    override fun bindView(view: View, i: Int, shopMessage: CustomizeMessage2, message: UIMessage) {
         val holder = view.tag as ViewHolder
 
         if (message.messageDirection == Message.MessageDirection.SEND) {//消息方向，自己发送的
-            holder.tv_tip!!.text = "已发起遇见信息，请等待"
             holder.cardView2!!.visibility = View.GONE
             holder.tv_num!!.visibility = View.GONE
             holder.line0!!.visibility = View.GONE
             holder.line1!!.visibility = View.GONE
+            when (shopMessage.type) {
+                "1" -> holder.tv_tip!!.text = shopMessage.content
+                "4" -> holder.tv_tip!!.text = "您同意了消费划分"
+                "5" -> holder.tv_tip!!.text = "您拒绝了消费划分"
+                "6" -> holder.tv_tip!!.text = "您拒绝了当前约见地点"
+            }
+
         } else {
-            holder.tv_tip!!.visibility=View.INVISIBLE
-
+            holder.cardView2!!.visibility = View.GONE
+            holder.tv_num!!.visibility = View.GONE
+            holder.line0!!.visibility = View.GONE
+            holder.line1!!.visibility = View.GONE
+            when (shopMessage.type) {
+                "1" -> holder.tv_tip!!.text = "您拒绝了约见请求"
+                "4" -> holder.tv_tip!!.text = "对方同意了消费划分"
+                "5" -> holder.tv_tip!!.text = "对方拒绝了消费划分"
+                "6" -> holder.tv_tip!!.text = "对方拒绝了当前定位"
+            }
         }
-
 
     }
 
-    override fun getContentSummary(shopMessage: CustomizeMessage1): Spannable {
+    override fun getContentSummary(shopMessage: CustomizeMessage2): Spannable {
         return SpannableString("内容摘要")
     }
 
-    override fun onItemClick(view: View, i: Int, shopMessage: CustomizeMessage1, uiMessage: UIMessage) {
-        when (view.id) {
-            R.id.tv_no -> {
-
-            }
-            R.id.tv_yes -> {
-
-            }
-        }
+    override fun onItemClick(view: View, i: Int, shopMessage: CustomizeMessage2, uiMessage: UIMessage) {
     }
 
     internal inner class ViewHolder {
@@ -84,8 +89,6 @@ class CustomizeMessageItemProvider2(private val context: Context) :
         var tv_no: TextView? = null
         var tv_yes: TextView? = null
     }
-
-
 
 
 }

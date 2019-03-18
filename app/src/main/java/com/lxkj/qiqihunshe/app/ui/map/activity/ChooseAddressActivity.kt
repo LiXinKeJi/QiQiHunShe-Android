@@ -46,6 +46,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding, ChooseA
     override fun getLayoutId(): Int = R.layout.activity_choose_address
 
     override fun init() {
+        initTitle("选择地址")
         mMapView.setOnMapStatusChangeListener(this)
         mCoder.setOnGetGeoCodeResultListener(this)
         val ll = LatLng(StaticUtil.lat.toDouble(), StaticUtil.lng.toDouble())

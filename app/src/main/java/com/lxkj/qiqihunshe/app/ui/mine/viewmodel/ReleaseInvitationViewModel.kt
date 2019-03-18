@@ -52,9 +52,11 @@ class ReleaseInvitationViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCa
     }
 
 
-    override fun position(position1: String, position2: String, position3: String) {
-        model.starttime = "$position1-$position2-$position3"
+    override fun position(position1: String, position2: String, position3: String, position4: String, position5: String, position6: String) {
+        model.starttime = "$position1-$position2-$position3 $position4:$position5:$position6"
         bind!!.tvTime.text = model.starttime
+    }
+    override fun position() {
     }
 
     fun initViewModel() {

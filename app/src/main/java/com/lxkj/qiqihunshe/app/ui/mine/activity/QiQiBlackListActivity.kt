@@ -20,9 +20,15 @@ class QiQiBlackListActivity : BaseActivity<ActivityRecyvlerviewBinding, QiQiBlac
 
 
     override fun init() {
-        initTitle("七七黑名单")
+
         viewModel?.let {
             it.bind = binding
+            it.flag=intent.getIntExtra("flag",-1)
+            if(it.flag==0){
+                initTitle("七七黑名单")
+            }else{
+                initTitle("我的黑名单")
+            }
             it.initViewModel()
 
             it.adapter.setLoadMore {

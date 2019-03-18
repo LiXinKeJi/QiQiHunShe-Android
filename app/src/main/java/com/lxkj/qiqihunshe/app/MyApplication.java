@@ -13,8 +13,7 @@ import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil;
-import com.lxkj.qiqihunshe.app.rongrun.message.CustomizeMessage1;
-import com.lxkj.qiqihunshe.app.rongrun.message.CustomizeMessageItemProvider1;
+import com.lxkj.qiqihunshe.app.rongrun.message.*;
 import com.lxkj.qiqihunshe.app.util.StaticUtil;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
 import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil;
@@ -88,6 +87,18 @@ public class MyApplication extends MultiDexApplication {
         RongIM.getInstance().setMessageAttachedUserInfo(true);
         RongIM.registerMessageType(CustomizeMessage1.class);//注册自定义消息
         RongIM.registerMessageTemplate(new CustomizeMessageItemProvider1(this));
+        RongIM.registerMessageType(CustomizeMessage2.class);//注册自定义消息
+        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider2(this));
+        RongIM.registerMessageType(CustomizeMessage3.class);//注册自定义消息
+        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider3(this));
+        RongIM.registerMessageType(CustomizeMessage4.class);//注册自定义消息
+        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider4(this));
+        RongIM.registerMessageType(CustomizeMessage5.class);//注册自定义消息
+        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider5(this));
+        RongIM.registerMessageType(CustomizeMessage6.class);//注册自定义消息
+        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider6(this));
+        RongIM.registerMessageType(CustomizeMessage7.class);//注册自定义消息
+        RongIM.registerMessageTemplate(new CustomizeMessageItemProvider7(this));
 
         if (!TextUtils.isEmpty(StaticUtil.INSTANCE.getRytoken())) {
             RongYunUtil.INSTANCE.initService();

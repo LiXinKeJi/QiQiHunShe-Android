@@ -26,16 +26,24 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
     internal var position2 = 0
     internal var position3 = 0
 
-    private val yearList = ArrayList<String>()
-    private val monthList = ArrayList<String>()
-    private val dayList = ArrayList<String>()
+    internal var position4 = 0
+    internal var position5 = 0
+    internal var position6 = 0
+
+    private val yearList by lazy { ArrayList<String>() }
+    private val monthList by lazy { ArrayList<String>() }
+    private val dayList by lazy { ArrayList<String>() }
+
+    private val hourList by lazy { ArrayList<String>() }
+    private val minList by lazy { ArrayList<String>() }
 
     private var month = 0//当前月份
     private var day = 0//当天
     private var year = 0
 
     interface DateCallBack {
-        fun position(position1: String, position2: String, position3: String)
+        fun position(position1: String, position2: String, position3: String, position4: String, position5: String, position6: String)
+        fun position()
     }
 
 
@@ -44,6 +52,13 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         val loopview = v.findViewById<View>(R.id.loopView) as LoopView
         val loopview2 = v.findViewById<View>(R.id.loopView2) as LoopView
         val loopview3 = v.findViewById<View>(R.id.loopView3) as LoopView
+
+        val loopview4 = v.findViewById<View>(R.id.loopView4) as LoopView
+        val loopview5 = v.findViewById<View>(R.id.loopView5) as LoopView
+        val loopview6 = v.findViewById<View>(R.id.loopView6) as LoopView
+        loopview4.visibility = View.VISIBLE
+        loopview5.visibility = View.VISIBLE
+        loopview6.visibility = View.VISIBLE
         loopview.setTextSize(16f)
         loopview2.setTextSize(16f)
         loopview3.setTextSize(16f)
@@ -51,6 +66,10 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         v.findViewById<View>(R.id.year).visibility = View.VISIBLE
         v.findViewById<View>(R.id.month).visibility = View.VISIBLE
         v.findViewById<View>(R.id.day).visibility = View.VISIBLE
+
+        v.findViewById<View>(R.id.hour).visibility = View.VISIBLE
+        v.findViewById<View>(R.id.min).visibility = View.VISIBLE
+        v.findViewById<View>(R.id.second).visibility = View.VISIBLE
 
         //设置是否循环播放
         //        loopView.setNotLoop();
@@ -66,6 +85,9 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
             getYear()
             getMonth()
             getDay(year.toString(), month.toString())
+
+            getHour()
+            getMin()
         }
 
 //        loopview.setNotLoop()
@@ -82,7 +104,28 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         loopview3.setItems(dayList)
         position3 = day - 1
         loopview3.setCurrentPosition(position3)
-        wheelViewCallBack.position(yearList[yearList.size - 1], monthList[month - 1], dayList[day - 1])
+
+        loopview4.setNotLoop()
+        loopview4.setItems(hourList)
+        loopview4.setCurrentPosition(position4)
+
+        loopview5.setNotLoop()
+        loopview5.setItems(minList)
+        loopview5.setCurrentPosition(position5)
+
+        loopview6.setNotLoop()
+        loopview6.setItems(minList)
+        loopview6.setCurrentPosition(position6)
+
+        wheelViewCallBack.position(
+            yearList[yearList.size - 1],
+            monthList[month - 1],
+            dayList[day - 1],
+            hourList[position4],
+            hourList[position5],
+            hourList[position6]
+        )
+
 
         loopview.setListener { index ->
             position = index
@@ -98,7 +141,14 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
             loopview3.setItems(dayList)
             loopview3.setInitPosition(position3)
 
-            wheelViewCallBack.position(yearList[position], monthList[position2], dayList[position3])
+            wheelViewCallBack.position(
+                yearList[position],
+                monthList[position2],
+                dayList[position3],
+                hourList[position4],
+                hourList[position5],
+                hourList[position6]
+            )
         }
         loopview2.setListener { index ->
             position2 = index
@@ -111,16 +161,63 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
 
             loopview3.setInitPosition(0)
 
-            wheelViewCallBack.position(yearList[position], monthList[position2], dayList[position3])
+            wheelViewCallBack.position(
+                yearList[position],
+                monthList[position2],
+                dayList[position3],
+                hourList[position4],
+                minList[position5],
+                hourList[position6]
+            )
         }
         loopview3.setListener { index ->
             position3 = index
-            wheelViewCallBack.position(yearList[position], monthList[position2], dayList[position3])
+            wheelViewCallBack.position(
+                yearList[position],
+                monthList[position2],
+                dayList[position3],
+                hourList[position4],
+                minList[position5],
+                hourList[position6]
+            )
         }
+
+        loopview4.setListener { index ->
+            position4 = index
+            wheelViewCallBack.position(
+                yearList[position],
+                monthList[position2],
+                dayList[position3],
+                hourList[position4],
+                minList[position5],
+                hourList[position6]
+            )
+        }
+
+        loopview5.setListener { index ->
+            position5 = index
+            wheelViewCallBack.position(
+                yearList[position],
+                monthList[position2],
+                dayList[position3],
+                hourList[position4],
+                minList[position5],
+                hourList[position6]
+            )
+        }
+
 
         val tv_enter = v.findViewById<View>(R.id.tv_enter) as TextView
         tv_enter.setOnClickListener { v1 ->
-            wheelViewCallBack.position(yearList[position], monthList[position2], dayList[position3])
+            wheelViewCallBack.position(
+                yearList[position],
+                monthList[position2],
+                dayList[position3],
+                hourList[position4],
+                minList[position5],
+                hourList[position6]
+            )
+            wheelViewCallBack.position()
             this@DatePop.dismiss()
         }
 
@@ -166,6 +263,26 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
                 dayList.add("0$i")
             } else {
                 dayList.add(i.toString())
+            }
+        }
+    }
+
+    private fun getHour() {
+        for (i in 0..23) {
+            if (i < 10) {
+                hourList.add("0$i")
+            } else {
+                hourList.add(i.toString())
+            }
+        }
+    }
+
+    private fun getMin() {
+        for (i in 0..59) {
+            if (i < 10) {
+                minList.add("0$i")
+            } else {
+                minList.add(i.toString())
             }
         }
     }

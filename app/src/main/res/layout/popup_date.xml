@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_enter"
+            android:layout_marginLeft="12dp"
             android:orientation="horizontal">
 
             <com.weigan.loopview.LoopView
@@ -112,6 +113,24 @@
                 android:paddingRight="12dp"
                 android:textColor="@color/colorTabText"
                 android:textSize="15sp" />
+
+            <com.weigan.loopview.LoopView
+                    android:id="@+id/loopView6"
+                    android:layout_width="0dp"
+                    android:visibility="gone"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    app:awv_textsize="14" />
+            <TextView
+                    android:id="@+id/second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="秒"
+                    android:visibility="gone"
+                    android:paddingRight="12dp"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="15sp" />
 
         </LinearLayout>
 
