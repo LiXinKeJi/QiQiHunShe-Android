@@ -9,10 +9,12 @@ import cn.beecloud.BeeCloud
 import cn.beecloud.async.BCCallback
 import cn.beecloud.entity.BCPayResult
 import cn.beecloud.entity.BCReqParams
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.ui.mine.model.WalletModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import io.reactivex.Single
@@ -59,7 +61,7 @@ class PayViewModel : BaseViewModel() {
         ToastUtil.showToast("支付成功")
         val intent = Intent()
         activity?.let {
-            it.setResult(0, intent)
+            it.setResult(303, intent)
             it.finish()
         }
     }
@@ -168,6 +170,18 @@ class PayViewModel : BaseViewModel() {
             sb.append(a)
         }
         return sb.toString()
+    }
+
+
+    //获取余额
+    fun getBannale(): Single<String>  {
+        val json = "{\"cmd\":\"userBalance\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                val model = Gson().fromJson(response, WalletModel::class.java)
+                StaticUtil.amount=model.amount
+            }
+        }, activity))
     }
 
 }

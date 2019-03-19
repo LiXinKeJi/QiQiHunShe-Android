@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.include_v.view.*
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
+import com.lxkj.qiqihunshe.app.util.SeePhotoViewUtil
 import kotlinx.android.synthetic.main.item_person_dynamic.view.*
 import org.greenrobot.eventbus.EventBus
 
@@ -96,12 +97,19 @@ class AffectiveDynamicItemView : RelativeLayout {
             GlideUtil.glideLoad(context,bean.images[0],iv_1)
             GlideUtil.glideLoad(context,bean.images[1],iv_2)
 
-            tv_totalnum.visibility = View.INVISIBLE
+            tv_totalnum.visibility = View.VISIBLE
             tv_totalnum.text="+"+(bean.images.size-3).toString()
         }
 
-
-
+        iv_1.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(context,bean.images,0)
+        }
+        iv_2.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(context,bean.images,1)
+        }
+        iv_3.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(context,bean.images,2)
+        }
 
         tv_zan.setOnClickListener {
             EventBus.getDefault().post(EventCmdModel(EventBusCmd.DianZan,(position).toString()))

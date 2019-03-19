@@ -52,6 +52,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        viewModel!!.mineFragment.onActivityResult(requestCode, resultCode, data)
+    }
+
 
     private fun initLocationOption() {
         val intentOne = Intent(this, LocationService::class.java)

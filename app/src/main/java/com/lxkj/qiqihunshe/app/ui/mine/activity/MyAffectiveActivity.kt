@@ -35,11 +35,11 @@ class MyAffectiveActivity : BaseActivity<ActivityMyaffectiveBinding, MyAffective
             if (flag == 0) {
                 val bundle = Bundle()
                 bundle.putInt("flag", 1)
-                MyApplication.openActivity(this, ReleaseDynamicActivity::class.java)
+                MyApplication.openActivity(this, ReleaseDynamicActivity::class.java,bundle)
             } else {
                 val bundle = Bundle()
-                bundle.putInt("flag", 1)
-                MyApplication.openActivity(this, ReleaseInvitationTypeActivity::class.java)
+                bundle.putInt("type", 1)
+                MyApplication.openActivity(this, ReleaseInvitationTypeActivity::class.java,bundle)
             }
         }
 

@@ -1,13 +1,12 @@
 package com.lxkj.qiqihunshe.app.ui.shouye.viewmodel
 
-import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
-import com.jcodecraeer.xrecyclerview.ProgressStyle
+import com.jcodecraeer.xrecyclerview.ProgressStyle.BallSpinFadeLoader
+import com.jcodecraeer.xrecyclerview.ProgressStyle.SquareSpin
 import com.jcodecraeer.xrecyclerview.XRecyclerView
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.customview.MyWebView
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
@@ -34,8 +33,8 @@ class MatchingHistoryViewModel : BaseViewModel() {
 
 
     fun init() {
-        bind?.xRecyclerView?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
-        bind?.xRecyclerView?.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin)
+        bind?.xRecyclerView?.setRefreshProgressStyle( BallSpinFadeLoader)
+        bind?.xRecyclerView?.setLoadingMoreProgressStyle( SquareSpin)
         bind?.xRecyclerView?.defaultRefreshHeaderView // get default refresh header view
             ?.setRefreshTimeVisible(true)
         bind?.xRecyclerView?.layoutManager = GridLayoutManager(fragment?.context, 1)

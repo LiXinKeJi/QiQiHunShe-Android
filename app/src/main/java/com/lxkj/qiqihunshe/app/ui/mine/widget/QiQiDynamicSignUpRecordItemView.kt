@@ -12,11 +12,11 @@ import java.text.FieldPosition
 /**
  * Created by Slingge on 2019/2/21
  */
-class QiQiDynamicSignUpRecordItemView : RelativeLayout  {
+class QiQiDynamicSignUpRecordItemView : RelativeLayout {
 
 
-    constructor(context: Context) : super(context){
-        tv_time.visibility=View.VISIBLE
+    constructor(context: Context) : super(context) {
+        tv_time.visibility = View.VISIBLE
     }
 
     /**
@@ -26,12 +26,12 @@ class QiQiDynamicSignUpRecordItemView : RelativeLayout  {
         View.inflate(context, R.layout.item_qiqi_dynamic, this)
     }
 
-    fun setData(bean: QiQiDynamicModel.dataModel,position: Int) {
+    fun setData(bean: QiQiDynamicModel.dataModel, position: Int) {
 
-        tv_title.text=bean.title
-        tv_content.text=bean.introduction
-
-        GlideUtil.glideLoad(context,bean.image,image_view)
+        tv_title.text = bean.title
+        tv_content.text = bean.introduction
+        tv_time.text = bean.adtime
+        GlideUtil.glideLoad(context, bean.image, image_view)
     }
 
 

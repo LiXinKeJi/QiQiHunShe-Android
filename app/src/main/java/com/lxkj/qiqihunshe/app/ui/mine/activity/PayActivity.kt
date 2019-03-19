@@ -37,6 +37,7 @@ class PayActivity : BaseActivity<ActivityPaymentBinding, PayViewModel>(), View.O
                 cb_balance.visibility = View.GONE
                 tv_weixin.setPadding(0, 35, 0, 0)
             }
+            it.getBannale().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
 
         cb_balance.setOnClickListener(this)

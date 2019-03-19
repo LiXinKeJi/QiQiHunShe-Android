@@ -1,11 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
-import android.content.ComponentName
-import android.content.Context.BIND_AUTO_CREATE
 import android.content.Intent
-import android.content.ServiceConnection
 import android.os.Bundle
-import android.os.IBinder
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
@@ -14,22 +10,25 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.service.CallKitService
 import com.lxkj.qiqihunshe.app.ui.fujin.adapter.CaiYiCommentAdapter
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.fujin.model.FuJinModel
 import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.WalletModel
+import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.util.EventBusCmd
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FragmentSkillBinding
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 
 /**
- * Created by Slingge on 2019/2/27
+ * 我的才艺，才艺详情Fragment共用
+ * * Created by Slingge on 2019/2/27
  */
 class SkillViewModel : BaseViewModel() {
 
@@ -43,6 +42,8 @@ class SkillViewModel : BaseViewModel() {
 
     var money = ""//每分钟价格
     var type = 0 //通话类型 0 语音 1 视频
+
+    var cayiId = ""
 
 
     fun initViewModel() {
@@ -63,7 +64,6 @@ class SkillViewModel : BaseViewModel() {
                     val model = Gson().fromJson(response, FuJinModel::class.java)
                     totalPage = model.totalPage.toInt()
                     page++
-
                     if (page == 1)
                         list.clear()
                     list.addAll(model.dataList)
@@ -170,6 +170,25 @@ class SkillViewModel : BaseViewModel() {
             val model = Gson().fromJson(it, WalletModel::class.java)
             StaticUtil.amount = model.amount
         }
+    }
+
+
+    //删除才艺
+    fun DelSkill(): Single<String> {
+        val json =
+            "{\"cmd\":\"delCaiyi\",\"uid\":\"" + StaticUtil.uid + "\",\"caiyiId\":\"" + cayiId + "\"}"
+        abLog.e("删除才艺", json)
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    activity?.let {
+                        val intent = Intent()
+                        intent.putExtra("position", it.intent.getIntExtra("position", -1))
+                        it.setResult(303, intent)
+                        it.finish()
+                    }
+                }
+            }, activity))
     }
 
 

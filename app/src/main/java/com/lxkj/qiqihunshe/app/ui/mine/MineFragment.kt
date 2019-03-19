@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -58,14 +59,10 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
+            it.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        viewModel!!.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -79,11 +76,11 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
             }
             R.id.tv_authent -> {//实名认证
                 if (viewModel!!.auth == "2") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
-                    ToastUtil.showTopSnackBar(activity,"您已认证通过")
+                    ToastUtil.showTopSnackBar(activity, "您已认证通过")
                     return
                 }
                 if (viewModel!!.auth == "1") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
-                    ToastUtil.showTopSnackBar(activity,"您的认证正在审核")
+                    ToastUtil.showTopSnackBar(activity, "您的认证正在审核")
                     return
                 }
                 MyApplication.openActivity(activity, RealNameAuthenActivity::class.java)
@@ -104,7 +101,9 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 MyApplication.openActivity(activity, InteractiveNotificationActivity::class.java)
             }
             R.id.tv_reputation_bao -> {//信誉宝
-                MyApplication.openActivity(activity, ReputationBaoActivity::class.java)
+                val bundle=Bundle()
+                bundle.putString("userId",StaticUtil.uid)
+                MyApplication.openActivity(activity, ReputationBaoActivity::class.java,bundle)
             }
             R.id.tv_wallet -> {//钱包
                 MyApplication.openActivity(activity, WalletActivity::class.java)
@@ -134,6 +133,14 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
             R.id.tv_setup -> {//设置
                 MyApplication.openActivity(activity, SetUpActivity::class.java)
             }
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == 303 && requestCode == 0) {
+            viewModel!!.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
     }
 

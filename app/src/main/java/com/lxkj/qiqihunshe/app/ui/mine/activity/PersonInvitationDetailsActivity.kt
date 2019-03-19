@@ -45,7 +45,7 @@ class PersonInvitationDetailsActivity :
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_report -> {
-                ReportDialog1.show(this, object : ReportDialog1.ReportCallBack {
+                ReportDialog1.getReportList(this, "3", object : ReportDialog1.ReportCallBack {
                     override fun report(report: String) {
                         viewModel!!.yaoyueReport(report).bindLifeCycle(this@PersonInvitationDetailsActivity)
                             .subscribe({}, { toastFailure(it) })
@@ -53,7 +53,7 @@ class PersonInvitationDetailsActivity :
                 })
             }
             R.id.tv_signup -> {
-                viewModel!!.singUp().bindLifeCycle(this).subscribe({},{toastFailure(it)})
+                viewModel!!.singUp().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
         }
     }

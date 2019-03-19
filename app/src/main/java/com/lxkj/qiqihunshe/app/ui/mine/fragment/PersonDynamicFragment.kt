@@ -58,7 +58,7 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
                 viewModel!!.zan(model.res.toInt()).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
             EventBusCmd.JuBao -> {
-                ReportDialog1.show(activity!!, object : ReportDialog1.ReportCallBack {
+                ReportDialog1.getReportList(activity!!, "2",object : ReportDialog1.ReportCallBack {
                     override fun report(report: String) {
                         viewModel!!.jubao(report, model.res.toInt()).bindLifeCycle(this@PersonDynamicFragment)
                             .subscribe({}, { toastFailure(it) })

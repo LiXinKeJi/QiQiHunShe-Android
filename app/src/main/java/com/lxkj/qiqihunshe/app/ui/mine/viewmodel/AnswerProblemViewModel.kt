@@ -18,14 +18,13 @@ class AnswerProblemViewModel : BaseViewModel() {
     val problem = ObservableField<String>()
     val answer = ObservableField<String>()
 
-
     fun getproblem(): Single<String> {
         val json = "{\"cmd\":\"getUserQuestion\",\"uid\":\"" + StaticUtil.uid + "\"}"
 
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val obj = JSONObject(response)
-                problem.set(obj.getString("resultNote"))
+                problem.set(obj.getString("title"))
             }
         }, activity))
     }

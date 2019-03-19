@@ -11,6 +11,9 @@ import android.widget.TextView
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.customview.FlowLayout
+import com.lxkj.qiqihunshe.app.retrofitnet.*
+import com.lxkj.qiqihunshe.app.ui.mine.model.CommentModel
+import com.lxkj.qiqihunshe.app.ui.shouye.model.ReportModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 
 
@@ -33,8 +36,30 @@ object ReportDialog1 {
     private var iv_cancel: ImageView? = null
 
     private val list by lazy { ArrayList<String>() }
+    private val array by lazy { ArrayList<String>() }
 
-    fun show(context: Activity, reportCallBack: ReportCallBack) {
+
+    val retrofit by lazy { RetrofitUtil.getRetrofit().create(RetrofitService::class.java) }
+
+    @SuppressLint("CheckResult")
+    fun getReportList(context: Activity, type: String, reportCallBack: ReportCallBack) {
+        if(array.isEmpty()){
+            val json =  "{\"cmd\":\"getReportList\",\"type\":\"$type\"}"
+            retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val mode = Gson().fromJson(response, ReportModel::class.java)
+                    array.addAll(mode.dataList)
+                    show(context, reportCallBack)
+                }
+            }, context)).subscribe({}, {})
+        }else{
+            show(context, reportCallBack)
+        }
+
+    }
+
+    //type1聊天 2动态 3邀约 4才艺
+    fun show(context: Activity,   reportCallBack: ReportCallBack) {
         list.clear()
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
@@ -60,7 +85,6 @@ object ReportDialog1 {
             for (i in 0 until list.size) {
                 sb.append(list[i] + ",")
             }
-
             reportCallBack.report(sb.toString().substring(0, sb.toString().length - 1))
             dialog?.dismiss()
         }
@@ -81,8 +105,6 @@ object ReportDialog1 {
 
 
     fun initTLable(context: Activity, flType: FlowLayout, fl: FrameLayout) {
-
-        val array = context.resources.getStringArray(R.array.report)
 
         for (i in 0 until array.size) {
             val tv = LayoutInflater.from(context).inflate(

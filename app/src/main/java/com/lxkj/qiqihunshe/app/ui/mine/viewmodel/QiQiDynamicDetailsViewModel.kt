@@ -1,5 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
@@ -69,5 +71,14 @@ class QiQiDynamicDetailsViewModel : BaseViewModel() {
             }
         }, activity))
     }
+
+
+    fun toCallPhone() {
+        val intent = Intent(Intent.ACTION_DIAL)
+        val data = Uri.parse("tel:" + model.phone)
+        intent.data = data
+        activity!!.startActivity(intent)
+    }
+
 
 }

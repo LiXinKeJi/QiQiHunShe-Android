@@ -46,12 +46,15 @@ class PersonInvitationFragment : BaseFragment<FragmentPersonInvitationBinding, P
         }
         when (model.cmd) {
             EventBusCmd.JuBao -> {
-                ReportDialog1.show(activity!!, object : ReportDialog1.ReportCallBack {
+                ReportDialog1.getReportList(activity!!, "3", object : ReportDialog1.ReportCallBack {
                     override fun report(report: String) {
                         viewModel!!.jubao(report, model.res.toInt()).bindLifeCycle(this@PersonInvitationFragment)
                             .subscribe({}, { toastFailure(it) })
                     }
                 })
+            }
+            EventBusCmd.DelInvitation -> {
+                viewModel!!.removeItem(model.res.toInt())
             }
         }
     }

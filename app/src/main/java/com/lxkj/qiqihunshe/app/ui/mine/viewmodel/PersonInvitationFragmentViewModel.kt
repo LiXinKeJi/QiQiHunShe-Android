@@ -38,9 +38,9 @@ class PersonInvitationFragmentViewModel : BaseViewModel() {
         adapter.setMyListener { itemBean, position ->
             val bundle = Bundle()
             bundle.putString("id", itemBean.yaoyueId)
+            bundle.putInt("position", position)
             MyApplication.openActivity(fragment?.context, MyInvitationDetailsActivity::class.java, bundle)
         }
-
     }
 
 
@@ -67,18 +67,6 @@ class PersonInvitationFragmentViewModel : BaseViewModel() {
         }, fragment?.activity))
     }
 
-
-    //删除邀约
-    fun DelInvitation(position: Int): Single<String> {
-        val json =
-            "{\"cmd\":\"delYaoyue\",\"uid\":\"" + StaticUtil.uid + "\",\"yaoyueId\":\"" + adapter.getList()[position].yaoyueId + "\"}"
-        return retrofit.getData(json).async()
-            .compose(SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                    removeItem(position)
-                }
-            }, fragment!!.activity))
-    }
 
     fun removeItem(position: Int) {
         adapter.removeItem(position)

@@ -10,6 +10,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.activity.SeenSkillActivity
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SpaceSkillViewModel
 import com.lxkj.qiqihunshe.app.ui.model.DelDynamicModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentSpaceSkillBinding
 import kotlinx.android.synthetic.main.fragment_space_skill.*
 import org.greenrobot.eventbus.EventBus
@@ -29,17 +30,20 @@ class SpaceSkillFragment : BaseFragment<FragmentSpaceSkillBinding, SpaceSkillVie
         viewModel?.let {
             it.bind = binding
             it.initViewModel()
-            it.getSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
 
             it.adapter.setLoadMore {
-                viewModel!!.page++
-                it.getSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                it.page++
+                if (it.page <= it.totalPage) {
+                    it.getSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
             }
         }
 
         refresh.setOnRefreshListener {
-            viewModel!!.page = 1
-            viewModel!!.getSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            viewModel?.let {
+                it.page = 1
+                it.getSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            }
         }
 
         tv_setup.setOnClickListener {
@@ -52,12 +56,16 @@ class SpaceSkillFragment : BaseFragment<FragmentSpaceSkillBinding, SpaceSkillVie
     }
 
     override fun loadData() {
+        viewModel!!.getSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
     }
 
 
     @Subscribe
     fun onEvent(model: DelDynamicModel) {
-        if (model.cmd == EventBusCmd.DelSkill) {//删除才艺
+        if (!isViewInitiated) {
+            return
+        }
+        if (model.cmd == EventBusCmd.DelSkill) {//适配器删除才艺
             viewModel!!.DelSkill(model.position).bindLifeCycle(this).subscribe({}, { it })
         }
     }
@@ -73,9 +81,9 @@ class SpaceSkillFragment : BaseFragment<FragmentSpaceSkillBinding, SpaceSkillVie
             if (data.getStringExtra("cmd") == "add") {
                 viewModel!!.page = 1
                 viewModel!!.getSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-            }else{
-                viewModel!!.removeItem(data.getIntExtra("position", -1))
             }
+        } else if (requestCode == 1 && resultCode == 303) {//才艺详情删除才艺后移除
+            viewModel!!.removeItem(data.getIntExtra("position", -1))
         }
 
     }

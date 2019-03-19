@@ -87,7 +87,6 @@ class PersonInvitationItemView(activity: Activity, context: Context?) : Relative
 
 
         tv_report.setOnClickListener {
-            ToastUtil.showTopSnackBar(activity,positon.toString())
             EventBus.getDefault().post(EventCmdModel(EventBusCmd.JuBao, positon.toString()))
         }
 

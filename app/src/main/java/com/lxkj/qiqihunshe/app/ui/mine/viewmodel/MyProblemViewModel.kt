@@ -78,7 +78,6 @@ class MyProblemViewModel : BaseViewModel() {
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    ToastUtil.showToast(position.toString())
                     removeItem(position)
                 }
             }, fragment!!.activity))

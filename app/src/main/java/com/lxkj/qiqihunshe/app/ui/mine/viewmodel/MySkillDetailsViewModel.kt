@@ -7,9 +7,12 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.fujin.fragment.SkillFragment
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DataListModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.abLog
+import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/3/7
@@ -18,12 +21,13 @@ class MySkillDetailsViewModel : BaseViewModel() {
 
     var fragmentManager: FragmentManager? = null
 
-    fun getSkill(): Any {
+    fun getSkill(): Single<String> {
         val json =
             "{\"cmd\":\"caiyiDetail\",\"uid\":\"" + StaticUtil.uid + "\",\"caiyiId\":\"" + activity!!.intent.getStringExtra(
                 "id"
             ) + "\"}"
-        return retrofit.getData(json).compose(SingleCompose.compose(object : SingleObserverInterface {
+        abLog.e("才艺id", json)
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, DataListModel::class.java)
                 val bundle = Bundle()

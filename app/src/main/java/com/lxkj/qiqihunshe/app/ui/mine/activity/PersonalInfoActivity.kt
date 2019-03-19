@@ -25,8 +25,11 @@ import com.lxkj.qiqihunshe.app.util.GlideUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPersonalInfoBinding
+import io.rong.imkit.RongIM
 import kotlinx.android.synthetic.main.fragment_skill.*
 import kotlinx.android.synthetic.main.include_title.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
 
@@ -44,6 +47,7 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
 
 
     override fun init() {
+        EventBus.getDefault().register(this)
         isWhiteStatusBar = false
         if (Build.VERSION.SDK_INT > 19) {
             StatusBarUtil.immersiveStatusBar(this, 0f)
@@ -55,6 +59,9 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
         iv_edit.setOnClickListener(this)
         tv_vido.setOnClickListener(this)
         cv_fllow.setOnClickListener(this)
+
+        tv_cancel.setOnClickListener(this)
+        tv_conversation.setOnClickListener(this)
 
         viewModel?.let {
             binding.viewmodel = it
@@ -90,7 +97,7 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
 
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
-        viewPager.offscreenPageLimit=4
+        viewPager.offscreenPageLimit = 4
         tabs.setupWithViewPager(viewPager)
     }
 
@@ -129,6 +136,21 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
                 }
                 viewModel!!.floow().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
+            R.id.tv_cancel -> {
+                finish()
+            }
+            R.id.tv_conversation -> {
+                RongIM.getInstance().startPrivateChat(this, viewModel?.userId, viewModel!!.model.nickname)
+            }
+        }
+    }
+
+    private var marriage = ""
+    @Subscribe
+    fun onEvent(marriage: String) {// 情感状态 0未婚 1已婚 2离异
+        this.marriage = marriage
+        if(marriage=="1"){
+
         }
     }
 
@@ -136,6 +158,11 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
     override fun onPause() {
         super.onPause()
         Jzvd.releaseAllVideos()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }

@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
+import android.content.Intent
 import android.databinding.ObservableField
 import android.os.Bundle
 import android.text.TextUtils
@@ -463,8 +464,11 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
         return retrofit.getData(Gson().toJson(model)).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    ToastUtil.showToast("保存成功")
-                    activity?.finish()
+                    activity?.let {
+                        val intent = Intent()
+                        it.setResult(303, intent)
+                        it.finish()
+                    }
                 }
             }, activity))
     }

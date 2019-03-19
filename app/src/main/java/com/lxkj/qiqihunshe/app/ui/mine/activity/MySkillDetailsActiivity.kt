@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MySkillDetailsViewModel
 import com.lxkj.qiqihunshe.databinding.ActiviyMyskillDetailsBinding
 
@@ -16,14 +17,11 @@ class MySkillDetailsActiivity : BaseActivity<ActiviyMyskillDetailsBinding, MySki
 
 
     override fun init() {
-
         viewModel?.let {
             it.fragmentManager=supportFragmentManager
-            it.getSkill()
+            it.getSkill().bindLifeCycle(this).subscribe({},{toastFailure(it)})
         }
-
     }
-
 
 
 
