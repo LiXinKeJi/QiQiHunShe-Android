@@ -114,12 +114,11 @@ class AffectiveDynamicViewModel : BaseViewModel() {
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val obj = JSONObject(response)
-                ToastUtil.showTopSnackBar(fragment!!.activity, obj.getString("orderId"))
                 val bundle = Bundle()
                 bundle.putString("num", obj.getString("orderId"))
                 bundle.putDouble("money", money.toDouble())
                 bundle.putInt("flag", 0)
-                MyApplication.openActivityForResult(activity, PayActivity::class.java, bundle, 0)
+                MyApplication.openActivityForResult( fragment!!.activity, PayActivity::class.java, bundle, 0)
             }
         }, fragment!!.activity))
     }

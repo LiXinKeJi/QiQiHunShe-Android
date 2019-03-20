@@ -21,15 +21,19 @@ class MatchingHistoryActivity : BaseActivity<ActivityMatchHistoryBinding, Matchi
         viewModel?.let {
             it.bind = binding
             var flag = intent.getIntExtra("flag", -1)
-            when(flag){
-                0 ->{
+            when (flag) {
+                0 -> {
                     it.type = 1
                 }
-                1 ->{
+                1 -> {
                     it.type = 2
+                }
+                2 -> {//匹配
+                    initTitle("匹配结果")
                 }
             }
             it.init()
+
         }
     }
 }

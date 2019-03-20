@@ -51,11 +51,6 @@
                                                  app:image_scale_type="center_crop"
                         />
 
-                        <cn.jzvd.JzvdStd android:layout_width="match_parent"
-                                         android:layout_height="280dp"
-                                         android:id="@+id/jz_video"
-                                         android:visibility="gone"
-                        />
 
                         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                    android:id="@+id/iv_back"
@@ -97,6 +92,13 @@
                                   android:layout_marginTop="32dp"
                                   android:background="@drawable/bg_yello_left60"
                                   android:layout_marginRight="1dp"/>
+
+                        <com.lxkj.qiqihunshe.app.customview.MyJzvdStd
+                                android:layout_width="match_parent"
+                                android:layout_height="280dp"
+                                android:id="@+id/jz_video"
+                                android:visibility="invisible"
+                        />
 
 
                         <include layout="@layout/include_v"

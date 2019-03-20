@@ -9,6 +9,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.DynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -95,7 +96,6 @@ class PersonDynamicViewModel : BaseViewModel() {
                 }
                 adapter.zan(adapter.getList()[position].zanNum, adapter.getList()[position].dongtaiId)
             }
-
     }
 
 
@@ -116,7 +116,11 @@ class PersonDynamicViewModel : BaseViewModel() {
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val obj = JSONObject(response)
-                ToastUtil.showTopSnackBar(fragment!!.activity, obj.getString("orderId"))
+                val bundle = Bundle()
+                bundle.putDouble("money", money.toDouble())
+                bundle.putString("num", obj.getString("orderId"))
+                bundle.putInt("flag", 0)
+                MyApplication.openActivityForResult(fragment!!.activity, PayActivity::class.java, bundle, 0)
             }
         }, fragment!!.activity))
     }

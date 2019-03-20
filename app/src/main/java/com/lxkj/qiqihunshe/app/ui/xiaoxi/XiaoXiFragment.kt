@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.fragment_xiaoxi.*
  */
 class XiaoXiFragment : BaseFragment<FragmentXiaoxiBinding, XiaoXiViewModel>(), View.OnClickListener {
 
-
     override fun getBaseViewModel() = XiaoXiViewModel()
 
     override fun getLayoutId() = R.layout.fragment_xiaoxi
@@ -32,7 +31,6 @@ class XiaoXiFragment : BaseFragment<FragmentXiaoxiBinding, XiaoXiViewModel>(), V
                 rb_1.setTextColor(resources.getColor(R.color.white))
                 rb_1.setBackgroundResource(R.drawable.button_false60)
                 rb_0.setBackgroundColor(resources.getColor(R.color.transparent))
-
                 viewModel?.setFragment1()
             }
         }
@@ -40,11 +38,11 @@ class XiaoXiFragment : BaseFragment<FragmentXiaoxiBinding, XiaoXiViewModel>(), V
         viewModel?.let {
             it.bind = binding
             it.framanage = childFragmentManager
-            it.initBind()
+            it.init()
+            it.getAllIMList()
         }
 
         categoryPop = ScreenMenuPop(activity!!)
-
 
         iv_user.setOnClickListener(this)
         iv_search.setOnClickListener(this)
@@ -53,7 +51,7 @@ class XiaoXiFragment : BaseFragment<FragmentXiaoxiBinding, XiaoXiViewModel>(), V
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_user -> {
-                categoryPop!!.screenPopwindow( iv_user)
+                categoryPop!!.screenPopwindow(iv_user)
             }
             R.id.iv_search -> {
 
@@ -63,6 +61,7 @@ class XiaoXiFragment : BaseFragment<FragmentXiaoxiBinding, XiaoXiViewModel>(), V
 
 
     override fun loadData() {
+
     }
 
 

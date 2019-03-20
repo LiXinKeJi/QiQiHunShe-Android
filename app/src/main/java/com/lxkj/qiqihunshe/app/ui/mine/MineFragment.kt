@@ -72,7 +72,7 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
             R.id.tv_editInfo -> {//完善资料
                 val bundle = Bundle()
                 bundle.putInt("flag", 0)
-                MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java, bundle)
+                MyApplication.openActivityForResult(activity, PerfectInfoActivitiy::class.java, bundle, 3)
             }
             R.id.tv_authent -> {//实名认证
                 if (viewModel!!.auth == "2") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
@@ -101,9 +101,9 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 MyApplication.openActivity(activity, InteractiveNotificationActivity::class.java)
             }
             R.id.tv_reputation_bao -> {//信誉宝
-                val bundle=Bundle()
-                bundle.putString("userId",StaticUtil.uid)
-                MyApplication.openActivity(activity, ReputationBaoActivity::class.java,bundle)
+                val bundle = Bundle()
+                bundle.putString("userId", StaticUtil.uid)
+                MyApplication.openActivity(activity, ReputationBaoActivity::class.java, bundle)
             }
             R.id.tv_wallet -> {//钱包
                 MyApplication.openActivity(activity, WalletActivity::class.java)
@@ -139,7 +139,8 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == 303 && requestCode == 0) {
+        if (resultCode == 103 && requestCode == 3) {
+            ToastUtil.showTopSnackBar(activity, "修改成功")
             viewModel!!.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
     }

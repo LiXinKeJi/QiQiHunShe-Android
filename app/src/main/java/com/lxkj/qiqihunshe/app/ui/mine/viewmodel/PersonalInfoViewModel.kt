@@ -13,6 +13,7 @@ import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityPersonalInfoBinding
 import com.youth.banner.BannerConfig
 import io.reactivex.Single
+import org.json.JSONObject
 import java.util.ArrayList
 
 /**
@@ -126,6 +127,21 @@ class PersonalInfoViewModel : BaseViewModel() {
             }
         }, activity))
 
+    }
+
+    fun isFirend(): Single<String> {
+        val json = "{\"cmd\":\"isFriends\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + userId + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                val obj = JSONObject(response)
+                if (obj.getString("status") == "0") {
+                    bind?.let {
+                        it.tvConversation.setBackgroundResource(R.drawable.gray_bg30)
+                        it.tvConversation.setOnClickListener(null)
+                    }
+                }
+            }
+        }, activity))
     }
 
 }

@@ -1,6 +1,9 @@
 package com.lxkj.qiqihunshe.app.ui.shouye.viewmodel
 
+import android.databinding.ObservableField
+import android.support.v7.widget.LinearLayoutManager
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.google.gson.Gson
@@ -9,128 +12,105 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
-import com.lxkj.qiqihunshe.app.ui.shouye.model.DataListModel
-import com.lxkj.qiqihunshe.app.ui.shouye.model.ShouYeModel
+import com.lxkj.qiqihunshe.app.ui.shouye.adapter.CheckBoxAdapter
+import com.lxkj.qiqihunshe.app.ui.shouye.model.SetupProblemModel
+import com.lxkj.qiqihunshe.app.ui.shouye.model.SubmissionAnswerModel
 import com.lxkj.qiqihunshe.app.util.DisplayUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
-import com.lxkj.qiqihunshe.app.util.StringUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivitySetupProblemBinding
-import kotlinx.android.synthetic.main.activity_mybill.view.*
-import kotlinx.android.synthetic.main.activity_setup_problem.*
-import java.util.*
+import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/2/26
  */
 class SetupProblemViewModel : BaseViewModel() {
 
-    var type = "1"
-    var binding: ActivitySetupProblemBinding? = null
-    var model = ShouYeModel()
-    var page = 0
-    var totalPage = 0
-    var ids = ArrayList<String>()
-    var aid = ""
+    var bind: ActivitySetupProblemBinding? = null
 
+    private var count = -1
+
+    var Problem = ObservableField<String>()
+    val ids by lazy { ArrayList<String>() } ////答案id
+
+    val checkAdapter by lazy { CheckBoxAdapter() }
+
+    private val dataList by lazy { ArrayList<SetupProblemModel.dataModel>() }
+    private val answerList by lazy { ArrayList<SetupProblemModel.answerModel>() }
     fun init() {
-        binding?.radio?.setOnCheckedChangeListener { p0, p1 ->
-            aid = model.dataList[page].answerList[p1].aid
+        bind?.let {
+            it.recycler.layoutManager = LinearLayoutManager(activity)
+            it.recycler.adapter = checkAdapter
         }
 
-        binding?.tvNext?.setOnClickListener {
-            if (StringUtil.isEmpty(aid)) {
-                ToastUtil.showTopSnackBar(activity, "请选择答案")
-            } else {
-                ids.add(aid)
-                aid = ""
-                if (page < totalPage) { //下一题
-                    page++
-                    refreshQuestion()
-                    binding?.pbReputation?.progress = page
-                    binding?.progress?.text = ("$page/$totalPage")
-                    if (page == totalPage)
-                        binding?.tvNext!!.text = "完成"
-                } else { //提交答案
-                    addAnswer()
-                }
-            }
-        }
     }
 
     /**
      * 获取所有问题
      */
-    fun getQuestion() {
-        var params = HashMap<String, String>()
-        params["cmd"] = "getQuestion"
-        params["uid"] = StaticUtil.uid
-        retrofit.getData(Gson().toJson(params))
+    fun getQuestion(): Single<String> {
+        val json = "{\"cmd\":\"getQuestion\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json)
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    model = Gson().fromJson(response, ShouYeModel::class.java)
-                    if (model.dataList.size > 0) {
-                        refreshQuestion()
-                        totalPage = model.dataList.size - 1
-                        binding?.pbReputation?.max = totalPage
-                    }else{
-                        activity?.finish()
-                        ToastUtil.showToast("暂无问题")
-                    }
-
+                    val model = Gson().fromJson(response, SetupProblemModel::class.java)
+                    dataList.addAll(model.dataList)
+                    next()
                 }
-            }, activity)).subscribe({
-            }, {
-            })
+            }, activity))
+    }
+
+
+    fun next() {
+        count++
+        if (count >= dataList.size) {
+            ToastUtil.showToast("问题设置完成")
+            activity?.finish()
+        }
+
+        bind?.let {
+            it.pbReputation.progress = count
+            it.tvPress.text = "$count/${dataList.size}"
+        }
+
+        Problem.set(dataList[count].title)
+        answerList.clear()
+        answerList.addAll(dataList[count].answerList)
+
+        checkAdapter.flag = 1
+        checkAdapter.upData(answerList)
     }
 
 
     /**
      * 提交答案
      */
-    fun addAnswer() {
-        var params = HashMap<String, Any>()
-        params["cmd"] = "addAnswer"
-        params["uid"] = StaticUtil.uid
-        params["ids"] = ids
-        retrofit.getData(Gson().toJson(params))
-            .async()
+    fun Submission(): Single<String> {
+        abLog.e(
+            "提交答案", Gson().toJson(SubmissionAnswerModel(ids))
+        )
+        return retrofit.getData(Gson().toJson(SubmissionAnswerModel(ids))).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    model = Gson().fromJson(response, ShouYeModel::class.java)
-                    activity?.finish()
+                    ids.clear()
+                    next()
                 }
-            }, activity)).subscribe({
-            }, {
-            })
+            }, activity))
     }
 
 
-    fun refreshQuestion() {
-        var data = model.dataList[page]
-        binding?.tvProblem?.text = data.title
-        binding?.radio?.removeAllViews()
-        for (i in 0 until data.answerList.size) {
-            //radioButton
-            var radioButton = RadioButton(activity)
-            var drawable = activity?.getResources()?.getDrawable(R.drawable.rb_click2)
-            radioButton.setCompoundDrawables(drawable, null, null, null)
-            var padding = DisplayUtil.dip2px(activity, 15f)
-            radioButton.setPadding(padding, padding, padding, padding)
-            radioButton.setButtonDrawable(R.drawable.rb_click2)
-            radioButton.setText("Button" + i)
-            radioButton.setTextColor(activity?.getResources()!!.getColor(R.color.colorSubtitle))
-            //必须有ID，否则默认选中的选项会一直是选中状态
-            radioButton.setId(i);
+    fun setId(isSelect: Boolean, position: Int) {
+        if (isSelect) {
+            answerList[position].isSelect = true
+            ids.add(answerList[position].aid)
+        } else {
+            answerList[position].isSelect = false
+            ids.remove(answerList[position].aid)
 
-            //layoutParams 设置margin值
-            var layoutParams = RadioGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            //注意这里addView()里传入layoutParams
-            binding?.radio?.addView(radioButton, layoutParams)
         }
     }
+
+
 }

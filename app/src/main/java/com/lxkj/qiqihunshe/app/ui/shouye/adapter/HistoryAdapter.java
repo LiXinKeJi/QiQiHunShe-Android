@@ -28,8 +28,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     private Context context;
     private List<DataListModel> list;
     private OnItemClickListener onItemClickListener;
+    private int flag;//2显示匹配度
 
-    public HistoryAdapter(Context context, List list) {
+    public HistoryAdapter(Context context, List list, int flag) {
         this.context = context;
         this.list = list;
     }
@@ -88,12 +89,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
 
         if (null != list.get(position).getJob())
-            holder.tvZhiye.setText("职业："+list.get(position).getJob());
+            holder.tvZhiye.setText("职业：" + list.get(position).getJob());
         else
             holder.tvZhiye.setText("");
-
-
-
 
 
         if (null != list.get(position).getDistance())
@@ -102,12 +100,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             holder.tvDistance.setText("");
 
         if (null != list.get(position).getPlan())
-            holder.tvEmotional.setText("情感计划："+list.get(position).getPlan());
+            holder.tvEmotional.setText("情感计划：" + list.get(position).getPlan());
         else
             holder.tvEmotional.setText("");
 
         if (null != list.get(position).getIntroduction())
-            holder.tvAutograph.setText("个人签名："+list.get(position).getIntroduction());
+            holder.tvAutograph.setText("个人签名：" + list.get(position).getIntroduction());
         else
             holder.tvAutograph.setText("个人签名：暂无");
 
@@ -119,8 +117,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             holder.tvSecurity.setText("综合安全值：" + list.get(position).getSafe());
 
 
-
-
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,10 +126,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         });
 
 
-
-
-
-
+        if (flag == 2) {
+            holder.tvDegree.setVisibility(View.VISIBLE);
+            holder.tvDegree.setText("匹配率："+list.get(position).getProportion());
+        }
 
 
     }

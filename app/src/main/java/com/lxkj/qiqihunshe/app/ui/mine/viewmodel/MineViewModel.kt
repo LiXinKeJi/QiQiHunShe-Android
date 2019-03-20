@@ -25,14 +25,13 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
     var bind: FragmentMineBinding? = null
 
-    var auth=""
+    var auth = ""
 
     fun getMine(): Single<String> {
         val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"
-        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
-            override fun onSuccess(response: String) {
-                val model = Gson().fromJson(response, MineModel::class.java)
-
+        return retrofit.getData(json).async()
+            .doOnSuccess {
+                val model = Gson().fromJson(it, MineModel::class.java)
                 bind?.let {
                     it.model = model
                     it.pbReputation.progress = (model.credit.toDouble() * 100).toInt()
@@ -55,7 +54,6 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
                 StaticUtil.nickName = model.nickname
                 StaticUtil.age = model.age
             }
-        }, fragment?.activity))
     }
 
 

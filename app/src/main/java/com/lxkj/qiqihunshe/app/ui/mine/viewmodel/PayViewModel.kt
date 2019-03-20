@@ -15,9 +15,11 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.model.WalletModel
+import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import io.reactivex.Single
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 /**
@@ -36,9 +38,11 @@ class PayViewModel : BaseViewModel() {
     private var toastMsg = ""
 
 
-    fun initViewModel(){
-        BeeCloud.setAppIdAndSecret(StaticUtil.Beecloud_Appid,
-            StaticUtil.Beecloud_AppSecret)
+    fun initViewModel() {
+        BeeCloud.setAppIdAndSecret(
+            StaticUtil.Beecloud_Appid,
+            StaticUtil.Beecloud_AppSecret
+        )
         // 如果用到微信支付，在用到微信支付的Activity的onCreate函数里调用以下函数.
         // 第二个参数需要换成你自己的微信AppID.
         val initInfo = BCPay.initWechatPay(activity, StaticUtil.Weixin_Appid)
@@ -63,6 +67,7 @@ class PayViewModel : BaseViewModel() {
         activity?.let {
             it.setResult(303, intent)
             it.finish()
+            EventBus.getDefault().post(EventCmdModel("SkillFragment", "dashang"))//才艺打赏用
         }
     }
 
@@ -82,14 +87,15 @@ class PayViewModel : BaseViewModel() {
             } else {
                 ToastUtil.showTopSnackBar(activity, "您尚未安装微信或者安装的微信版本不支持")
             }
-        }else if(type == 2){
+        } else if (type == 2) {
             val aliParam = BCPay.PayParams()
             aliParam.channelType = BCReqParams.BCChannelTypes.ALI_APP
             aliParam.billTitle = "支付宝支付"
-            aliParam.billTotalFee =  (payMoney * 100).toInt() //订单金额(分)
+            aliParam.billTotalFee = (payMoney * 100).toInt() //订单金额(分)
             aliParam.billNum = num
             BCPay.getInstance(activity).reqPaymentAsync(
-                aliParam, bcCallback)
+                aliParam, bcCallback
+            )
         }
     }
 
@@ -174,12 +180,12 @@ class PayViewModel : BaseViewModel() {
 
 
     //获取余额
-    fun getBannale(): Single<String>  {
+    fun getBannale(): Single<String> {
         val json = "{\"cmd\":\"userBalance\",\"uid\":\"" + StaticUtil.uid + "\"}"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, WalletModel::class.java)
-                StaticUtil.amount=model.amount
+                StaticUtil.amount = model.amount
             }
         }, activity))
     }

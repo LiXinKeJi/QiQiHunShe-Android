@@ -50,6 +50,8 @@ class SkillViewModel : BaseViewModel() {
         adapter = CaiYiCommentAdapter(fragment?.context, list)
         bind!!.rvComment.layoutManager = LinearLayoutManager(fragment?.context)
         bind!!.rvComment.adapter = adapter
+
+        getCaiyiCommentList()
     }
 
     fun getCaiyiCommentList() {
@@ -57,19 +59,20 @@ class SkillViewModel : BaseViewModel() {
         params["cmd"] = "caiyiCommentList"
         params["caiyiId"] = model?.caiyiId.toString()
         params["page"] = page.toString()
+        abLog.e("获取评论", Gson().toJson(params))
         retrofit.getData(Gson().toJson(params))
             .async()
-            .compose(SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                    val model = Gson().fromJson(response, FuJinModel::class.java)
-                    totalPage = model.totalPage.toInt()
-                    page++
-                    if (page == 1)
-                        list.clear()
-                    list.addAll(model.dataList)
-                    adapter?.notifyDataSetChanged()
+            .doOnSuccess {
+                val model = Gson().fromJson(it, FuJinModel::class.java)
+                totalPage = model.totalPage
+                if (page == 1) {
+                    list.clear()
+                    bind!!.comment.text="最新评论（${model.commentCount}）"
                 }
-            }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
+                list.addAll(model.dataList)
+                adapter?.notifyDataSetChanged()
+            }
+            .bindLifeCycle(fragment!!).subscribe({
             }, {
                 toastFailure(it)
             })
@@ -87,11 +90,11 @@ class SkillViewModel : BaseViewModel() {
         params["lat"] = StaticUtil.lat
         params["caiyiId"] = model?.caiyiId.toString()
         params["content"] = content
+        abLog.e("评论", Gson().toJson(params))
         retrofit.getData(Gson().toJson(params))
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    ToastUtil.showTopSnackBar(activity, "评论成功！")
                     bind?.etComment?.setText("")
                     bind?.etComment?.clearFocus()
                     page = 1
@@ -149,11 +152,11 @@ class SkillViewModel : BaseViewModel() {
     fun dashang(money: String): Single<String> {
         val json = "{\"cmd\":\"caiyiTip\",\"uid\":\"" + StaticUtil.uid + "\",\"caiyiId\":\"" + model?.caiyiId +
                 "\",\"money\":\"" + money + "\"}"
+        abLog.e("打赏", json)
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    val obj = JSONObject()
-                    obj.getString("orderId")
+                    val obj = JSONObject(response)
                     val bundle = Bundle()
                     bundle.putInt("flag", 0)
                     bundle.putDouble("money", money.toDouble())

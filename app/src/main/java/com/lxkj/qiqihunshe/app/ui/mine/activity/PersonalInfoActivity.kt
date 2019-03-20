@@ -21,13 +21,10 @@ import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDataFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDynamicFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonInvitationFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonSkillFragment
-import com.lxkj.qiqihunshe.app.util.GlideUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPersonalInfoBinding
 import io.rong.imkit.RongIM
-import kotlinx.android.synthetic.main.fragment_skill.*
-import kotlinx.android.synthetic.main.include_title.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -116,18 +113,18 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
                     return
                 }
                 if (banner.visibility == View.VISIBLE) {
-                    banner.visibility = View.GONE
+                    banner.visibility = View.INVISIBLE
                     jz_video.visibility = View.VISIBLE
 
-                    jc_video.setUp(
+                    jz_video.setUp(
                         viewModel?.model?.video,
                         "", JzvdStd.SCREEN_WINDOW_NORMAL
                     )
-                    jc_video.startVideo()
+                    jz_video.startVideo()
                 } else {
                     Jzvd.releaseAllVideos()
                     banner.visibility = View.VISIBLE
-                    jz_video.visibility = View.GONE
+                    jz_video.visibility = View.INVISIBLE
                 }
             }
             R.id.cv_fllow -> {//喜欢
@@ -150,7 +147,7 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
     fun onEvent(marriage: String) {// 情感状态 0未婚 1已婚 2离异
         this.marriage = marriage
         if(marriage=="1"){
-
+            viewModel!!.isFirend()
         }
     }
 

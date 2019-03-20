@@ -16,6 +16,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.exception.bindLifeCycle
 import com.lxkj.qiqihunshe.app.service.CallKitService
+import com.lxkj.qiqihunshe.app.ui.dialog.DaShangAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.VoiceTipDialog
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DataListModel
@@ -24,7 +25,6 @@ import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.FragmentSkillBinding
 import io.rong.callkit.RongCallKit
-import kotlinx.android.synthetic.main.activity_recharge.*
 import kotlinx.android.synthetic.main.fragment_skill.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -48,7 +48,6 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
 
 
     override fun init() {
-
         model = arguments?.getSerializable("model") as DataListModel
         viewModel?.model = model
 
@@ -106,6 +105,7 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
             R.id.iv_dashang -> {
                 DaShangDialog.show(activity!!, object : DaShangDialog.DaShangCallBack {
                     override fun dashang(money: String) {
+
                         viewModel!!.dashang(money).bindLifeCycle(this@SkillFragment).subscribe({}, { toastFailure(it) })
                     }
                 })
@@ -169,6 +169,14 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         }
     }
 
+    //打赏成功
+    @Subscribe
+    fun onEvent(model: EventCmdModel) {
+        if (model.cmd == "SkillFragment" && model.res == "dashang") {
+            DaShangAfterDialog.show(activity!!)
+        }
+    }
+
     fun openService() {
         if (viewModel?.type == 1) {//音频
             intent.putExtra("price", model!!.voice)
@@ -204,18 +212,20 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         Jzvd.releaseAllVideos()
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
         VoiceTipDialog.diss()
+        DaShangDialog.diss()
+        DaShangAfterDialog.diss()
         activity!!.stopService(intent)
     }
 
     override fun onBGARefreshLayoutBeginLoadingMore(refreshLayout: BGARefreshLayout?): Boolean {
-        if (viewModel!!.page >= viewModel!!.totalPage) {
-            return false
+        if (viewModel!!.page <= viewModel!!.totalPage) {
+            viewModel?.getCaiyiCommentList()
         }
-        viewModel?.getCaiyiCommentList()
         return true
     }
 

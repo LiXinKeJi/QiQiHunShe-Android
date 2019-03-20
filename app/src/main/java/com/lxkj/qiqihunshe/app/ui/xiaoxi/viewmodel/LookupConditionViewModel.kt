@@ -63,18 +63,16 @@ class LookupConditionViewModel : BaseViewModel(), AddressPop.AddressCallBack, St
 
 
     //家乡
-    override fun position(position1: Int, position2: Int, position3: Int) {
+    override fun position(position1: Int, position2: Int) {
         when (flag) {
             0 -> {//我的家乡
                 model.birthplace = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName +
-                        cityList[position1].cities!![position2].counties!![position3].areaName
+                        cityList[position1].cities!![position2].areaName
                 bind?.tvHometown?.text = model.birthplace
             }
             1 -> {//我的现居
                 model.residence = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName +
-                        cityList[position1].cities!![position2].counties!![position3].areaName
+                        cityList[position1].cities!![position2].areaName
                 bind?.tvAddress?.text = model.residence
             }
         }

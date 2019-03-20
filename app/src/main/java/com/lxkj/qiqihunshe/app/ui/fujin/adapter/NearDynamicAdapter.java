@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel;
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
+import com.lxkj.qiqihunshe.app.util.AbStrUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
 import com.lxkj.qiqihunshe.app.util.ToastUtil;
 import com.lxkj.runproject.app.view.SquareImage;
@@ -72,12 +73,14 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
         if (null != list.get(position).getSex()) {
             switch (list.get(position).getSex()) {
                 case "0"://女
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nv);
+                    holder.tvAge.setBackgroundResource(R.drawable.bg_girl);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.girl));
+                    AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_girl, holder.tvAge, 3);
                     break;
                 case "1"://男
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nan);
+                    holder.tvAge.setBackgroundResource(R.drawable.thems_bg35);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                    AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_boy, holder.tvAge, 3);
                     break;
             }
         }
@@ -139,17 +142,16 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
         }
 
 
-
         if (null != list.get(position).getAdtime())
             holder.tvTime.setText(list.get(position).getAdtime());
         else
             holder.tvTime.setText("");
 
         if (null != list.get(position).getContent())
-            holder.tvContent.setText( list.get(position).getContent());
+            holder.tvContent.setText(list.get(position).getContent());
 
         if (null != list.get(position).getLocation())
-            holder.tvAddress.setText( list.get(position).getLocation());
+            holder.tvAddress.setText(list.get(position).getLocation());
 
         switch (list.get(position).getImages().size()) {
             case 0:
@@ -204,9 +206,13 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
         else
             holder.tvNum.setText("0");
 
+        if (list.get(position).getZan().equals("0")) {// 0未点赞 1已点
+            AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_zan_nor, holder.tvZan, 5);
+        } else {
+            AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tvZan, 5);
+        }
 
-
-        holder.item.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (null != onItemClickListener)
@@ -218,14 +224,14 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
         holder.tvShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.INSTANCE.showToast("分享");
+                onItemClickListener.shareClick(position);
             }
         });
 
-        holder.tvReport.setOnClickListener(new View.OnClickListener() {
+        holder.tvZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.INSTANCE.showToast("举报");
+                onItemClickListener.zanClick(position);
             }
         });
 
@@ -233,10 +239,15 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
         holder.tvReward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.INSTANCE.showToast("打赏");
+                onItemClickListener.daShnangClick(position);
             }
         });
-
+        holder.tvReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.juBaoClick(position);
+            }
+        });
 
     }
 
@@ -247,10 +258,14 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
 
     public interface OnItemClickListener {
         void OnItemClick(int position);
-    }
 
-    public interface OnAgreeClickListener {
-        void OnAgreeClick(int position);
+        void zanClick(int position);
+
+        void shareClick(int position);
+
+        void daShnangClick(int position);
+
+        void juBaoClick(int position);
     }
 
 

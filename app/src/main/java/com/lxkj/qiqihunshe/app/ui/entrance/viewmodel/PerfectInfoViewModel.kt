@@ -112,30 +112,26 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
 
 
     //家乡
-    override fun position(position1: Int, position2: Int, position3: Int) {
+    override fun position(position1: Int, position2: Int) {
         when (flag) {
             0 -> {//我的家乡
                 model.birthplace = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName +
-                        cityList[position1].cities!![position2].counties!![position3].areaName
+                        cityList[position1].cities!![position2].areaName
                 bind?.tvHometown?.text = model.birthplace
             }
             1 -> {//我的现居
                 model.residence = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName +
-                        cityList[position1].cities!![position2].counties!![position3].areaName
+                        cityList[position1].cities!![position2].areaName
                 bind?.tvResidence?.text = model.residence
             }
             2 -> {//他的家乡
                 model.birthplace2 = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName +
-                        cityList[position1].cities!![position2].counties!![position3].areaName
+                        cityList[position1].cities!![position2].areaName
                 birthplace2.set(model.birthplace2)
             }
             3 -> {//他的现居
                 model.residence2 = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName +
-                        cityList[position1].cities!![position2].counties!![position3].areaName
+                        cityList[position1].cities!![position2].areaName
                 residence2.set(model.residence2)
             }
         }

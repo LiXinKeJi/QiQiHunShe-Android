@@ -22,7 +22,7 @@ object RongYunUtil {
     //连接融云服务器
     fun initService() {
         abLog.e("融云token", StaticUtil.rytoken)
-        RongIMClient.connect(StaticUtil.rytoken, object : RongIMClient.ConnectCallback() {
+        RongIM.connect(StaticUtil.rytoken, object : RongIMClient.ConnectCallback() {
             override fun onSuccess(p0: String?) {
 //                ToastUtil.showToast("已连接融云")
             }

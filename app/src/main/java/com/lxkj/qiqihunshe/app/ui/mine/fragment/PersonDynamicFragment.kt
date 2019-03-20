@@ -4,6 +4,7 @@ import android.content.Intent
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.ui.dialog.DaShangAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonDynamicViewModel
@@ -58,7 +59,7 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
                 viewModel!!.zan(model.res.toInt()).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
             EventBusCmd.JuBao -> {
-                ReportDialog1.getReportList(activity!!, "2",object : ReportDialog1.ReportCallBack {
+                ReportDialog1.getReportList(activity!!, "2", object : ReportDialog1.ReportCallBack {
                     override fun report(report: String) {
                         viewModel!!.jubao(report, model.res.toInt()).bindLifeCycle(this@PersonDynamicFragment)
                             .subscribe({}, { toastFailure(it) })
@@ -95,6 +96,8 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
             if (data.getIntExtra("position", -1) != -1) {//删除动态
                 viewModel?.removeItem(data.getIntExtra("position", -1))
             }
+        } else if (requestCode == 0 && resultCode == 303) {
+            DaShangAfterDialog.show(activity!!)
         }
     }
 
