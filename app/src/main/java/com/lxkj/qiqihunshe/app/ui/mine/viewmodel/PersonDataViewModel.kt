@@ -36,6 +36,14 @@ class PersonDataViewModel : BaseViewModel() {
                 bind?.let {
                     it.model = model
 
+                    if (model.marriage == "0") {// 情感状态 0未婚 1已婚 2离异
+                        it.tvState.text = "未婚"
+                    } else if (model.marriage == "1") {
+                        it.tvState.text = "已婚"
+                    } else if (model.marriage == "2") {
+                        it.tvState.text = "离异"
+                    }
+
                     addLable(model.zeou_type)
                     addLable(model.zeou_birthplace)
                     addLable(model.zeou_residence)

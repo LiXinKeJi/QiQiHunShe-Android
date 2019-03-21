@@ -8,8 +8,8 @@ android {
     //MVVM模式数据绑定
     dataBinding {
         enabled = true
+        compileSdkVersion 28
     }
-    compileSdkVersion 28
     defaultConfig {
         applicationId "com.lxkj.qiqihunshe"
         minSdkVersion 16
@@ -20,15 +20,18 @@ android {
         multiDexEnabled true
         ndk {
             //设置支持的so库架构
-                abiFilters "armeabi-v7a", "x86"
+            abiFilters "armeabi-v7a", "x86"
         }
+    }
+    buildscript {
+
+
     }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
-
     signingConfigs {
         release {
             keyAlias 'qqhs'
@@ -43,7 +46,6 @@ android {
             storePassword '123456'
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -53,6 +55,7 @@ android {
     buildToolsVersion '28.0.3'
     productFlavors {
     }
+    compileSdkVersion 28
 }
 
 repositories {
@@ -66,6 +69,7 @@ allprojects {
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
+        maven{ url 'https://maven.aliyun.com/repository/google'}
     }
 }
 
@@ -155,6 +159,5 @@ dependencies {
     implementation project(':IMLib')
     implementation project(':RCSticker')
     implementation project(':Sight')
-    implementation project(':lfilepickerlibrary')
     implementation project(':xrecyclerview')
 }

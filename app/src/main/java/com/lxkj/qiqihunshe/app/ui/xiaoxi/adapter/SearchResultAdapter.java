@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
+import com.lxkj.qiqihunshe.app.util.AbStrUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         holder.tvAge.setText(list.get(position).getAge());
 
-        holder.tvName.setText(list.get(position).getRealname());
+        holder.tvName.setText(list.get(position).getNickname());
 
         if (null != list.get(position).getJob())
             holder.tvZhiye.setText("职业：" + list.get(position).getJob());
@@ -68,63 +69,38 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         if (null != list.get(position).getSafe())
             holder.tvSecurity.setText("综合安全值：" + list.get(position).getSafe());
 
-        switch (list.get(position).getPermission().size()) {
-            case 0:
-                holder.ivV1.setVisibility(View.GONE);
-                holder.ivV2.setVisibility(View.GONE);
-                holder.ivV3.setVisibility(View.GONE);
-                holder.ivV4.setVisibility(View.GONE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 1:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.GONE);
-                holder.ivV3.setVisibility(View.GONE);
-                holder.ivV4.setVisibility(View.GONE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 2:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.VISIBLE);
-                holder.ivV3.setVisibility(View.GONE);
-                holder.ivV4.setVisibility(View.GONE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 3:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.VISIBLE);
-                holder.ivV3.setVisibility(View.VISIBLE);
-                holder.ivV4.setVisibility(View.GONE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 4:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.VISIBLE);
-                holder.ivV3.setVisibility(View.VISIBLE);
-                holder.ivV4.setVisibility(View.VISIBLE);
-                holder.ivV5.setVisibility(View.GONE);
-                break;
-            case 5:
-                holder.ivV1.setVisibility(View.VISIBLE);
-                holder.ivV2.setVisibility(View.VISIBLE);
-                holder.ivV3.setVisibility(View.VISIBLE);
-                holder.ivV4.setVisibility(View.VISIBLE);
-                holder.ivV5.setVisibility(View.VISIBLE);
-                break;
+        for (int i = 0; i < list.get(position).getPermission().size(); i++) {
+            switch (list.get(position).getPermission().get(i)) {
+                case "1":
+                    holder.ivV1.setVisibility(View.VISIBLE);
+                    break;
+                case "2":
+                    holder.ivV2.setVisibility(View.VISIBLE);
+                    break;
+                case "3":
+                    holder.ivV3.setVisibility(View.VISIBLE);
+                    break;
+                case "4":
+                    holder.ivV4.setVisibility(View.VISIBLE);
+                    break;
+                case "5":
+                    holder.ivV5.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
 
 
-        if (null != list.get(position).getSex()) {
-            switch (list.get(position).getSex()) {
-                case "0"://女
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nv);
-                    holder.tvAge.setTextColor(context.getResources().getColor(R.color.girl));
-                    break;
-                case "1"://男
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nan);
-                    holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                    break;
-            }
+        switch (list.get(position).getSex()) {
+            case "0"://女
+                holder.tvAge.setBackgroundResource(R.drawable.bg_girl);
+                AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_girl, holder.tvAge, 3);
+                holder.tvAge.setTextColor(context.getResources().getColor(R.color.girl));
+                break;
+            case "1"://男
+                holder.tvAge.setBackgroundResource(R.drawable.thems_bg35);
+                AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_boy, holder.tvAge, 3);
+                holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorThemes));
+                break;
         }
 
         holder.item.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +119,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

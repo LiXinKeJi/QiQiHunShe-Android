@@ -1,7 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
-import android.service.carrier.CarrierMessagingService
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
@@ -12,6 +12,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.MessageAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.FindUserRelationshipModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
+import com.lxkj.qiqihunshe.app.util.RecyclerItemTouchListener
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FraXiangshiBinding
@@ -19,7 +20,6 @@ import io.reactivex.Single
 import io.rong.imkit.RongIM
 import io.rong.imlib.RongIMClient
 import io.rong.imlib.model.Conversation
-import io.rong.push.RongPushClient
 import java.util.ArrayList
 
 /**
@@ -49,6 +49,17 @@ class XiangShiViewModel : BaseViewModel() {
                 }
             }
             messageAdapter.upData(userList)
+
+            it.recycler.addOnItemTouchListener(object : RecyclerItemTouchListener(it.recycler) {
+                override fun onItemClick(vh: RecyclerView.ViewHolder?) {
+                    val i = vh?.adapterPosition!!
+                    RongIM.getInstance().startPrivateChat(
+                        fragment?.activity,
+                        messageAdapter.getList()[i].userId,
+                        messageAdapter.getList()[i].nickname
+                    )
+                }
+            })
         }
 
     }
@@ -82,10 +93,8 @@ class XiangShiViewModel : BaseViewModel() {
                         }
                     }
                 }
-            }, fragment?.activity)).bindLifeCycle(fragment!!).subscribe({
-            }, {
-
-            })
+            }, fragment?.activity))
+            .bindLifeCycle(fragment!!).subscribe({}, { toastFailure(it) })
     }
 
 

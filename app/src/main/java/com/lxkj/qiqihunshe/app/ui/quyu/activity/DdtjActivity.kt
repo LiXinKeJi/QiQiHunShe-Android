@@ -1,23 +1,14 @@
 package com.lxkj.qiqihunshe.app.ui.quyu.activity
 
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.viewmodel.DdtjViewModel
-import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityDdtjBinding
 import kotlinx.android.synthetic.main.activity_ddtj.*
-import kotlinx.android.synthetic.main.layout_infowindow_fwqy.view.*
-import com.baidu.mapapi.map.Overlay
-import com.baidu.mapapi.map.CircleOptions
 import com.google.gson.Gson
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.util.StaticUtil
 
 
 /**
@@ -58,7 +49,6 @@ class DdtjActivity : BaseActivity<ActivityDdtjBinding,DdtjViewModel>() {
 
         //在地图上添加Marker(当前位置)，并显示
          mMapView.addOverlay(option)
-
 
     }
 

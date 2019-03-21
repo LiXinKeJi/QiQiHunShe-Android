@@ -50,7 +50,7 @@ class XiaoXiViewModel : BaseViewModel() {
     }
 
 
-    fun init(){
+    fun init() {
         hunsheFragment.STabSelectCallBack(object : HunSheFragment.TabSelectCallBack {
             override fun select(i: Int) {
                 bind?.let {
@@ -72,12 +72,14 @@ class XiaoXiViewModel : BaseViewModel() {
     }
 
     fun setFragment1() {
+        bind!!.tvState.text = "通讯"
         switchFragment(communicationFragment)
     }
 
 
     //本地回话列表中的id集合
     private val imList by lazy { ArrayList<String>() }
+
     fun getAllIMList() {
         RongIM.getInstance().getConversationList(object : RongIMClient.ResultCallback<List<Conversation>>() {
             override fun onSuccess(p0: List<Conversation>?) {

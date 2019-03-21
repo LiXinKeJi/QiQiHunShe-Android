@@ -1,6 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.quyu.activity
 
 import android.os.Build
+import android.text.TextUtils
 import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
@@ -20,13 +21,11 @@ import kotlinx.android.synthetic.main.include_title.*
  */
 class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailViewModel>(), View.OnClickListener {
 
-    var id: String? = null
     override fun getBaseViewModel(): ShopDetailViewModel = ShopDetailViewModel()
 
     override fun getLayoutId(): Int = R.layout.activity_shop_detail
 
     override fun init() {
-        viewModel?.bind = binding
         initTitle("")
         isWhiteStatusBar = false
         if (Build.VERSION.SDK_INT > 19) {
@@ -38,12 +37,13 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         tv_title.setTextColor(resources.getColor(R.color.white))
         tv_title.setBackgroundColor(resources.getColor(R.color.transparent))
         AbStrUtil.setDrawableLeft(this, R.drawable.ic_back_w, tv_title, 10)
-        id = intent.getStringExtra("id")
-        params.put("cmd", "shopDetail")
-        if (null != id)
-            params.put("shopId", id!!)
 
-        viewModel?.getshopDetail(Gson().toJson(params))?.bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
+        viewModel?.let {
+            it.bind = binding
+            it.id = intent.getStringExtra("id")
+            it.init()
+            it.getshopDetail().bindLifeCycle(this).subscribe({ }, { toastFailure(it) })
+        }
 
         navigationIv.setOnClickListener(this)
     }
@@ -52,7 +52,7 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         when (view?.id) {
             R.id.navigationIv -> {
                 var mapNavigationUtil = MapNavigationUtil(this)
-                mapNavigationUtil?.goToBaiduMap(viewModel?.model?.lat, viewModel?.model?.lon,viewModel?.model?.address)
+                mapNavigationUtil.goToBaiduMap(viewModel?.model?.lat, viewModel?.model?.lon, viewModel?.model?.address)
             }
         }
     }

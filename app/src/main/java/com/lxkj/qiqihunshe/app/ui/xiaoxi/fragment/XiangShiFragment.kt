@@ -25,7 +25,6 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
     override fun getLayoutId() = R.layout.fra_xiangshi
 
     override fun init() {
-        EventBus.getDefault().register(this)
         include.visibility = View.GONE
         viewModel?.let {
             it.bind = binding
@@ -45,6 +44,7 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
     }
 
     override fun loadData() {
+        EventBus.getDefault().register(this)
     }
 
     override fun onClick(view: View?) {

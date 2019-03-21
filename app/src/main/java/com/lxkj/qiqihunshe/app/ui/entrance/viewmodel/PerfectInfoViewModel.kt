@@ -462,7 +462,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                 override fun onSuccess(response: String) {
                     activity?.let {
                         val intent = Intent()
-                        it.setResult(303, intent)
+                        it.setResult(103, intent)
                         it.finish()
                     }
                 }

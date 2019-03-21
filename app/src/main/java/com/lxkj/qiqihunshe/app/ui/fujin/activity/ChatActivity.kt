@@ -5,9 +5,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.baidu.mapapi.search.core.PoiInfo
-import com.leon.lfilepickerlibrary.utils.Constant
+import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
@@ -76,10 +75,12 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 MyApplication.openActivity(this, PersonalInfoActivity::class.java, bundle)
             }
             R.id.iv_jubao -> {
-                if (viewModel!!.JuBaoList.isEmpty()) {
-                    viewModel!!.getJuBaoConten().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-                } else {
-                    ReportDialog2.show(this, viewModel!!.JuBaoList)
+                viewModel?.let {
+                    if (it.JuBaoList.isEmpty()) {
+                        it.getJuBaoConten().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                    } else {
+                        it.showReportDialog()
+                    }
                 }
             }
         }
@@ -193,8 +194,14 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
             return
         }
         if (requestCode == 0) {//举报选择的图片截图
-            val list = data.getStringArrayListExtra(Constant.RESULT_INFO)//文件路径
-            Toast.makeText(applicationContext, "选中的路径为" + list[0], Toast.LENGTH_SHORT).show()
+            viewModel?.let {
+                if (it.jubaoFilePath.isNotEmpty()) {
+                    it.jubaoFilePath.clear()
+                }
+                for (info in PictureSelector.obtainMultipleResult(data)) {
+                    it.jubaoFilePath.add(info.path) //文件路径
+                }
+            }
         } else if (requestCode == 1) {//选择约见地址
             ToastUtil.showTopSnackBar(this, "选择约见时间")
             viewModel?.let {

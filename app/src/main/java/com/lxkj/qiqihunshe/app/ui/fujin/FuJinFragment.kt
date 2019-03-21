@@ -87,9 +87,10 @@ class FuJinFragment : BaseFragment<FragmentFujinBinding, FuJinViewModel>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        list[1].onActivityResult(requestCode, resultCode, data)
+        for (fragment in list) {
+            fragment.onActivityResult(requestCode, resultCode, data)
+        }
     }
-
 
 
     override fun onDestroy() {

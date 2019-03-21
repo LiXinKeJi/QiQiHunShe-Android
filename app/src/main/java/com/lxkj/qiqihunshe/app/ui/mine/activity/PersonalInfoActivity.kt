@@ -115,13 +115,14 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
                 if (banner.visibility == View.VISIBLE) {
                     banner.visibility = View.INVISIBLE
                     jz_video.visibility = View.VISIBLE
-
+                    tv_vido.text = "切换图片"
                     jz_video.setUp(
                         viewModel?.model?.video,
                         "", JzvdStd.SCREEN_WINDOW_NORMAL
                     )
                     jz_video.startVideo()
                 } else {
+                    tv_vido.text = "切换3秒视频"
                     Jzvd.releaseAllVideos()
                     banner.visibility = View.VISIBLE
                     jz_video.visibility = View.INVISIBLE
@@ -146,7 +147,7 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
     @Subscribe
     fun onEvent(marriage: String) {// 情感状态 0未婚 1已婚 2离异
         this.marriage = marriage
-        if(marriage=="1"){
+        if (marriage == "1") {
             viewModel!!.isFirend()
         }
     }

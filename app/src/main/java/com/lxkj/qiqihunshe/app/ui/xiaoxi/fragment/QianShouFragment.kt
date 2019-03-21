@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -9,10 +10,13 @@ import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.LookupActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.UploadMarryActivity
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.QianShouViewModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentQianshouBinding
 import kotlinx.android.synthetic.main.fragment_qianshou.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * Created by Slingge on 2019/3/1
@@ -39,14 +43,15 @@ class QianShouFragment : BaseFragment<FragmentQianshouBinding, QianShouViewModel
     }
 
     override fun loadData() {
+        EventBus.getDefault().register(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_heHeader, R.id.tv_heName -> {
                 val bundle = Bundle()
-                bundle.putInt("flag", 0)
-                MyApplication.openActivity(context, LookupActivity::class.java, bundle)
+                bundle.putInt("flag", 3)
+                MyApplication.openActivityForResult(activity, LookupActivity::class.java, bundle, 1)
             }
             R.id.iv_0 -> {
                 if (!TextUtils.isEmpty(viewModel?.qianshouId)) {
@@ -60,5 +65,21 @@ class QianShouFragment : BaseFragment<FragmentQianshouBinding, QianShouViewModel
             }
         }
     }
+
+    @Subscribe
+    fun onEvent(model: DataListModel) {
+        viewModel?.let {
+            it.qianshouId = model.userId
+            it.name.set(model.nickname)
+            it.icon.set(model.icon)
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
 
 }

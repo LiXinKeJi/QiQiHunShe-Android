@@ -48,7 +48,6 @@ class MainViewModel : BaseViewModel() {
     fun initBind() {
         switchFragment(shouYeFragment)
         bind!!.RadioGBottem.setOnCheckedChangeListener { group, checkedId ->
-
             when (checkedId) {
                 R.id.tab_0 -> {
                     if (Build.VERSION.SDK_INT > 19) {

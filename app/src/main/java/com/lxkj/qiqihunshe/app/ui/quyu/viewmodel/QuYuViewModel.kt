@@ -57,7 +57,6 @@ class QuYuViewModel : BaseViewModel() {
                             servicePosition = i
 
 
-
                     }
                     //最近的服务网点
                     serviceOffice = model.dataList[servicePosition]
@@ -93,22 +92,22 @@ class QuYuViewModel : BaseViewModel() {
         .compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, BaseModel::class.java)
-                ToastUtil.showTopSnackBar(fragment,model.resultNote)
+                ToastUtil.showTopSnackBar(fragment!!.activity, model.resultNote)
             }
         }, fragment?.activity))
 
 
     fun setData(data: DataListModel) {
         bind?.bmapView?.map!!.clear()
-        GlideUtil.glideLoad(fragment!!.context, data?.logo, bind?.headOfficeIv)
+        GlideUtil.glideLoad(fragment!!.activity, data?.logo, bind?.headOfficeIv)
         addOverlay(data)
     }
 
 
     fun addOverlay(data: DataListModel) {
         val point = LatLng(data.lat.toDouble(), data.lon.toDouble())
-        val image = LayoutInflater.from(fragment?.context).inflate(R.layout.layout_imageview, null)
-        GlideUtil.glideHeaderLoad(fragment?.context, data?.logo, image?.ivHead)
+        val image = LayoutInflater.from(fragment?.activity).inflate(R.layout.layout_imageview, null)
+        GlideUtil.glideHeaderLoad(fragment?.activity, data?.logo, image?.ivHead)
         //构建Marker图标
         val des = BitmapDescriptorFactory.fromView(image)
         //构建MarkerOption，用于在地图上添加Marker
@@ -122,7 +121,7 @@ class QuYuViewModel : BaseViewModel() {
         //构造CircleOptions对象
         val mCircleOptions = CircleOptions().center(point)
             .radius(10000)//单位米
-            .fillColor(R.color.map_round) //填充颜色
+            .fillColor(0x3315acf5) //填充颜色
         //在地图上显示圆
         mMapView.addOverlay(mCircleOptions)
 
@@ -138,12 +137,10 @@ class QuYuViewModel : BaseViewModel() {
                     view?.tvPhone?.text = "电话：" + data?.phone
                     view?.tvDistance?.text = "距离：" + DisplayUtil.distanceFormat(data?.distance.toDouble())
 
-                    view.tvNavigation.setOnClickListener(object : View.OnClickListener {
-                        override fun onClick(p0: View?) {
-                            var mapNavigationUtil = MapNavigationUtil(fragment?.context)
-                            mapNavigationUtil?.goToBaiduMap(data.lat, data.lon, data.address)
-                        }
-                    })
+                    view.tvNavigation.setOnClickListener {
+                        var mapNavigationUtil = MapNavigationUtil(fragment?.context)
+                        mapNavigationUtil.goToBaiduMap(data.lat, data.lon, data.address)
+                    }
                     val mInfoWindow = InfoWindow(view, point, -100)
                     //使InfoWindow生效
                     mMapView.showInfoWindow(mInfoWindow)

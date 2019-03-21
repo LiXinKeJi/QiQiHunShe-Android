@@ -1,15 +1,15 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
 import android.databinding.ObservableField
-import com.google.gson.JsonObject
+import android.text.TextUtils
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.QianShouRenModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FragmentQianshouBinding
 import io.reactivex.Single
-import org.json.JSONObject
 
 /**
  * Created by Slingge on 2019/3/1
@@ -31,21 +31,22 @@ class QianShouViewModel : BaseViewModel() {
     fun init() {
         userIcon.set(StaticUtil.headerUrl)
         userName.set(StaticUtil.nickName)
+        name.set("选择牵手人")
     }
 
     fun getQianShou(): Single<String> {
         val json = "{\"cmd\":\"getQianshou\",\"uid\":\"" + StaticUtil.uid + "\"}"
-
+        abLog.e("获取牵手人", json)
         return retrofit.getData(json).async()
-            .compose(SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                    val obj = JSONObject(response)
-                    qianshouId = obj.getString("userId")
-                    icon.set(obj.getString("userIcon"))
-                    name.set(obj.getString("nickname"))
+            .doOnSuccess {
+                val model = Gson().fromJson(it, QianShouRenModel::class.java)
+                if (!TextUtils.isEmpty(model.userId)) {
+                    qianshouId = model.userId
+                    icon.set(model.userIcon)
+                    name.set(model.nickname)
                     flag = "2"
                 }
-            }, fragment!!.activity))
+            }
     }
 
 

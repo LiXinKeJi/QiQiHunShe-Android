@@ -5,10 +5,10 @@ android {
         config {
         }
     }
-    compileSdkVersion 23
+    compileSdkVersion 28
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 39
         versionName "2.10.0"
     }
@@ -32,6 +32,7 @@ android {
     }
     productFlavors {
     }
+    buildToolsVersion '28.0.3'
 }
 
 dependencies {
@@ -42,16 +43,16 @@ dependencies {
     // 注意：因为微信SDK从4.0.2版本开始已改用gradle形式，后续Android开发工具包将不再更新，请开发者尽快改用gradle方式编译、更新微信SDK
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
     /*  以下标识
-        //ali
-        libs/alipaySdk-xxx.jar.jar
+            //ali
+            libs/alipaySdk-xxx.jar.jar
 
-        //union pay
-        libs/UPPayAssistEx.jar
-        libs/UPPayPluginEx.jar
+            //union pay
+            libs/UPPayAssistEx.jar
+            libs/UPPayPluginEx.jar
 
-        //baidu
-        Cashier_SDK-v4.2.0.jar
-        */
+            //baidu
+            Cashier_SDK-v4.2.0.jar
+            */
     //网络请求库
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
     testImplementation 'junit:junit:4.12'
