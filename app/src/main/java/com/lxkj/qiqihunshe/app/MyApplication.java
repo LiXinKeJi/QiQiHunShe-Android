@@ -12,6 +12,8 @@ import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.lxkj.qiqihunshe.app.rongrun.MyReceiveMessageListener;
+import com.lxkj.qiqihunshe.app.rongrun.RongCloudEvent;
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil;
 import com.lxkj.qiqihunshe.app.rongrun.message.*;
 import com.lxkj.qiqihunshe.app.util.StaticUtil;
@@ -85,6 +87,8 @@ public class MyApplication extends MultiDexApplication {
 
 
         RongIM.init(this, "3argexb63qm0e");
+        RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
+        RongCloudEvent.INSTANCE.init();
         RongIM.getInstance().setMessageAttachedUserInfo(true);
         RongIM.registerMessageType(CustomizeMessage1.class);//注册自定义消息
         RongIM.registerMessageTemplate(new CustomizeMessageItemProvider1(this));
@@ -104,31 +108,6 @@ public class MyApplication extends MultiDexApplication {
         if (!TextUtils.isEmpty(StaticUtil.INSTANCE.getRytoken())) {
             RongYunUtil.INSTANCE.initService();
         }
-        /* RongCallClient.setReceivedCallListener(new IRongReceivedCallListener() {
-         *//**
-         * 来电回调
-         * @param callSession 通话实体
-         *//*
-            @Override
-            public void onReceivedCall(RongCallSession callSession) {
-                //accept or hangup the call
-            }
-
-            *//**
-         * targetSDKVersion>＝23时检查权限的回调。当targetSDKVersion<23的时候不需要实现。
-         * 在这个回调里用户需要使用Android6.0新增的动态权限分配接口requestCallPermissions通知用户授权，
-         * 然后在onRequestPermissionResult回调里根据用户授权或者不授权分别回调
-         * RongCallClient.getInstance().onPermissionGranted()和
-         * RongCallClient.getInstance().onPermissionDenied()来通知CallLib。
-         * 其中audio call需要获取Manifest.permission.RECORD_AUDIO权限；
-         * video call需要获取Manifest.permission.RECORD_AUDIO和Manifest.permission.CAMERA两项权限。
-         * @param callSession 通话实体
-         *//*
-            @Override
-            public void onCheckPermission(RongCallSession callSession) {
-
-            }
-        });*/
     }
 
 

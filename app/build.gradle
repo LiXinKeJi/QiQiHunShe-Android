@@ -160,4 +160,5 @@ dependencies {
     implementation project(':RCSticker')
     implementation project(':Sight')
     implementation project(':xrecyclerview')
+
 }

@@ -320,6 +320,19 @@
         </activity>
         <activity android:name="io.rong.callkit.CallSelectMemberActivity"/>
 
+        <!--融云广播接受者-->
+        <receiver android:name=".app.rongrun.receiver.SealNotificationReceiver"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+            </intent-filter>
+        </receiver>
+
+
+
     </application>
 
 </manifest>
