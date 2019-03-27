@@ -21,6 +21,7 @@ import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.ChatViewModel
 import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
 import kotlinx.android.synthetic.main.activity_chat_details.*
@@ -98,7 +99,9 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 viewModel?.sendMessage3()
             }
             "3" -> {//选择约见地点
-                MyApplication.openActivityForResult(this, ChooseAddressActivity::class.java, 1)
+                val bundle = Bundle()
+                bundle.putInt("flag", 0)
+                MyApplication.openActivityForResult(this, DdtjActivity::class.java, bundle, 1)
             }
             "4" -> {//拒绝定位
                 viewModel?.sendMessage2("6")

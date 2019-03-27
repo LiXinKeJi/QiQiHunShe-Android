@@ -87,8 +87,8 @@ public class MyApplication extends MultiDexApplication {
 
 
         RongIM.init(this, "3argexb63qm0e");
-        RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
-        RongCloudEvent.INSTANCE.init();
+//        RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener(CONTEXT));
+//        RongCloudEvent.INSTANCE.init();
         RongIM.getInstance().setMessageAttachedUserInfo(true);
         RongIM.registerMessageType(CustomizeMessage1.class);//注册自定义消息
         RongIM.registerMessageTemplate(new CustomizeMessageItemProvider1(this));

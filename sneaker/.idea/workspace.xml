@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ce932e04-37b2-4f3b-82c7-c55f938a44bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/rongrun/receiver/NotificationClickReceiver.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CallKit/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CallKit/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CallKit/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../CallKit/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CallKit/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CallKit/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CallKit/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CallKit/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CallLib/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CallLib/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CallLib/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../CallLib/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CallLib/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CallLib/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CallLib/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CallLib/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMKit/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../IMKit/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMKit/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../IMKit/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMKit/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../IMKit/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMKit/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../IMKit/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMLib/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../IMLib/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMLib/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../IMLib/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMLib/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../IMLib/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMLib/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../IMLib/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RCSticker/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../RCSticker/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RCSticker/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../RCSticker/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RCSticker/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RCSticker/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RCSticker/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RCSticker/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sight/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Sight/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sight/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Sight/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sight/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Sight/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sight/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Sight/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/MyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/MyApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/rongrun/MyReceiveMessageListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/rongrun/MyReceiveMessageListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/rongrun/receiver/SealNotificationReceiver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/rongrun/receiver/SealNotificationReceiver.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/fujin/activity/ChatActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/fujin/activity/ChatActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/fujin/fragment/SkillFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/fujin/fragment/SkillFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/fujin/viewmodel/ChatViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/fujin/viewmodel/ChatViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/mine/activity/ReleaseInvitationActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/mine/activity/ReleaseInvitationActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/mine/viewmodel/AboutMeFragmentViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/mine/viewmodel/AboutMeFragmentViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/mine/viewmodel/ReleaseInvitationViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/mine/viewmodel/ReleaseInvitationViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/QuYuFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/QuYuFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/activity/DdtjActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/activity/DdtjActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/model/DataListModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/model/DataListModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/viewmodel/DdtjViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/viewmodel/DdtjViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/viewmodel/QuYuViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/quyu/viewmodel/QuYuViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/xiaoxi/fragment/HunSheFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/xiaoxi/fragment/HunSheFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/xiaoxi/fragment/XiangShiFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/xiaoxi/fragment/XiangShiFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/xiaoxi/viewmodel/XiangShiViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/lxkj/qiqihunshe/app/ui/xiaoxi/viewmodel/XiangShiViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_skill.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_skill.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/layout_imageview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/layout_imageview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/layout_infowindow_qy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/layout_infowindow_qy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/packaged_res/debug/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/packaged_res/debug/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/symbols/debug/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/intermediates/symbols/debug/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgABadgeView/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bgABadgeView/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/generated/source/buildConfig/debug/cn/jzvd/BuildConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/generated/source/buildConfig/debug/cn/jzvd/BuildConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/attr/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/attr/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values-es/values-es.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values-es/values-es.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values-pt/values-pt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values-pt/values-pt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values-tr/values-tr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values-tr/values-tr.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values-zh/values-zh.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values-zh/values-zh.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merged.dir/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values-es/values-es.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values-es/values-es.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values-pt/values-pt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values-pt/values-pt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values-tr/values-tr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values-tr/values-tr.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values-zh/values-zh.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values-zh/values-zh.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/packaged_res/debug/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/symbols/debug/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/intermediates/symbols/debug/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jiaozivideoplayer/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../jiaozivideoplayer/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-376136468">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="E:/DemoSpace/BadgeForAppIcon" value="PREVIEW" />
+        <entry key="E:/DemoSpace/CustomGroup" value="PREVIEW" />
+        <entry key="E:/DemoSpace/FlycoTabLayout" value="PREVIEW" />
+        <entry key="E:/DemoSpace/JiaoZiVideoPlayer" value="PREVIEW" />
+        <entry key="E:/DemoSpace/LifeStyle" value="PREVIEW" />
+        <entry key="E:/DemoSpace/Matisse" value="PREVIEW" />
+        <entry key="E:/DemoSpace/RxJavaSamples" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-145" />
+    <option name="y" value="120" />
+    <option name="width" value="1482" />
+    <option name="height" value="899" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ce932e04-37b2-4f3b-82c7-c55f938a44bd" name="Default Changelist" comment="" />
+      <created>1553482484609</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1553482484609</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-145" y="120" width="1482" height="899" extended-state="0" />
+    <layout>
+      <window_info id="Designer" />
+      <window_info id="Capture Tool" />
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.32934552" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Build Variants" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Statistic" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" visible="true" weight="0.3298292" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Android WiFi ADB" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>Android API 8 Platform</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

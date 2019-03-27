@@ -149,7 +149,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
         info?.let {
             val shopMessage = CustomizeMessage4()
             shopMessage.content = it.name
-            shopMessage.address = it.name
+            shopMessage.address = it.address
             shopMessage.lat = it.location.latitude.toString()
             shopMessage.lon = it.location.longitude.toString()
             shopMessage.time = dateTime

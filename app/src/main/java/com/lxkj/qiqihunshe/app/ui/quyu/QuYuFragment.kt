@@ -24,6 +24,7 @@ import com.baidu.mapapi.map.*
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.dialog.AqxzDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.FwwdDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.SayHolleDialog
@@ -76,6 +77,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         tv_toMyLocation.setOnClickListener(this)
         iv_close.setOnClickListener(this)
         tv_Qdh.setOnClickListener(this)
+        tv_Lxkf.setOnClickListener(this)
 
         params.clear()
         params.put("cmd", "getChatList")
@@ -170,7 +172,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 //                MyApplication.openActivity(activity, SelectAddressMapActivity::class.java, bundle)
             }
             R.id.iv_sayHi -> {
-                if(viewModel!!.hiList.isEmpty()){
+                if (viewModel!!.hiList.isEmpty()) {
                     ToastUtil.showTopSnackBar(activity, "暂无打招呼内容")
                     return
                 }
@@ -203,12 +205,17 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
             R.id.tv_Qdh -> {
                 var mapNavigationUtil = MapNavigationUtil(context)
-                mapNavigationUtil.goToBaiduMap(viewModel?.serviceOffice?.lat, viewModel?.serviceOffice?.lon, viewModel?.serviceOffice?.address)
+                mapNavigationUtil.goToBaiduMap(
+                    viewModel?.serviceOffice?.lat,
+                    viewModel?.serviceOffice?.lon,
+                    viewModel?.serviceOffice?.address
+                )
             }
 
             R.id.iv_close -> {
-               ll_hint.visibility = View.GONE
+                ll_hint.visibility = View.GONE
             }
+            R.id.tv_Lxkf -> RongYunUtil.toService(activity)
         }
 
     }
@@ -245,8 +252,8 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
             lng = location.longitude
             StaticUtil.lat = lat.toString()
             StaticUtil.lng = lng.toString()
-            SharePrefUtil.saveString(context,AppConsts.LAT,lat.toString())
-            SharePrefUtil.saveString(context,AppConsts.LNG,lng.toString())
+            SharePrefUtil.saveString(context, AppConsts.LAT, lat.toString())
+            SharePrefUtil.saveString(context, AppConsts.LNG, lng.toString())
 
             tv_address.text = (location.addrStr)
             tv_toMyLocation.text = (location.addrStr)

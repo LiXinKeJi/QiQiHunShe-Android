@@ -51,9 +51,9 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         model = arguments?.getSerializable("model") as DataListModel
         viewModel?.model = model
 
-
         //视频封面图
         GlideUtil.glideLoad(context, model?.image, jc_video?.thumbImageView)
+        GlideUtil.glideLoad(context, model?.image, iv_videoBg)
         //用户头像
         GlideUtil.glideLoad(context, model?.icon, iv_header)
         tv_playnum?.text = "播放量：" + model?.count

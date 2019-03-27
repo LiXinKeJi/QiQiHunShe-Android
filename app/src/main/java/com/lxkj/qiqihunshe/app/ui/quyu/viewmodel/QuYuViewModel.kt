@@ -1,8 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.quyu.viewmodel
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.baidu.mapapi.map.*
@@ -11,7 +9,6 @@ import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseModel
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
@@ -55,7 +52,6 @@ class QuYuViewModel : BaseViewModel() {
 
                         if (i > 0 && model.dataList[i].distance.toDouble() < model.dataList[i - 1].distance.toDouble())
                             servicePosition = i
-
 
                     }
                     //最近的服务网点

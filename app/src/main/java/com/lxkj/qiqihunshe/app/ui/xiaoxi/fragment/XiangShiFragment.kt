@@ -4,6 +4,7 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.activity.InteractiveNotificationActivity
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.QiQiRemindActivity
@@ -28,7 +29,7 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
         include.visibility = View.GONE
         viewModel?.let {
             it.bind = binding
-            viewModel?.getNewMsg()
+            viewModel?.getNewMsg()!!.bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             it.friendUserList.clear()
             it.friendUserList.addAll((arguments?.getSerializable("list") as ArrayList<FindUserRelationshipModel.dataModel>))
             it.init()
@@ -53,6 +54,9 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
                 MyApplication.openActivity(activity, QiQiRemindActivity::class.java)
             }
             R.id.llNotify -> { //互动通知
+                viewModel?.let {
+                    it.redMsg().subscribe({}, { toastFailure(it) })
+                }
                 MyApplication.openActivity(activity, InteractiveNotificationActivity::class.java)
             }
         }

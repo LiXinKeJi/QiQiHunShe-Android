@@ -17,4 +17,6 @@ class DataListModel() {
     var status = "" // 是否默认 0否 1是
 
     var shopId = "" // 店铺ID
+
+    var title = "" // 店铺ID
 }

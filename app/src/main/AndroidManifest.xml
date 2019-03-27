@@ -39,7 +39,7 @@
             android:supportsRtl="true"
             android:name=".app.MyApplication"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".app.ui.entrance.SignInActivity">
+        <activity android:name=".app.ui.entrance.StartupPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -77,6 +77,8 @@
         <activity android:name=".app.ui.entrance.PerfectInfoActivitiy"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.entrance.MyTypeActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.entrance.SignInActivity"
                   android:screenOrientation="portrait"/>
 
 
@@ -331,7 +333,9 @@
             </intent-filter>
         </receiver>
 
-
+        <receiver
+                android:name=".app.rongrun.receiver.NotificationClickReceiver">
+        </receiver>
 
     </application>
 

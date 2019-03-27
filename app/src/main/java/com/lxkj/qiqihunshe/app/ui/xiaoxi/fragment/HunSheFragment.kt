@@ -125,8 +125,6 @@ class HunSheFragment : BaseFragment<FragmentHunsheBinding, HunSheViewModel>(), V
                 rb_qianshou.isChecked = true
             }
         }
-
-
     }
 
 

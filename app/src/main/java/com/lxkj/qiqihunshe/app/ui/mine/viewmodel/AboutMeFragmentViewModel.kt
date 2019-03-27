@@ -59,11 +59,14 @@ class AboutMeFragmentViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putString("userId", list[it].userId)
             MyApplication.openActivity(fragment?.activity, PersonalInfoActivity::class.java, bundle)
+
         }
 
         bind?.xRecyclerView?.adapter = adapter
         getList()
     }
+
+
 
     //获取列表
     fun getList() {

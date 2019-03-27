@@ -7,7 +7,6 @@ import cn.jzvd.Jzvd
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
-import com.lxkj.qiqihunshe.app.AppConsts
 import com.lxkj.qiqihunshe.app.service.LocationService
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.util.*

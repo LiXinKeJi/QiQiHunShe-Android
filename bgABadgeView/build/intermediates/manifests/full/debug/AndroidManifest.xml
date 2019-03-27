@@ -3,7 +3,7 @@
     package="cn.bingoogolapple.badgeview" >
 
     <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="26" />
+        android:minSdkVersion="16"
+        android:targetSdkVersion="28" />
 
 </manifest>

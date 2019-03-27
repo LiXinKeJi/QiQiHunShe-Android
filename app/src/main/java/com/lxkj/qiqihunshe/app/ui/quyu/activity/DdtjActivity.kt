@@ -9,6 +9,7 @@ import com.lxkj.qiqihunshe.databinding.ActivityDdtjBinding
 import kotlinx.android.synthetic.main.activity_ddtj.*
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 
 
 /**
@@ -26,9 +27,10 @@ class DdtjActivity : BaseActivity<ActivityDdtjBinding,DdtjViewModel>() {
 
     override fun init() {
         viewModel?.bind = binding
+        viewModel?.flag=intent.getIntExtra("flag",-1)
         initTitle("地点推荐")
-        lat = intent.getDoubleExtra("lat", 0.0).toString()
-        lng = intent.getDoubleExtra("lng", 0.0).toString()
+        lat = StaticUtil.lat
+        lng = StaticUtil.lng
 
         val ll = LatLng(lat.toDouble(), lng.toDouble())
         val builder = MapStatus.Builder()
