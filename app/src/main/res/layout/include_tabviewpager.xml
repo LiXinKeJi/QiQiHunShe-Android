@@ -4,6 +4,11 @@
              android:layout_width="match_parent" android:layout_height="wrap_content">
 
 
+    <View android:layout_width="match_parent" android:layout_height="44dp"
+    android:id="@+id/view"
+          android:background="@color/gray"
+    />
+
     <com.lxkj.qiqihunshe.xtablayout.XTabLayout
             android:id="@+id/tabs"
             android:layout_width="wrap_content"

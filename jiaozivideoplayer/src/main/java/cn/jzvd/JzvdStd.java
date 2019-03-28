@@ -51,6 +51,8 @@ public class JzvdStd extends Jzvd {
     public TextView mRetryBtn;
     public LinearLayout mRetryLayout;
 
+    public ImageView iv_videoBg;
+
     protected DismissControlViewTimerTask mDismissControlViewTimerTask;
     protected Dialog mProgressDialog;
     protected ProgressBar mDialogProgressBar;
@@ -105,6 +107,8 @@ public class JzvdStd extends Jzvd {
         clarity = findViewById(R.id.clarity);
         mRetryBtn = findViewById(R.id.retry_btn);
         mRetryLayout = findViewById(R.id.retry_layout);
+
+        iv_videoBg = findViewById(R.id.iv_videoBg);
 
         thumbImageView.setOnClickListener(this);
         backButton.setOnClickListener(this);

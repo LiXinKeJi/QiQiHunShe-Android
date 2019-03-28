@@ -66,6 +66,8 @@ class ReputationBaoActivity : BaseActivity<ActivityReputationBaoBinding, Reputat
                 viewModel?.let {
                     if (it.bail == "0") {
                         viewModel!!.getReputationNum().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                    }else{
+
                     }
                 }
             }

@@ -10,6 +10,7 @@ import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonDynamicViewModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
+import com.lxkj.qiqihunshe.app.util.ShareUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentPersonDynamicBinding
 import org.greenrobot.eventbus.EventBus
@@ -75,7 +76,7 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
                 })
             }
             EventBusCmd.fenxaing -> {
-                ToastUtil.showTopSnackBar(activity, "分享")
+             ShareUtil.share(activity!!)
             }
         }
     }

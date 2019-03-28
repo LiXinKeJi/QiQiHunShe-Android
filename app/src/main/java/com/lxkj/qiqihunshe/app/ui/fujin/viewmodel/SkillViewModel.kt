@@ -1,9 +1,11 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
@@ -16,15 +18,22 @@ import com.lxkj.qiqihunshe.app.ui.fujin.model.FuJinModel
 import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.WalletModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
-import com.lxkj.qiqihunshe.app.util.EventBusCmd
-import com.lxkj.qiqihunshe.app.util.StaticUtil
-import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.app.util.abLog
+import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.FragmentSkillBinding
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.os.Handler
+import android.os.Message
+import java.io.IOException
+import java.io.ObjectInput
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
+
 
 /**
  * 我的才艺，才艺详情Fragment共用
@@ -52,6 +61,13 @@ class SkillViewModel : BaseViewModel() {
         bind!!.rvComment.adapter = adapter
 
         getCaiyiCommentList()
+
+
+        if (love == "1") {//1喜欢 0不喜欢
+            bind!!.ivFllow.setImageResource(R.drawable.ic_del3)
+        } else {
+            bind!!.ivFllow.setImageResource(R.drawable.ic_add3)
+        }
     }
 
     fun getCaiyiCommentList() {
@@ -67,7 +83,7 @@ class SkillViewModel : BaseViewModel() {
                 totalPage = model.totalPage
                 if (page == 1) {
                     list.clear()
-                    bind!!.comment.text="最新评论（${model.commentCount}）"
+                    bind!!.comment.text = "最新评论（${model.commentCount}）"
                 }
                 list.addAll(model.dataList)
                 adapter?.notifyDataSetChanged()
@@ -192,6 +208,87 @@ class SkillViewModel : BaseViewModel() {
                     }
                 }
             }, activity))
+    }
+
+
+    //举报
+    fun juBao(content: String): Single<String> {
+        val json = "{\"cmd\":\"caiyiReport\",\"uid\":\"" + StaticUtil.uid + "\",\"caiyiId\":\"" + model?.caiyiId +
+                "\",\"content\":\"" + content + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                ToastUtil.showTopSnackBar(fragment!!.activity, "举报成功")
+            }
+        }, fragment?.activity))
+    }
+
+
+    var love = ""// 0不喜欢 1喜欢
+    //喜欢
+    fun floow(): Single<String> {
+        var json = ""
+        if (love == "1") {//1喜欢 0不喜欢
+            json = "{\"cmd\":\"addLove\",\"uid\":\"" + StaticUtil.uid + "\",\"userId\":\"" + model?.userId +
+                    "\",\"type\":\"" + "2" + "\"}"
+        } else {
+            json = "{\"cmd\":\"addLove\",\"uid\":\"" + StaticUtil.uid + "\",\"userId\":\"" + model?.userId +
+                    "\",\"type\":\"" + "1" + "\"}"
+        }
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                if (love == "1") {//1喜欢 0不喜欢
+                    love = "0"
+                    bind!!.ivFllow.setImageResource(R.drawable.ic_add3)
+                } else {
+                    love = "1"
+                    bind!!.ivFllow.setImageResource(R.drawable.ic_del3)
+                }
+            }
+        }, fragment!!.activity))
+
+    }
+
+
+    private var bitmap: Bitmap? = null
+    fun returnBitMap(url: String) {
+        Thread(Runnable {
+            var imageurl: URL? = null
+
+            try {
+                imageurl = URL(url)
+            } catch (e: MalformedURLException) {
+                e.printStackTrace()
+            }
+
+            try {
+                val conn = imageurl!!.openConnection() as HttpURLConnection
+                conn.doInput = true
+                conn.connect()
+                val `is` = conn.inputStream
+                bitmap = BitmapFactory.decodeStream(`is`)
+                handle.sendMessage(Message())
+                `is`.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }).start()
+    }
+
+
+    private val handle = @SuppressLint("HandlerLeak")
+    object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            bitmap?.let {
+                val scaledBitmap = Bitmap.createScaledBitmap(
+                    it,
+                    it.width / 15,
+                    it.height / 15,
+                    false
+                )
+                bind!!.jcVideo.iv_videoBg.setImageBitmap(scaledBitmap)
+            }
+        }
     }
 
 

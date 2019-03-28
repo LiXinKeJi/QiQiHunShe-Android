@@ -41,8 +41,15 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
             MyApplication.openActivity(this, MatchingHistoryActivity::class.java, bundle)
         }
 
-        val flag = intent!!.getIntExtra("flag", -1)
+        viewModel?.let {
+            binding.viewmodel=it
+        }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val flag = intent!!.getIntExtra("flag", -1)
         viewModel!!.headerUrl.set(StaticUtil.headerUrl)
         when (flag) {
             0 -> {
@@ -54,7 +61,6 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
                 viewModel!!.randomUser().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
         }
-
     }
 
 

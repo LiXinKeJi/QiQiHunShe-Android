@@ -84,7 +84,7 @@ public class MyJzvdStd extends JzvdStd {
     @Override
     public void onStateAutoComplete() {
         super.onStateAutoComplete();
-        this.startVideo();
+//        this.startVideo();
     }
 
     //changeUiTo 真能能修改ui的方法

@@ -37,6 +37,12 @@ class PermissionBuyActivity : BaseActivity<ActivityPermissionBuyBinding, Permiss
         if (requestCode == 0 && resultCode == 303) {
             ToastUtil.showTopSnackBar(this, "购买成功")
         }
+        if (requestCode == 4 && resultCode == 4) {
+            ToastUtil.showTopSnackBar(this, "购买成功")
+        }
+        if (requestCode == 5 && resultCode == 5) {
+            ToastUtil.showTopSnackBar(this, "购买成功")
+        }
     }
 
 }

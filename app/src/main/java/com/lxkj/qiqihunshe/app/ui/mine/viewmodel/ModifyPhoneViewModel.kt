@@ -8,7 +8,8 @@ import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.model.ModifyPhoneModel
 import com.lxkj.qiqihunshe.app.util.TimerUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.databinding.ActivityVerificationPhoneBinding
+import com.lxkj.qiqihunshe.app.util.abLog
+import com.lxkj.qiqihunshe.databinding.ActivityModifyPhoneBinding
 import io.reactivex.Single
 
 /**
@@ -16,11 +17,14 @@ import io.reactivex.Single
  */
 class ModifyPhoneViewModel : BaseViewModel() {
 
+    lateinit var bind: ActivityModifyPhoneBinding
 
-    var bind: ActivityVerificationPhoneBinding? = null
+    lateinit var timerUtil: TimerUtil
 
-    private val timerUtil by lazy { TimerUtil(bind?.tvGetcode) }
 
+    fun init() {
+        timerUtil = TimerUtil(bind.tvGetcode)
+    }
 
     fun getCode(phone: String): Single<String> {
         timerUtil.startTimer()
@@ -34,7 +38,7 @@ class ModifyPhoneViewModel : BaseViewModel() {
     }
 
     fun motifyPhone(model: ModifyPhoneModel): Single<String> {
-        timerUtil.startTimer()
+        abLog.e("修改手机号", Gson().toJson(model))
         return retrofit.getData(Gson().toJson(model)).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {

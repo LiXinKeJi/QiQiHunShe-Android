@@ -59,10 +59,15 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
-            it.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+
         }
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        viewModel!!.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -141,7 +146,6 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == 103 && requestCode == 3) {
             ToastUtil.showTopSnackBar(activity, "修改成功")
-            viewModel!!.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
     }
 

@@ -12,11 +12,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
+import com.lxkj.qiqihunshe.app.ui.shouye.model.DataListModel;
 import com.lxkj.qiqihunshe.app.util.DisplayUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
-import com.lxkj.qiqihunshe.app.util.ToastUtil;
-import com.lxkj.runproject.app.view.SquareImage;
 
 import java.util.List;
 

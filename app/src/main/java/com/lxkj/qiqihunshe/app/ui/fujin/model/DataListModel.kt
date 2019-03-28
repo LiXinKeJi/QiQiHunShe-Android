@@ -25,4 +25,6 @@ class DataListModel : Serializable {
     var age = ""// 年龄
     var comment = ""//评论内容",
     var distance = ""// 距离
+
+   var love=""// 0不喜欢 1喜欢
 }

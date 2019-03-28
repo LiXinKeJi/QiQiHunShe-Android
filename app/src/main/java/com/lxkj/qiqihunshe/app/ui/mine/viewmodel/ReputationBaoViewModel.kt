@@ -39,8 +39,10 @@ class ReputationBaoViewModel : BaseViewModel() {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, ReputationBaoModel::class.java)
                     bind!!.model = model
-                    if (model.bail == "0") {
-                        bind!!.tvPay.text = "已缴纳信誉金"
+                    if (model.bail != "0") {
+                        bind!!.tvPay.text = "已缴纳信誉金${model.bail}元"
+                    }else{
+                        bind!!.tvPay.text = "缴纳信誉金"
                     }
                 }
             }, activity))

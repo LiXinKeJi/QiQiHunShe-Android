@@ -31,7 +31,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     private CardPagerCallBack cardPagerCallBack;
 
     public interface CardPagerCallBack {
-        void CardPager(String type, String money);
+        void CardPager(String type, String money,String info);
     }
 
     public CardPagerAdapter() {
@@ -126,7 +126,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         tv_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardPagerCallBack.CardPager(item.getType(), item.getPrice());
+                cardPagerCallBack.CardPager(item.getType(), item.getPrice(),item.getContent());
             }
         });
 

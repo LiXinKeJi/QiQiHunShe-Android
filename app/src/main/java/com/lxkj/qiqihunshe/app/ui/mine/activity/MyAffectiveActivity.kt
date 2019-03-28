@@ -67,6 +67,11 @@ class MyAffectiveActivity : BaseActivity<ActivityMyaffectiveBinding, MyAffective
 
             override fun onPageSelected(p0: Int) {
                 flag = p0
+                if(flag==0){
+                    tv_right.text = "发布问题"
+                }else{
+                    tv_right.text = "发布征婚"
+                }
             }
         })
     }

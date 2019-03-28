@@ -6,10 +6,13 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.shouye.model.ShouYeModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import io.reactivex.Single
+import io.rong.imkit.RongIM
+import io.rong.imkit.utilities.RongUtils
 
 /**
  * 匹配
@@ -19,7 +22,7 @@ class MatchingViewModel : BaseViewModel() {
 
     var type = "1"
 
-    var headerUrl=ObservableField<String>()
+    var headerUrl = ObservableField<String>()
 
     /**
      * 1聊 2语 人物匹配
@@ -31,7 +34,11 @@ class MatchingViewModel : BaseViewModel() {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, ShouYeModel::class.java)
                     if (model.result == "0") {
-                        ToastUtil.showTopSnackBar(activity, "匹配成功！" + model.userId)
+                        ToastUtil.showToast("匹配成功！")
+                        activity?.let {
+                            RongIM.getInstance().startPrivateChat(it, model.userId, model.nickname)
+                            it.finish()
+                        }
                     } else {
                         ToastUtil.showTopSnackBar(activity, model.resultNote)
                     }

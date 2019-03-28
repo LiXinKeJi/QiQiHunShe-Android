@@ -123,7 +123,7 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
                 viewModel!!.zan().bindLifeCycle(this).subscribe({}, { it })
             }
             R.id.tv_share -> {
-                ShareUtil.share(this, "", "")
+                ShareUtil.share(this)
             }
             R.id.tv_report -> {//举报
                 ReportDialog1.getReportList(this, "2", object : ReportDialog1.ReportCallBack {

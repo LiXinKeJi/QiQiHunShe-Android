@@ -66,7 +66,6 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
             it.bind = binding
             if (intent.getStringExtra("userId") == null) {
                 it.userId = StaticUtil.uid
-                ToastUtil.showToast("请传入对方id")
             } else {
                 it.userId = intent.getStringExtra("userId")
             }

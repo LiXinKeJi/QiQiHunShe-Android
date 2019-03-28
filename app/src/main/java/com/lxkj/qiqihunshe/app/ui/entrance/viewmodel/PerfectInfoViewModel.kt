@@ -261,7 +261,6 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
     }
 
     fun showStringWheel(list: ArrayList<String>) {
-
         stringPop = StringSelectPop(activity, list, this)
 
         if (!stringPop!!.isShowing) {

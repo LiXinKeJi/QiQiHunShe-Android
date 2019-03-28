@@ -4,9 +4,9 @@ import android.os.CountDownTimer
 import android.text.TextUtils
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.ui.MainActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.SignInActivity
 import com.lxkj.qiqihunshe.app.util.StaticUtil
-import io.rong.imkit.MainActivity
 
 /**
  * Created by Slingge on 2019/3/25

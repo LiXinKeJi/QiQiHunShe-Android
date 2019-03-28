@@ -38,13 +38,11 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     var targetId = ""//对方id
     var title = ""//标题，对方昵称
 
-    var bind: ActivityChatDetailsBinding? = null
+   lateinit var bind: ActivityChatDetailsBinding
 
     val datePop by lazy { DatePop(activity, this) }
 
     var info: PoiInfo? = null
-
-    fun jubao() {}
 
 
     fun getJuBaoConten(): Single<String> {

@@ -55,6 +55,13 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
             it.title = uri.getQueryParameter("title")
             it.targetId = uri.getQueryParameter("targetId")
             initTitle(it.title)
+
+            if(it.targetId =="客服id"){
+                iv_yuejian.visibility=View.GONE
+                tv_right.visibility=View.GONE
+                iv_jubao.visibility=View.GONE
+                tv_tip0.visibility=View.GONE
+            }
         }
     }
 

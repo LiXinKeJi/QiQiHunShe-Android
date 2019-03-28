@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.activity.ReleaseDynamicActivity
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.AffectiveDynamicViewModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
+import com.lxkj.qiqihunshe.app.util.ShareUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import kotlinx.android.synthetic.main.activity_recyvlerview.*
@@ -83,7 +84,7 @@ class AffectiveDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, Affec
                 })
             }
             EventBusCmd.fenxaing -> {
-
+                ShareUtil.share(activity!!)
             }
         }
     }

@@ -29,6 +29,9 @@ class ModifyPhoneActivity : BaseActivity<ActivityModifyPhoneBinding, ModifyPhone
         viewModel?.let {
             binding.viewmodel = it
             binding.model = model
+            binding.model!!.answer = intent.getStringExtra("answer")
+            it.bind = binding
+            it.init()
         }
 
         tv_enter.setOnClickListener {

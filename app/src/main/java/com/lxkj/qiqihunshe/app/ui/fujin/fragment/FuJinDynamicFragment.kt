@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.app.ui.fujin.adapter.NearDynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.FuJinDynamicViewModel
 import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.ReleaseDynamicActivity
+import com.lxkj.qiqihunshe.app.util.ShareUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityXrecyclerviewBinding
 import kotlinx.android.synthetic.main.activity_xrecyclerview.*
@@ -46,7 +47,7 @@ class FuJinDynamicFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJinDyn
                 }
 
                 override fun shareClick(position: Int) {//分享
-//                    ShareUtil.share(activity!!, "", "", )
+                    ShareUtil.share(activity!!)
                 }
 
                 override fun daShnangClick(position: Int) {
