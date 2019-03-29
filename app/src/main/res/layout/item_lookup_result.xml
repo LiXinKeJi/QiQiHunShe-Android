@@ -37,18 +37,15 @@
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_age"
                   android:textColor="@color/girl"
-                  android:background="@drawable/bg_girl"
-                  android:drawableLeft="@drawable/ic_girl"
+                  android:background="@mipmap/bg_sex_nv"
                   android:text="16"
                   android:textSize="10sp"
                   android:paddingTop="2dp"
                   android:paddingBottom="2dp"
-                  android:paddingLeft="8dp"
-                  android:paddingRight="8dp"
-                  android:drawablePadding="3dp"
+                  android:paddingLeft="15dp"
                   app:layout_constraintStart_toEndOf="@+id/tv_name"
                   app:layout_constraintBottom_toBottomOf="@+id/tv_name" android:layout_marginLeft="10dp"
-                  android:layout_marginStart="10dp" app:layout_constraintTop_toTopOf="@+id/tv_name"/>
+                  android:layout_marginStart="10dp"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_add"
@@ -155,7 +152,7 @@
                  android:layout_height="wrap_content"
                  app:layout_constraintStart_toEndOf="@+id/tv_zhiye"
                  app:layout_constraintTop_toTopOf="@+id/tv_zhiye"
-                 app:layout_constraintBottom_toBottomOf="@+id/tv_zhiye" android:layout_marginTop="6dp"/>
+                 app:layout_constraintBottom_toBottomOf="@+id/tv_zhiye"/>
 
         <include layout="@layout/include_line07"
                  app:layout_constraintTop_toBottomOf="@+id/tv_security"

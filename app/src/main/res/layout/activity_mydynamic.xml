@@ -119,7 +119,6 @@
 
                     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                android:id="@+id/tv_report"
-                               android:visibility="gone"
                                android:src="@drawable/jubao"
                                app:layout_constraintEnd_toEndOf="parent"
                                app:layout_constraintTop_toTopOf="@+id/header"
@@ -193,6 +192,7 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_num"
                           android:text="@={model.commentNum}"
+                          android:background="@drawable/touch_bg"
                           android:padding="10dp"
                           android:gravity="center"
                           android:drawablePadding="5dp"

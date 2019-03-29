@@ -10,6 +10,4 @@ class ShouYeModel : BaseModel(){
     var totalPage = ""
     var answer = "0"// 0未回答 1已回答
     var dataList = ArrayList<DataListModel>()
-
-  var  nickname=""
 }

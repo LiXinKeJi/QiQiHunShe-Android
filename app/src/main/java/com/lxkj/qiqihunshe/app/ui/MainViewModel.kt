@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Build
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.view.View
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.fujin.FuJinFragment
@@ -11,6 +12,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.MineFragment
 import com.lxkj.qiqihunshe.app.ui.quyu.QuYuFragment
 import com.lxkj.qiqihunshe.app.ui.shouye.*
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.XiaoXiFragment
+import com.lxkj.qiqihunshe.app.util.StatusBarBlackWordUtil
 import com.lxkj.qiqihunshe.app.util.StatusBarUtil
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
 
@@ -46,6 +48,7 @@ class MainViewModel : BaseViewModel() {
     fun initBind() {
         switchFragment(shouYeFragment)
         bind!!.RadioGBottem.setOnCheckedChangeListener { group, checkedId ->
+
             when (checkedId) {
                 R.id.tab_0 -> {
                     if (Build.VERSION.SDK_INT > 19) {

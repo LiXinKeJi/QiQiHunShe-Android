@@ -28,6 +28,7 @@ class SpaceDynamicItemView : RelativeLayout {
 
     fun setData(bean: SpaceDynamicModel.dataModel, position: Int) {
 
+
         tv_time.text = bean.adtime
 
         tv_content.text = bean.content

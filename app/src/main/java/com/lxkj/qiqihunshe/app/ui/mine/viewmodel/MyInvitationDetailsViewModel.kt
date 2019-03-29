@@ -11,12 +11,9 @@ import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.ImageAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.MyInvitationDetailsAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.MyInvitationDetailsModel
-import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
-import com.lxkj.qiqihunshe.app.util.EventBusCmd
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityMyinvitationDetailsBinding
 import io.reactivex.Single
-import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Slingge on 2019/2/25
@@ -155,25 +152,6 @@ class MyInvitationDetailsViewModel : BaseViewModel() {
                 }
             }
         }, activity))
-    }
-
-
-    //删除邀约
-    fun DelInvitation(): Single<String> {
-        val json =
-            "{\"cmd\":\"delYaoyue\",\"uid\":\"" + StaticUtil.uid + "\",\"yaoyueId\":\"" + yaoyueId + "\"}"
-        return retrofit.getData(json).async()
-            .compose(SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                    EventBus.getDefault().post(
-                        EventCmdModel(
-                            EventBusCmd.DelInvitation,
-                            activity!!.intent.getIntExtra("position", -1).toString()
-                        )
-                    )
-                    activity!!.finish()
-                }
-            }, fragment!!.activity))
     }
 
 

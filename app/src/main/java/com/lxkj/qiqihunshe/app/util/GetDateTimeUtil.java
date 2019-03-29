@@ -69,21 +69,7 @@ public class GetDateTimeUtil {
         return sdf.format(l);
     }
 
-    public static String getToDay() {
-        long l = System.currentTimeMillis();
-        if (sdf == null) {
-            sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        }
-        return sdf.format(l);
-    }
 
-    public static String getYeatDay() {
-        long l = System.currentTimeMillis() - 24 * 60 * 60 * 1000;
-        if (sdf == null) {
-            sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        }
-        return sdf.format(l);
-    }
 
     /**
      * 得到当年当月的最大日期

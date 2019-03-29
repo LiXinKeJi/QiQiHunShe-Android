@@ -38,12 +38,7 @@ object ReportDialog2 : DatePop.DateCallBack {
     private val reportList by lazy { ArrayList<String>() }
     private val list by lazy { ArrayList<String>() }
 
-
-    interface ReportContentCallBack {
-        fun report(content: String)
-    }
-
-    fun show(context: Activity, array: ArrayList<String>, reportCallBack: ReportContentCallBack) {
+    fun show(context: Activity, array: ArrayList<String>) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -78,16 +73,7 @@ object ReportDialog2 : DatePop.DateCallBack {
             dialog?.dismiss()
         }
         tv_enter?.setOnClickListener {
-            if (list.isEmpty()) {
-                ToastUtil.showToast("请选择举报内容")
-                return@setOnClickListener
-            }
-
-            val sb = StringBuffer()
-            for (str in list) {
-                sb.append("$str,")
-            }
-            reportCallBack.report(sb.toString().substring(0, sb.toString().length - 1))
+            ToastUtil.showToast(Gson().toJson(list))
             dialog?.dismiss()
         }
         iv_cancel?.setOnClickListener {
@@ -166,14 +152,7 @@ object ReportDialog2 : DatePop.DateCallBack {
     }
 
 
-    override fun position(
-        position1: String,
-        position2: String,
-        position3: String,
-        position4: String,
-        position5: String,
-        position6: String
-    ) {
+    override fun position(position1: String, position2: String, position3: String, position4: String, position5: String, position6: String) {
         if (flag == 0) {
             statTime = "$position1-$position2-$position3 $position4:$position5:$position6"
             tv_startTime!!.text = statTime
@@ -182,7 +161,6 @@ object ReportDialog2 : DatePop.DateCallBack {
             tv_endTime!!.text = endTime
         }
     }
-
     override fun position() {
 
     }

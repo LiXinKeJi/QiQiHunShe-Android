@@ -34,8 +34,8 @@ class VerificationPhoneActivity : BaseActivity<ActivityVerificationPhoneBinding,
             binding.viewmodel = it
             it.flag = intent.getIntExtra("flag", 0)
             it.bind = binding
-            it.init()
         }
+
 
     }
 

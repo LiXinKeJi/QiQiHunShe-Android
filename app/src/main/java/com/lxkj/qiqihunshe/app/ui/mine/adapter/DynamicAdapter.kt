@@ -11,13 +11,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.widget.PersonDynamicItemView
  * Created by Slingge on 2019/2/21
  */
 class DynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, PersonDynamicItemView>() {
-
-    private var view: PersonDynamicItemView? = null
-
     override fun refreshItemView(view: PersonDynamicItemView, itembean: SpaceDynamicModel.dataModel, position: Int) {
-        if (this.view == null) {
-            this.view = view
-        }
         view.setData(itembean, position)
     }
 
@@ -30,11 +24,6 @@ class DynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, PersonDynami
 
     override fun refreshItemView(view: PersonDynamicItemView, itembean: SpaceDynamicModel.dataModel) {
 
-    }
-
-
-    fun zan(num: String, id: String) {
-        view?.upZan(num, id)
     }
 
 

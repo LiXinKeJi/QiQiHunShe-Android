@@ -11,16 +11,11 @@ import android.widget.TextView
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.customview.FlowLayout
-import com.lxkj.qiqihunshe.app.retrofitnet.*
-import com.lxkj.qiqihunshe.app.retrofitnet.exception.dispatchFailure
-import com.lxkj.qiqihunshe.app.ui.shouye.model.ReportModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.app.util.abLog
 
 
 /**
- * 七七活动 邀约等举报
- * 1聊天 2动态 3邀约 4才艺
+ * 七七活动报名举报
  * Created by Slingge on 2019/2/22
  */
 @SuppressLint("StaticFieldLeak")
@@ -37,40 +32,8 @@ object ReportDialog1 {
     private var tv_cancel: TextView? = null
     private var iv_cancel: ImageView? = null
 
-    private var flLayout: FlowLayout? = null
-    private var fl_main: FrameLayout? = null
-
     private val list by lazy { ArrayList<String>() }
-    private val array by lazy { ArrayList<String>() }
 
-
-    val retrofit by lazy { RetrofitUtil.getRetrofit().create(RetrofitService::class.java) }
-
-
-    private var type = ""//上一个类型
-
-    @SuppressLint("CheckResult")
-    fun getReportList(context: Activity, type: String, reportCallBack: ReportCallBack) {
-        if (this.type != type) {
-            array.clear()
-            this.type = type
-        }
-        if (array.isEmpty()) {
-            val json = "{\"cmd\":\"getReportList\",\"type\":\"$type\"}"
-            retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                    val mode = Gson().fromJson(response, ReportModel::class.java)
-                    array.addAll(mode.dataList)
-                    show(context, reportCallBack)
-                }
-            }, context)).subscribe({}, { dispatchFailure(context, it) })
-        } else {
-            show(context, reportCallBack)
-        }
-
-    }
-
-    //type1聊天 2动态 3邀约 4才艺
     fun show(context: Activity, reportCallBack: ReportCallBack) {
         list.clear()
         if (dialog == null) {
@@ -80,31 +43,24 @@ object ReportDialog1 {
             tv_enter = view.findViewById(R.id.tv_enter)
             tv_cancel = view.findViewById(R.id.tv_cancel)
             iv_cancel = view.findViewById(R.id.iv_cancel)
-
-            flLayout = view.findViewById(R.id.fl_jubao)
-            fl_main = view.findViewById(R.id.fl_main)
-
             dialog!!.window.setContentView(view)
 
+            initTLable(context, view.findViewById(R.id.fl_jubao), view.findViewById(R.id.fl_main))
         } else {
             dialog?.show()
         }
 
-        initTLable(context, flLayout!!, fl_main!!)
 
         tv_cancel?.setOnClickListener {
             dialog?.dismiss()
 
         }
         tv_enter?.setOnClickListener {
-            if (list.isEmpty()) {
-                ToastUtil.showToast("请选择举报内容")
-                return@setOnClickListener
-            }
             val sb = StringBuffer()
             for (i in 0 until list.size) {
                 sb.append(list[i] + ",")
             }
+
             reportCallBack.report(sb.toString().substring(0, sb.toString().length - 1))
             dialog?.dismiss()
         }
@@ -125,7 +81,9 @@ object ReportDialog1 {
 
 
     fun initTLable(context: Activity, flType: FlowLayout, fl: FrameLayout) {
-        flType.removeAllViews()
+
+        val array = context.resources.getStringArray(R.array.report)
+
         for (i in 0 until array.size) {
             val tv = LayoutInflater.from(context).inflate(
                 R.layout.layout_flow_talent_type, fl, false

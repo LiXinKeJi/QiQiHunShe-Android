@@ -7,6 +7,7 @@ import cn.jzvd.Jzvd
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
+import com.lxkj.qiqihunshe.app.AppConsts
 import com.lxkj.qiqihunshe.app.service.LocationService
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.util.*
@@ -20,6 +21,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
 
     override fun init() {
+        StaticUtil.lat = SharePrefUtil.getString(this, AppConsts.LAT, "")
+        StaticUtil.lng = SharePrefUtil.getString(this, AppConsts.LNG, "")
 
         isWhiteStatusBar = false
         if (Build.VERSION.SDK_INT > 19) {
@@ -47,12 +50,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         } else {//禁止使用权限，询问是否设置允许
             PermissionsDialog.dialog(this, "需要定位权限")
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        viewModel!!.fuJinFragment.onActivityResult(requestCode, resultCode, data)
-        viewModel!!.mineFragment.onActivityResult(requestCode, resultCode, data)
     }
 
 

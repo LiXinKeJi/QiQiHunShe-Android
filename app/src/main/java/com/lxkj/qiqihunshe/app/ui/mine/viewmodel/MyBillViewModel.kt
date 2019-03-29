@@ -9,10 +9,8 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.dialog.DateBirthdayPop
-import com.lxkj.qiqihunshe.app.ui.dialog.DatePop
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.MyBillAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.MyBillModel
-import com.lxkj.qiqihunshe.app.util.GetDateTimeUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityMybillBinding
@@ -21,7 +19,8 @@ import io.reactivex.Single
 /**
  * Created by Slingge on 2019/2/22
  */
-class MyBillViewModel : BaseViewModel(), DatePop.DateCallBack {
+class MyBillViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack {
+
 
     val startTime = ObservableField<String>()
     val endTime = ObservableField<String>()
@@ -33,8 +32,8 @@ class MyBillViewModel : BaseViewModel(), DatePop.DateCallBack {
     var bind: ActivityMybillBinding? = null
 
     fun initViewModel() {
-        startTime.set(GetDateTimeUtil.getYeatDay())
-        endTime.set(GetDateTimeUtil.getToDay())
+        startTime.set("开始时间")
+        endTime.set("结束时间")
 
         bind!!.rvBill.isFocusable = false
         bind!!.rvBill.layoutManager = LinearLayoutManager(fragment?.context)
@@ -70,27 +69,25 @@ class MyBillViewModel : BaseViewModel(), DatePop.DateCallBack {
     }
 
 
-    private var dateBirthdayPop: DatePop? = null
+    private var dateBirthdayPop: DateBirthdayPop? = null
     private var flag = -1//0开始时间，1结束时间
     fun showDateWheel(flag: Int) {
         this.flag = flag
         if (dateBirthdayPop == null) {
-            dateBirthdayPop = DatePop(activity, this)
+            dateBirthdayPop = DateBirthdayPop(activity, this)
         }
         if (!dateBirthdayPop!!.isShowing) {
             dateBirthdayPop!!.showAtLocation(bind?.llMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
         }
     }
 
-    override fun position(position1: String, position2: String, position3: String, position4: String, position5: String, position6: String) {
+    override fun position(position1: String, position2: String, position3: String) {
         if (flag == 0) {
-            startTime.set("$position1-$position2-$position3 $position4:$position5:$position6")
+            startTime.set("$position1-$position2-$position3")
         } else {
-            endTime.set("$position1-$position2-$position3 $position4:$position5:$position6")
+            endTime.set("$position1-$position2-$position3")
         }
     }
-    override fun position() {
 
-    }
 
 }

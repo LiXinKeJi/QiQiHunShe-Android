@@ -32,6 +32,4 @@ class DataListModel{
     var distance = ""//距离
     var qid = ""// 问题ID
     var answerList = ArrayList<AnswerListModel>()
-
-    var proportion=""//匹配率
 }

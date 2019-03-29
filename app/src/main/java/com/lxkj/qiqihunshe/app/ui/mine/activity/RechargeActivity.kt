@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
-import android.content.Intent
 import android.text.InputFilter
 import android.text.TextUtils
 import com.lxkj.qiqihunshe.R
@@ -49,14 +48,6 @@ class RechargeActivity : BaseActivity<ActivityRechargeBinding, RechargeViewModel
 
             viewModel!!.recharge(model.money).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
 
-        }
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0 && resultCode == 303) {
-            finish()
         }
     }
 

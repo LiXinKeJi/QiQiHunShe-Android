@@ -7,5 +7,5 @@
     android:background="@drawable/touch_bg"
     android:id="@+id/text"
     android:textColor="@color/colorTabText"
-    android:textSize="13sp" />
+    android:textSize="11sp" />
 

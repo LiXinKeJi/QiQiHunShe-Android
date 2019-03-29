@@ -1,6 +1,8 @@
 package com.lxkj.qiqihunshe.app.ui.quyu.viewmodel
 
+import android.opengl.Visibility
 import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.baidu.mapapi.map.*
@@ -9,6 +11,7 @@ import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseModel
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
@@ -52,7 +55,6 @@ class QuYuViewModel : BaseViewModel() {
 
                         if (i > 0 && model.dataList[i].distance.toDouble() < model.dataList[i - 1].distance.toDouble())
                             servicePosition = i
-
                     }
                     //最近的服务网点
                     serviceOffice = model.dataList[servicePosition]
@@ -88,22 +90,22 @@ class QuYuViewModel : BaseViewModel() {
         .compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, BaseModel::class.java)
-                ToastUtil.showTopSnackBar(fragment!!.activity, model.resultNote)
+                ToastUtil.showTopSnackBar(fragment,model.resultNote)
             }
         }, fragment?.activity))
 
 
     fun setData(data: DataListModel) {
         bind?.bmapView?.map!!.clear()
-        GlideUtil.glideLoad(fragment!!.activity, data?.logo, bind?.headOfficeIv)
+        GlideUtil.glideLoad(fragment!!.context, data?.logo, bind?.headOfficeIv)
         addOverlay(data)
     }
 
 
     fun addOverlay(data: DataListModel) {
         val point = LatLng(data.lat.toDouble(), data.lon.toDouble())
-        val image = LayoutInflater.from(fragment?.activity).inflate(R.layout.layout_imageview, null)
-        GlideUtil.glideHeaderLoad(fragment?.activity, data?.logo, image?.ivHead)
+        val image = LayoutInflater.from(fragment?.context).inflate(R.layout.layout_imageview, null)
+        GlideUtil.glideHeaderLoad(fragment?.context, data?.logo, image?.ivHead)
         //构建Marker图标
         val des = BitmapDescriptorFactory.fromView(image)
         //构建MarkerOption，用于在地图上添加Marker
@@ -117,7 +119,7 @@ class QuYuViewModel : BaseViewModel() {
         //构造CircleOptions对象
         val mCircleOptions = CircleOptions().center(point)
             .radius(10000)//单位米
-            .fillColor(0x3315acf5) //填充颜色
+            .fillColor(R.color.map_round) //填充颜色
         //在地图上显示圆
         mMapView.addOverlay(mCircleOptions)
 
@@ -133,10 +135,12 @@ class QuYuViewModel : BaseViewModel() {
                     view?.tvPhone?.text = "电话：" + data?.phone
                     view?.tvDistance?.text = "距离：" + DisplayUtil.distanceFormat(data?.distance.toDouble())
 
-                    view.tvNavigation.setOnClickListener {
-                        var mapNavigationUtil = MapNavigationUtil(fragment?.context)
-                        mapNavigationUtil.goToBaiduMap(data.lat, data.lon, data.address)
-                    }
+                    view.tvNavigation.setOnClickListener(object : View.OnClickListener {
+                        override fun onClick(p0: View?) {
+                            var mapNavigationUtil = MapNavigationUtil(fragment?.context)
+                            mapNavigationUtil?.goToBaiduMap(data.lat, data.lon, data.address)
+                        }
+                    })
                     val mInfoWindow = InfoWindow(view, point, -100)
                     //使InfoWindow生效
                     mMapView.showInfoWindow(mInfoWindow)

@@ -7,7 +7,6 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.FindUserRelationshipModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.HunSheViewModel
 import com.lxkj.qiqihunshe.databinding.FragmentHunsheBinding
 import kotlinx.android.synthetic.main.fragment_hunshe.*
@@ -17,19 +16,6 @@ import java.util.ArrayList
  * Created by Slingge on 2019/2/28
  */
 class HunSheFragment : BaseFragment<FragmentHunsheBinding, HunSheViewModel>(), View.OnClickListener {
-
-
-    interface TabSelectCallBack {
-        fun select(i: Int)
-    }
-
-    private var tabSelectCallBack: TabSelectCallBack? = null
-    fun STabSelectCallBack(tabSelectCallBack: TabSelectCallBack) {
-        this.tabSelectCallBack = tabSelectCallBack
-    }
-
-
-    private val friendUserList by lazy { ArrayList<FindUserRelationshipModel.dataModel>() }
 
 
     override fun getBaseViewModel() = HunSheViewModel()
@@ -44,16 +30,11 @@ class HunSheFragment : BaseFragment<FragmentHunsheBinding, HunSheViewModel>(), V
         rb_qianshou.setOnClickListener(this)
         rb_xiangshi.isChecked = true
 
-        friendUserList.clear()
-        friendUserList.addAll(arguments?.getSerializable("list") as ArrayList<FindUserRelationshipModel.dataModel>)
+
         val list = ArrayList<Fragment>()
 
-        val bundle = Bundle()
-        bundle.putSerializable("list", friendUserList)
         val fragment1 = Fragment.instantiate(activity, XiangShiFragment::class.java.name)
-        fragment1.arguments = bundle
         val fragment2 = Fragment.instantiate(activity, YueHuiFragment::class.java.name)
-        fragment2.arguments = bundle
         val fragment3 = Fragment.instantiate(activity, QianShouFragment::class.java.name)
         list.add(fragment1)
         list.add(fragment2)
@@ -71,9 +52,6 @@ class HunSheFragment : BaseFragment<FragmentHunsheBinding, HunSheViewModel>(), V
 
             override fun onPageSelected(p0: Int) {
                 select(p0)
-                tabSelectCallBack?.let {
-                    it.select(p0)
-                }
             }
 
         })
@@ -92,15 +70,15 @@ class HunSheFragment : BaseFragment<FragmentHunsheBinding, HunSheViewModel>(), V
                 iv_cancel.visibility = View.GONE
             }
             R.id.rb_xiangshi -> {
-                viewPager.currentItem = 0
+                viewPager.currentItem=0
                 select(0)
             }
             R.id.rb_yuehui -> {
-                viewPager.currentItem = 1
+                viewPager.currentItem=1
                 select(1)
             }
             R.id.rb_qianshou -> {
-                viewPager.currentItem = 2
+                viewPager.currentItem=2
                 select(2)
             }
         }
@@ -108,25 +86,27 @@ class HunSheFragment : BaseFragment<FragmentHunsheBinding, HunSheViewModel>(), V
 
 
     private fun select(flag: Int) {
+
         when (flag) {
-            0 -> {
+            0->{
                 rb_xiangshi.isChecked = true
                 rb_qianshou.isChecked = false
                 rb_yuehui.isChecked = false
             }
-            1 -> {
+            1->{
                 rb_yuehui.isChecked = true
                 rb_qianshou.isChecked = false
                 rb_xiangshi.isChecked = false
             }
-            2 -> {
+            2->{
                 rb_yuehui.isChecked = false
                 rb_xiangshi.isChecked = false
                 rb_qianshou.isChecked = true
             }
         }
+
+
     }
 
 
 }
-

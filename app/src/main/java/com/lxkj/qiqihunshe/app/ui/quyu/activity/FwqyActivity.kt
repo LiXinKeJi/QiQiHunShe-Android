@@ -68,9 +68,11 @@ class FwqyActivity : BaseActivity<ActivityFwqyBinding,FwqyViewModel>(){
                 if (p0 == marker) {
                     val view =
                         LayoutInflater.from(this@FwqyActivity).inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_fwqy, null)
-                    view.tvNavigation.setOnClickListener {
-                        ToastUtil.showToast("去导航！")
-                    }
+                    view.tvNavigation.setOnClickListener(object : View.OnClickListener{
+                        override fun onClick(p0: View?) {
+                            ToastUtil.showToast("去导航！")
+                        }
+                    })
                     val mInfoWindow = InfoWindow(view,point , -100)
                     //使InfoWindow生效
                     mMapView.showInfoWindow(mInfoWindow)

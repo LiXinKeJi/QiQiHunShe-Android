@@ -44,7 +44,6 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
         flag = intent.getIntExtra("flag", -1)
         viewModel?.let {
             binding.viewmodel = it
-            it.model.type=flag.toString()
             binding.model = it.model
             it.bind = binding
             it.initViewModel()

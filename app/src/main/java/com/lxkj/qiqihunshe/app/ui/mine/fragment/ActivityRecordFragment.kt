@@ -25,11 +25,12 @@ class ActivityRecordFragment : BaseFragment<ActivityXrecyclerviewBinding, Activi
 
         viewModel?.let {
             it.bind=binding
+            viewModel?.init()
         }
     }
 
     override fun loadData() {
-        viewModel!!.init()
+
     }
 
 }

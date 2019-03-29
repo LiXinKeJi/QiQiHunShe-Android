@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.mine
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -9,7 +8,6 @@ import com.lxkj.qiqihunshe.app.AppConsts
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
 import com.lxkj.qiqihunshe.app.ui.mine.activity.*
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MineViewModel
@@ -59,15 +57,11 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
-
+            it.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
+
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        viewModel!!.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -75,19 +69,11 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 viewModel?.selectState()
             }
             R.id.tv_editInfo -> {//完善资料
-                val bundle = Bundle()
-                bundle.putInt("flag", 0)
-                MyApplication.openActivityForResult(activity, PerfectInfoActivitiy::class.java, bundle, 3)
+                val bundle=Bundle()
+                bundle.putInt("flag",0)
+                MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java,bundle)
             }
             R.id.tv_authent -> {//实名认证
-                if (viewModel!!.auth == "2") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
-                    ToastUtil.showTopSnackBar(activity, "您已认证通过")
-                    return
-                }
-                if (viewModel!!.auth == "1") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
-                    ToastUtil.showTopSnackBar(activity, "您的认证正在审核")
-                    return
-                }
                 MyApplication.openActivity(activity, RealNameAuthenActivity::class.java)
             }
             R.id.iv_header -> {//个人主页
@@ -106,9 +92,7 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 MyApplication.openActivity(activity, InteractiveNotificationActivity::class.java)
             }
             R.id.tv_reputation_bao -> {//信誉宝
-                val bundle = Bundle()
-                bundle.putString("userId", StaticUtil.uid)
-                MyApplication.openActivity(activity, ReputationBaoActivity::class.java, bundle)
+                MyApplication.openActivity(activity, ReputationBaoActivity::class.java)
             }
             R.id.tv_wallet -> {//钱包
                 MyApplication.openActivity(activity, WalletActivity::class.java)
@@ -133,19 +117,17 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 MyApplication.openActivity(activity, QiQiBlackListActivity::class.java, bundle)
             }
             R.id.tv_service -> {//我的客服
-                RongYunUtil.toService(activity)
+                if (TextUtils.isEmpty(StaticUtil.rytoken)) {
+                    ToastUtil.showTopSnackBar(activity, "IM初始化错误")
+                    return
+                }
+                val csBuilder = CSCustomServiceInfo.Builder()
+                val csInfo = csBuilder.nickName("融云").build()
+                RongIM.getInstance().startCustomerServiceChat(activity, "客服id", "在线客服", csInfo)
             }
             R.id.tv_setup -> {//设置
                 MyApplication.openActivity(activity, SetUpActivity::class.java)
             }
-        }
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == 103 && requestCode == 3) {
-            ToastUtil.showTopSnackBar(activity, "修改成功")
         }
     }
 

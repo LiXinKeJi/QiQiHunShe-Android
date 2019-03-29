@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.fujin
 
-import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -29,8 +28,6 @@ class FuJinFragment : BaseFragment<FragmentFujinBinding, FuJinViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_fujin
 
-    val list = ArrayList<Fragment>()
-
     override fun init() {
 
         tv_title.visibility = View.GONE
@@ -41,7 +38,7 @@ class FuJinFragment : BaseFragment<FragmentFujinBinding, FuJinViewModel>() {
             ScreenPersonDialog.show(activity!!)
         }
 
-
+        val list = ArrayList<Fragment>()
         val tabList = ArrayList<String>()
         tabList.add("附近邀约")
         tabList.add("附近动态")
@@ -83,13 +80,6 @@ class FuJinFragment : BaseFragment<FragmentFujinBinding, FuJinViewModel>() {
     }
 
     override fun loadData() {
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        for (fragment in list) {
-            fragment.onActivityResult(requestCode, resultCode, data)
-        }
     }
 
 

@@ -32,6 +32,8 @@ class AffectiveZoneActivity : BaseActivity<ActivityAffectiveZoneBinding, Affecti
             MyApplication.openActivity(this, MyAffectiveActivity::class.java)
         }
 
+
+
         val tabList = ArrayList<String>()
         tabList.add("情感动态")
         tabList.add("情感征婚")

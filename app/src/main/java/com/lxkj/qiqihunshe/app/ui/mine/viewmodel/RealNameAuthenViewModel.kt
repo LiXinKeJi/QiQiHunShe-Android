@@ -1,7 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
@@ -45,11 +44,8 @@ class RealNameAuthenViewModel : BaseViewModel(), UpLoadFileCallBack {
         return retrofit.getData(Gson().toJson(model)).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    val intent = Intent()
-                    activity?.let {
-                        it.setResult(103, intent)
-                        it.finish()
-                    }
+                    ToastUtil.showTopSnackBar(activity, "提交成功")
+                    activity?.finish()
                 }
             }, activity))
 

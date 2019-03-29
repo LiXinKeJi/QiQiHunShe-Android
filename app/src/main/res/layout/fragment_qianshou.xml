@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:bind="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.QianShouViewModel"/>
+
     </data>
 
 
@@ -27,7 +27,6 @@
                 android:id="@+id/iv_myHeader"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
-                bind:imageHeaderUrl="@{viewmodel.userIcon}"
                 app:layout_constraintEnd_toStartOf="@+id/iv_0"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="25dp" app:layout_constraintTop_toTopOf="parent"/>
@@ -37,7 +36,6 @@
                 android:id="@+id/iv_heHeader"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
-                bind:imageHeaderUrl="@{viewmodel.icon}"
                 app:layout_constraintStart_toEndOf="@+id/iv_0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_myHeader"
@@ -47,7 +45,7 @@
                   android:id="@+id/tv_myName"
                   android:textSize="15sp"
                   android:textColor="@color/colorTabText"
-                  android:text="@{viewmodel.userName}"
+                  android:text="洛克贝尔"
                   app:layout_constraintTop_toBottomOf="@+id/iv_myHeader"
                   app:layout_constraintEnd_toEndOf="@+id/iv_myHeader"
                   app:layout_constraintStart_toStartOf="@+id/iv_myHeader" android:layout_marginTop="5dp"/>
@@ -56,7 +54,7 @@
                   android:id="@+id/tv_heName"
                   android:textSize="15sp"
                   android:textColor="@color/colorTabText"
-                  android:text="@{viewmodel.name}"
+                  android:text="添加牵手人"
                   android:layout_marginTop="5dp"
                   app:layout_constraintTop_toBottomOf="@+id/iv_heHeader"
                   app:layout_constraintEnd_toEndOf="@+id/iv_heHeader"

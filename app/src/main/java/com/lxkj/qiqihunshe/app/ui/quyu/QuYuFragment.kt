@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.quyu
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import com.lxkj.qiqihunshe.R
@@ -19,18 +20,30 @@ import com.zhy.m.permission.MPermissions
 import com.zhy.m.permission.PermissionDenied
 import com.zhy.m.permission.PermissionGrant
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import com.baidu.mapapi.map.*
+import com.baidu.mapapi.map.MarkerOptions
+import com.baidu.mapapi.map.BitmapDescriptorFactory
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitService
+import com.lxkj.qiqihunshe.app.retrofitnet.RetrofitUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.dialog.AqxzDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.FwwdDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.SayHolleDialog
+import com.lxkj.qiqihunshe.app.ui.map.activity.SelectAddressMapActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.FwqyActivity
 import com.lxkj.qiqihunshe.app.util.*
+import kotlinx.android.synthetic.main.activity_mybill.view.*
+import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
+import java.util.*
+import kotlin.math.ln
 
 
 /**
@@ -39,6 +52,7 @@ import com.lxkj.qiqihunshe.app.util.*
 class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.OnClickListener,
     BaiduMap.OnMapStatusChangeListener, FwwdDialog.OnTellListener, AqxzDialog.OnTellListener,
     SayHolleDialog.OnSayHiListener {
+
 
 
     val mMapView by lazy { bmapView.map }
@@ -59,7 +73,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
         viewModel?.bind = binding
 
-        mMapView.isMyLocationEnabled = true
+        mMapView.setMyLocationEnabled(true)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             MPermissions.requestPermissions(
                 this, AppConsts.PMS_LOCATION,
@@ -77,15 +91,14 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         tv_toMyLocation.setOnClickListener(this)
         iv_close.setOnClickListener(this)
         tv_Qdh.setOnClickListener(this)
-        tv_Lxkf.setOnClickListener(this)
 
-        params.clear()
-        params.put("cmd", "getChatList")
-        viewModel?.getChatList(Gson().toJson(params))?.bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
+        loadData()
     }
 
     override fun loadData() {
-
+        params.clear()
+        params.put("cmd", "getChatList")
+        viewModel?.getChatList(Gson().toJson(params))?.bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
     }
 
     @PermissionGrant(AppConsts.PMS_LOCATION)
@@ -101,7 +114,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         //可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
         option.setIsNeedLocationDescribe(true)
         //设置locationClientOption
-        mLocationClient.locOption = option
+        mLocationClient.setLocOption(option)
         //注册LocationListener监听器
         val myLocationListener = MyLocationListener()
         mLocationClient.registerLocationListener(myLocationListener)
@@ -112,7 +125,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
     @PermissionDenied(AppConsts.PMS_LOCATION)
     fun pmsLocationError() {
-        ToastUtil.showTopSnackBar(activity, "权限被拒绝，定位失败！")
+        ToastUtil.showTopSnackBar(this, "权限被拒绝，定位失败！")
     }
 
     @PermissionGrant(AppConsts.PMS_CALL)
@@ -124,7 +137,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
     @PermissionDenied(AppConsts.PMS_CALL)
     fun pmsCallError() {
-        ToastUtil.showTopSnackBar(activity, "权限被拒绝，无法使用该功能！")
+        ToastUtil.showTopSnackBar(this, "权限被拒绝，无法使用该功能！")
     }
 
     override fun onSayHi(phoneNum: String) {
@@ -156,7 +169,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
     override fun onDestroy() {
         mLocationClient.stop()
-        mMapView.isMyLocationEnabled = false
+        mMapView.setMyLocationEnabled(false)
         super.onDestroy()
     }
 
@@ -172,8 +185,8 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 //                MyApplication.openActivity(activity, SelectAddressMapActivity::class.java, bundle)
             }
             R.id.iv_sayHi -> {
-                if (viewModel!!.hiList.isEmpty()) {
-                    ToastUtil.showTopSnackBar(activity, "暂无打招呼内容")
+                if(viewModel!!.hiList.isEmpty()){
+                    ToastUtil.showTopSnackBar(this, "暂无打招呼内容")
                     return
                 }
                 SayHolleDialog.show(activity!!, viewModel!!.hiList)
@@ -205,17 +218,12 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
             R.id.tv_Qdh -> {
                 var mapNavigationUtil = MapNavigationUtil(context)
-                mapNavigationUtil.goToBaiduMap(
-                    viewModel?.serviceOffice?.lat,
-                    viewModel?.serviceOffice?.lon,
-                    viewModel?.serviceOffice?.address
-                )
+                mapNavigationUtil?.goToBaiduMap(viewModel?.serviceOffice?.lat, viewModel?.serviceOffice?.lon, viewModel?.serviceOffice?.address)
             }
 
             R.id.iv_close -> {
-                ll_hint.visibility = View.GONE
+               ll_hint.visibility = View.GONE
             }
-            R.id.tv_Lxkf -> RongYunUtil.toService(activity)
         }
 
     }
@@ -252,16 +260,16 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
             lng = location.longitude
             StaticUtil.lat = lat.toString()
             StaticUtil.lng = lng.toString()
-            SharePrefUtil.saveString(context, AppConsts.LAT, lat.toString())
-            SharePrefUtil.saveString(context, AppConsts.LNG, lng.toString())
+            SharePrefUtil.saveString(context,AppConsts.LAT,lat.toString())
+            SharePrefUtil.saveString(context,AppConsts.LNG,lng.toString())
 
             tv_address.text = (location.addrStr)
             tv_toMyLocation.text = (location.addrStr)
 
             if (isFirst) {
-                currentPosition = LatLng(location.latitude, location.longitude)
+                currentPosition = LatLng(location.getLatitude(), location.getLongitude())
 
-                val ll = LatLng(location.latitude, location.longitude)
+                val ll = LatLng(location.getLatitude(), location.getLongitude())
                 val builder = MapStatus.Builder()
                 builder.target(ll).zoom(13.0f)
                 mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
@@ -289,7 +297,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
     override fun onMapStatusChangeFinish(mapStatus: MapStatus?) {
         lat = mapStatus?.bound?.center?.latitude!!
-        lng = mapStatus.bound?.center?.longitude!!
+        lng = mapStatus?.bound?.center?.longitude!!
         getData()
     }
 

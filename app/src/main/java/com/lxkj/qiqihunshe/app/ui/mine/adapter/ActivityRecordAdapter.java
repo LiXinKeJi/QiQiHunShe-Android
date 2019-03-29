@@ -14,7 +14,6 @@ import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
-import com.lxkj.qiqihunshe.app.util.SeePhotoViewUtil;
 import com.lxkj.runproject.app.view.SquareImage;
 
 import java.util.List;
@@ -146,27 +145,6 @@ public class ActivityRecordAdapter extends RecyclerView.Adapter<ActivityRecordAd
             public void onClick(View view) {
                 if (null != onItemClickListener)
                     onItemClickListener.OnItemClick(position);
-            }
-        });
-
-        holder.iv1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SeePhotoViewUtil.INSTANCE.toPhotoView(context, list.get(position).getImage(), 0);
-            }
-        });
-
-        holder.iv3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SeePhotoViewUtil.INSTANCE.toPhotoView(context, list.get(position).getImage(), 1);
-            }
-        });
-
-        holder.iv3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SeePhotoViewUtil.INSTANCE.toPhotoView(context, list.get(position).getImage(), 2);
             }
         });
 

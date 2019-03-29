@@ -43,7 +43,6 @@ class SpaceSkillItemView : RelativeLayout {
 
         cv_del.setOnClickListener {
             EventBus.getDefault().post(DelDynamicModel(EventBusCmd.DelSkill, position))
-            cv_del.visibility = View.GONE
         }
 
     }

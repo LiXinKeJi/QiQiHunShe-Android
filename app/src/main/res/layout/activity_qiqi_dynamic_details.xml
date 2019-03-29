@@ -43,7 +43,7 @@
                               android:id="@+id/tv_name"
                     />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="@{`联系电话：`+model.phone}"
+                              android:text="@{`联系电话：`+model.phone"
                               android:textColor="@color/colorTabText"
                               android:textSize="15sp"
                               android:id="@+id/tv_phone"

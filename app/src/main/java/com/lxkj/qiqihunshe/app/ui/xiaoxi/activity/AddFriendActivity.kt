@@ -6,7 +6,6 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.AddFriendViewModel
-import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.GlideUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityAddfriendBinding
@@ -26,7 +25,7 @@ class AddFriendActivity : BaseActivity<ActivityAddfriendBinding, AddFriendViewMo
         initTitle("添加")
         var model = intent.getSerializableExtra("model") as DataListModel
         viewModel?.let {
-            it.bind = binding
+            it.bind=binding
         }
 
         GlideUtil.glideHeaderLoad(this, model.icon, iv_header)
@@ -35,18 +34,18 @@ class AddFriendActivity : BaseActivity<ActivityAddfriendBinding, AddFriendViewMo
         else
             tv_age?.text = ("")
 
-        if (null != model.nickname)
-            tv_name?.text = (model.nickname)
+        if (null != model.realname)
+            tv_name?.text = (model.realname)
         else
             tv_name?.text = ("")
         if (null != model.job)
-            tv_zhiye?.text = ("职业：" + model.job)
+           tv_zhiye?.text = ("职业：" + model.job)
         if (null != model.plan)
             tv_emotional?.text = ("情感计划：" + model.plan)
         if (null != model.introduction)
             tv_autograph?.text = ("个人签名：" + model.introduction)
         if (null != model.credit)
-            tv_reputation?.text = ("信誉值：" + model.credit)
+           tv_reputation?.text = ("信誉值：" + model.credit)
         if (null != model.polite)
             tv_feel?.text = ("言礼值：" + model.polite)
         if (null != model.safe)
@@ -102,24 +101,22 @@ class AddFriendActivity : BaseActivity<ActivityAddfriendBinding, AddFriendViewMo
             when (model.sex) {
                 "0"//女
                 -> {
-                    tv_age?.setBackgroundResource(R.drawable.bg_girl)
+                    tv_age?.setBackgroundResource(R.mipmap.bg_sex_nv)
                     tv_age?.setTextColor(resources?.getColor(R.color.girl)!!)
-                    AbStrUtil.setDrawableLeft(this, R.drawable.ic_girl, tv_age, 3)
                 }
                 "1"//男
                 -> {
-                    tv_age?.setBackgroundResource(R.drawable.thems_bg35)
-                    tv_age?.setTextColor(resources?.getColor(R.color.colorThemes)!!)
-                    AbStrUtil.setDrawableLeft(this, R.drawable.ic_boy, tv_age, 3)
+                    tv_age?.setBackgroundResource(R.mipmap.bg_sex_nan)
+                    tv_age?.setTextColor(resources?.getColor(R.color.colorAccent)!!)
                 }
             }
         }
 
         tv_add.setOnClickListener {
             if (TextUtils.isEmpty(et_msg.text.toString())) {
-                ToastUtil.showTopSnackBar(this, "请输入招呼内容！")
-            } else {
-                viewModel?.addFriend(model.userId, et_msg.text.toString())
+                ToastUtil.showTopSnackBar(this,"请输入招呼内容！")
+            }else{
+                viewModel?.addFriend(model.userId,et_msg.text.toString())
             }
         }
 

@@ -3,7 +3,6 @@ package com.lxkj.qiqihunshe.app.ui.mine.activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.lxkj.qiqihunshe.R
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.AboutMeFragment
@@ -11,12 +10,8 @@ import com.lxkj.qiqihunshe.app.ui.mine.fragment.ActivityRecordFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.CommentRecordFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.QiQiRecommendFragment
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.QiQiRecommendViewModel
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
 import com.lxkj.qiqihunshe.databinding.ActivityQiqiRecommendBinding
 import kotlinx.android.synthetic.main.activity_personal_info.*
-import kotlinx.android.synthetic.main.activity_qiqi_recommend.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 /**
@@ -29,9 +24,9 @@ class InteractiveNotificationActivity : BaseActivity<ActivityQiqiRecommendBindin
     override fun getLayoutId() = R.layout.activity_qiqi_recommend
 
     override fun init() {
-        EventBus.getDefault().register(this)
         WhiteStatusBar()
         initTitle("互动通知")
+
 
         val list = ArrayList<Fragment>()
         val tabList = ArrayList<String>()
@@ -63,19 +58,5 @@ class InteractiveNotificationActivity : BaseActivity<ActivityQiqiRecommendBindin
 
     }
 
-
-    @Subscribe
-    fun onEvent(mode: XxModel) {
-        MyApplication.setRedNum(tv_msgNum1, mode.love.toInt())
-        MyApplication.setRedNum(tv_msgNum2, mode.look.toInt())
-        MyApplication.setRedNum(tv_msgNum3, mode.comment.toInt())
-        MyApplication.setRedNum(tv_msgNum4, mode.activity.toInt())
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
 
 }

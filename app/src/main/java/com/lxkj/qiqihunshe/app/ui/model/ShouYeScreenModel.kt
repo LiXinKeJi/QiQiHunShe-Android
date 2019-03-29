@@ -11,7 +11,7 @@ class ShouYeScreenModel {
     var minAge="18"
     var maxAge="100"
 
-    var emotion="0"// 0全部 1未婚 2离异
+    var emotion="全部"
 
     var province=""
     var city=""

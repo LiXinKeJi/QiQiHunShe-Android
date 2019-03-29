@@ -13,7 +13,6 @@ import butterknife.ButterKnife;
 import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DataListModel;
-import com.lxkj.qiqihunshe.app.util.AbStrUtil;
 import com.lxkj.qiqihunshe.app.util.DisplayUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
 
@@ -57,14 +56,12 @@ public class CaiYiCommentAdapter extends RecyclerView.Adapter<CaiYiCommentAdapte
         if (null != list.get(position).getSex()) {
             switch (list.get(position).getSex()) {
                 case "0"://女
-                    holder.tvAge.setBackgroundResource(R.drawable.bg_girl);
-                    AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_girl, holder.tvAge, 3);
+                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nv);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.girl));
                     break;
                 case "1"://男
-                    holder.tvAge.setBackgroundResource(R.drawable.thems_bg35);
+                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nan);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                    AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_boy, holder.tvAge, 3);
                     break;
             }
         }
@@ -86,10 +83,16 @@ public class CaiYiCommentAdapter extends RecyclerView.Adapter<CaiYiCommentAdapte
             holder.tvComment.setText("");
 
 
+
         if (null != list.get(position).getAdtime())
             holder.tvTime.setText(list.get(position).getAdtime());
         else
             holder.tvTime.setText("");
+
+
+
+
+
 
 
     }

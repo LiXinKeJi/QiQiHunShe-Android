@@ -5,14 +5,8 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
-import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
-import com.lxkj.qiqihunshe.app.ui.fujin.adapter.NearInvitationAdapter
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.FuJinInvitationViewModel
-import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonInvitationDetailsActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.ReleaseInvitationTypeActivity
-import com.lxkj.qiqihunshe.app.util.SeePhotoViewUtil
-import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FragmentFujinInvitationBinding
 import kotlinx.android.synthetic.main.fragment_fujin_invitation.*
 
@@ -21,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_fujin_invitation.*
  */
 class FuJinInvitationFragment : BaseFragment<FragmentFujinInvitationBinding, FuJinInvitationViewModel>(),
     View.OnClickListener {
-
 
     override fun getBaseViewModel() = FuJinInvitationViewModel()
 
@@ -39,27 +32,6 @@ class FuJinInvitationFragment : BaseFragment<FragmentFujinInvitationBinding, FuJ
         viewModel?.let {
             it.bind = binding
             it.init()
-
-            it.adapter!!.setOnItemClickListener(object : NearInvitationAdapter.OnItemClickListener {
-                override fun seePhotoonClick(position: Int, count: Int) {
-                    SeePhotoViewUtil.toPhotoView(activity, it.list[position].image, count)
-                }
-
-                override fun ReportonClick(position: Int) {
-                    ReportDialog1.getReportList(activity!!, "3", object : ReportDialog1.ReportCallBack {
-                        override fun report(report: String) {
-                            it.yaoyueReport(report, position).bindLifeCycle(this@FuJinInvitationFragment)
-                                .subscribe({}, { toastFailure(it) })
-                        }
-                    })
-                }
-
-                override fun OnItemClick(position: Int) {
-                    val bundle = Bundle()
-                    bundle.putString("id", it.list[position].yaoyueId)
-                    MyApplication.openActivity(activity, PersonInvitationDetailsActivity::class.java, bundle)
-                }
-            })
         }
 
         rba.setOnClickListener(this)
@@ -99,9 +71,5 @@ class FuJinInvitationFragment : BaseFragment<FragmentFujinInvitationBinding, FuJ
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        ReportDialog1.diss()
-    }
 
 }

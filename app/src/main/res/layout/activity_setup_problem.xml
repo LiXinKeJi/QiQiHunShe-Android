@@ -44,9 +44,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="12dp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_press"
-                app:layout_constraintTop_toTopOf="@+id/tv_press"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_press"/>
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="0/0"
@@ -54,23 +54,26 @@
                   android:textColor="@color/tabBackground"
                   app:layout_constraintEnd_toEndOf="parent"
                   android:layout_marginEnd="24dp" android:layout_marginRight="24dp"
-                  app:layout_constraintTop_toBottomOf="@+id/progress"
-                  android:id="@+id/tv_press"/>
+                  app:layout_constraintTop_toBottomOf="@+id/progress" android:id="@+id/textView"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_problem"
-                  android:text="@={viewmodel.problem}"
+                  android:text="题目"
                   android:textSize="16sp"
                   android:textColor="@color/colorTabText"
                   app:layout_constraintTop_toBottomOf="@+id/pb_reputation" app:layout_constraintStart_toStartOf="parent"
                   android:layout_marginLeft="24dp" android:layout_marginStart="24dp" android:layout_marginTop="26dp"/>
 
-        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:id="@+id/recycler"
-                                                app:layout_constraintTop_toBottomOf="@+id/tv_problem"
-                                                app:layout_constraintStart_toStartOf="parent"
-                                                app:layout_constraintEnd_toEndOf="parent"/>
+        <RadioGroup android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/radio" app:layout_constraintTop_toBottomOf="@+id/tv_problem"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="12dp"
+        >
+
+        </RadioGroup>
 
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -85,7 +88,7 @@
                   android:paddingBottom="12dp"
                   app:layout_constraintBottom_toBottomOf="parent"
                   app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                  android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/recycler"
+                  android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/radio"
                   app:layout_constraintHorizontal_bias="0.498" app:layout_constraintVertical_bias="0.586"/>
 
     </android.support.constraint.ConstraintLayout>

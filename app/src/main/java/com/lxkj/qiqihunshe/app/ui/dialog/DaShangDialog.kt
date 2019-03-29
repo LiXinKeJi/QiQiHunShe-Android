@@ -36,7 +36,9 @@ object DaShangDialog {
     private var et_money: EditText? = null
     private var radio: RadioGroup? = null
 
-    private var money = "1"
+    private val list by lazy { ArrayList<String>() }
+
+    private var money = ""
 
     fun show(context: Activity,daShangCallBack: DaShangCallBack) {
         if (dialog == null) {
@@ -83,8 +85,9 @@ object DaShangDialog {
                     ToastUtil.showTopSnackBar(context,"请选择或输入打赏金额")
                     return@setOnClickListener
                 }
-                daShangCallBack.dashang(money)
             }
+            daShangCallBack.dashang(money)
+//            DaShangAfterDialog.show(context)
             dialog?.dismiss()
         }
         iv_cancel?.setOnClickListener {

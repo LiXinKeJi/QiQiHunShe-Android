@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
@@ -23,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_lookup_accurate.*
 class LookupAccurateFragment :
     BaseFragment<FragmentLookupAccurateBinding, LookupAccurateViewModel>() {
 
+
     override fun getBaseViewModel() = LookupAccurateViewModel()
 
     override fun getLayoutId() = R.layout.fragment_lookup_accurate
@@ -40,9 +40,8 @@ class LookupAccurateFragment :
                 map.map = params
                 val bundle = Bundle()
                 bundle.putString("title", "精确查找")
-                bundle.putSerializable("map", map)
-                bundle.putInt("flag", arguments!!.getInt("flag"))
-                MyApplication.openActivityForResult(activity, LookupResultActivity::class.java, bundle, 1)
+                bundle.putSerializable("map",map)
+                MyApplication.openActivity(activity, LookupResultActivity::class.java, bundle)
             } else
                 ToastUtil.showTopSnackBar(activity, "输入手机号/七七账号")
 
@@ -53,17 +52,5 @@ class LookupAccurateFragment :
     override fun loadData() {
 
     }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data == null) {
-            return
-        }
-        if (requestCode == 1 && resultCode == 204) {//选择牵手人
-            activity!!.finish()
-        }
-    }
-
 
 }

@@ -20,143 +20,130 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/include"/>
-        <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content">
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:orientation="vertical">
+        <LinearLayout
+                android:id="@+id/llNotify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+            <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/ic_tip2"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
                 <LinearLayout
-                        android:id="@+id/llNotify"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="15dp"
                         android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="互动通知"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                    />
 
-                    <com.lxkj.qiqihunshe.app.customview.CircleImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:layout_margin="15dp"
-                            android:src="@drawable/ic_tip2"/>
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:layout_marginTop="15dp"
-                                android:orientation="horizontal">
-                            <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="互动通知"
-                                    android:textColor="#ff333333"
-                                    android:textSize="16sp"
-                            />
-
-                            <TextView
-                                    android:id="@+id/tvNotificationNum"
-                                    android:layout_width="22dp"
-                                    android:layout_height="15dp"
-                                    android:gravity="center"
-                                    android:textColor="#ffffff"
-                                    android:text="···"
-                                    android:layout_marginRight="12dp"
-                                    android:background="@drawable/bg_rect_f85543_10dp"
-                                    android:textSize="12sp"
-                            />
-
-                        </LinearLayout>
-                        <TextView
-                                android:id="@+id/tvMessage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:layout_weight="1"
-                                android:text=" "
-                                android:textColor="#ff999999"
-                                android:textSize="13sp"
-                        />
-                        <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1px"
-                                android:background="@color/line"/>
-                    </LinearLayout>
-
+                    <TextView
+                            android:id="@+id/tvNotificationNum"
+                            android:layout_width="22dp"
+                            android:layout_height="15dp"
+                            android:gravity="center"
+                            android:textColor="#ffffff"
+                            android:text="···"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/bg_rect_f85543_10dp"
+                            android:textSize="12sp"
+                    />
 
                 </LinearLayout>
-                <LinearLayout
-                        android:id="@+id/llHint"
-                        android:layout_width="match_parent"
+                <TextView
+                        android:id="@+id/tvMessage"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                    <com.lxkj.qiqihunshe.app.customview.CircleImageView
-                            android:id="@+id/ivHead"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:layout_margin="15dp"
-                            android:src="@drawable/ic_tip2"/>
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:layout_marginTop="15dp"
-                                android:orientation="horizontal">
-                            <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="小七提醒"
-                                    android:textColor="#ff333333"
-                                    android:textSize="16sp"
-                            />
-
-                            <TextView
-                                    android:id="@+id/tvHintMessageNum"
-                                    android:layout_width="22dp"
-                                    android:layout_height="15dp"
-                                    android:gravity="center"
-                                    android:textColor="#ffffff"
-                                    android:text="···"
-                                    android:layout_marginRight="12dp"
-                                    android:background="@drawable/bg_rect_f85543_10dp"
-                                    android:textSize="12sp"
-                            />
-
-                        </LinearLayout>
-                        <TextView
-                                android:id="@+id/tvHintMessage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:layout_weight="1"
-                                android:text=" "
-                                android:textColor="#ff999999"
-                                android:textSize="13sp"
-                        />
-                        <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/line"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="“XXX”对您添加了喜欢"
+                        android:textColor="#ff999999"
+                        android:textSize="13sp"
+                />
+                <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/recycler"/>
+                        android:layout_height="1px"
+                        android:background="@color/line"/>
             </LinearLayout>
 
 
-        </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/llHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                    android:id="@+id/ivHead"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/ic_tip2"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="小七提醒"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                    />
+
+                    <TextView
+                            android:id="@+id/tvHintMessageNum"
+                            android:layout_width="22dp"
+                            android:layout_height="15dp"
+                            android:gravity="center"
+                            android:textColor="#ffffff"
+                            android:text="···"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/bg_rect_f85543_10dp"
+                            android:textSize="12sp"
+                    />
+
+                </LinearLayout>
+                <TextView
+                        android:id="@+id/tvHintMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="您被“XXX”举报【骚扰广告】"
+                        android:textColor="#ff999999"
+                        android:textSize="13sp"
+                />
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/line"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

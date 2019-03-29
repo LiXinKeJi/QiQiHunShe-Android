@@ -2,7 +2,6 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.GridLayoutManager
 import com.google.gson.Gson
-import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
@@ -10,7 +9,6 @@ import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.dialog.DynamicSignUpAfterDialog
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.ImageAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.MyInvitationDetailsModel
-import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPersonInvitationDetailsBinding
@@ -61,17 +59,6 @@ class PersonInvitationDetailsViewModel : BaseViewModel() {
                     } else {
                         it.tvConsu.text = "消费：我买单"
                     }
-
-                    if (model.sex == "0") {//女
-                        it.tvAge.setBackgroundResource(R.drawable.bg_girl)
-                        AbStrUtil.setDrawableLeft(activity!!,R.drawable.ic_girl,it.tvAge,3)
-                        it.tvAge.setTextColor(activity!!.resources.getColor(R.color.girl))
-                    }else{
-                        it.tvAge.setBackgroundResource(R.drawable.thems_bg35)
-                        AbStrUtil.setDrawableLeft(activity!!,R.drawable.ic_boy,it.tvAge,3)
-                        it.tvAge.setTextColor(activity!!.resources.getColor(R.color.colorThemes))
-                    }
-
                 }
 
                 imageAdapter.loadMore(model.image, 1)

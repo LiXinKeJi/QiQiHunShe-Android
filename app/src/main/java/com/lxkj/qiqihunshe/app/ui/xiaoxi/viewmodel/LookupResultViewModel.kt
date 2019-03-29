@@ -1,8 +1,8 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
@@ -16,7 +16,6 @@ import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.SearchResultAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
 import com.lxkj.qiqihunshe.databinding.ActivityLookupResultBinding
-import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Slingge on 2019/3/1
@@ -30,14 +29,10 @@ class LookupResultViewModel : BaseViewModel() {
     var page = 1
     var totalPage = 1
     var tag = 0
-    var params = HashMap<String, String>()
+    var params = HashMap<String,String>()
     var doPositon = -1
 
-    private var flag = -1//3选择牵手人
-
-    fun init(tag: Int, params: HashMap<String, String>) {
-        flag = activity!!.intent.getIntExtra("flag", -1)
-
+    fun init(tag : Int,params : HashMap<String,String>) {
         this.tag = tag
         this.params = params
         bind?.xRecyclerView?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
@@ -50,7 +45,7 @@ class LookupResultViewModel : BaseViewModel() {
                 bind?.xRecyclerView?.setNoMore(false)
                 page = 1
 
-                when (tag) {
+                when(tag){
                     0 -> findUserExact()
                     1 -> findUserCondition()
                     2 -> findUserEconomic()
@@ -64,7 +59,7 @@ class LookupResultViewModel : BaseViewModel() {
                 }
                 page++
 
-                when (tag) {
+                when(tag){
                     0 -> findUserExact()
                     1 -> findUserCondition()
                     2 -> findUserEconomic()
@@ -74,22 +69,15 @@ class LookupResultViewModel : BaseViewModel() {
         adapter = SearchResultAdapter(activity, list)
 
         adapter?.setOnAddListener {
-            if (flag == 3) {//返回选择的牵手人
-                EventBus.getDefault().post(list[it])
-                val intent = Intent()
-                activity!!.setResult(204, intent)
-                activity?.finish()
-            } else {
-                doPositon = it
-                var bundle = Bundle()
-                bundle.putSerializable("model", list[it])
-                MyApplication.openActivityForResult(activity, AddFriendActivity::class.java, bundle, 0)
-            }
+            doPositon = it
+            var bundle = Bundle()
+            bundle.putSerializable("model",list[it])
+            MyApplication.openActivityForResult(activity,AddFriendActivity::class.java,bundle,0)
         }
 
         bind?.xRecyclerView?.adapter = adapter
 
-        when (tag) {
+        when(tag){
             0 -> findUserExact()
             1 -> findUserCondition()
             2 -> findUserEconomic()
@@ -98,7 +86,7 @@ class LookupResultViewModel : BaseViewModel() {
     }
 
     //精确查找
-    fun findUserExact() {
+    fun findUserExact(){
         params["cmd"] = "findUserExact"
         retrofit.getData(Gson().toJson(params))
             .async()
@@ -124,8 +112,11 @@ class LookupResultViewModel : BaseViewModel() {
     }
 
 
+
+
+
     //条件查找
-    fun findUserCondition() {
+    fun findUserCondition(){
         params["cmd"] = "findUserCondition"
         params["page"] = page.toString()
         retrofit.getData(Gson().toJson(params))
@@ -154,7 +145,7 @@ class LookupResultViewModel : BaseViewModel() {
 
 
     //经济查找
-    fun findUserEconomic() {
+    fun findUserEconomic(){
         params["cmd"] = "findUserEconomic"
         params["page"] = page.toString()
         retrofit.getData(Gson().toJson(params))

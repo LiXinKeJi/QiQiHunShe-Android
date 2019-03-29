@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.ui.dialog.ScreenShouYeDialog
@@ -28,8 +27,6 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
     override fun getBaseViewModel() = ShouYeViewModel()
 
     override fun getLayoutId() = R.layout.fragment_shouye
-
-    private var flag = 0
 
     override fun init() {
         if (Build.VERSION.SDK_INT > 19) {
@@ -56,23 +53,9 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
 
         val adapter = FragmentPagerAdapter(childFragmentManager, list)
         viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 4
-
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
-
-            }
-
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-            }
-
-            override fun onPageSelected(p0: Int) {
-                flag = p0
-            }
-        })
 
         iv_screen.setOnClickListener {
-            ScreenShouYeDialog.show(activity!!, flag)
+            ScreenShouYeDialog.show(activity!!)
         }
     }
 

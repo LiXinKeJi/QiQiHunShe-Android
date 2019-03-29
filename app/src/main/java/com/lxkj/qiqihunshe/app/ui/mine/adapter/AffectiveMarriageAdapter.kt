@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.mine.adapter
 
-import android.app.Activity
 import android.content.Context
 import com.lxkj.qiqihunshe.app.base.BaseListAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.InvitationModel
@@ -21,11 +20,9 @@ class AffectiveMarriageAdapter : BaseListAdapter<SpaceInvitationModel.dataModel,
         view.setData(itembean, position)
     }
 
-    var activity: Activity? = null
-
 
     override fun getitemView(context: Context): PersonInvitationItemView {
-        return PersonInvitationItemView(activity!!,context)
+        return PersonInvitationItemView(context)
     }
 
     override fun refreshItemView(view: PersonInvitationItemView, itembean: SpaceInvitationModel.dataModel) {

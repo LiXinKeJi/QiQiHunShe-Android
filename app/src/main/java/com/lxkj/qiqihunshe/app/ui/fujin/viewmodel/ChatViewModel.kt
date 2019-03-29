@@ -5,8 +5,9 @@ import android.view.Gravity
 import com.baidu.mapapi.search.core.PoiInfo
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
-import com.lxkj.qiqihunshe.app.retrofitnet.*
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.YueJianModel
 import com.lxkj.qiqihunshe.app.rongrun.message.*
@@ -17,6 +18,7 @@ import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog2
 import com.lxkj.qiqihunshe.app.ui.model.JuBaoModel
 import com.lxkj.qiqihunshe.app.ui.dialog.DatePop
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DivideModel
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.ChatReportModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
@@ -27,22 +29,22 @@ import org.json.JSONObject
 /**
  * Created by Slingge on 2019/3/12
  */
-class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack {
+class ChatViewModel : BaseViewModel(), DatePop.DateCallBack {
 
     val JuBaoList by lazy { ArrayList<String>() }
 
-    val jubaoFilePath by lazy { ArrayList<String>() }
-    private val upFileUtil by lazy { UpFileUtil(activity!!, this) }
-
+    val reportModel by lazy { ChatReportModel() }
 
     var targetId = ""//对方id
     var title = ""//标题，对方昵称
 
-   lateinit var bind: ActivityChatDetailsBinding
+    var bind: ActivityChatDetailsBinding? = null
 
     val datePop by lazy { DatePop(activity, this) }
 
     var info: PoiInfo? = null
+
+    fun jubao() {}
 
 
     fun getJuBaoConten(): Single<String> {
@@ -52,50 +54,9 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, JuBaoModel::class.java)
                     JuBaoList.addAll(model.dataList)
-                    showReportDialog()
+                    ReportDialog2.show(activity!!, JuBaoList)
                 }
             }, activity))
-    }
-
-
-    private var JuBaoContent = ""//举报内容
-    fun showReportDialog() {//聊天举报
-        ReportDialog2.show(activity!!, JuBaoList, object : ReportDialog2.ReportContentCallBack {
-            override fun report(content: String) {
-                JuBaoContent = content
-                if (jubaoFilePath.isNotEmpty()) {
-                    upFileUtil.setListPath(jubaoFilePath)
-                } else {
-                    chatJuBao("")
-                }
-            }
-        })
-    }
-
-
-    override fun uoLoad(url: String) {
-
-    }
-
-    override fun uoLoad(url: List<String>) {
-        val sb = StringBuffer()
-        for (file in url) {
-            sb.append("$url|")
-        }
-        chatJuBao(sb.toString().substring(0, sb.toString().length - 1))
-    }
-
-
-    @SuppressLint("CheckResult")
-    fun chatJuBao(file: String) {
-        val json =
-            "{\"cmd\":\"liaotianjubao\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + targetId +
-                    "\",\"content\":\"" + JuBaoContent + "\",\"images\":\"" + file + "\"}"
-        retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
-            override fun onSuccess(response: String) {
-                ToastUtil.showTopSnackBar(activity, "举报成功")
-            }
-        }, activity)).subscribe({}, { toastFailure(it) })
     }
 
 
@@ -113,12 +74,11 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
         shopMessage.price = "0.0"
         RongYunUtil.sendMessage2(targetId, shopMessage, "")
     }
-
-    fun sendMessage2(type: String, price: String) {
+    fun sendMessage2(type: String,price:String) {
         val shopMessage = CustomizeMessage2()
         shopMessage.type = type
         shopMessage.content = title + "拒绝当前请求"
-        shopMessage.price = price
+        shopMessage.price =price
         RongYunUtil.sendMessage2(targetId, shopMessage, "")
     }
 
@@ -147,7 +107,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
         info?.let {
             val shopMessage = CustomizeMessage4()
             shopMessage.content = it.name
-            shopMessage.address = it.address
+            shopMessage.address = it.name
             shopMessage.lat = it.location.latitude.toString()
             shopMessage.lon = it.location.longitude.toString()
             shopMessage.time = dateTime
@@ -220,7 +180,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     //印象评分，解除关系，完成约见
     @SuppressLint("CheckResult")
     fun dianping(model: ImpressionScoreModel): Single<String> {
-        abLog.e("解除关系", Gson().toJson(model))
+        abLog.e("解除关系",Gson().toJson(model))
         return retrofit.getData(Gson().toJson(model)).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
@@ -239,15 +199,14 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
 
     //消费划分
     fun huafen(model: DivideModel): Single<String> {
-        return retrofit.getData(Gson().toJson(model)).async()
-            .compose(SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                    val shopMessage7 = CustomizeMessage7()
-                    shopMessage7.price = model.money
-                    shopMessage7.yuejianId = model.yuejianId
-                    RongYunUtil.sendMessage7(targetId, shopMessage7, "")
-                }
-            }, activity))
+        return retrofit.getData(Gson().toJson(model)).async().compose(SingleCompose.compose(object :SingleObserverInterface{
+            override fun onSuccess(response: String) {
+                val shopMessage7 = CustomizeMessage7()
+                shopMessage7.price = model.money
+                shopMessage7.yuejianId =model.yuejianId
+                RongYunUtil.sendMessage7(targetId, shopMessage7, "")
+            }
+        },activity))
     }
 
 

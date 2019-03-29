@@ -38,23 +38,10 @@ class LocationService : Service() {
         initLocation()
         mLocationClient!!.registerLocationListener(myListener)
         mLocationClient!!.start()
-
-        if (timer != null) {
-            timer?.cancel()
-            timer = null
+        if (timer == null) {
+            timer = Timer()
         }
-        timer = Timer()
-
-        timer?.schedule(object : TimerTask() {
-            override fun run() {
-                val json =
-                    "{\"cmd\":\"uploadCoords\",\"uid\":\"" + StaticUtil.uid + "\",\"lon\":\"" + StaticUtil.lng +
-                            "\",\"lat\":\"" + StaticUtil.lat + "" + "\"}"
-                RetrofitUtil.getRetrofit().create(RetrofitService::class.java).getData(json).async()
-                    .doOnSuccess { abLog.e("上传用户坐标\n$json", it) }
-                    .subscribe({}, { dispatchFailure(it) })
-            }
-        }, 1000, 300000)
+        timer?.schedule(task, 1000, 300000)
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -70,7 +57,7 @@ class LocationService : Service() {
         @SuppressLint("CheckResult")
         override fun onReceiveLocation(location: BDLocation?) {
 
-            if (TextUtils.isEmpty(StaticUtil.uid)) {
+            if(TextUtils.isEmpty(StaticUtil.uid)){
                 mLocationClient?.stop()
                 stopSelf()
                 return
@@ -82,6 +69,18 @@ class LocationService : Service() {
             }
         }
     }
+
+    val task = object : TimerTask() {
+        override fun run() {
+            val json =
+                "{\"cmd\":\"uploadCoords\",\"uid\":\"" + StaticUtil.uid + "\",\"lon\":\"" + StaticUtil.lng +
+                        "\",\"lat\":\"" + StaticUtil.lat + "" + "\"}"
+            RetrofitUtil.getRetrofit().create(RetrofitService::class.java).getData(json).async()
+                .doOnSuccess { abLog.e("上传用户坐标\n$json", it) }
+                .subscribe({}, { dispatchFailure(it) })
+        }
+    }
+
 
     private fun initLocation() {
         val option = LocationClientOption()
@@ -118,7 +117,7 @@ class LocationService : Service() {
             mLocationClient = null
 
             timer?.cancel()
-            timer = null
+            timer=null
         }
     }
 

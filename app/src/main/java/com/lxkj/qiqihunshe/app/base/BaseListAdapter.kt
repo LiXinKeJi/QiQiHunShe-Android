@@ -98,11 +98,10 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         } else {
             val view = holder.itemView as ITEMVIEW
             refreshItemView(view, list[position], position)
-            refreshItemView(view, list[position])
         }
 
         holder.itemView.setOnClickListener { v ->
-            if (list.size == 0) {
+            if (flag == 0 || flag == 1 || list.size == 0) {
                 return@setOnClickListener
             }
             listener?.let {

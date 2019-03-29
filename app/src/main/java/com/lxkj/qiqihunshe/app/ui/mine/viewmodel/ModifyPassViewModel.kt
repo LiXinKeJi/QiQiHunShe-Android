@@ -8,8 +8,6 @@ import com.lxkj.qiqihunshe.app.ui.mine.model.ModifyPassModel
 import com.lxkj.qiqihunshe.app.util.Md5Util
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.app.util.abLog
-import com.lxkj.qiqihunshe.databinding.ActivityModifyPassBinding
 import io.reactivex.Single
 
 /**
@@ -23,24 +21,12 @@ class ModifyPassViewModel : BaseViewModel() {
     var code = ""
     var phone = ""
 
-    lateinit var bind: ActivityModifyPassBinding
-
-    fun init() {
-        if (flag == 1) {
-            bind.phone.text = "设置新密码"
-            bind.phone.hint = "请输入新密码"
-
-            bind.etCode.hint = "请确认新密码"
-        }
-
-    }
 
     fun modify(): Single<String> {
         val json = "{\"cmd\":\"updatePassword\",\"uid\":\"" + StaticUtil.uid + "\",\"phone\":\"" + phone +
                 "\",\"validate\":\"" + code + "\",\"type\":\"" + flag + "\",\"newPassword\":\"" + Md5Util.md5Encode(
             model.newPass
         ) + "\"}"
-        abLog.e("修改密码", json)
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 ToastUtil.showToast("修改成功")

@@ -70,7 +70,7 @@
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_degree"
                   android:textColor="@color/colorSubtitle"
-                  android:text="匹配率："
+                  android:text="匹配度："
                   android:visibility="gone"
                   android:textSize="13sp"
                   android:layout_marginEnd="12dp"

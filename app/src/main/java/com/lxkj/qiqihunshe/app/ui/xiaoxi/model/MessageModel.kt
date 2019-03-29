@@ -13,6 +13,4 @@ class MessageModel : BaseModel() {
 
     var title=""
 
-
-
 }

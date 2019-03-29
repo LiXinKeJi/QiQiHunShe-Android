@@ -22,6 +22,7 @@ import java.io.File
 class UploadCertificatesActivity :
     BaseActivity<ActivityUploadCertificatesBinding, UploadCertificatesViewModel>(), View.OnClickListener {
 
+
     private var flag = -1//0学历，1房产，2车，3薪资，4身份证
 
     override fun getBaseViewModel() = UploadCertificatesViewModel()
@@ -66,7 +67,7 @@ class UploadCertificatesActivity :
         iv_upload.setOnClickListener(this)
 
         viewModel?.let {
-            binding.viewmodel = it
+            binding.viewmodel=it
             it.flag = flag
             it.bind = binding
             it.getLable()
@@ -83,11 +84,11 @@ class UploadCertificatesActivity :
                         ToastUtil.showTopSnackBar(this, "请输入身份证号码")
                         return
                     }
-                    if (TextUtils.isEmpty(viewModel!!.url1)) {
+                    if (TextUtils.isEmpty(viewModel!!.url1) || TextUtils.isEmpty(viewModel!!.url1)) {
                         ToastUtil.showTopSnackBar(this, "请选择身份人像面")
                         return
                     }
-                    if (TextUtils.isEmpty(viewModel!!.url2)) {
+                    if (TextUtils.isEmpty(viewModel!!.url1) || TextUtils.isEmpty(viewModel!!.url2)) {
                         ToastUtil.showTopSnackBar(this, "请选择身份证国徽面")
                         return
                     }

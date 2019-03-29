@@ -9,10 +9,4 @@ import java.io.Serializable
 class XxModel : BaseModel(),Serializable{
     var totalPage = 1//总页数
     var dataList = ArrayList<DataListModel> ()
-
-    var love=""
-    var look=""
-    var comment=""
-    var activity=""
-
 }

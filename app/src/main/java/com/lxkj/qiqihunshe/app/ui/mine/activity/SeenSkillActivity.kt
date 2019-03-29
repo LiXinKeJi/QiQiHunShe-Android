@@ -5,7 +5,6 @@ import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SeenSkillViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
-import kotlinx.android.synthetic.main.activity_recyvlerview.*
 
 /**
  * Created by Slingge on 2019/2/25
@@ -31,16 +30,6 @@ class SeenSkillActivity : BaseActivity<ActivityRecyvlerviewBinding, SeenSkillVie
                     it.getSeenSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
-
-            refresh.setOnRefreshListener {
-                viewModel?.let {
-                    it.page++
-                    it.getSeenSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-                }
-            }
         }
-
     }
-
-
 }

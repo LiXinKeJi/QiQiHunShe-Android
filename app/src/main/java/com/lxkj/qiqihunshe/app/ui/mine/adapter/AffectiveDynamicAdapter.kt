@@ -24,6 +24,4 @@ class AffectiveDynamicAdapter : BaseListAdapter<SpaceDynamicModel.dataModel, Aff
     }
 
 
-
-
 }

@@ -10,7 +10,6 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
-import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.AffectiveDynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
@@ -27,7 +26,7 @@ import org.json.JSONObject
  */
 class AffectiveDynamicViewModel : BaseViewModel() {
 
-    val adapter by lazy { AffectiveDynamicAdapter() }
+      val adapter by lazy { AffectiveDynamicAdapter() }
     var page = 1
     var totalPage = 1
     var bind: ActivityRecyvlerviewBinding? = null
@@ -42,14 +41,14 @@ class AffectiveDynamicViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putInt("flag", 1)
             bundle.putSerializable("bean", itemBean)
-            MyApplication.openActivityForResult(fragment!!.activity, MyDynamicActivity::class.java, bundle, 0)
+            MyApplication.openActivityForResult(fragment!!.activity, MyDynamicActivity::class.java, bundle,0)
         }
     }
 
 
     fun getMyDynamic(): Single<String> {
         val json = "{\"cmd\":\"nearbyDongtai\",\"uid\":\"" + StaticUtil.uid + "\",\"typeId\":\"" + "" +
-                "\",\"category\":\"" + "1" + "\",\"page\":\"" + page + "\",\"lon\":\"" + StaticUtil.lng + "\",\"lat\":\"" + StaticUtil.lat + "\"}"
+                "\",\"category\":\"" + "1" + "\",\"page\":\"" + page +"\",\"lon\":\"" + StaticUtil.lng + "\",\"lat\":\"" + StaticUtil.lat +  "\"}"
         abLog.e("情感动态", json)
         return retrofit.getData(json)
             .async()
@@ -58,7 +57,7 @@ class AffectiveDynamicViewModel : BaseViewModel() {
                     bind!!.refresh.isRefreshing = false
                     val model = Gson().fromJson(response, SpaceDynamicModel::class.java)
                     if (page == 1) {
-                        totalPage = model.totalPage
+                        totalPage=model.totalPage
                         if (model.totalPage == 1 || model.dataList.isEmpty()) {
                             adapter.flag = 0
                         }
@@ -82,16 +81,14 @@ class AffectiveDynamicViewModel : BaseViewModel() {
         abLog.e("json", json)
         return retrofit.getData(json).async()
             .doOnSubscribe {
-
-
-                /* if (adapter.getList()[position].zan == "0") {
-                     adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() + 1).toString()
-                     adapter.getList()[position].zan = "1"
-                 } else {
-                     adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() - 1).toString()
-                     adapter.getList()[position].zan = "0"
-                 }
-                 adapter.notifyItemChanged(position, false)*/
+                if (adapter.getList()[position].zan == "0") {
+                    adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() + 1).toString()
+                    adapter.getList()[position].zan = "1"
+                } else {
+                    adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() - 1).toString()
+                    adapter.getList()[position].zan = "0"
+                }
+                adapter.notifyItemChanged(position, false)
             }
 
     }
@@ -114,11 +111,7 @@ class AffectiveDynamicViewModel : BaseViewModel() {
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val obj = JSONObject(response)
-                val bundle = Bundle()
-                bundle.putString("num", obj.getString("orderId"))
-                bundle.putDouble("money", money.toDouble())
-                bundle.putInt("flag", 0)
-                MyApplication.openActivityForResult( fragment!!.activity, PayActivity::class.java, bundle, 0)
+                ToastUtil.showTopSnackBar(fragment!!.activity, obj.getString("orderId"))
             }
         }, fragment!!.activity))
     }

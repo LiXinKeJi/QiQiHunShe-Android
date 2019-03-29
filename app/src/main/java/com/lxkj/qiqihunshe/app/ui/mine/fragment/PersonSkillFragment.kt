@@ -1,16 +1,13 @@
 package com.lxkj.qiqihunshe.app.ui.mine.fragment
 
 import android.content.Intent
-import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonSkillViewModel
-import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.ui.model.DelDynamicModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
-import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentPersonSkillBinding
-import kotlinx.android.synthetic.main.fragment_person_skill.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -27,7 +24,6 @@ class PersonSkillFragment : BaseFragment<FragmentPersonSkillBinding, PersonSkill
 
     override fun init() {
         viewModel?.let {
-            include.visibility = View.GONE
             binding.viewmodel = it
             it.userId = arguments!!.getString("id")
             it.bind = binding
@@ -39,13 +35,11 @@ class PersonSkillFragment : BaseFragment<FragmentPersonSkillBinding, PersonSkill
                     if (it.page > it.totalPage) {
                         return@setLoadMore
                     }
-                    include.visibility = View.VISIBLE
-                    it.getSkill().bindLifeCycle(this).subscribe({
-                        include.visibility = View.GONE
-                    }, { toastFailure(it) })
+                    it.getSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
         }
+
     }
 
     override fun loadData() {
@@ -55,10 +49,9 @@ class PersonSkillFragment : BaseFragment<FragmentPersonSkillBinding, PersonSkill
 
 
     @Subscribe
-    fun onEvent(model: EventCmdModel) {
+    fun onEvent(model: DelDynamicModel) {
         if (model.cmd == EventBusCmd.DelSkill) {//删除才艺
-            ToastUtil.showToast(model.res)
-            viewModel!!.removeItem(model.res.toInt())
+            viewModel!!.DelSkill(model.position).bindLifeCycle(this).subscribe({}, { it })
         }
     }
 
@@ -77,6 +70,7 @@ class PersonSkillFragment : BaseFragment<FragmentPersonSkillBinding, PersonSkill
                 viewModel!!.removeItem(data.getIntExtra("position", -1))
             }
         }
+
     }
 
     override fun onDestroy() {

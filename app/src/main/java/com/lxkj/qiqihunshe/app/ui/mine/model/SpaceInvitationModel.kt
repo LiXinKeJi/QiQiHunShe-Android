@@ -17,8 +17,6 @@ class SpaceInvitationModel : BaseModel() {
         var yaoyueId = ""
         var title = ""
 
-        var icon=""
-
         var content = ""
 
         var starttime = ""// 活动时间

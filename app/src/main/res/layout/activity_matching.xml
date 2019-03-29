@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:bind="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.MatchingViewModel"/>
+
     </data>
 
     <!--首页 聊 匹配-->
@@ -35,7 +34,6 @@
                    android:id="@+id/iv_header"
                    android:src="@mipmap/ic_launcher"
                    android:scaleType="centerCrop"
-                   bind:imageHeaderUrl="@{viewmodel.headerUrl}"
                    app:layout_constraintTop_toTopOf="@+id/iv_saomiao" app:layout_constraintEnd_toEndOf="@+id/iv_saomiao"
                    app:layout_constraintStart_toStartOf="@+id/iv_saomiao"
                    app:layout_constraintBottom_toBottomOf="@+id/iv_saomiao"/>

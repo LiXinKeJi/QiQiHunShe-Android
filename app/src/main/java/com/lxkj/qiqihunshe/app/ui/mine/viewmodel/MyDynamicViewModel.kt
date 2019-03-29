@@ -2,7 +2,6 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.content.Intent
 import android.databinding.ObservableField
-import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,12 +9,10 @@ import android.view.View
 import cc.shinichi.library.bean.ImageInfo
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
-import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.CommentAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.ImageAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.CommentModel
@@ -23,7 +20,6 @@ import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityMydynamicBinding
 import io.reactivex.Single
-import org.json.JSONObject
 import java.util.ArrayList
 
 /**
@@ -40,7 +36,7 @@ class MyDynamicViewModel : BaseViewModel() {
 
     var page = 1
     var totalPage = 1
-
+    private val imageInfoList = ArrayList<ImageInfo>()
 
     var bind: ActivityMydynamicBinding? = null
 
@@ -58,7 +54,13 @@ class MyDynamicViewModel : BaseViewModel() {
                 if (i < 0 || i >= model.images.size) {
                     return
                 }
-                SeePhotoViewUtil.toPhotoView(activity, model.images, i)
+                for (j in 0 until model.images.size) {
+                    val info = ImageInfo()
+                    info.originUrl = model.images[j]
+                    info.thumbnailUrl = model.images[i]
+                    imageInfoList.add(info)
+                }
+                SeePhotoViewUtil.toPhotoView(activity, imageInfoList, i)
             }
         })
 
@@ -72,7 +74,7 @@ class MyDynamicViewModel : BaseViewModel() {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, CommentModel::class.java)
                 if (page == 1) {
-                    totalPage = model.totalPage
+                    totalPage=model.totalPage
                     bind!!.tvComment.text = "最新评论（${model.commentCount}）"
                     if (model.dataList.isEmpty()) {
                         adapter.flag = 1
@@ -102,17 +104,22 @@ class MyDynamicViewModel : BaseViewModel() {
         abLog.e("json", json)
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
-                page = 1
-                adapter.flag = 2
-                getComment().subscribe()
-
                 model.commentNum = (model.commentNum.toInt() + 1).toString()
+                bind!!.tvNum.text = model.commentNum
 
-                bind?.let {
-                    it.tvNum.text = model.commentNum
-                    it.etComment.setText("")
-                }
+                val commModel = CommentModel.dataModel()
+                commModel.content = comment.get()!!
+                commModel.age = StaticUtil.age
+                commModel.distance = "0"
+                commModel.adtime = "刚刚"
+                commModel.sex = StaticUtil.sex
+                commModel.nickname = StaticUtil.nickName
+                commModel.icon = StaticUtil.headerUrl
 
+                adapter.addItem(commModel)
+
+                bind!!.rvComment.scrollToPosition(0)
+                comment.set("")
             }
         }, activity))
     }
@@ -120,28 +127,30 @@ class MyDynamicViewModel : BaseViewModel() {
 
     fun zan(): Single<String> {
         val json = "{\"cmd\":\"zanDongtai\",\"dongtaiId\":\"${model.dongtaiId}\",\"uid\":\"${StaticUtil.uid}\"}"
+
         abLog.e("json", json)
-        return retrofit.getData(json).async().doOnSuccess {
-            bind?.let {
-                if (model.zan == "0") {
-                    AbStrUtil.setDrawableLeft(activity!!, R.drawable.ic_zan_hl, it.tvZan, 5)
-                    model.zanNum = (model.zanNum.toInt() + 1).toString()
-                    model.zan = "1"
-                } else {
-                    model.zanNum = (model.zanNum.toInt() - 1).toString()
-                    AbStrUtil.setDrawableLeft(activity!!, R.drawable.ic_zan_nor, it.tvZan, 5)
-                    model.zan = "0"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                bind?.let {
+                    if (model.zan == "0") {
+                        AbStrUtil.setDrawableLeft(activity!!, R.drawable.ic_zan_hl, it.tvZan, 5)
+                        model.zanNum = (model.zanNum.toInt() + 1).toString()
+                        model.zan = "1"
+                    } else {
+                        model.zanNum = (model.zanNum.toInt() - 1).toString()
+                        AbStrUtil.setDrawableLeft(activity!!, R.drawable.ic_zan_nor, it.tvZan, 5)
+                        model.zan = "0"
+                    }
+                    it.tvZan.text = model.zanNum
                 }
-                it.tvZan.text = model.zanNum
             }
-        }
+        }, activity))
     }
 
 
     fun jubao(content: String): Single<String> {
         val json =
-            "{\"cmd\":\"dongtaiReport\",\"dongtaiId\":\"${model.dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"content\":\"$content\"}"
-        abLog.e("举报", json)
+            "{\"cmd\":\"dongtaiReport\",\"dongtaiId\":\"${model.dongtaiId}\",\"uid\":\"${StaticUtil.uid}\" ,\"content\":\"${content}\" }"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 ToastUtil.showTopSnackBar(activity, "举报提交成功")
@@ -151,15 +160,10 @@ class MyDynamicViewModel : BaseViewModel() {
 
     fun dashang(money: String): Single<String> {
         val json =
-            "{\"cmd\":\"dongtaiTip\",\"dongtaiId\":\"${model.dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"money\":\"$money\"}"
+            "{\"cmd\":\"dongtaiTip\",\"dongtaiId\":\"${model.dongtaiId}\",\"uid\":\"${StaticUtil.uid}\" ,\"money\":\"money\" }"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
-                val obj = JSONObject(response)
-                val bundle = Bundle()
-                bundle.putDouble("money", money.toDouble())
-                bundle.putString("num", obj.getString("orderId"))
-                bundle.putInt("flag", 0)
-                MyApplication.openActivityForResult(activity, PayActivity::class.java, bundle, 202)
+                ToastUtil.showTopSnackBar(activity, "打赏成功")
             }
         }, activity))
     }

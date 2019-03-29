@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
-import android.content.Intent
 import android.databinding.ObservableField
 import android.os.Bundle
 import android.text.TextUtils
@@ -21,7 +20,10 @@ import com.lxkj.qiqihunshe.app.ui.entrance.MyTypeActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.model.PerfectInfoModel
 import com.lxkj.qiqihunshe.app.ui.mine.model.PersonalInfoModel
 import com.lxkj.qiqihunshe.app.ui.model.CityModel
-import com.lxkj.qiqihunshe.app.util.*
+import com.lxkj.qiqihunshe.app.util.AppJsonFileReader
+import com.lxkj.qiqihunshe.app.util.GlideUtil
+import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPerfectInfoBinding
 import io.reactivex.Single
 
@@ -112,26 +114,30 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
 
 
     //家乡
-    override fun position(position1: Int, position2: Int) {
+    override fun position(position1: Int, position2: Int, position3: Int) {
         when (flag) {
             0 -> {//我的家乡
                 model.birthplace = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName
+                        cityList[position1].cities!![position2].areaName +
+                        cityList[position1].cities!![position2].counties!![position3].areaName
                 bind?.tvHometown?.text = model.birthplace
             }
             1 -> {//我的现居
                 model.residence = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName
+                        cityList[position1].cities!![position2].areaName +
+                        cityList[position1].cities!![position2].counties!![position3].areaName
                 bind?.tvResidence?.text = model.residence
             }
             2 -> {//他的家乡
                 model.birthplace2 = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName
+                        cityList[position1].cities!![position2].areaName +
+                        cityList[position1].cities!![position2].counties!![position3].areaName
                 birthplace2.set(model.birthplace2)
             }
             3 -> {//他的现居
                 model.residence2 = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName
+                        cityList[position1].cities!![position2].areaName +
+                        cityList[position1].cities!![position2].counties!![position3].areaName
                 residence2.set(model.residence2)
             }
         }
@@ -161,20 +167,20 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                 bind?.tvEducation?.text = model.education
             }
             2 -> {//我的情感状态
-                model.marriage = emotionalList[position1]
-                bind?.tvEmotionalState?.text = model.marriage
+                model.marriage = position1.toString()
+                bind?.tvEmotionalState?.text = emotionalList[position1]
             }
             3 -> {//我的情感计划
                 model.plan = planningList[position1]
                 bind?.tvEmotionalPlanning?.text = model.plan
             }
             4 -> {//他的情感状态
-                model.marriage2 = emotionalList[position1]
-                bind?.tvHeEmotionalState?.text = model.marriage2
+                model.marriage2 = position1.toString()
+                bind?.tvHeEmotionalState?.text = emotionalList[position1]
             }
             5 -> {//他的情感计划
-                model.plan2 = heplanningList[position1]
-                bind?.tvHeEmotionalPlanning?.text = model.plan2
+                model.plan2 = position1.toString()
+                bind?.tvHeEmotionalPlanning?.text = heplanningList[position1]
             }
             6 -> {//他的薪资
                 model.salary2 = HeSalaryList[position1]
@@ -184,7 +190,6 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                 model.car2 = HeCarList[position1]
                 if (model.car2 == "0") {
                     bind?.tvHeCar?.text = "无"
-                    model.car2 = "无车"
                 } else {
                     bind?.tvHeCar?.text = model.car2
                 }
@@ -193,7 +198,6 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                 model.house2 = HeRoomList[position1]
                 if (model.house2 == "0") {
                     bind?.tvHeRoom?.text = "无"
-                    model.house2 = "无房"
                 } else {
                     bind?.tvHeRoom?.text = model.house2
                 }
@@ -261,6 +265,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
     }
 
     fun showStringWheel(list: ArrayList<String>) {
+
         stringPop = StringSelectPop(activity, list, this)
 
         if (!stringPop!!.isShowing) {
@@ -452,37 +457,26 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
 
 
     fun saveData(): Single<String> {
-        model.icon.clear()
-        model.interest.clear()
-        model.locale.clear()
-        abLog.e("保存个人信息", Gson().toJson(model))
         return retrofit.getData(Gson().toJson(model)).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    activity?.let {
-                        val intent = Intent()
-                        it.setResult(103, intent)
-                        it.finish()
-                    }
+                    ToastUtil.showToast("保存成功")
+                    activity?.finish()
                 }
             }, activity))
     }
 
     fun getData(): Single<String> {
         val json = "{\"cmd\":\"userData\",\"userId\":\"" + StaticUtil.uid + "\"}"
-        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
-            override fun onSuccess(response: String) {
-                model = Gson().fromJson(response, PerfectInfoModel::class.java)
-                bind?.let {
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    model = Gson().fromJson(response, PerfectInfoModel::class.java)
+                    bind?.let {
 
-                    if (model.icon.isNotEmpty()) {
-                        GlideUtil.glideHeaderLoad(activity, model.icon[0], it.ivHeader)
-
-                        var sb = StringBuffer()
-                        for (str in model.icon) {
-                            sb.append("${str.substring(str.indexOf("8") + 1, str.length)}|")
+                        if (model.icon.isNotEmpty()) {
+                            GlideUtil.glideHeaderLoad(activity, model.icon[0], it.ivHeader)
                         }
-                        model.icons = sb.toString().substring(0, sb.toString().length - 1)
 
                         if (model.sex == "0") {
                             it.rbGirl.isChecked = true
@@ -498,13 +492,12 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                             it.tvEmotionalState.text = "离异"
                         }
 
-                        sb = StringBuffer()
+                        var sb = StringBuffer()
                         for (str in model.interest) {
                             sb.append("$str,")
                         }
                         if (!TextUtils.isEmpty(sb.toString())) {
                             it.tvHobby.text = sb.toString().substring(0, sb.toString().length - 1)
-                            model.interests = sb.toString().substring(0, sb.toString().length - 1)
                         }
 
 
@@ -514,12 +507,10 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                         }
                         if (!TextUtils.isEmpty(sb.toString())) {
                             it.tvLabel.text = sb.toString().substring(0, sb.toString().length - 1)
-                            model.locales = sb.toString().substring(0, sb.toString().length - 1)
                         }
 
                         if (!TextUtils.isEmpty(model.zeou_height)) {
                             it.swMate.isOpened = true
-                            model.zeou = "1"
                         }
 
                         it.tvHeType.text = model.zeou_type
@@ -564,10 +555,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                     }
 
                 }
-            }
-        }, activity))
-
+            }, activity))
     }
-
 
 }

@@ -9,7 +9,6 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
-import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.DynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -84,18 +83,20 @@ class PersonDynamicViewModel : BaseViewModel() {
     fun zan(position: Int): Single<String> {
         val json =
             "{\"cmd\":\"zanDongtai\",\"dongtaiId\":\"${adapter.getList()[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\"}"
+
         abLog.e("json", json)
         return retrofit.getData(json).async()
             .doOnSubscribe {
-                if (adapter.getList()[position].zan == "0") {// 0未点赞 1已点
+                if (adapter.getList()[position].zan == "0") {
                     adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() + 1).toString()
                     adapter.getList()[position].zan = "1"
                 } else {
                     adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() - 1).toString()
                     adapter.getList()[position].zan = "0"
                 }
-                adapter.zan(adapter.getList()[position].zanNum, adapter.getList()[position].dongtaiId)
+                adapter.notifyItemChanged(position, false)
             }
+
     }
 
 
@@ -116,17 +117,9 @@ class PersonDynamicViewModel : BaseViewModel() {
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val obj = JSONObject(response)
-                val bundle = Bundle()
-                bundle.putDouble("money", money.toDouble())
-                bundle.putString("num", obj.getString("orderId"))
-                bundle.putInt("flag", 0)
-                MyApplication.openActivityForResult(fragment!!.activity, PayActivity::class.java, bundle, 0)
+                ToastUtil.showTopSnackBar(fragment!!.activity, obj.getString("orderId"))
             }
         }, fragment!!.activity))
-    }
-
-    fun removeItem(position: Int) {
-        adapter.removeItem(position)
     }
 
 
