@@ -56,7 +56,7 @@ class FwqyViewModel : BaseViewModel() {
         //构造CircleOptions对象
         val mCircleOptions = CircleOptions().center(point)
             .radius(10000)//单位米
-            .fillColor(R.color.map_round) //填充颜色
+            .fillColor(0x3315acf5) //填充颜色
         //在地图上显示圆
         mMapView.addOverlay(mCircleOptions)
 

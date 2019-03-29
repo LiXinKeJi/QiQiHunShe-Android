@@ -25,4 +25,6 @@ class PersonalInfoModel : BaseModel() {
     var polite = ""// 言礼值
     var love = ""// 是否喜欢 0否 1是
 
+    var loveNum = ""// 喜欢的人数
+
 }

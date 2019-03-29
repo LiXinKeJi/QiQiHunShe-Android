@@ -17,6 +17,7 @@ class SeenSkillModel : BaseModel() {
         var title = ""
         var image = ""
         var count = ""
+        var userId=""
     }
 
 

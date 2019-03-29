@@ -19,13 +19,18 @@ import io.reactivex.Single
  */
 class VerificationPhoneViewModel : BaseViewModel() {
 
-    var bind: ActivityVerificationPhoneBinding? = null
+    lateinit var bind: ActivityVerificationPhoneBinding
 
     val model by lazy { ForgetPassModel() }
 
-    private val timerUtil by lazy { TimerUtil(bind?.tvGetcode) }
+    lateinit var timerUtil: TimerUtil
 
     var flag = 0//1登录密码,2支付密码
+
+
+    fun  init(){
+        timerUtil=TimerUtil(bind.tvGetcode)
+    }
 
     fun getCode(): Single<String> {
         val json = "{\"cmd\":\"sendSms\",\"phone\":\"" + model.phone + "\"}"

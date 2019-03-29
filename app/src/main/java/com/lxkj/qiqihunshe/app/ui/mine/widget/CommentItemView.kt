@@ -6,8 +6,8 @@ import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.mine.model.CommentModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
+import com.lxkj.qiqihunshe.app.util.DoubleCalculationUtil
 import com.lxkj.qiqihunshe.app.util.GlideUtil
-import kotlinx.android.synthetic.main.activity_mydynamic.*
 import kotlinx.android.synthetic.main.item_comment.view.*
 
 /**
@@ -34,15 +34,17 @@ class CommentItemView : RelativeLayout {
         tv_age.text = bean.age
         if (bean.sex == "0") {//0女 1男
             tv_age.setBackgroundResource(R.drawable.bg_girl)
+            tv_age.setTextColor(context.resources.getColor(R.color.girl))
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl, tv_age, 3)
         } else {
             tv_age.setBackgroundResource(R.drawable.thems_bg35)
+            tv_age.setTextColor(context.resources.getColor(R.color.colorThemes))
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy, tv_age, 3)
         }
 
         tv_comment.text = bean.content
 
-        tv_juli.text = bean.distance
+        tv_juli.text = DoubleCalculationUtil.mTokm(bean.distance)
 
         tv_time.text = bean.adtime
     }

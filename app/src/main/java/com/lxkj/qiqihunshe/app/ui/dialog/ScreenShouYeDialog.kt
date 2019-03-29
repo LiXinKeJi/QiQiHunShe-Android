@@ -16,7 +16,10 @@ import com.lxkj.qiqihunshe.app.ui.model.ShouYeScreenModel
 import com.lxkj.qiqihunshe.app.util.AppJsonFileReader
 import java.util.ArrayList
 import android.widget.ArrayAdapter
+import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.ui.shouye.model.MatchingModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import org.greenrobot.eventbus.EventBus
 
 
 /**
@@ -52,7 +55,7 @@ object ScreenShouYeDialog : AdapterView.OnItemSelectedListener {
 
     private val model by lazy { ShouYeScreenModel() }
 
-    fun show(context: Activity) {
+    fun show(context: Activity, flag: Int) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -89,20 +92,27 @@ object ScreenShouYeDialog : AdapterView.OnItemSelectedListener {
             dialog?.dismiss()
         }
         tv_play?.setOnClickListener {
-            ToastUtil.showTopSnackBar(context, Gson().toJson(model))
+
+            val Mmodel = MatchingModel()
+            Mmodel.age = model.minAge + "-" + model.maxAge
+            Mmodel.distance = model.minDistance + "-" + model.maxDistance
+            Mmodel.birthplace = model.province + model.city
+            Mmodel.marriage = model.emotion
+            Mmodel.flag = flag
+            EventBus.getDefault().post(Mmodel)
             dialog?.dismiss()
         }
 
         radio?.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.tv_all -> {
-                    model.emotion = "全部"
+                    model.emotion = "0"
                 }
                 R.id.tv_wei -> {
-                    model.emotion = "未婚"
+                    model.emotion = "1"
                 }
                 R.id.tv_yihun -> {
-                    model.emotion = "已婚"
+                    model.emotion = "2"
                 }
             }
         }

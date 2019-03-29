@@ -1,1 +1,1 @@
-include ':app', ':sneaker', ':floatingActionButton', ':likeornot', ':jiaozivideoplayer', ':bgABadgeView', ':loopview', ':sdk', ':CallLib', ':CallKit', ':IMLib', ':IMKit', ':RCSticker', ':Sight', ':lfilepickerlibrary'
+include ':app', ':sneaker', ':floatingActionButton', ':likeornot', ':jiaozivideoplayer', ':bgABadgeView', ':loopview', ':sdk', ':CallLib', ':CallKit', ':IMLib', ':IMKit', ':RCSticker', ':Sight', ':xrecyclerview'

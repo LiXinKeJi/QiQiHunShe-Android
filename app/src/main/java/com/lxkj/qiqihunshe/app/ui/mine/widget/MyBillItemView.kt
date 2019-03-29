@@ -27,9 +27,9 @@ class MyBillItemView : RelativeLayout {
         tv_title.text = bean.title
         tv_time.text = bean.adtime
         if (bean.type == "0") {//减少
-            tv_money.text = "-$bean.money"
+            tv_money.text = "-${bean.money}"
         } else {
-            tv_money.text = "+$bean.money"
+            tv_money.text = "+${bean.money}"
         }
 
     }

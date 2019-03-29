@@ -4,11 +4,13 @@ import android.content.Intent
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.ui.dialog.DaShangAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonDynamicViewModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
+import com.lxkj.qiqihunshe.app.util.ShareUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentPersonDynamicBinding
 import org.greenrobot.eventbus.EventBus
@@ -49,13 +51,16 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
 
     @Subscribe
     fun onEvent(model: EventCmdModel) {
+        if (!isDataInitiated) {//不显示此fragment不执行
+            return
+        }
         when (model.cmd) {
             EventBusCmd.DianZan -> {
                 ToastUtil.showToast(model.res.toString())
                 viewModel!!.zan(model.res.toInt()).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
             EventBusCmd.JuBao -> {
-                ReportDialog1.show(activity!!, object : ReportDialog1.ReportCallBack {
+                ReportDialog1.getReportList(activity!!, "2", object : ReportDialog1.ReportCallBack {
                     override fun report(report: String) {
                         viewModel!!.jubao(report, model.res.toInt()).bindLifeCycle(this@PersonDynamicFragment)
                             .subscribe({}, { toastFailure(it) })
@@ -71,7 +76,7 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
                 })
             }
             EventBusCmd.fenxaing -> {
-
+             ShareUtil.share(activity!!)
             }
         }
     }
@@ -89,6 +94,11 @@ class PersonDynamicFragment : BaseFragment<FragmentPersonDynamicBinding, PersonD
                     it.getMyDynamic().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
+            if (data.getIntExtra("position", -1) != -1) {//删除动态
+                viewModel?.removeItem(data.getIntExtra("position", -1))
+            }
+        } else if (requestCode == 0 && resultCode == 303) {
+            DaShangAfterDialog.show(activity!!)
         }
     }
 

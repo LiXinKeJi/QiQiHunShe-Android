@@ -3,9 +3,13 @@ package com.lxkj.qiqihunshe.app.ui.mine.fragment
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationFragmentViewModel
-import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.util.EventBusCmd
 import com.lxkj.qiqihunshe.databinding.FragmentPersonInvitationBinding
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * 邀约
@@ -18,6 +22,7 @@ class PersonInvitationFragment : BaseFragment<FragmentPersonInvitationBinding, P
     override fun getLayoutId() = R.layout.fragment_person_invitation
 
     override fun init() {
+        EventBus.getDefault().register(this)
         viewModel?.let {
             binding.viewmodel = it
             it.userId = arguments!!.getString("id")
@@ -33,9 +38,36 @@ class PersonInvitationFragment : BaseFragment<FragmentPersonInvitationBinding, P
         }
     }
 
+
+    @Subscribe
+    fun onEvent(model: EventCmdModel) {
+        if (!isVisibleToUser) {//不显示此fragment不执行
+            return
+        }
+        when (model.cmd) {
+            EventBusCmd.JuBao -> {
+                ReportDialog1.getReportList(activity!!, "3", object : ReportDialog1.ReportCallBack {
+                    override fun report(report: String) {
+                        viewModel!!.jubao(report, model.res.toInt()).bindLifeCycle(this@PersonInvitationFragment)
+                            .subscribe({}, { toastFailure(it) })
+                    }
+                })
+            }
+            EventBusCmd.DelInvitation -> {
+                viewModel!!.removeItem(model.res.toInt())
+            }
+        }
+    }
+
+
     override fun loadData() {
         viewModel!!.getYaoyue().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

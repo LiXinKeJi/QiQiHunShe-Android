@@ -1,15 +1,19 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity
+import com.lxkj.qiqihunshe.app.ui.mine.activity.ReputationBaoActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.AboutMeAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.CommentRecordAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
@@ -53,7 +57,9 @@ class CommentRecordViewModel : BaseViewModel() {
         })
         adapter = CommentRecordAdapter(fragment?.context, list)
         adapter?.setOnItemClickListener {
-            ToastUtil.showTopSnackBar(fragment,it.toString())
+            val bundle=Bundle()
+            bundle.putString("userId",StaticUtil.uid)
+            MyApplication.openActivity(activity, ReputationBaoActivity::class.java,bundle)
         }
 
         bind?.xRecyclerView?.adapter = adapter

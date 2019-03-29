@@ -26,14 +26,13 @@ class QiQiRecommendFragment : BaseFragment<ActivityXrecyclerviewBinding, QiQiRec
         flag = arguments!!.getInt("flag", -1)
 
         viewModel?.let {
-            it.bind=binding
-            it.init(flag.toString())
+            it.bind = binding
         }
 
     }
 
     override fun loadData() {
-
+        viewModel!!.init(flag.toString())
     }
 
 

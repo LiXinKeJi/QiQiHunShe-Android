@@ -1,10 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.util.ThreadUtil
 import com.lxkj.qiqihunshe.databinding.FragmentMineBinding
-import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
-import android.util.DisplayMetrics
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
@@ -13,6 +10,8 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.dialog.CategoryPop
 import com.lxkj.qiqihunshe.app.ui.mine.model.MineModel
+import com.lxkj.qiqihunshe.app.util.SharePrefUtil
+import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import io.reactivex.Single
 import java.util.*
@@ -26,37 +25,35 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
     var bind: FragmentMineBinding? = null
 
+    var auth = ""
 
     fun getMine(): Single<String> {
         val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"
-        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
-            override fun onSuccess(response: String) {
-                val model = Gson().fromJson(response, MineModel::class.java)
-
+        return retrofit.getData(json).async()
+            .doOnSuccess {
+                val model = Gson().fromJson(it, MineModel::class.java)
                 bind?.let {
                     it.model = model
                     it.pbReputation.progress = (model.credit.toDouble() * 100).toInt()
                     it.pbFeel.progress = (model.polite.toDouble() * 100).toInt()
 
                     if (model.identity == "1") {
-                        it.tvState.text="单身"
+                        it.tvState.text = "单身"
                     } else if (model.identity == "2") {
-                        it.tvState.text="约会"
+                        it.tvState.text = "约会"
                     } else if (model.identity == "3") {
-                        it.tvState.text="牵手"
+                        it.tvState.text = "牵手"
                     }
-
+                    StaticUtil.headerUrl = model.icon
+                    SharedPreferencesUtil.putSharePre(fragment!!.activity, "userIcon", model.icon)
                     MyApplication.setRedNum(it.tvMsgNum1, model.xiaoqi.toInt())
                     MyApplication.setRedNum(it.tvMsgNum2, model.interact.toInt())
                 }
 
-
                 StaticUtil.headerUrl = model.icon
                 StaticUtil.nickName = model.nickname
-                StaticUtil.age=model.age
-
+                StaticUtil.age = model.age
             }
-        }, fragment?.activity))
     }
 
 

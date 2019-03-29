@@ -42,8 +42,7 @@ class WalletActivity : BaseActivity<ActivityWalletBinding, WalletViewModel>(), V
         viewModel?.let {
             it.bind = binding
 
-            it.getBannel().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-            it.getPermission().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+
         }
 
         tv_recharge.setOnClickListener(this)
@@ -53,6 +52,13 @@ class WalletActivity : BaseActivity<ActivityWalletBinding, WalletViewModel>(), V
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel?.let {
+            it.getBannel().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.getPermission().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+        }
+    }
 
     override fun onClick(v: View?) {
         when (v?.id) {

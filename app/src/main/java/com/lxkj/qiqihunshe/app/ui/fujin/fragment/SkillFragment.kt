@@ -16,7 +16,9 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.exception.bindLifeCycle
 import com.lxkj.qiqihunshe.app.service.CallKitService
+import com.lxkj.qiqihunshe.app.ui.dialog.DaShangAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.dialog.VoiceTipDialog
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.SkillViewModel
@@ -24,10 +26,10 @@ import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.FragmentSkillBinding
 import io.rong.callkit.RongCallKit
-import kotlinx.android.synthetic.main.activity_recharge.*
 import kotlinx.android.synthetic.main.fragment_skill.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+
 
 /**
  * Created by Slingge on 2019/3/2
@@ -48,15 +50,19 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
 
 
     override fun init() {
-
         model = arguments?.getSerializable("model") as DataListModel
-        viewModel?.model = model
 
+        GlideUtil.glideLoad(context, model?.icon, iv_header)
 
         //视频封面图
         GlideUtil.glideLoad(context, model?.image, jc_video?.thumbImageView)
-        //用户头像
-        GlideUtil.glideLoad(context, model?.icon, iv_header)
+
+        viewModel?.let {
+            it.model = model
+            it.love=model?.love!!
+            it.returnBitMap(model?.image!!)
+        }
+
         tv_playnum?.text = "播放量：" + model?.count
         tv_time.text = model?.adtime
         tv_name.text = model?.title
@@ -79,10 +85,14 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         iv_dashang.setOnClickListener(this)
         iv_send.setOnClickListener(this)
 
+        iv_fllow.setOnClickListener(this)
+        ic_jubao.setOnClickListener(this)
+        iv_header.setOnClickListener(this)
+
         viewModel?.let {
             it.bind = binding
             it.initViewModel()
-            it.getBannel().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+
         }
 
     }
@@ -90,11 +100,33 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
 
     override fun loadData() {
         EventBus.getDefault().register(this)
+
+        viewModel!!.getBannel().bindLifeCycle(this).subscribe({
+            jc_video.setUp(
+                model?.videoUrl,
+                "", JzvdStd.SCREEN_WINDOW_NORMAL
+            )
+            jc_video.startVideo()
+            viewModel?.playCaiyi()
+        }, { toastFailure(it) })
     }
 
 
     override fun onClick(v: View?) {
         when (v!!.id) {
+            R.id.iv_header -> {
+
+            }
+            R.id.ic_jubao -> {
+                ReportDialog1.getReportList(activity!!, "4", object : ReportDialog1.ReportCallBack {
+                    override fun report(report: String) {
+                        viewModel!!.juBao(report).bindLifeCycle(this@SkillFragment).subscribe({}, { toastFailure(it) })
+                    }
+                })
+            }
+            R.id.iv_fllow -> {//我喜欢的
+                viewModel?.floow()!!.bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            }
             R.id.iv_voice -> {
                 viewModel?.type = 1
                 VoiceTipDialog.show(activity!!, model!!.userName, "语音", model!!.voice)
@@ -106,6 +138,7 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
             R.id.iv_dashang -> {
                 DaShangDialog.show(activity!!, object : DaShangDialog.DaShangCallBack {
                     override fun dashang(money: String) {
+
                         viewModel!!.dashang(money).bindLifeCycle(this@SkillFragment).subscribe({}, { toastFailure(it) })
                     }
                 })
@@ -119,20 +152,6 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         }
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        jc_video.setUp(
-            model?.videoUrl,
-            "", JzvdStd.SCREEN_WINDOW_NORMAL
-        )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        jc_video.startVideo()
-        viewModel?.playCaiyi()
-    }
 
     @Subscribe
     fun onEvent(next: String) {
@@ -166,6 +185,14 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
                     )
                 }
             }
+        }
+    }
+
+    //打赏成功
+    @Subscribe
+    fun onEvent(model: EventCmdModel) {
+        if (model.cmd == "SkillFragment" && model.res == "dashang") {
+            DaShangAfterDialog.show(activity!!)
         }
     }
 
@@ -204,18 +231,20 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         Jzvd.releaseAllVideos()
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
         VoiceTipDialog.diss()
+        DaShangDialog.diss()
+        DaShangAfterDialog.diss()
         activity!!.stopService(intent)
     }
 
     override fun onBGARefreshLayoutBeginLoadingMore(refreshLayout: BGARefreshLayout?): Boolean {
-        if (viewModel!!.page >= viewModel!!.totalPage) {
-            return false
+        if (viewModel!!.page <= viewModel!!.totalPage) {
+            viewModel?.getCaiyiCommentList()
         }
-        viewModel?.getCaiyiCommentList()
         return true
     }
 

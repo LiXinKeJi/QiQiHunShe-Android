@@ -4,7 +4,6 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SpaceDynamicViewModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.SpaceInvitationViewModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
@@ -46,6 +45,9 @@ class SpaceInvitationFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceI
 
     @Subscribe
     fun onEvent(model: EventCmdModel) {
+        if (!isViewInitiated) {
+            return
+        }
         if (model.cmd == "add") {
             viewModel?.let {
                 it.page = 1

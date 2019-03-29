@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitUtil {
 
-
+    //如果修改了服务器地址，PerfectInfoActivitiy 的viewmode里截取拼接头像地址截取位置要改变
     val url = "http://47.103.41.198/"
 
-    val upLoad =url+ "api/uploadFile"
+    val upLoad = url + "api/uploadFile"
 
 
     fun getClient(): OkHttpClient {

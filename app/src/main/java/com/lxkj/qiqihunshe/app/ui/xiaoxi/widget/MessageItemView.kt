@@ -5,8 +5,12 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.FindUserRelationshipModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.MessageModel
+import com.lxkj.qiqihunshe.app.util.GlideUtil
 import kotlinx.android.synthetic.main.item_message.view.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Slingge on 2019/2/21
@@ -23,33 +27,32 @@ class MessageItemView : RelativeLayout {
         View.inflate(context, R.layout.item_message, this)
     }
 
-    fun setData(bean: MessageModel) {
-        if (bean.system == "0") {
-            tv_sysNum.visibility = View.VISIBLE
+    fun setData(bean: FindUserRelationshipModel.dataModel, position: Int) {
 
-            tv_msgNum.visibility = View.GONE
-            tv_type.visibility = View.GONE
-            tv_time.visibility = View.GONE
-            MyApplication.setRedNum(tv_sysNum, 10)
+        GlideUtil.glideHeaderLoad(context, bean.icon, header)
 
-            tv_title.text = bean.title
-            if (bean.title == "互动通知") {
-                header.setImageResource(R.drawable.ic_tip1)
-            } else if (bean.title == "小七提醒") {
-                header.setImageResource(R.drawable.ic_tip2)
-            }
+        tv_title.text = bean.nickname
 
-        } else {
-            MyApplication.setRedNum(tv_msgNum, 20)
+        tv_age.visibility = View.INVISIBLE
+
+        when (bean.relationship) {// 0:临时，1:相识，2:约会,3:牵手,4:拉黑
+            "0" -> tv_type.text = "临时消息"
+            "1" -> tv_type.text = "相识"
+            "2" -> tv_type.text = "约会"
+            "3" -> tv_type.text = "牵手"
         }
 
-        if (bean.flag == "1") {//可以解除关系
-            tv_msgNum.visibility = View.GONE
-            tv_type.visibility = View.GONE
-            tv_time.visibility = View.GONE
-            tv_sysNum.visibility = View.GONE
+        if (bean.yuejian == "1") {
+            tv_type.text = "约见中"
+        } else {
+            tv_type.text = ""
+        }
 
-            tv_relieve.visibility = View.VISIBLE
+
+        btnDelete.setOnClickListener {
+            val model = EventCmdModel("DelMsg", position.toString())
+            model.lat = bean.userId
+            EventBus.getDefault().post(model)
         }
 
     }

@@ -4,19 +4,20 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ColorSpace
 import android.os.Environment
 import android.os.Handler
 import android.os.Message
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
+import com.baidu.mapapi.search.core.PoiInfo
 import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
-import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseSkillModel
+import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseSkillViewModel
 import com.lxkj.qiqihunshe.app.util.FileUtil
 import com.lxkj.qiqihunshe.app.util.ImageUtil
@@ -60,6 +61,9 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
             R.id.iv_video -> {
                 SelectPictureUtil.selectVodeoPicture(this, 1, 0)
             }
+            R.id.tv_address -> {
+                MyApplication.openActivityForResult(this, ChooseAddressActivity::class.java, 1)
+            }
             R.id.tv_send -> {
                 viewModel?.let {
                     if (TextUtils.isEmpty(it.title.get())) {
@@ -78,9 +82,10 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
                         ToastUtil.showTopSnackBar(this, "请选择/拍摄视频内容")
                         return
                     }
-
-                    it.model.location = "楼下"
-
+                    if (TextUtils.isEmpty(it.model.location)) {
+                        ToastUtil.showTopSnackBar(this, "请选择当前位置")
+                        return
+                    }
                     it.releaseSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
@@ -123,13 +128,21 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
                     )
                     || videoPath.endsWith(".3GP") || videoPath.endsWith(".wmv")
                 ) {
-
                     viewModel?.upVideo(videoPath)
                     Thread(Runnable {
                         PreviewingBitmap = ImageUtil.getVideoThumbnail(this, videoPath)
                         handler.sendEmptyMessage(1)
                     }).start()
                 }
+            }
+        }
+        if (requestCode == 1) {
+            var poi = data.getParcelableExtra("poi") as PoiInfo
+            if (null != poi) {
+                binding.model?.lat = poi.location.latitude.toString()
+                binding.model?.lon = poi.location.latitude.toString()
+                binding.model?.location = poi.name
+                tv_address.text = poi.name
             }
         }
     }

@@ -9,7 +9,9 @@ import android.view.animation.LinearInterpolator
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.MatchingViewModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityMatchingBinding
 import kotlinx.android.synthetic.main.activity_matching.*
 
@@ -32,34 +34,33 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
         anim?.interpolator = LinearInterpolator()//保持匀速
         anim?.duration = 3000//动画持续时间
         anim?.repeatCount = ValueAnimator.INFINITE//循环
-//                anim.setRepeatMode(ValueAnimator.REVERSE);//逆向开始
-//                anim.addListener(this);
         anim?.start()
         tv_match.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt("flag", intent.getIntExtra("flag", -1))
             MyApplication.openActivity(this, MatchingHistoryActivity::class.java, bundle)
-
-            /*if (anim!!.isPaused) {
-                anim!!.resume()
-
-            } else {
-                anim!!.pause()
-            }*/
         }
 
+        viewModel?.let {
+            binding.viewmodel=it
+        }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         val flag = intent!!.getIntExtra("flag", -1)
+        viewModel!!.headerUrl.set(StaticUtil.headerUrl)
         when (flag) {
             0 -> {
                 viewModel?.type = "1"
-                viewModel?.randomUser()
+                viewModel!!.randomUser().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
             1 -> {
                 viewModel?.type = "2"
-                viewModel?.randomUser()
+                viewModel!!.randomUser().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
         }
-
     }
 
 

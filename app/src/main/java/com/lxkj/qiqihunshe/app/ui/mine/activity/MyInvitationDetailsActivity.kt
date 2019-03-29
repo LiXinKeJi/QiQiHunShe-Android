@@ -41,9 +41,7 @@ class MyInvitationDetailsActivity :
         tv_right.visibility = View.VISIBLE
         tv_right.text = "删除"
         tv_right.setOnClickListener {
-            EventBus.getDefault()
-                .post(EventCmdModel(EventBusCmd.DelInvitation, intent.getIntExtra("position", -1).toString()))
-            finish()
+            viewModel!!.DelInvitation().bindLifeCycle(this).subscribe({},{toastFailure(it)})
         }
     }
 

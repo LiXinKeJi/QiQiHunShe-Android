@@ -5,9 +5,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.baidu.mapapi.search.core.PoiInfo
-import com.leon.lfilepickerlibrary.utils.Constant
+import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
@@ -22,6 +21,7 @@ import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.ChatViewModel
 import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
 import kotlinx.android.synthetic.main.activity_chat_details.*
@@ -55,6 +55,13 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
             it.title = uri.getQueryParameter("title")
             it.targetId = uri.getQueryParameter("targetId")
             initTitle(it.title)
+
+            if(it.targetId =="客服id"){
+                iv_yuejian.visibility=View.GONE
+                tv_right.visibility=View.GONE
+                iv_jubao.visibility=View.GONE
+                tv_tip0.visibility=View.GONE
+            }
         }
     }
 
@@ -76,10 +83,12 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 MyApplication.openActivity(this, PersonalInfoActivity::class.java, bundle)
             }
             R.id.iv_jubao -> {
-                if (viewModel!!.JuBaoList.isEmpty()) {
-                    viewModel!!.getJuBaoConten().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-                } else {
-                    ReportDialog2.show(this, viewModel!!.JuBaoList)
+                viewModel?.let {
+                    if (it.JuBaoList.isEmpty()) {
+                        it.getJuBaoConten().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                    } else {
+                        it.showReportDialog()
+                    }
                 }
             }
         }
@@ -97,7 +106,9 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 viewModel?.sendMessage3()
             }
             "3" -> {//选择约见地点
-                MyApplication.openActivityForResult(this, ChooseAddressActivity::class.java, 1)
+                val bundle = Bundle()
+                bundle.putInt("flag", 0)
+                MyApplication.openActivityForResult(this, DdtjActivity::class.java, bundle, 1)
             }
             "4" -> {//拒绝定位
                 viewModel?.sendMessage2("6")
@@ -193,8 +204,14 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
             return
         }
         if (requestCode == 0) {//举报选择的图片截图
-            val list = data.getStringArrayListExtra(Constant.RESULT_INFO)//文件路径
-            Toast.makeText(applicationContext, "选中的路径为" + list[0], Toast.LENGTH_SHORT).show()
+            viewModel?.let {
+                if (it.jubaoFilePath.isNotEmpty()) {
+                    it.jubaoFilePath.clear()
+                }
+                for (info in PictureSelector.obtainMultipleResult(data)) {
+                    it.jubaoFilePath.add(info.path) //文件路径
+                }
+            }
         } else if (requestCode == 1) {//选择约见地址
             ToastUtil.showTopSnackBar(this, "选择约见时间")
             viewModel?.let {

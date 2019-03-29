@@ -21,6 +21,7 @@ class ModifyPassActivity : BaseActivity<ActivityModifyPassBinding, ModifyPassVie
 
     override fun getLayoutId() = R.layout.activity_modify_pass
 
+
     override fun init() {
         initTitle("修改密码")
 
@@ -30,18 +31,35 @@ class ModifyPassActivity : BaseActivity<ActivityModifyPassBinding, ModifyPassVie
             it.flag = intent.getIntExtra("flag", 0)
             it.phone = intent.getStringExtra("phone")
             it.code = intent.getStringExtra("code")
+            it.init()
         }
 
         tv_enter.setOnClickListener {
             viewModel?.let {
                 it.model.noify()
-                if (TextUtils.isEmpty(it.model.oldPass)) {
-                    ToastUtil.showTopSnackBar(this, "请输入当前密码")
-                    return@setOnClickListener
-                }
-                if (TextUtils.isEmpty(it.model.newPass)) {
-                    ToastUtil.showTopSnackBar(this, "请输入新密码")
-                    return@setOnClickListener
+                if (it.flag == 1) {
+                    if (TextUtils.isEmpty(it.model.oldPass)) {
+                        ToastUtil.showTopSnackBar(this, "请输入新密码")
+                        return@setOnClickListener
+                    }
+                    if (TextUtils.isEmpty(it.model.newPass)) {
+                        ToastUtil.showTopSnackBar(this, "请确认新密码")
+                        return@setOnClickListener
+                    }
+
+                    if (it.model.newPass != it.model.oldPass) {
+                        ToastUtil.showTopSnackBar(this, "密码不一致")
+                        return@setOnClickListener
+                    }
+                } else {
+                    if (TextUtils.isEmpty(it.model.oldPass)) {
+                        ToastUtil.showTopSnackBar(this, "请输入当前密码")
+                        return@setOnClickListener
+                    }
+                    if (TextUtils.isEmpty(it.model.newPass)) {
+                        ToastUtil.showTopSnackBar(this, "请输入新密码")
+                        return@setOnClickListener
+                    }
                 }
                 viewModel!!.modify().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }

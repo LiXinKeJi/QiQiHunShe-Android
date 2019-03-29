@@ -7,11 +7,12 @@ import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
-import com.lxkj.qiqihunshe.app.ui.fujin.fragment.SkillFragment
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.activity.MySkillDetailsActiivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.SeenSkillAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.SeenSkillModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import io.reactivex.Single
 
@@ -21,7 +22,7 @@ import io.reactivex.Single
 class SeenSkillViewModel : BaseViewModel() {
 
 
-      val adapter by lazy { SeenSkillAdapter() }
+    val adapter by lazy { SeenSkillAdapter() }
 
     var page = 1
     var totalPage = 1
@@ -35,14 +36,15 @@ class SeenSkillViewModel : BaseViewModel() {
         adapter.setMyListener { itemBean, position ->
             val bundle = Bundle()
             bundle.putString("id", itemBean.caiyiId)
-            MyApplication.openActivity(activity, MySkillDetailsActiivity::class.java::class.java, bundle)
+            MyApplication.openActivity(activity, MySkillDetailsActiivity::class.java, bundle)
         }
     }
 
 
     fun getSeenSkill(): Single<String> {
         val json = "{\"cmd\":\"caiyiShowList\",\"uid\":\"" + StaticUtil.uid + "\",\"page\":\"" + page + "\"}"
-        return retrofit.getData(json).compose(SingleCompose.compose(object : SingleObserverInterface {
+        abLog.e("我看过的才艺", json)
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, SeenSkillModel::class.java)
                 if (page == 1) {
