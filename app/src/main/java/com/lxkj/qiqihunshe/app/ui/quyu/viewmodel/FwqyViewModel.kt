@@ -1,9 +1,14 @@
 package com.lxkj.qiqihunshe.app.ui.quyu.viewmodel
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
@@ -43,47 +48,105 @@ class FwqyViewModel : BaseViewModel() {
         val point = LatLng(data.lat.toDouble(), data.lon.toDouble())
         val image = LayoutInflater.from(activity).inflate(R.layout.layout_imageview, null)
         GlideUtil.glideHeaderLoad(activity, data?.logo, image?.ivHead)
-        //构建Marker图标
-        val des = BitmapDescriptorFactory.fromView(image)
-        //构建MarkerOption，用于在地图上添加Marker
-        val option = MarkerOptions()
-            .position(point)
-            .icon(des)
-        //在地图上添加Marker，并显示
-        var mMapView = bind?.bmapView?.map
-        val marker = mMapView?.addOverlay(option) as Marker
 
-        //构造CircleOptions对象
-        val mCircleOptions = CircleOptions().center(point)
-            .radius(10000)//单位米
-            .fillColor(R.color.map_round) //填充颜色
-        //在地图上显示圆
-        mMapView.addOverlay(mCircleOptions)
+        Glide.with(activity!!)
+            .asBitmap()
+            .load(data?.logo)
+            .into(object : SimpleTarget<Bitmap>() {
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    val image = LayoutInflater.from(activity).inflate(R.layout.layout_imageview, null)
+                    //构建Marker图标
+                    val des = BitmapDescriptorFactory.fromView(image)
+                    //构建MarkerOption，用于在地图上添加Marker
+                    val option = MarkerOptions()
+                        .position(point)
+                        .icon(des)
+                    //在地图上添加Marker，并显示
+                    var mMapView = bind?.bmapView?.map
+                    val marker = mMapView?.addOverlay(option) as Marker
+
+                    //构造CircleOptions对象
+                    val mCircleOptions = CircleOptions().center(point)
+                        .radius(10000)//单位米
+                        .fillColor(0x3315acf5) //填充颜色
+                    //在地图上显示圆
+                    mMapView.addOverlay(mCircleOptions)
 
 
 
-        mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
-            override fun onMarkerClick(p0: Marker?): Boolean {
-                if (p0 == marker) {
-                    val view =
-                        LayoutInflater.from(activity)
-                            .inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_qy, null)
-                    view?.tvAddress?.text = "地址：" + data?.address
-                    view?.tvPhone?.text = "电话：" + data?.phone
-                    view?.tvDistance?.text = "距离：" + DisplayUtil.distanceFormat(data?.distance.toDouble())
+                    mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
+                        override fun onMarkerClick(p0: Marker?): Boolean {
+                            if (p0 == marker) {
+                                val view =
+                                    LayoutInflater.from(activity)
+                                        .inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_qy, null)
+                                view?.tvAddress?.text = "地址：" + data?.address
+                                view?.tvPhone?.text = "电话：" + data?.phone
+                                view?.tvDistance?.text = "距离：" + DisplayUtil.distanceFormat(data?.distance.toDouble())
 
-                    view.tvNavigation.setOnClickListener(object : View.OnClickListener {
-                        override fun onClick(p0: View?) {
-                            var mapNavigationUtil = MapNavigationUtil(activity)
-                            mapNavigationUtil?.goToBaiduMap(data.lat, data.lon, data.address)
+                                view.tvNavigation.setOnClickListener(object : View.OnClickListener {
+                                    override fun onClick(p0: View?) {
+                                        var mapNavigationUtil = MapNavigationUtil(activity)
+                                        mapNavigationUtil?.goToBaiduMap(data.lat, data.lon, data.address)
+                                    }
+                                })
+                                val mInfoWindow = InfoWindow(view, point, -100)
+                                //使InfoWindow生效
+                                mMapView.showInfoWindow(mInfoWindow)
+                            }
+                            return true
                         }
                     })
-                    val mInfoWindow = InfoWindow(view, point, -100)
-                    //使InfoWindow生效
-                    mMapView.showInfoWindow(mInfoWindow)
                 }
-                return true
-            }
-        })
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    val image = LayoutInflater.from(activity).inflate(R.layout.layout_imageview, null)
+                    image.ivHead.setImageBitmap(resource)
+                    //构建Marker图标
+                    val des = BitmapDescriptorFactory.fromView(image)
+                    //构建MarkerOption，用于在地图上添加Marker
+                    val option = MarkerOptions()
+                        .position(point)
+                        .icon(des)
+                    //在地图上添加Marker，并显示
+                    var mMapView = bind?.bmapView?.map
+                    val marker = mMapView?.addOverlay(option) as Marker
+
+                    //构造CircleOptions对象
+                    val mCircleOptions = CircleOptions().center(point)
+                        .radius(10000)//单位米
+                        .fillColor(0x3315acf5) //填充颜色
+                    //在地图上显示圆
+                    mMapView.addOverlay(mCircleOptions)
+
+
+
+                    mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
+                        override fun onMarkerClick(p0: Marker?): Boolean {
+                            if (p0 == marker) {
+                                val view =
+                                    LayoutInflater.from(activity)
+                                        .inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_qy, null)
+                                view?.tvAddress?.text = "地址：" + data?.address
+                                view?.tvPhone?.text = "电话：" + data?.phone
+                                view?.tvDistance?.text = "距离：" + DisplayUtil.distanceFormat(data?.distance.toDouble())
+
+                                view.tvNavigation.setOnClickListener(object : View.OnClickListener {
+                                    override fun onClick(p0: View?) {
+                                        var mapNavigationUtil = MapNavigationUtil(activity)
+                                        mapNavigationUtil?.goToBaiduMap(data.lat, data.lon, data.address)
+                                    }
+                                })
+                                val mInfoWindow = InfoWindow(view, point, -100)
+                                //使InfoWindow生效
+                                mMapView.showInfoWindow(mInfoWindow)
+                            }
+                            return true
+                        }
+                    })
+                }
+            })
+
+
+
     }
 }

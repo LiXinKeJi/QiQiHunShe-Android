@@ -59,13 +59,8 @@ class AffectiveMarriageFragment : BaseFragment<ActivityRecyvlerviewBinding, Affe
 
     @Subscribe
     fun onEvent(model: EventCmdModel) {
-        if (model.cmd == "add") {
-            viewModel?.let {
-                it.page = 1
-                it.getYaoyue().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-            }
-        } else if (model.cmd == EventBusCmd.JuBao) {//举报
-            ReportDialog1.show(activity!!, object : ReportDialog1.ReportCallBack {
+        if (model.cmd == EventBusCmd.JuBao) {//举报
+            ReportDialog1.getReportList(activity!!, "3",object : ReportDialog1.ReportCallBack {
                 override fun report(report: String) {
                     viewModel!!.jubao(report, model.res.toInt()).bindLifeCycle(this@AffectiveMarriageFragment)
                         .subscribe({}, { toastFailure(it) })

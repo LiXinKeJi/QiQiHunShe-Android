@@ -8,8 +8,8 @@ android {
     //MVVM模式数据绑定
     dataBinding {
         enabled = true
+        compileSdkVersion 28
     }
-    compileSdkVersion 28
     defaultConfig {
         applicationId "com.lxkj.qiqihunshe"
         minSdkVersion 16
@@ -20,15 +20,18 @@ android {
         multiDexEnabled true
         ndk {
             //设置支持的so库架构
-                abiFilters "armeabi-v7a", "x86"
+            abiFilters "armeabi-v7a", "x86"
         }
+    }
+    buildscript {
+
+
     }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
-
     signingConfigs {
         release {
             keyAlias 'qqhs'
@@ -43,7 +46,6 @@ android {
             storePassword '123456'
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -53,6 +55,7 @@ android {
     buildToolsVersion '28.0.3'
     productFlavors {
     }
+    compileSdkVersion 28
 }
 
 repositories {
@@ -66,6 +69,7 @@ allprojects {
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
+        maven{ url 'https://maven.aliyun.com/repository/google'}
     }
 }
 
@@ -125,6 +129,9 @@ dependencies {
     //浏览图片
     implementation 'com.github.SherlockGougou:BigImageViewPager:v4_2.1.4'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
+
+    //毛玻璃效果
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.8.0'
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -159,9 +166,6 @@ dependencies {
     implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
 
     //刷新加载
-    implementation 'com.jcodecraeer:xrecyclerview:1.5.9'
-
-    //刷新加载
     implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
     implementation 'com.jakewharton:butterknife:8.4.0'
 
@@ -177,5 +181,6 @@ dependencies {
     implementation project(':IMLib')
     implementation project(':RCSticker')
     implementation project(':Sight')
-    implementation project(':lfilepickerlibrary')
+    implementation project(':xrecyclerview')
+    implementation project(':emojiconlibrary')
 }

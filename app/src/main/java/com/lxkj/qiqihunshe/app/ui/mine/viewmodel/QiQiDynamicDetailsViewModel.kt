@@ -1,5 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
@@ -10,6 +12,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiDynamicDetailsModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityQiqiDynamicDetailsBinding
 import io.reactivex.Single
 
@@ -19,13 +22,13 @@ import io.reactivex.Single
 class QiQiDynamicDetailsViewModel : BaseViewModel() {
 
     var id = ""
-
     var bind: ActivityQiqiDynamicDetailsBinding? = null
 
     var model = QiQiDynamicDetailsModel()
 
     fun getDate(): Single<String> {
         val json = "{\"cmd\":\"activityDetail\",\"uid\":\"" + StaticUtil.uid + "\",\"activityId\":\"" + id + "\"}"
+        abLog.e("动态",json)
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
@@ -69,5 +72,14 @@ class QiQiDynamicDetailsViewModel : BaseViewModel() {
             }
         }, activity))
     }
+
+
+    fun toCallPhone() {
+        val intent = Intent(Intent.ACTION_DIAL)
+        val data = Uri.parse("tel:" + model.phone)
+        intent.data = data
+        activity!!.startActivity(intent)
+    }
+
 
 }

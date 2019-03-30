@@ -36,6 +36,8 @@ class SpaceSkillViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putString("image", itemBean.image)
             bundle.putString("video", itemBean.video)
+            bundle.putString("id", itemBean.caiyiId)
+            bundle.putInt("position", position)
             MyApplication.openActivityForResult(fragment!!.activity, MySkillActivity::class.java, bundle, 1)
         }
     }
@@ -70,7 +72,7 @@ class SpaceSkillViewModel : BaseViewModel() {
     //删除才艺
     fun DelSkill(position: Int): Single<String> {
         val json =
-            "{\"cmd\":\"delCaiyi\",\"uid\":\"" + StaticUtil.uid + "\",\"dongtaiId\":\"" + adapter.getList()[position].caiyiId + "\"}"
+            "{\"cmd\":\"delCaiyi\",\"uid\":\"" + StaticUtil.uid + "\",\"caiyiId\":\"" + adapter.getList()[position].caiyiId + "\"}"
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {

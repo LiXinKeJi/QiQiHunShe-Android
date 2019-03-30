@@ -1,14 +1,18 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.TextView
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.DynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -26,7 +30,7 @@ class PersonDynamicViewModel : BaseViewModel() {
 
     var userId = ""
 
-    val adapter by lazy { DynamicAdapter() }
+    lateinit var adapter: DynamicAdapter
 
     var bind: FragmentPersonDynamicBinding? = null
 
@@ -37,9 +41,8 @@ class PersonDynamicViewModel : BaseViewModel() {
     fun initViewModel() {
         bind!!.rvDynamic.layoutManager = LinearLayoutManager(fragment?.context)
 
+        adapter = DynamicAdapter(fragment!!.activity as Activity, ArrayList())
         bind!!.rvDynamic.adapter = adapter
-        adapter.activity = fragment!!.activity
-
 
         adapter.setMyListener { itemBean, position ->
             val bundle = Bundle()
@@ -49,11 +52,14 @@ class PersonDynamicViewModel : BaseViewModel() {
             MyApplication.openActivityForResult(fragment!!.activity, MyDynamicActivity::class.java, bundle, 0)
         }
 
+        adapter.setZanListener { position, tv ->
+            zan(position, tv)
+        }
     }
 
 
     fun getMyDynamic(): Single<String> {
-        val json = "{\"cmd\":\"dongtai\",\"uid\":\"" + StaticUtil.uid + "\",\"userId\":\"" + userId +
+        val json = "{\"cmd\":\"dongtai\",\"uid\":\"" + userId + "\",\"userId\":\"" + StaticUtil.uid +
                 "\",\"type\":\"" + "0" + "\",\"page\":\"" + page + "\"}"
         abLog.e("我的动态", json)
         return retrofit.getData(json)
@@ -61,7 +67,6 @@ class PersonDynamicViewModel : BaseViewModel() {
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, SpaceDynamicModel::class.java)
-
                     if (page == 1) {
                         totalpage = model.totalPage
                         if (model.totalPage == 1 || model.dataList.isEmpty()) {
@@ -80,29 +85,32 @@ class PersonDynamicViewModel : BaseViewModel() {
     }
 
 
-    fun zan(position: Int): Single<String> {
+    fun zan(position: Int, tv: TextView) {
         val json =
-            "{\"cmd\":\"zanDongtai\",\"dongtaiId\":\"${adapter.getList()[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\"}"
-
+            "{\"cmd\":\"zanDongtai\",\"dongtaiId\":\"${adapter.getAdapterList()[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\"}"
         abLog.e("json", json)
-        return retrofit.getData(json).async()
+        retrofit.getData(json).async()
             .doOnSubscribe {
-                if (adapter.getList()[position].zan == "0") {
-                    adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() + 1).toString()
-                    adapter.getList()[position].zan = "1"
+                var flag = -1//1加，0减
+                if (adapter.getAdapterList()[position].zan == "0") {// 0未点赞 1已点
+                    adapter.getAdapterList()[position].zanNum =
+                        (adapter.getAdapterList()[position].zanNum.toInt() + 1).toString()
+                    adapter.getAdapterList()[position].zan = "1"
+                    flag = 1
                 } else {
-                    adapter.getList()[position].zanNum = (adapter.getList()[position].zanNum.toInt() - 1).toString()
-                    adapter.getList()[position].zan = "0"
+                    adapter.getAdapterList()[position].zanNum =
+                        (adapter.getAdapterList()[position].zanNum.toInt() - 1).toString()
+                    adapter.getAdapterList()[position].zan = "0"
+                    flag = 0
                 }
-                adapter.notifyItemChanged(position, false)
-            }
-
+                adapter.upZan(adapter.getAdapterList()[position].zanNum, tv, flag)
+            }.bindLifeCycle(fragment!!).subscribe({}, { toastFailure(it) })
     }
 
 
     fun jubao(content: String, position: Int): Single<String> {
         val json =
-            "{\"cmd\":\"dongtaiReport\",\"dongtaiId\":\"${adapter.getList()[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"content\":\"${content}\"}"
+            "{\"cmd\":\"dongtaiReport\",\"dongtaiId\":\"${adapter.getAdapterList()[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"content\":\"${content}\"}"
         abLog.e("举报", json)
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
@@ -113,13 +121,21 @@ class PersonDynamicViewModel : BaseViewModel() {
 
     fun dashang(money: String, position: Int): Single<String> {
         val json =
-            "{\"cmd\":\"dongtaiTip\",\"dongtaiId\":\"${adapter.getList()[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"money\":\"${money}\"}"
+            "{\"cmd\":\"dongtaiTip\",\"dongtaiId\":\"${adapter.getAdapterList()[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"money\":\"${money}\"}"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val obj = JSONObject(response)
-                ToastUtil.showTopSnackBar(fragment!!.activity, obj.getString("orderId"))
+                val bundle = Bundle()
+                bundle.putDouble("money", money.toDouble())
+                bundle.putString("num", obj.getString("orderId"))
+                bundle.putInt("flag", 0)
+                MyApplication.openActivityForResult(fragment!!.activity, PayActivity::class.java, bundle, 0)
             }
         }, fragment!!.activity))
+    }
+
+    fun removeItem(position: Int) {
+        adapter.removeItem(position)
     }
 
 

@@ -39,7 +39,7 @@ class LookupConditionViewModel : BaseViewModel(), AddressPop.AddressCallBack, St
 
     private val planningList by lazy { ArrayList<String>() }//我的情感计划集合
 
-    private   var sex=""
+    private var sex = ""
 
 
     //flag 0我的家乡，1我的现居
@@ -63,18 +63,16 @@ class LookupConditionViewModel : BaseViewModel(), AddressPop.AddressCallBack, St
 
 
     //家乡
-    override fun position(position1: Int, position2: Int, position3: Int) {
+    override fun position(position1: Int, position2: Int) {
         when (flag) {
             0 -> {//我的家乡
                 model.birthplace = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName +
-                        cityList[position1].cities!![position2].counties!![position3].areaName
+                        cityList[position1].cities!![position2].areaName
                 bind?.tvHometown?.text = model.birthplace
             }
             1 -> {//我的现居
                 model.residence = cityList[position1].areaName +
-                        cityList[position1].cities!![position2].areaName +
-                        cityList[position1].cities!![position2].counties!![position3].areaName
+                        cityList[position1].cities!![position2].areaName
                 bind?.tvAddress?.text = model.residence
             }
         }
@@ -97,10 +95,10 @@ class LookupConditionViewModel : BaseViewModel(), AddressPop.AddressCallBack, St
                 model.sex = sexList[position1]
                 bind?.tvSex?.text = model.sex
 
-                if(model.sex=="男"){
-                    sex="1"
-                }else{
-                    sex="0"
+                if (model.sex == "男") {
+                    sex = "1"
+                } else {
+                    sex = "0"
                 }
                 model.sex = sex
             }
@@ -136,7 +134,7 @@ class LookupConditionViewModel : BaseViewModel(), AddressPop.AddressCallBack, St
 
 
     //get情感计划
-    fun getEmotionalPlanning( ) {
+    fun getEmotionalPlanning() {
         if (planningList.isEmpty()) {
             GetTagUtil(fragment?.activity!!, object : GetTagUtil.TagListCallback {
                 override fun TagList(tagList: ArrayList<String>) {

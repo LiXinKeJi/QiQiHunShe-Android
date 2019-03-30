@@ -1,32 +1,29 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.fujin.adapter.NearInvitationAdapter
-import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonInvitationDetailsActivity
-import com.lxkj.qiqihunshe.app.ui.mine.adapter.AboutMeAdapter
-import com.lxkj.qiqihunshe.app.ui.mine.adapter.PersonInvitationAdapter
-import com.lxkj.qiqihunshe.app.ui.mine.model.InvitationModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FragmentFujinInvitationBinding
+import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/2/26
  */
 class FuJinInvitationViewModel : BaseViewModel() {
+
+
     var typeId = ""
     var bind: FragmentFujinInvitationBinding? = null
 
@@ -57,13 +54,27 @@ class FuJinInvitationViewModel : BaseViewModel() {
                 getList()
             }
         })
-        adapter = NearInvitationAdapter(fragment?.context, list)
-        adapter?.setOnItemClickListener {
-            ToastUtil.showTopSnackBar(fragment, it.toString())
-        }
+        adapter = NearInvitationAdapter(fragment?.activity, list)
 
         bind?.xRecyclerView?.adapter = adapter
     }
+
+
+    //举报邀约
+    fun yaoyueReport(Report: String, position: Int): Single<String> {
+        val json =
+            "{\"cmd\":\"yaoyueReport\",\"uid\":\"" + StaticUtil.uid + "\",\"yaoyueId\":\"" + list[position].yaoyueId +
+                    "\",\"content\":\"" + Report + "\"}"
+        abLog.e("举报内容", json)
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    abLog.e("举报完成",response)
+                    ToastUtil.showTopSnackBar(activity, "举报成功")
+                }
+            }, fragment!!.activity))
+    }
+
 
     //获取列表
     fun getList() {

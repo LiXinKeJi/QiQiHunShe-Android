@@ -44,6 +44,7 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
         flag = intent.getIntExtra("flag", -1)
         viewModel?.let {
             binding.viewmodel = it
+            it.model.type=flag.toString()
             binding.model = it.model
             it.bind = binding
             it.initViewModel()
@@ -72,7 +73,7 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
                         return
                     }
 
-                    if (it.ablumList.isNotEmpty()) {
+                    if (it.ablumList.size>1) {
                         val fileList = ArrayList<String>()
                         for (i in 0 until it.ablumList.size - 1) {//移除最后一个添加占位的图片
                             fileList.add(it.ablumList[i].path)

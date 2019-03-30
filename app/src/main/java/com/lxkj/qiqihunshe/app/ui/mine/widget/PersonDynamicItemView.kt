@@ -2,18 +2,17 @@ package com.lxkj.qiqihunshe.app.ui.mine.widget
 
 import android.app.Activity
 import android.content.Context
+import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.RelativeLayout
+import cc.shinichi.library.bean.ImageInfo
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
 import com.lxkj.qiqihunshe.app.ui.mine.model.DynamicModel
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.ui.model.DelDynamicModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
-import com.lxkj.qiqihunshe.app.util.AbStrUtil
-import com.lxkj.qiqihunshe.app.util.EventBusCmd
-import com.lxkj.qiqihunshe.app.util.GlideUtil
-import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.*
 import kotlinx.android.synthetic.main.include_v.view.*
 import kotlinx.android.synthetic.main.item_person_dynamic.view.*
 import kotlinx.android.synthetic.main.layout_tell.view.*
@@ -26,6 +25,7 @@ class PersonDynamicItemView(activity: Activity, context: Context?) : RelativeLay
 
     private var activity: Activity? = null
 
+    private var bean: SpaceDynamicModel.dataModel? = null
 
     init {
         this.activity = activity
@@ -39,7 +39,7 @@ class PersonDynamicItemView(activity: Activity, context: Context?) : RelativeLay
     }
 
     fun setData(bean: SpaceDynamicModel.dataModel, position: Int) {
-
+        this.bean = bean
         tv_reward.setOnClickListener {
             DaShangDialog.show(activity!!, object : DaShangDialog.DaShangCallBack {
                 override fun dashang(money: String) {
@@ -53,7 +53,8 @@ class PersonDynamicItemView(activity: Activity, context: Context?) : RelativeLay
             tv_report.visibility = View.GONE
         }
 
-
+        tv_occupation.text = "职业：" + bean.job
+        tv_address.text="地址：${bean.location}"
 
         if (bean.zan == "0") {
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_nor, tv_zan, 5)
@@ -63,9 +64,11 @@ class PersonDynamicItemView(activity: Activity, context: Context?) : RelativeLay
         tv_age.text = bean.age
         if (bean.sex == "0") {//0女 1男
             tv_age.setBackgroundResource(R.drawable.bg_girl)
+            tv_age.setTextColor(context.resources.getColor(R.color.girl))
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl, tv_age, 3)
         } else {
             tv_age.setBackgroundResource(R.drawable.thems_bg35)
+            tv_age.setTextColor(context.resources.getColor(R.color.colorThemes))
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy, tv_age, 3)
         }
 
@@ -143,6 +146,28 @@ class PersonDynamicItemView(activity: Activity, context: Context?) : RelativeLay
             EventBus.getDefault().post(EventCmdModel(EventBusCmd.fenxaing, (position).toString()))
         }
 
+
+        iv_1.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(activity, bean.images, 0)
+        }
+        iv_2.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(activity, bean.images, 1)
+        }
+        iv_3.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(activity, bean.images, 2)
+        }
+
+    }
+
+    fun upZan(num: String, dongtaiId: String) {
+        if (bean?.dongtaiId == dongtaiId) {
+            if (bean?.zanNum!!.toInt() < num.toInt()) {
+                AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, tv_zan, 5)
+            } else {
+                AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_nor, tv_zan, 5)
+            }
+            tv_zan.text = num
+        }
     }
 
 

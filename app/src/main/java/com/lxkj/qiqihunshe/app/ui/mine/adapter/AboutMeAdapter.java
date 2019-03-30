@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
 import com.lxkj.qiqihunshe.app.util.AbStrUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
+import com.lxkj.qiqihunshe.app.util.abLog;
 
 import java.util.List;
 
@@ -21,7 +22,6 @@ import java.util.List;
  * Created by kxn on 2019/3/6 0006.
  */
 public class AboutMeAdapter extends RecyclerView.Adapter<AboutMeAdapter.ViewHolder> {
-
 
 
     private Context context;
@@ -47,7 +47,9 @@ public class AboutMeAdapter extends RecyclerView.Adapter<AboutMeAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.ivHeader);
+        abLog.INSTANCE.e("头像", list.get(position).getUserIcon());
+        GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getUserIcon(), holder.ivHeader);
+
         if (null != list.get(position).getAge())
             holder.tvAge.setText(list.get(position).getAge());
         else
@@ -74,19 +76,18 @@ public class AboutMeAdapter extends RecyclerView.Adapter<AboutMeAdapter.ViewHold
             holder.tvTime.setText(list.get(position).getTime());
 
 
-
         holder.tvAge.setText(list.get(position).getUserAge());
         if (null != list.get(position).getUserSex()) {
             switch (list.get(position).getUserSex()) {
                 case "0"://女
                     holder.tvAge.setBackgroundResource(R.drawable.bg_girl);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.girl));
-                    AbStrUtil.INSTANCE.setDrawableLeft(context,R.drawable.ic_girl,holder.tvAge,3);
+                    AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_girl, holder.tvAge, 3);
                     break;
                 case "1"://男
                     holder.tvAge.setBackgroundResource(R.drawable.thems_bg35);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                    AbStrUtil.INSTANCE.setDrawableLeft(context,R.drawable.ic_boy,holder.tvAge,3);
+                    AbStrUtil.INSTANCE.setDrawableLeft(context, R.drawable.ic_boy, holder.tvAge, 3);
                     break;
             }
         }

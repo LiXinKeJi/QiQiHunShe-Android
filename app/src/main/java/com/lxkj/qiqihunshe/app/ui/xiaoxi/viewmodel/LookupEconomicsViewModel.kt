@@ -1,13 +1,20 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
 import android.view.Gravity
+import android.view.View
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.GetTagUtil
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.dialog.StringSelectPop
+import com.lxkj.qiqihunshe.app.ui.mine.model.MyPermissionModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.ParamsModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.FragmentLookupEconomicsBinding
+import io.reactivex.Single
 
 /**
  * Created by Slingge on 2019/3/1
@@ -186,6 +193,16 @@ class LookupEconomicsViewModel : BaseViewModel(),
             SelectString = 3
             showStringWheel(planningList)
         }
+    }
+
+
+    fun getPermission(): Single<String> {
+        val json = "{\"cmd\":\"myPermission\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+
+            }
+        }, fragment!!.activity))
     }
 
 

@@ -4,24 +4,24 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ColorSpace
 import android.os.Environment
 import android.os.Handler
 import android.os.Message
 import android.text.TextUtils
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RelativeLayout
+import com.baidu.mapapi.search.core.PoiInfo
 import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
-import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseSkillModel
+import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseSkillViewModel
-import com.lxkj.qiqihunshe.app.util.FileUtil
-import com.lxkj.qiqihunshe.app.util.ImageUtil
-import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
-import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityReleaseSkillBinding
 import kotlinx.android.synthetic.main.activity_release_skill.*
 import java.text.SimpleDateFormat
@@ -38,11 +38,15 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
 
     override fun getLayoutId() = R.layout.activity_release_skill
 
+    lateinit var iv_video: ImageView
+    lateinit var et_content: EditText
 
     override fun init() {
         initTitle("发布才艺")
-
+        iv_video = findViewById(R.id.btn_send)
         iv_video.setOnClickListener(this)
+
+        et_content = findViewById(R.id.et_sendmessage)
 
         viewModel?.let {
             binding.model = it.model
@@ -57,8 +61,11 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.iv_video -> {
+            R.id.btn_send -> {
                 SelectPictureUtil.selectVodeoPicture(this, 1, 0)
+            }
+            R.id.tv_address -> {
+                MyApplication.openActivityForResult(this, ChooseAddressActivity::class.java, 1)
             }
             R.id.tv_send -> {
                 viewModel?.let {
@@ -67,6 +74,7 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
                         return
                     }
                     it.model.title = it.title.get()!!
+                    it.content.set(AbStrUtil.etTostr(et_content))
                     if (TextUtils.isEmpty(it.content.get())) {
                         ToastUtil.showTopSnackBar(this, "请输入内容")
                         return
@@ -78,9 +86,10 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
                         ToastUtil.showTopSnackBar(this, "请选择/拍摄视频内容")
                         return
                     }
-
-                    it.model.location = "楼下"
-
+                    if (TextUtils.isEmpty(it.model.location)) {
+                        ToastUtil.showTopSnackBar(this, "请选择当前位置")
+                        return
+                    }
                     it.releaseSkill().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
@@ -123,13 +132,21 @@ class ReleaseSkillActivity : BaseActivity<ActivityReleaseSkillBinding, ReleaseSk
                     )
                     || videoPath.endsWith(".3GP") || videoPath.endsWith(".wmv")
                 ) {
-
                     viewModel?.upVideo(videoPath)
                     Thread(Runnable {
                         PreviewingBitmap = ImageUtil.getVideoThumbnail(this, videoPath)
                         handler.sendEmptyMessage(1)
                     }).start()
                 }
+            }
+        }
+        if (requestCode == 1) {
+            var poi = data.getParcelableExtra("poi") as PoiInfo
+            if (null != poi) {
+                binding.model?.lat = poi.location.latitude.toString()
+                binding.model?.lon = poi.location.latitude.toString()
+                binding.model?.location = poi.name
+                tv_address.text = poi.name
             }
         }
     }

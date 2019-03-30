@@ -29,10 +29,9 @@ class AddressPop(context: Context?, private val cityList: List<CityModel>, var w
 
     private val list1 = ArrayList<String>()
     private val list2 = ArrayList<String>()
-    private val list3 = ArrayList<String>()
 
     interface AddressCallBack {
-        fun position(position1: Int, position2: Int, position3: Int)
+        fun position(position1: Int, position2: Int)
     }
 
 
@@ -43,7 +42,7 @@ class AddressPop(context: Context?, private val cityList: List<CityModel>, var w
         val loopview2 = v.findViewById<View>(R.id.loopView2) as LoopView
         loopview2.visibility = View.VISIBLE
         val loopview3 = v.findViewById<View>(R.id.loopView3) as LoopView
-        loopview3.visibility = View.VISIBLE
+        loopview3.visibility = View.GONE
 
         v.findViewById<TextView>(R.id.year).visibility = View.GONE
         v.findViewById<TextView>(R.id.month).visibility = View.GONE
@@ -63,45 +62,26 @@ class AddressPop(context: Context?, private val cityList: List<CityModel>, var w
         loopview2.setItems(list2)
         loopview2.setInitPosition(0)
 
-        loopview3.setNotLoop()
-        setloop3()
-        loopview3.setItems(list3)
-        loopview3.setInitPosition(0)
-        wheelViewCallBack.position(position, position2, position3)
 
         loopview.setListener { index ->
             position = index
-
             position2 = 0
             setloop2()
             loopview2.setItems(list2)
             loopview2.setInitPosition(position2)
 
-            position3 = 0
-            setloop3()
-            loopview3.setItems(list3)
-            loopview3.setInitPosition(position3)
-
-            wheelViewCallBack.position(position, 0, 0)
+            wheelViewCallBack.position(position, 0)
         }
         loopview2.setListener { index ->
             position2 = index
 
-            position3 = 0
-            setloop3()
-            loopview3.setItems(list3)
-            loopview3.setInitPosition(0)
+            wheelViewCallBack.position(position, position2)
+        }
 
-            wheelViewCallBack.position(position, position2, 0)
-        }
-        loopview3.setListener { index ->
-            position3 = index
-            wheelViewCallBack.position(position, position2, position3)
-        }
 
         val tv_enter = v.findViewById<View>(R.id.tv_enter) as TextView
         tv_enter.setOnClickListener { v1 ->
-            wheelViewCallBack.position(position, position2, position3)
+            wheelViewCallBack.position(position, position2)
             this@AddressPop.dismiss()
         }
 
@@ -137,10 +117,5 @@ class AddressPop(context: Context?, private val cityList: List<CityModel>, var w
         }
     }
 
-    private fun setloop3() {
-        list3.clear()
-        for (i in 0 until cityList[position].cities!![position2].counties!!.size) {
-            list3.add(cityList[position].cities!![position2].counties!![i].areaName!!)
-        }
-    }
+
 }

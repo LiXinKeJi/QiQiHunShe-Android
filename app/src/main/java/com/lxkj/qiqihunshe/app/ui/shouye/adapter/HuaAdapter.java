@@ -38,4 +38,5 @@ public class HuaAdapter extends BaseAdapter {
         GlideUtil.INSTANCE.glideLoad(context, list.get(position).getIcon(), image);
         return convertView;
     }
+
 }

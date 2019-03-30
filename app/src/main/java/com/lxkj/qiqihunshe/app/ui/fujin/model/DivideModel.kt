@@ -17,4 +17,5 @@ class DivideModel {
 
     var amount=""//总金额
     var money=""
+
 }

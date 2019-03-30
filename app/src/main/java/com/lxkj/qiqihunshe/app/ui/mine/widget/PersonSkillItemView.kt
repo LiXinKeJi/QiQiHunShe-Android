@@ -25,10 +25,7 @@ class PersonSkillItemView : RelativeLayout {
 
     fun setData(bean: SpaceSkillModel.dataModel, position: Int) {
 
-        GlideUtil.glideLoad(context, bean.image, iv_image)
 
-        tv_name.text = bean.title
-        tv_num.text = "播放量：${bean.count}"
     }
 
 

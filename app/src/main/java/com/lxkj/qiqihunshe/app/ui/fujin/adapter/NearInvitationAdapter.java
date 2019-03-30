@@ -24,7 +24,6 @@ import java.util.List;
 public class NearInvitationAdapter extends RecyclerView.Adapter<NearInvitationAdapter.ViewHolder> {
 
 
-
     private Context context;
     private List<DataListModel> list;
     private OnItemClickListener onItemClickListener;
@@ -195,11 +194,32 @@ public class NearInvitationAdapter extends RecyclerView.Adapter<NearInvitationAd
                 break;
         }
 
+
+        holder.iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.seePhotoonClick(position, 0);
+            }
+        });
+        holder.iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.seePhotoonClick(position, 1);
+            }
+        });
+        holder.iv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.seePhotoonClick(position, 2);
+            }
+        });
+
+
         if (null != list.get(position).getAdtime())
             holder.tvDate.setText(list.get(position).getAdtime());
 
 
-        holder.item.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (null != onItemClickListener)
@@ -207,6 +227,13 @@ public class NearInvitationAdapter extends RecyclerView.Adapter<NearInvitationAd
             }
         });
 
+
+        holder.tvReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.ReportonClick(position);
+            }
+        });
 
     }
 
@@ -217,10 +244,10 @@ public class NearInvitationAdapter extends RecyclerView.Adapter<NearInvitationAd
 
     public interface OnItemClickListener {
         void OnItemClick(int position);
-    }
 
-    public interface OnAgreeClickListener {
-        void OnAgreeClick(int position);
+        void ReportonClick(int position);
+
+        void seePhotoonClick(int position, int count);
     }
 
 

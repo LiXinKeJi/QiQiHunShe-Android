@@ -62,6 +62,9 @@ class SpaceDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, SpaceDyna
 
     @Subscribe
     fun onEvent(model: DelDynamicModel) {
+        if(!isViewInitiated){
+            return
+        }
         if (model.cmd == EventBusCmd.DelDynamic) {//删除动态
             viewModel!!.DelDynamuc(model.position).bindLifeCycle(this).subscribe({}, { it })
         }

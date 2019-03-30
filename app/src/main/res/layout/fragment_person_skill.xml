@@ -10,13 +10,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_dynamic"
-                android:nestedScrollingEnabled="false"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_height="wrap_content"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_dynamic"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content"/>
+
+            <include layout="@layout/item_loadmore"
+                     android:id="@+id/include"/>
+
+        </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

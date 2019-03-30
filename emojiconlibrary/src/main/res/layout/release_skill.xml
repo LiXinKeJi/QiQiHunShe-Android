@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zhanghuan.cn.emojiconlibrary.FaceRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 android:orientation="vertical"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="wrap_content">
+
+    <EditText
+            android:id="@+id/et_sendmessage"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:layout_marginBottom="5dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:hint="您的才艺内容..."
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="14sp"/>
+
+
+    <ImageView
+            android:id="@+id/btn_send"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/et_sendmessage"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_video"/>
+
+    <ImageView
+            android:id="@+id/btn_face"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@+id/et_sendmessage"
+            android:layout_toRightOf="@+id/btn_send"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerInside"
+            android:background="@drawable/message_bg2"
+            android:src="@drawable/ic_biaoqing"/>
+
+
+    <RelativeLayout
+            android:id="@+id/ll_facechoose"
+            android:layout_width="fill_parent"
+            android:layout_height="124dip"
+            android:layout_below="@id/btn_face"
+            android:background="#f6f5f5"
+            android:visibility="gone">
+
+        <android.support.v4.view.ViewPager
+                android:id="@+id/vp_contains"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <LinearLayout
+                android:id="@+id/iv_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dip"
+                android:gravity="center"
+                android:orientation="horizontal"/>
+    </RelativeLayout>
+
+
+</zhanghuan.cn.emojiconlibrary.FaceRelativeLayout>

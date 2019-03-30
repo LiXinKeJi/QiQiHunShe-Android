@@ -3,38 +3,36 @@ package com.lxkj.qiqihunshe.app.ui.entrance
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Paint
+import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
 import android.widget.RadioGroup
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
-import com.lxkj.qiqihunshe.app.customview.SwitchView
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.PerfectInfoViewModel
+import com.lxkj.qiqihunshe.app.ui.mine.activity.WebViewActivity
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityPerfectInfoBinding
 import kotlinx.android.synthetic.main.activity_perfect_info.*
-import kotlinx.android.synthetic.main.dialog_report1.*
 import kotlinx.android.synthetic.main.include_title.*
 import java.io.File
 
 
 /**
+ * 如果修改了服务器地址，viewmode里截取拼接头像地址截取位置要改变
  * Created by Slingge on 2019/2/19
  */
-class PerfectInfoActivitiy :
-    BaseActivity<ActivityPerfectInfoBinding, PerfectInfoViewModel>(), View.OnClickListener, UpLoadFileCallBack
-    , RadioGroup.OnCheckedChangeListener {
-
+class PerfectInfoActivitiy : BaseActivity<ActivityPerfectInfoBinding, PerfectInfoViewModel>(), View.OnClickListener,
+    UpLoadFileCallBack, RadioGroup.OnCheckedChangeListener {
 
     override fun getBaseViewModel() = PerfectInfoViewModel()
 
@@ -159,7 +157,10 @@ class PerfectInfoActivitiy :
                 viewModel?.showHeEdu()
             }
             R.id.tv_agree -> {//服务协议
-
+                val bundle = Bundle()
+                bundle.putInt("flag", 1)
+                bundle.putString("url", "")
+                MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
             }
             R.id.rl_header -> {
                 ImageList.clear()
@@ -169,7 +170,7 @@ class PerfectInfoActivitiy :
             }
             R.id.tv_right -> {
                 viewModel?.model?.noti()
-                if (ImageList.isEmpty()) {
+                if (ImageList.isEmpty() && TextUtils.isEmpty(viewModel?.model?.icons)) {
                     ToastUtil.showTopSnackBar(this, "请选择头像")
                     return
                 }
@@ -218,10 +219,10 @@ class PerfectInfoActivitiy :
                     ToastUtil.showTopSnackBar(this, "请输入职业")
                     return
                 }
-               /* if (TextUtils.isEmpty(viewModel?.model?.education)) {
-                    ToastUtil.showTopSnackBar(this, "请选择学历")
-                    return
-                }*/
+                /* if (TextUtils.isEmpty(viewModel?.model?.education)) {
+                     ToastUtil.showTopSnackBar(this, "请选择学历")
+                     return
+                 }*/
 
                 if (TextUtils.isEmpty(viewModel?.model?.marriage)) {
                     ToastUtil.showTopSnackBar(this, "请选择情感状态")
@@ -246,6 +247,7 @@ class PerfectInfoActivitiy :
                 }
 
                 if (sw_mate.isOpened) {
+                    viewModel?.model?.zeou = "1"
                     if (TextUtils.isEmpty(viewModel?.model?.type2)) {
                         ToastUtil.showTopSnackBar(this, "请选择择偶类型")
                         return
@@ -288,13 +290,21 @@ class PerfectInfoActivitiy :
                     }
                 }
 
-
-                ProgressDialogUtil.showProgressDialog(this)
-                val pathList = ArrayList<String>()
-                for (i in 0 until ImageList.size) {
-                    pathList.add(ImageList[i].path)
+                if (!rb_agree.isChecked) {
+                    ToastUtil.showTopSnackBar(this, "请选阅读并同意七七服务协议")
+                    return
                 }
-                upload.setListPath(pathList)
+
+                if (ImageList.isNotEmpty()) {
+                    ProgressDialogUtil.showProgressDialog(this)
+                    val pathList = ArrayList<String>()
+                    for (i in 0 until ImageList.size) {
+                        pathList.add(ImageList[i].path)
+                    }
+                    upload.setListPath(pathList)
+                } else {
+                    viewModel!!.saveData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
             }
         }
     }
@@ -370,13 +380,14 @@ class PerfectInfoActivitiy :
 
     override fun uoLoad(url: List<String>) {
         ProgressDialogUtil.dismissDialog()
-        abLog.e("上传图片完成", Gson().toJson(url))
+        abLog.e("上传图片完成", url.toString())
         val sb = StringBuffer()
         for (i in 0 until url.size) {
             sb.append(url[i] + "|")
         }
 
         viewModel!!.model.icons = sb.toString().substring(0, sb.toString().length - 1)
+        abLog.e("头像", viewModel!!.model.icons)
         viewModel!!.saveData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
     }
 

@@ -23,11 +23,15 @@
             <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="220dp">
-                <cn.bingoogolapple.bgabanner.BGABanner
-                        android:id="@+id/banner"
+                <com.youth.banner.Banner
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        style="@style/BannerDefaultStyle"/>
+                        android:layout_height="280dp"
+                        android:id="@+id/banner"
+                        android:background="@color/colorTheme"
+                        app:banner_layout="@layout/banner_custom_viewpager"
+                        app:is_auto_play="true"
+                        app:image_scale_type="center_crop"
+                />
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -54,7 +58,7 @@
                     android:id="@+id/nameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="店铺名称"
+                    android:text="@{model.shopName}"
                     android:padding="12dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -63,7 +67,7 @@
                     android:id="@+id/priceTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="人均价格：¥**起"
+                    android:text="@{`人均价格：￥`+model.price+ `起`}"
                     android:paddingLeft="12dp"
                     android:textColor="#ff333333"
                     android:textSize="12sp"
@@ -77,7 +81,8 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="地址："
+                        android:text="@{`地址：`+model.address}"
+                        android:gravity="center"
                         android:drawablePadding="5dp"
                         android:drawableLeft="@mipmap/ic_location_shop"
                         android:textColor="#ff333333"
@@ -115,11 +120,10 @@
                     android:textColor="#ff1a1a1a"
                     android:textSize="15sp"
             />
-            <com.lxkj.qiqihunshe.app.customview.NoScrollWebView
+            <com.lxkj.qiqihunshe.app.customview.MyWebView
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-            </com.lxkj.qiqihunshe.app.customview.NoScrollWebView>
+                    android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

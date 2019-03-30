@@ -4,6 +4,7 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.NewFirendActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.CommunicationViewModel
 import com.lxkj.qiqihunshe.databinding.FraCommunicationBinding
@@ -20,8 +21,12 @@ class CommunicationFragment : BaseFragment<FraCommunicationBinding, Communicatio
 
     override fun init() {
         include.visibility = View.GONE
-        viewModel?.bind = binding
-        viewModel?.init()
+        viewModel?.let {
+            it.bind = binding
+            it.newFriends().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.init()
+        }
+
         llNew.setOnClickListener {
             MyApplication.openActivity(context, NewFirendActivity::class.java)
         }

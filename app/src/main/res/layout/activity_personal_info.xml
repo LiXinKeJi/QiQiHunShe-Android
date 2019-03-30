@@ -51,6 +51,7 @@
                                                  app:image_scale_type="center_crop"
                         />
 
+
                         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                    android:id="@+id/iv_back"
                                    android:src="@drawable/ic_back_w"
@@ -78,6 +79,19 @@
                                   android:layout_marginTop="12dp"
                         />
 
+
+
+                        <com.lxkj.qiqihunshe.app.customview.MyJzvdStd
+                                android:layout_width="match_parent"
+                                android:layout_height="280dp"
+                                android:id="@+id/jz_video"
+                                android:visibility="invisible"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                        />
                         <TextView android:layout_width="wrap_content" android:layout_height="27dp"
                                   android:id="@+id/tv_vido"
                                   android:text="切换3秒视频"
@@ -91,7 +105,6 @@
                                   android:layout_marginTop="32dp"
                                   android:background="@drawable/bg_yello_left60"
                                   android:layout_marginRight="1dp"/>
-
 
                         <include layout="@layout/include_v"
                                  android:layout_marginLeft="15dp"
@@ -121,14 +134,15 @@
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tv_age"
                                   android:text="@{model.age}"
-                                  android:textColor="@color/white"
+                                  android:textSize="11sp"
+                                  android:textColor="@color/girl"
                                   android:background="@drawable/bg_girl"
                                   android:layout_toRightOf="@+id/tv_name"
                                   android:layout_alignBottom="@+id/tv_name"
                                   android:drawableLeft="@drawable/ic_girl"
-                                  android:drawablePadding="3dp"
-                                  android:paddingTop="2dp"
-                                  android:paddingBottom="2dp"
+                                  android:drawablePadding="5dp"
+                                  android:paddingTop="1dp"
+                                  android:paddingBottom="1dp"
                                   android:gravity="center"
                                   android:paddingLeft="8dp"
                                   android:paddingRight="8dp"/>
@@ -136,7 +150,6 @@
 
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tv_distance"
-                                  android:text="@{model.distance}"
                                   android:drawableLeft="@drawable/ic_address"
                                   android:layout_below="@+id/tv_name"
                                   android:drawablePadding="5dp"
@@ -193,9 +206,10 @@
                         />
 
                         <android.support.v7.widget.CardView
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                app:cardCornerRadius="60dp"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                app:cardCornerRadius="55dp"
+                                android:id="@+id/cv_fllow"
                                 app:cardElevation="2dp"
                                 android:layout_below="@+id/banner"
                                 android:layout_alignParentRight="true"
@@ -210,6 +224,8 @@
                                     android:drawablePadding="5dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/colorTabText"
                                     android:text="喜欢"
                             />
                         </android.support.v7.widget.CardView>
@@ -234,15 +250,22 @@
                     android:layout_height="wrap_content"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <android.support.design.widget.TabLayout
+                <com.lxkj.qiqihunshe.xtablayout.XTabLayout
                         android:id="@+id/tabs"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="44dp"
-                        app:tabGravity="fill"
-                        app:tabIndicatorColor="@color/black"
-                        app:tabSelectedTextColor="@color/black"
-                        app:tabTextAppearance="@style/TabLayoutTextStyle"
-                        app:tabTextColor="@color/colorTitle"/>
+                        app:xTabBackgroundColor="@color/gray"
+                        app:xTabDividerWidthWidthText="true"
+                        app:xTabMode="scrollable"
+                        app:xTabIndicatorColor="@color/black"
+                        app:xTabIndicatorHeight="2dp"
+                        app:xTabSelectedTextColor="@color/colorTabTexts"
+                        app:xTabTextColor="@color/colorTabText"
+                        app:xTabTextSize="15sp"
+                        app:xTabSelectedTextSize="20sp"
+                        app:xTabDividerWidth="0dp"
+                        app:xTabDividerHeight="0dp"
+                        app:xTabDividerColor="@color/colorTabTexts"/>
             </FrameLayout>
 
 

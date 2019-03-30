@@ -25,8 +25,8 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
 object DaShangDialog {
 
 
-    interface DaShangCallBack{
-        fun dashang(money:String)
+    interface DaShangCallBack {
+        fun dashang(money: String)
     }
 
     private var dialog: AlertDialog? = null
@@ -36,11 +36,9 @@ object DaShangDialog {
     private var et_money: EditText? = null
     private var radio: RadioGroup? = null
 
-    private val list by lazy { ArrayList<String>() }
+    private var money = "1"
 
-    private var money = ""
-
-    fun show(context: Activity,daShangCallBack: DaShangCallBack) {
+    fun show(context: Activity, daShangCallBack: DaShangCallBack) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -82,12 +80,16 @@ object DaShangDialog {
                 daShangCallBack.dashang(AbStrUtil.etTostr(et_money!!))
             } else {
                 if (TextUtils.isEmpty(money)) {
-                    ToastUtil.showTopSnackBar(context,"请选择或输入打赏金额")
+                    ToastUtil.showTopSnackBar(context, "请选择或输入打赏金额")
                     return@setOnClickListener
                 }
+
+                if (money.toDouble() == 0.0) {
+                    ToastUtil.showTopSnackBar(context, "打赏金额错误")
+                    return@setOnClickListener
+                }
+                daShangCallBack.dashang(money)
             }
-            daShangCallBack.dashang(money)
-//            DaShangAfterDialog.show(context)
             dialog?.dismiss()
         }
         iv_cancel?.setOnClickListener {
@@ -96,7 +98,8 @@ object DaShangDialog {
 
 
         dialog!!.window.clearFlags(
-            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+        )
 
 
         val dialogWindow = dialog!!.window

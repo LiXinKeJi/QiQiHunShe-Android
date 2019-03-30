@@ -9,4 +9,7 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 class AffectiveZoneViewModel:BaseViewModel(){
 
 
+
+
+
 }

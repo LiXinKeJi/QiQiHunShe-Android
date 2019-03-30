@@ -1,12 +1,11 @@
 package com.lxkj.qiqihunshe.app.ui.shouye.viewmodel
 
-import android.os.Bundle
+import android.annotation.SuppressLint
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
-import com.jcodecraeer.xrecyclerview.ProgressStyle
+import com.jcodecraeer.xrecyclerview.ProgressStyle.BallSpinFadeLoader
+import com.jcodecraeer.xrecyclerview.ProgressStyle.SquareSpin
 import com.jcodecraeer.xrecyclerview.XRecyclerView
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
@@ -15,8 +14,8 @@ import com.lxkj.qiqihunshe.app.ui.shouye.adapter.HistoryAdapter
 import com.lxkj.qiqihunshe.app.ui.shouye.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.shouye.model.ShouYeModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
-import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityMatchHistoryBinding
+import io.rong.imkit.RongIM
 
 /**
  * Created by Slingge on 2019/2/26
@@ -33,9 +32,11 @@ class MatchingHistoryViewModel : BaseViewModel() {
     var totalPage = 1
 
 
+    var flag = -1//2问题匹配
+
     fun init() {
-        bind?.xRecyclerView?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
-        bind?.xRecyclerView?.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin)
+        bind?.xRecyclerView?.setRefreshProgressStyle(BallSpinFadeLoader)
+        bind?.xRecyclerView?.setLoadingMoreProgressStyle(SquareSpin)
         bind?.xRecyclerView?.defaultRefreshHeaderView // get default refresh header view
             ?.setRefreshTimeVisible(true)
         bind?.xRecyclerView?.layoutManager = GridLayoutManager(fragment?.context, 1)
@@ -55,9 +56,10 @@ class MatchingHistoryViewModel : BaseViewModel() {
                 getPipeiLog()
             }
         })
-        adapter = HistoryAdapter(activity, list)
+
+        adapter = HistoryAdapter(activity, list,flag)
         adapter?.setOnItemClickListener {
-            ToastUtil.showTopSnackBar(activity,"聊一聊" + it)
+            RongIM.getInstance().startPrivateChat(activity, list[it].userId, list[it].nickname)
         }
 
         bind?.xRecyclerView?.adapter = adapter
@@ -67,6 +69,7 @@ class MatchingHistoryViewModel : BaseViewModel() {
 
 
     //获取消息列表
+    @SuppressLint("CheckResult")
     fun getPipeiLog() {
         var params = HashMap<String, String>()
         params["cmd"] = "pipeiLog"
@@ -81,9 +84,9 @@ class MatchingHistoryViewModel : BaseViewModel() {
                     totalPage = model.totalPage.toInt()
                     bind?.xRecyclerView?.refreshComplete()
                     bind?.xRecyclerView?.loadMoreComplete()
+
                     if (page == 1)
                         list.clear()
-
                     list.addAll(model.dataList)
                     adapter?.notifyDataSetChanged()
 

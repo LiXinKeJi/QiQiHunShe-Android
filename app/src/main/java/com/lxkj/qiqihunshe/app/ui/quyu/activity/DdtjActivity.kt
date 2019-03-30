@@ -1,23 +1,23 @@
 package com.lxkj.qiqihunshe.app.ui.quyu.activity
 
-import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
+import com.baidu.mapapi.search.core.PoiInfo
+import com.baidu.mapapi.utils.DistanceUtil
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.viewmodel.DdtjViewModel
-import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityDdtjBinding
 import kotlinx.android.synthetic.main.activity_ddtj.*
-import kotlinx.android.synthetic.main.layout_infowindow_fwqy.view.*
-import com.baidu.mapapi.map.Overlay
-import com.baidu.mapapi.map.CircleOptions
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.util.DoubleCalculationUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
 
 
 /**
@@ -35,9 +35,10 @@ class DdtjActivity : BaseActivity<ActivityDdtjBinding,DdtjViewModel>() {
 
     override fun init() {
         viewModel?.bind = binding
+        viewModel?.flag = intent.getIntExtra("flag", -1)
         initTitle("地点推荐")
-        lat = intent.getDoubleExtra("lat", 0.0).toString()
-        lng = intent.getDoubleExtra("lng", 0.0).toString()
+        lat = StaticUtil.lat
+        lng = StaticUtil.lng
 
         val ll = LatLng(lat.toDouble(), lng.toDouble())
         val builder = MapStatus.Builder()
@@ -57,9 +58,9 @@ class DdtjActivity : BaseActivity<ActivityDdtjBinding,DdtjViewModel>() {
             .icon(des)
 
         //在地图上添加Marker(当前位置)，并显示
-         mMapView.addOverlay(option)
-
+        mMapView.addOverlay(option)
 
     }
+
 
 }

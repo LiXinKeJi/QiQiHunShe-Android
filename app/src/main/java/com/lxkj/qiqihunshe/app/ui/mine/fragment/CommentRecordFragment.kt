@@ -23,13 +23,12 @@ class CommentRecordFragment : BaseFragment<ActivityXrecyclerviewBinding, Comment
         include.visibility = View.GONE
         viewModel?.let {
             it.bind=binding
-            it.init()
         }
 
     }
 
     override fun loadData() {
-
+        viewModel!!.init()
     }
 
 

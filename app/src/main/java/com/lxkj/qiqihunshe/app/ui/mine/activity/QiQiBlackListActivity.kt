@@ -16,8 +16,6 @@ class QiQiBlackListActivity : BaseActivity<ActivityRecyvlerviewBinding, QiQiBlac
     override fun getBaseViewModel() = QiQiBlackListViewModel()
 
     override fun getLayoutId() = R.layout.activity_recyvlerview
-    var page = 0
-
 
     override fun init() {
 
@@ -34,19 +32,19 @@ class QiQiBlackListActivity : BaseActivity<ActivityRecyvlerviewBinding, QiQiBlac
             it.adapter.setLoadMore {
                 it.page++
                 if (it.page <= it.totalpage) {
-                    viewModel!!.getBlackData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                    data()
                 }
             }
         }
 
         refresh.setOnRefreshListener {
-            page = 1
-            loadData()
+            viewModel?.page = 1
+            data()
         }
-
+        data()
     }
 
-    override fun loadData() {
+      fun data() {
         viewModel!!.getBlackData().bindLifeCycle(this)
             .subscribe({}, { toastFailure(it) })
     }

@@ -1,25 +1,36 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
+import android.content.Intent
+import android.text.TextUtils
+import android.view.KeyEvent
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.ui.dialog.DaShangAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MyDynamicViewModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
+import com.lxkj.qiqihunshe.app.util.ShareUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityMydynamicBinding
+import io.rong.push.platform.hms.common.StrUtils
 import kotlinx.android.synthetic.main.activity_mydynamic.*
 import kotlinx.android.synthetic.main.include_title.*
 import kotlinx.android.synthetic.main.include_v.*
+import zhanghuan.cn.emojiconlibrary.FaceConversionUtil
+import zhanghuan.cn.emojiconlibrary.FaceRelativeLayout
+
 
 /**
  * 我的动态、动态详情
  * Created by Slingge on 2019/2/25
  */
 class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewModel>(), View.OnClickListener {
-
 
     private var flag = -1//0我的动态，1动态详情
 
@@ -29,27 +40,34 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
 
     override fun getLayoutId() = R.layout.activity_mydynamic
 
+    private lateinit var et_sendmessage: EditText
 
     override fun init() {
         initTitle("我的动态")
+
+        et_sendmessage = findViewById(R.id.et_sendmessage)
 
         flag = intent.getIntExtra("flag", -1)
 
         val model = intent.getSerializableExtra("bean") as SpaceDynamicModel.dataModel
         position = intent.getIntExtra("position", -1)
 
-        if (model.userId==StaticUtil.uid) {
+        if (model.userId == StaticUtil.uid) {
             cl_person.visibility = View.GONE
-            tv_reward.visibility = View.GONE
+            tv_reward.visibility = View.INVISIBLE
 
             tv_right.visibility = View.VISIBLE
             tv_right.text = "删除"
             tv_right.setOnClickListener(this)
 
-            tv_report.visibility = View.VISIBLE
-        }else{
+        } else {
             cl_person.visibility = View.VISIBLE
             tv_reward.visibility = View.VISIBLE
+            tv_reward.setOnClickListener(this)
+
+            ReportDialog1.diss()
+            tv_report.visibility = View.VISIBLE
+            tv_report.setOnClickListener(this)
         }
 
         viewModel?.let {
@@ -59,11 +77,11 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
             it.bind = binding
 
             it.initViewModel()
-            it.imageAdapter.loadMore(model.images,1)
+            it.imageAdapter.loadMore(model.images, 1)
 
             it.adapter.setLoadMore {
                 it.page++
-                if(it.page<=it.totalPage){
+                if (it.page <= it.totalPage) {
                     it.getComment().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
@@ -79,9 +97,11 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
 
         if (model.sex == "0") {//0女 1男
             tv_age.setBackgroundResource(R.drawable.bg_girl)
+            tv_age.setTextColor(resources.getColor(R.color.girl))
             AbStrUtil.setDrawableLeft(this, R.drawable.ic_girl, tv_age, 3)
         } else {
             tv_age.setBackgroundResource(R.drawable.thems_bg35)
+            tv_age.setTextColor(resources.getColor(R.color.colorThemes))
             AbStrUtil.setDrawableLeft(this, R.drawable.ic_boy, tv_age, 3)
         }
 
@@ -97,30 +117,41 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
             selectLv(model.permission[i])
         }
 
-
-        iv_send.setOnClickListener(this)
+        findViewById<ImageView>(R.id.btn_send).setOnClickListener(this)
         tv_zan.setOnClickListener(this)
         tv_share.setOnClickListener(this)
-        tv_reward.setOnClickListener(this)
+        iv_emoj.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.iv_send -> {
-                viewModel!!.sendComment().bindLifeCycle(this).subscribe({}, { it })
+            R.id.btn_send/*, R.id.iv_send */ -> {
+                val str = AbStrUtil.etTostr(et_sendmessage)
+                if (TextUtils.isEmpty(str)) {
+                    return
+                }
+                viewModel!!.sendComment(str, et_sendmessage).bindLifeCycle(this).subscribe({}, { it })
             }
             R.id.tv_zan -> {
                 viewModel!!.zan().bindLifeCycle(this).subscribe({}, { it })
             }
             R.id.tv_share -> {
-
+                ShareUtil.share(this)
+            }
+            R.id.tv_report -> {//举报
+                ReportDialog1.getReportList(this, "2", object : ReportDialog1.ReportCallBack {
+                    override fun report(report: String) {
+                        viewModel!!.jubao(report).bindLifeCycle(this@MyDynamicActivity)
+                            .subscribe({}, { toastFailure(it) })
+                    }
+                })
             }
             R.id.tv_reward -> {
-                DaShangDialog.show(this,object :DaShangDialog.DaShangCallBack{
+                DaShangDialog.show(this, object : DaShangDialog.DaShangCallBack {
                     override fun dashang(money: String) {
-
+                        viewModel!!.dashang(money).bindLifeCycle(this@MyDynamicActivity)
+                            .subscribe({}, { toastFailure(it) })
                     }
-
                 })
             }
             R.id.tv_right -> {
@@ -138,6 +169,29 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
             "4" -> iv_v4.visibility = View.VISIBLE
             "5" -> iv_v5.visibility = View.VISIBLE
         }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 202 && resultCode == 303) {
+            DaShangAfterDialog.show(this)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ReportDialog1.diss()
+        DaShangDialog.diss()
+        DaShangAfterDialog.diss()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return if (keyCode == KeyEvent.KEYCODE_BACK && (findViewById<FaceRelativeLayout>(R.id.FaceRelativeLayout))
+                .hideFaceView()
+        ) {
+            true
+        } else super.onKeyDown(keyCode, event)
     }
 
 

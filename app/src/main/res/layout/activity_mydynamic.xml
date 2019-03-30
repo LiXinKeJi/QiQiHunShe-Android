@@ -119,6 +119,7 @@
 
                     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                android:id="@+id/tv_report"
+                               android:visibility="gone"
                                android:src="@drawable/jubao"
                                app:layout_constraintEnd_toEndOf="parent"
                                app:layout_constraintTop_toTopOf="@+id/header"
@@ -192,7 +193,6 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_num"
                           android:text="@={model.commentNum}"
-                          android:background="@drawable/touch_bg"
                           android:padding="10dp"
                           android:gravity="center"
                           android:drawablePadding="5dp"
@@ -272,12 +272,25 @@
         <include layout="@layout/include_line07"
                  android:id="@+id/lin3"
                  android:layout_width="match_parent"
-                 android:layout_above="@+id/cl_3"
+                 android:layout_above="@+id/FaceRelativeLayout"
                  android:layout_height="wrap_content"
         />
 
+
+        <!-- 聊天输入框 -->
+        <include
+                android:id="@+id/FaceRelativeLayout"
+                layout="@layout/custom_facerelativelayout"
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content" android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true" android:layout_alignParentRight="true"
+        />
+
         <android.support.constraint.ConstraintLayout
-                android:id="@+id/cl_3"
+                android:visibility="gone"
+                android:id="@+id/cl3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -285,40 +298,39 @@
                 android:paddingRight="15dp"
         >
 
-            <EditText android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:id="@+id/et_comment"
-                      android:textSize="15sp"
-                      android:padding="8dp"
-                      android:text="@={viewmodel.comment}"
-                      android:textColor="@color/colorTabText"
-                      android:background="@color/white"
-                      android:layout_marginTop="3dp"
-                      android:layout_marginBottom="3dp"
-                      android:singleLine="true"
-                      android:hint="留下你的精彩评论吧"
-                      app:layout_constraintEnd_toStartOf="@+id/iv_emoj"
-                      app:layout_constraintTop_toTopOf="parent"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="10dp"
-                      android:layout_marginRight="10dp"/>
+
+            <EditText
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:id="@+id/et_comment"
+                    android:textSize="15sp"
+                    android:padding="8dp"
+                    android:textColor="@color/colorTabText"
+                    android:background="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:hint="留下你的精彩评论吧"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_emoj"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"/>
 
             <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                        android:id="@+id/iv_send"
                        android:src="@drawable/ic_send"
                        app:layout_constraintEnd_toEndOf="parent"
                        android:padding="5dp"
-                       app:layout_constraintTop_toTopOf="parent"
-                       app:layout_constraintBottom_toBottomOf="parent"/>
+                       app:layout_constraintTop_toTopOf="@+id/et_comment"
+                       app:layout_constraintBottom_toBottomOf="@+id/et_comment"/>
 
             <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                        android:id="@+id/iv_emoj"
                        android:src="@drawable/ic_xiao"
                        android:padding="5dp"
                        android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                       app:layout_constraintTop_toTopOf="parent"
-                       app:layout_constraintBottom_toBottomOf="parent"
-                       app:layout_constraintEnd_toStartOf="@+id/iv_send"/>
-
+                       app:layout_constraintEnd_toStartOf="@+id/iv_send"
+                       app:layout_constraintBottom_toBottomOf="@+id/et_comment"
+                       app:layout_constraintTop_toTopOf="@+id/et_comment"/>
         </android.support.constraint.ConstraintLayout>
 
     </RelativeLayout>

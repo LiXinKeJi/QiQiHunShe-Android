@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.activity.ReleaseDynamicActivity
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.AffectiveDynamicViewModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
+import com.lxkj.qiqihunshe.app.util.ShareUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import kotlinx.android.synthetic.main.activity_recyvlerview.*
@@ -63,12 +64,8 @@ class AffectiveDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, Affec
     @Subscribe
     fun onEvent(model: EventCmdModel) {
         when (model.cmd) {
-            EventBusCmd.DianZan -> {
-                ToastUtil.showToast(model.res.toString())
-                viewModel!!.zan(model.res.toInt()).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-            }
             EventBusCmd.JuBao -> {
-                ReportDialog1.show(activity!!, object : ReportDialog1.ReportCallBack {
+                ReportDialog1.getReportList(activity!!, "2", object : ReportDialog1.ReportCallBack {
                     override fun report(report: String) {
                         viewModel!!.jubao(report, model.res.toInt()).bindLifeCycle(this@AffectiveDynamicFragment)
                             .subscribe({}, { toastFailure(it) })
@@ -84,7 +81,7 @@ class AffectiveDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, Affec
                 })
             }
             EventBusCmd.fenxaing -> {
-
+                ShareUtil.share(activity!!)
             }
         }
     }
@@ -95,14 +92,8 @@ class AffectiveDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, Affec
         if (data == null) {
             return
         }
-        if (requestCode == 0) {
-            if (data.getStringExtra("cmd") == "add") {
-                viewModel?.let {
-                    it.adapter.flag=2
-                    it.page = 1
-                    it.getMyDynamic().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-                }
-            }
+        if (requestCode == 0 && resultCode == 303) {
+            DaShangAfterDialog.show(activity!!)
         }
     }
 
@@ -111,6 +102,7 @@ class AffectiveDynamicFragment : BaseFragment<ActivityRecyvlerviewBinding, Affec
         super.onDestroy()
         EventBus.getDefault().unregister(this)
         ReportDialog1.diss()
+        DaShangAfterDialog.diss()
     }
 
 

@@ -212,7 +212,7 @@ class ReleaseInvitationActivity :
             var poi = data.getParcelableExtra("poi") as PoiInfo
             if (null != poi) {
                 binding.model?.lat = poi.location.latitude.toString()
-                binding.model?.lon = poi.location.latitude.toString()
+                binding.model?.lon = poi.location.longitude.toString()
                 binding.model?.address = poi.name
                 tv_address.text = poi.name
             }

@@ -33,7 +33,7 @@ class AffectiveMarriageViewModel : BaseViewModel() {
         bind!!.recycler.layoutManager = LinearLayoutManager(fragment?.context)
 
         bind!!.recycler.adapter = adapter
-
+        adapter.activity = fragment!!.activity
         adapter.setMyListener { itemBean, position ->
             val bundle = Bundle()
             bundle.putString("id", itemBean.yaoyueId)
@@ -44,7 +44,7 @@ class AffectiveMarriageViewModel : BaseViewModel() {
 
     fun getYaoyue(): Single<String> {
         val json = "{\"cmd\":\"nearbyYaoyue\",\"uid\":\"" + StaticUtil.uid + "\",\"typeId\":\"" + "" +
-                "\",\"category\":\"" + "1" + "\",\"page\":\"" + page +"\",\"lon\":\"" + StaticUtil.lng + "\",\"lat\":\"" + StaticUtil.lat +  "\"}"
+                "\",\"category\":\"" + "1" + "\",\"page\":\"" + page + "\",\"lon\":\"" + StaticUtil.lng + "\",\"lat\":\"" + StaticUtil.lat + "\"}"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, SpaceInvitationModel::class.java)
@@ -69,8 +69,8 @@ class AffectiveMarriageViewModel : BaseViewModel() {
 
     fun jubao(content: String, position: Int): Single<String> {
         val json =
-            "{\"cmd\":\"dongtaiReport\",\"dongtaiId\":\"${adapter.getList()[position].yaoyueId}\",\"uid\":\"${StaticUtil.uid}\",\"content\":\"${content}\"}"
-        abLog.e("举报", json)
+            "{\"cmd\":\"yaoyueReport\",\"yaoyueId\":\"${adapter.getList()[position].yaoyueId}\",\"uid\":\"${StaticUtil.uid}\",\"content\":\"${content}\"}"
+        abLog.e("举报情感镇魂", json)
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 ToastUtil.showTopSnackBar(fragment!!.activity, "举报提交成功")

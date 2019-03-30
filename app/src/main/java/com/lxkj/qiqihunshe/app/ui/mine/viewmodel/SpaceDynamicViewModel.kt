@@ -59,7 +59,6 @@ class SpaceDynamicViewModel : BaseViewModel() {
                 override fun onSuccess(response: String) {
                     bind!!.refresh.isRefreshing = false
                     val model = Gson().fromJson(response, SpaceDynamicModel::class.java)
-
                     if (page == 1) {
                         totalpage = model.totalPage
                         if (model.totalPage == 1 || model.dataList.isEmpty()) {
@@ -85,7 +84,6 @@ class SpaceDynamicViewModel : BaseViewModel() {
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    ToastUtil.showToast(position.toString())
                     removeItem(position)
                 }
             }, fragment!!.activity))

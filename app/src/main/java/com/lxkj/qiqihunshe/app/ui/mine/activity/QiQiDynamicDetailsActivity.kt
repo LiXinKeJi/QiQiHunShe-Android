@@ -1,5 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
@@ -45,7 +47,7 @@ class QiQiDynamicDetailsActivity : BaseActivity<ActivityQiqiDynamicDetailsBindin
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_call -> {
-
+                viewModel!!.toCallPhone()
             }
             R.id.tv_right -> {
                 viewModel!!.signUp("1").bindLifeCycle(this).subscribe({},{toastFailure(it)})

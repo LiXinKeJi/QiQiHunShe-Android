@@ -12,7 +12,6 @@ import com.lxkj.qiqihunshe.databinding.ActivitySignupRecordBinding
  */
 class SignUpRecordAcivity : BaseActivity<ActivitySignupRecordBinding, SignUpRecordViewModel>() {
 
-
     override fun getBaseViewModel() = SignUpRecordViewModel()
 
     override fun getLayoutId() = R.layout.activity_signup_record

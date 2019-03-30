@@ -1,7 +1,9 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
@@ -35,7 +37,7 @@ class QiQiRemindViewModel : BaseViewModel() {
         bind?.xRecyclerView?.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin)
         bind?.xRecyclerView?.defaultRefreshHeaderView // get default refresh header view
             ?.setRefreshTimeVisible(true)
-        bind?.xRecyclerView?.layoutManager = GridLayoutManager(fragment?.context, 1)
+        bind?.xRecyclerView?.layoutManager = LinearLayoutManager(fragment?.context)
         bind?.xRecyclerView?.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
                 bind?.xRecyclerView?.setNoMore(false)
@@ -55,8 +57,8 @@ class QiQiRemindViewModel : BaseViewModel() {
         adapter = XqHintAdapter(activity, list)
         adapter?.setOnItemClickListener {
             var bundle = Bundle()
-            bundle.putSerializable("model",list[it])
-            MyApplication.openActivity(activity, MsgDetailsActivity::class.java,bundle)
+            bundle.putSerializable("model", list[it])
+            MyApplication.openActivity(activity, MsgDetailsActivity::class.java, bundle)
         }
 
         bind?.xRecyclerView?.adapter = adapter
@@ -65,8 +67,9 @@ class QiQiRemindViewModel : BaseViewModel() {
     }
 
     //获取消息列表
-    fun getMsgList(){
-        var params = HashMap<String,String>()
+    @SuppressLint("CheckResult")
+    fun getMsgList() {
+        var params = HashMap<String, String>()
         params["cmd"] = "msgList"
         params["uid"] = StaticUtil.uid
         params["page"] = page.toString()
@@ -75,7 +78,7 @@ class QiQiRemindViewModel : BaseViewModel() {
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, XxModel::class.java)
-                    totalPage = model.totalPage.toInt()
+                    totalPage = model.totalPage
                     bind?.xRecyclerView?.refreshComplete()
                     bind?.xRecyclerView?.loadMoreComplete()
                     if (page == 1)

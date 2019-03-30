@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-
+        <variable name="viewmodel" type="com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.MatchingViewModel"/>
     </data>
 
     <!--首页 聊 匹配-->
@@ -30,10 +31,11 @@
                    app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.188"/>
 
-        <ImageView android:layout_width="55dp" android:layout_height="55dp"
+        <com.lxkj.qiqihunshe.app.customview.CircleImageView android:layout_width="55dp" android:layout_height="55dp"
                    android:id="@+id/iv_header"
                    android:src="@mipmap/ic_launcher"
                    android:scaleType="centerCrop"
+                   bind:imageHeaderUrl="@{viewmodel.headerUrl}"
                    app:layout_constraintTop_toTopOf="@+id/iv_saomiao" app:layout_constraintEnd_toEndOf="@+id/iv_saomiao"
                    app:layout_constraintStart_toStartOf="@+id/iv_saomiao"
                    app:layout_constraintBottom_toBottomOf="@+id/iv_saomiao"/>

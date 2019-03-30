@@ -8,6 +8,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceInvitationModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
 import com.lxkj.qiqihunshe.app.util.GlideUtil
+import com.lxkj.qiqihunshe.app.util.SeePhotoViewUtil
 import kotlinx.android.synthetic.main.item_space_invitation.view.*
 import org.greenrobot.eventbus.EventBus
 
@@ -35,7 +36,6 @@ class SpaceInvitationitenView : RelativeLayout {
         } else if (bean.image.size == 1) {
             iv_2.visibility = View.INVISIBLE
             iv_3.visibility = View.INVISIBLE
-
             GlideUtil.glideLoad(context, bean.image[0], iv_1)
         } else if (bean.image.size == 2) {
             iv_3.visibility = View.INVISIBLE
@@ -48,6 +48,16 @@ class SpaceInvitationitenView : RelativeLayout {
         } else if (bean.image.size > 3) {
             tv_num.visibility = View.VISIBLE
             tv_num.text = (bean.image.size - 3).toString()
+        }
+
+        iv_1.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(context, bean.image, 0)
+        }
+        iv_2.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(context, bean.image, 1)
+        }
+        iv_3.setOnClickListener {
+            SeePhotoViewUtil.toPhotoView(context, bean.image, 2)
         }
 
 

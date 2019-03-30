@@ -39,7 +39,8 @@
             android:supportsRtl="true"
             android:name=".app.MyApplication"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".app.ui.entrance.SignInActivity">
+
+        <activity android:name=".app.ui.entrance.StartupPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -77,6 +78,8 @@
         <activity android:name=".app.ui.entrance.PerfectInfoActivitiy"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.entrance.MyTypeActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.entrance.SignInActivity"
                   android:screenOrientation="portrait"/>
 
 
@@ -166,6 +169,10 @@
         <activity android:name=".app.ui.mine.activity.MySkillDetailsActiivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.mine.activity.PayActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.DemandListActivity5"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.ui.mine.activity.DemandListActivity4"
                   android:screenOrientation="portrait"/>
 
         <!--////////////////////////////////首页\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
@@ -319,6 +326,21 @@
             </intent-filter>
         </activity>
         <activity android:name="io.rong.callkit.CallSelectMemberActivity"/>
+
+        <!--融云广播接受者-->
+        <receiver android:name=".app.rongrun.receiver.SealNotificationReceiver"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+                android:name=".app.rongrun.receiver.NotificationClickReceiver">
+        </receiver>
 
     </application>
 

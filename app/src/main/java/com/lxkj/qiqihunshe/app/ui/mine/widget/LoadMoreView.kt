@@ -21,6 +21,7 @@ class LoadMoreView : RelativeLayout {
     }
 
     fun Loaded() {
+        fl_load.visibility = View.VISIBLE
         progress.visibility = View.GONE
         text.text = "已经到底了"
     }

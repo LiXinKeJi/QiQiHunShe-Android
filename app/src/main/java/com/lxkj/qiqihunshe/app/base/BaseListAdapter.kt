@@ -29,6 +29,11 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         return list
     }
 
+    fun clearList() {
+        list.clear()
+    }
+
+
     fun removeItem(position: Int) {
         list.removeAt(position)
         notifyItemRemoved(position)
@@ -47,14 +52,14 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     fun upData(list: ArrayList<ITEMBEAN>) {
         this.list.clear()
         this.list.addAll(list)
-        notifyItemRangeChanged(0, this.list.size)
+       notifyDataSetChanged()
     }
 
     fun loadMore(list: ArrayList<ITEMBEAN>, flag: Int) {
         val size = this.list.size
         this.list.addAll(list)
         this.flag = flag
-        notifyItemRangeChanged(size, this.list.size)
+        notifyItemRangeChanged(0, this.list.size)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -98,10 +103,11 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
         } else {
             val view = holder.itemView as ITEMVIEW
             refreshItemView(view, list[position], position)
+            refreshItemView(view, list[position])
         }
 
         holder.itemView.setOnClickListener { v ->
-            if (flag == 0 || flag == 1 || list.size == 0) {
+            if (list.size == 0) {
                 return@setOnClickListener
             }
             listener?.let {

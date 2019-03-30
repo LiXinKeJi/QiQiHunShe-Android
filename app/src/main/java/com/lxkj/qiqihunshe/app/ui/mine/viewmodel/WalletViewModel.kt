@@ -25,7 +25,7 @@ class WalletViewModel : BaseViewModel() {
             override fun onSuccess(response: String) {
                 val model = Gson().fromJson(response, WalletModel::class.java)
                 bind?.model = model
-                StaticUtil.amount=model.amount
+                StaticUtil.amount = model.amount
 
             }
         }, activity))
@@ -36,11 +36,10 @@ class WalletViewModel : BaseViewModel() {
         val json = "{\"cmd\":\"myPermission\",\"uid\":\"" + StaticUtil.uid + "\"}"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
-                val list = ArrayList<MyPermissionModel.dataModel>()
-                list.addAll(Gson().fromJson(response, MyPermissionModel::class.java).dataList)
-                if (list.isEmpty()) {
-                    bind!!.clQunxian.visibility = View.GONE
-                } else {
+                val list = Gson().fromJson(response, MyPermissionModel::class.java).dataList
+                if (list.isNotEmpty()) {
+                    bind!!.tvWu.visibility = View.INVISIBLE
+                    bind!!.clQunxian.visibility = View.VISIBLE
                     for (i in 0 until list.size) {
                         whenPermission(list[i].type)
                     }

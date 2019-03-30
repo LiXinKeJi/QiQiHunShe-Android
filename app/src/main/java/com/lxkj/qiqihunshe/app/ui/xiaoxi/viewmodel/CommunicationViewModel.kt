@@ -1,9 +1,12 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
+import android.view.View
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
@@ -25,12 +28,13 @@ import kotlinx.android.synthetic.main.fra_communication.*
  */
 class CommunicationViewModel : BaseViewModel() {
 
-    var bind: FraCommunicationBinding? = null
+  lateinit  var bind: FraCommunicationBinding
 
     var adapter: NewPeopleAdapter? = null
     var list = ArrayList<DataListModel>()
     var page = 1
     var totalPage = 1
+
 
     fun init() {
         bind?.xRecyclerView?.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
@@ -66,6 +70,21 @@ class CommunicationViewModel : BaseViewModel() {
 
         getFriendList()
     }
+
+
+    //查看新朋友
+    fun newFriends(): Single<String> {
+        val json = "{\"cmd\":\"newFriends\",\"uid\":\"" + StaticUtil.uid + "\",\"page\":\"" + 1 + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                val model = Gson().fromJson(response, XxModel::class.java)
+                if (TextUtils.isEmpty(model.count) && model.count.toInt() > 0) {
+                    bind.tvMesNum.visibility = View.VISIBLE
+                }
+            }
+        }, fragment!!.activity))
+    }
+
 
     //获取好友
     fun getFriendList() {
