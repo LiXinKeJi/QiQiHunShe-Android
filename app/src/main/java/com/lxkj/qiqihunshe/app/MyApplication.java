@@ -12,6 +12,7 @@ import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.lxkj.qiqihunshe.app.rongrun.MyExtensionModule;
 import com.lxkj.qiqihunshe.app.rongrun.MyReceiveMessageListener;
 import com.lxkj.qiqihunshe.app.rongrun.RongCloudEvent;
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil;
@@ -24,8 +25,13 @@ import com.orhanobut.logger.Logger;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.IExtensionModule;
+import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import zhanghuan.cn.emojiconlibrary.FaceConversionUtil;
+
+import java.util.List;
 
 /**
  * Created by Slingge on 2017/1/6 0006.
@@ -108,6 +114,20 @@ public class MyApplication extends MultiDexApplication {
 
         if (!TextUtils.isEmpty(StaticUtil.INSTANCE.getRytoken())) {
             RongYunUtil.INSTANCE.initService();
+        }
+        List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
+        IExtensionModule defaultModule = null;
+        if (moduleList != null) {
+            for (IExtensionModule module : moduleList) {
+                if (module instanceof DefaultExtensionModule) {
+                    defaultModule = module;
+                    break;
+                }
+            }
+            if (defaultModule != null) {
+                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
+                RongExtensionManager.getInstance().registerExtensionModule(new MyExtensionModule());
+            }
         }
     }
 

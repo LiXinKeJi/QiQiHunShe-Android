@@ -20,6 +20,8 @@ import io.rong.imlib.model.UserInfo
  */
 object RongYunUtil {
 
+    val serviceId = ""//客服id
+
 
     //连接融云服务器
     fun initService() {
@@ -27,7 +29,8 @@ object RongYunUtil {
         RongIM.connect(StaticUtil.rytoken, object : RongIMClient.ConnectCallback() {
             override fun onSuccess(p0: String?) {
 //                ToastUtil.showToast("已连接融云")
-                RongIM.getInstance().setCurrentUserInfo(UserInfo(StaticUtil.uid, StaticUtil.nickName, Uri.parse(StaticUtil.headerUrl)))
+                RongIM.getInstance()
+                    .setCurrentUserInfo(UserInfo(StaticUtil.uid, StaticUtil.nickName, Uri.parse(StaticUtil.headerUrl)))
             }
 
             override fun onError(p0: RongIMClient.ErrorCode) {
@@ -49,7 +52,7 @@ object RongYunUtil {
         }
         val csBuilder = CSCustomServiceInfo.Builder()
         val csInfo = csBuilder.nickName("融云").build()
-        RongIM.getInstance().startCustomerServiceChat(activity, "客服id", "在线客服", csInfo)
+        RongIM.getInstance().startCustomerServiceChat(activity, serviceId, "在线客服", csInfo)
     }
 
 
@@ -221,6 +224,34 @@ object RongYunUtil {
                             "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
                             "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
                             else -> ToastUtil.showToast(errorCode.message)
+                        }
+                    }
+                })
+    }
+
+
+    fun sendLocationMessage(shopMessage: Message) {
+        RongIM.getInstance()
+            .sendLocationMessage(
+                shopMessage,
+                "我的位置",
+                null,
+                object :
+                    IRongCallback.ISendMessageCallback {
+                    override fun onAttached(message: Message) {
+                        abLog.e("sendMessage1", "消息发送")
+                    }
+
+                    override fun onSuccess(message: Message) {
+                        abLog.e("sendMessage1", "消息发送成功")
+                    }
+
+                    override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
+                        abLog.e("sendMessage1", errorCode.message)
+                        when (errorCode.message) {
+                            "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
+                            "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
+                            else -> ToastUtil.showToast("发送失败")
                         }
                     }
                 })

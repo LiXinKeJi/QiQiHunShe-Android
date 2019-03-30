@@ -412,9 +412,9 @@ public class FileUtil {
         String dateFolder = new SimpleDateFormat("yyyyMMdd", Locale.CHINA)
                 .format(new Date());
         try {
-            String suffix = "";
+            String suffix = ".png";
             if (filePath == null || filePath.trim().length() == 0) {
-                filePath = Environment.getExternalStorageDirectory() + "/yitongcheng/" + dateFolder + "/";
+                filePath = Environment.getExternalStorageDirectory() + "/DCIM/" + "Screenshots" + "/";
             }
             File file = new File(filePath);
             if (!file.exists()) {

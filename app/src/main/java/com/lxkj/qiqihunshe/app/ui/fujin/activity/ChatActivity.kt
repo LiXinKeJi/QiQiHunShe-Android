@@ -3,7 +3,10 @@ package com.lxkj.qiqihunshe.app.ui.fujin.activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.support.v4.content.FileProvider
 import android.view.View
 import com.baidu.mapapi.search.core.PoiInfo
 import com.luck.picture.lib.PictureSelector
@@ -11,6 +14,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.ImpressionScoreModel
 import com.lxkj.qiqihunshe.app.rongrun.model.QiQiAssistModel
 import com.lxkj.qiqihunshe.app.rongrun.model.ShiYueModel
@@ -18,16 +22,18 @@ import com.lxkj.qiqihunshe.app.rongrun.model.YueJianModel
 import com.lxkj.qiqihunshe.app.ui.dialog.*
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DivideModel
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.ChatViewModel
-import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
+import io.rong.imlib.model.Conversation
+import io.rong.message.LocationMessage
 import kotlinx.android.synthetic.main.activity_chat_details.*
 import kotlinx.android.synthetic.main.include_title.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import java.io.File
 
 /**
  * Created by Slingge on 2019/3/12
@@ -56,7 +62,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
             it.targetId = uri.getQueryParameter("targetId")
             initTitle(it.title)
 
-            if (it.targetId == "客服id") {
+            if (it.targetId == RongYunUtil.serviceId) {
                 iv_yuejian.visibility = View.GONE
                 tv_right.visibility = View.GONE
                 iv_jubao.visibility = View.GONE
@@ -219,8 +225,38 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 it.info = data.getParcelableExtra("poi") as PoiInfo
                 it.selectTime()
             }
+        } else if (requestCode == 403) {//发送地址
+            var poi = data.getParcelableExtra("poi") as PoiInfo
+
+            val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                FileProvider.getUriForFile(
+                    this@ChatActivity,
+                    "com.lxkj.qiqihunshe.provider", screenshotPath
+                )
+            } else {
+                Uri.fromFile(screenshotPath)
+            }
+            val locationMessage =
+                LocationMessage.obtain(
+                    poi.location.latitude,
+                    poi.location.longitude,
+                    "我的位置：" + poi.name,
+                    uri
+                )
+
+            val message =
+                io.rong.imlib.model.Message.obtain(
+                    viewModel?.targetId,
+                    Conversation.ConversationType.PRIVATE,
+                    locationMessage
+                )
+            RongYunUtil.sendLocationMessage(message)
         }
     }
+
+
+    private val screenshotPath =
+        File("${Environment.getExternalStorageDirectory()} /DCIM/" + "Screenshots/screenshot.png")
 
 
     override fun onDestroy() {
