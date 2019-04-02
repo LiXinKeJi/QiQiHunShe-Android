@@ -12,6 +12,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.MatchingViewModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -72,7 +73,7 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
                     ToastUtil.showTopSnackBar(this, "暂时未匹配到用户")
                     return
                 }
-                RongIM.getInstance().startPrivateChat(this, viewModel!!.id, viewModel!!.username)
+                RongYunUtil.toChat(this, viewModel!!.id, viewModel!!.username)
                 finish()
             }
             R.id.iv_next -> {
@@ -84,7 +85,6 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun randomUser() {
-
         if (flag == 0) {
             viewModel?.type = "1"
             viewModel!!.randomUser().bindLifeCycle(this).subscribe({
@@ -98,7 +98,6 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
         }
 
             anim?.resume()//恢复
-
     }
 
 

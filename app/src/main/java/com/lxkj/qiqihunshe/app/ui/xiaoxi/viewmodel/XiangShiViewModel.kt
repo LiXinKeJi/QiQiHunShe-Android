@@ -50,13 +50,6 @@ class XiangShiViewModel : BaseViewModel() {
                 }
             }
             messageAdapter.upData(userList)
-            messageAdapter.setMyListener { itemBean, i ->
-                RongIM.getInstance().startPrivateChat(
-                    fragment?.activity,
-                    messageAdapter.getList()[i].userId,
-                    messageAdapter.getList()[i].nickname
-                )
-            }
         }
 
     }

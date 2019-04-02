@@ -50,7 +50,7 @@
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_tip"
-                  android:text="已发起遇见信息，请等待"
+                  android:text="已发起约见信息，请等待"
                   android:background="@drawable/bg_grays_60"
                   android:paddingLeft="30dp"
                   android:paddingRight="30dp"

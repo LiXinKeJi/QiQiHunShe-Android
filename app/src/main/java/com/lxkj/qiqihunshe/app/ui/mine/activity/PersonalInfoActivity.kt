@@ -16,6 +16,7 @@ import cn.jzvd.Jzvd
 import cn.jzvd.JzvdStd
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.retrofitnet.exception.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.entrance.PerfectInfoActivitiy
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDataFragment
@@ -138,7 +139,7 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
                 finish()
             }
             R.id.tv_conversation -> {
-                RongIM.getInstance().startPrivateChat(this, viewModel?.userId, viewModel!!.model.nickname)
+                RongYunUtil.toChat(this, viewModel!!.userId, viewModel!!.model.nickname)
             }
         }
     }

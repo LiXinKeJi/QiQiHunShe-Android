@@ -54,6 +54,8 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
                     MyApplication.setRedNum(it.tvMsgNum2, model.interact.toInt())
                 }
 
+                StaticUtil.isReal=model.auth
+
                 StaticUtil.headerUrl = model.icon
                 StaticUtil.nickName = model.nickname
                 StaticUtil.age = model.age
@@ -62,7 +64,7 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
 
     fun motifyState(identity: Int) {
-        val json = "{\"cmd\":\"upPrize\",\"uid\":\"" + StaticUtil.uid + "\",\"identity\":\"" + identity + "\"}"
+        val json = "{\"cmd\":\"editIdentity\",\"uid\":\"" + StaticUtil.uid + "\",\"identity\":\"" + identity + "\"}"
         abLog.e("修改状态", json)
         retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {

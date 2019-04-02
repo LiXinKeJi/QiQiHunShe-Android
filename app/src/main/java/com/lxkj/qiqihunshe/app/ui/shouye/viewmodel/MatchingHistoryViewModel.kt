@@ -10,6 +10,7 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.shouye.adapter.HistoryAdapter
 import com.lxkj.qiqihunshe.app.ui.shouye.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.shouye.model.ShouYeModel
@@ -59,7 +60,9 @@ class MatchingHistoryViewModel : BaseViewModel() {
 
         adapter = HistoryAdapter(activity, list,flag)
         adapter?.setOnItemClickListener {
-            RongIM.getInstance().startPrivateChat(activity, list[it].userId, list[it].nickname)
+            RongYunUtil.toChat(
+                activity!!, list[it].userId, list[it].nickname
+            )
         }
 
         bind?.xRecyclerView?.adapter = adapter

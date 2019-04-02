@@ -43,6 +43,16 @@ object RongYunUtil {
         })
     }
 
+    fun toChat(activity: Activity, userId: String, nickname: String) {
+        if(StaticUtil.isReal!="2"){
+            ToastUtil.showTopSnackBar(activity,"请先通过实名认证")
+            return
+        }
+        RongIM.getInstance().startPrivateChat(
+            activity, userId, nickname
+        )
+    }
+
 
     //去客服
     fun toService(activity: Activity?) {

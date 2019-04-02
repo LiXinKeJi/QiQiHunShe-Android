@@ -1,9 +1,12 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.view.Gravity
+import android.view.View
 import com.baidu.mapapi.search.core.PoiInfo
 import com.google.gson.Gson
+import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.retrofitnet.*
@@ -22,6 +25,8 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
 import io.reactivex.Single
+import io.rong.imkit.RongIM
+import io.rong.imlib.model.UserInfo
 import org.json.JSONObject
 
 /**
@@ -38,7 +43,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     var targetId = ""//对方id
     var title = ""//标题，对方昵称
 
-   lateinit var bind: ActivityChatDetailsBinding
+    lateinit var bind: ActivityChatDetailsBinding
 
     val datePop by lazy { DatePop(activity, this) }
 
@@ -248,6 +253,46 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                     RongYunUtil.sendMessage7(targetId, shopMessage7, "")
                 }
             }, activity))
+    }
+
+
+    //是否是好友
+    fun isFirend(): Single<String> {
+        val json =
+            "{\"cmd\":\"isFriends\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + targetId + "\"}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val obj = JSONObject(response)
+                    if (obj.getString("status") == "0") {// 0否 1是
+//                        RongIM.getInstance()
+//                            .setCurrentUserInfo(UserInfo(targetId,title, Uri.parse(activity.resources.getDrawable(R.mipmap.ic_launcher))))
+                        bind.group.visibility = View.VISIBLE
+                    } else {
+                        bind.group.visibility = View.GONE
+                    }
+                }
+            }, activity))
+    }
+
+
+    //同意or拒绝
+    fun argee(type: String): Single<String> {//0同意 1拒绝
+        val json =
+            "{\"cmd\":\"isFriends\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + targetId +
+                    "\",\"type\":\"" + type + "\"}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    if (type == "0") {
+                        ToastUtil.showTopSnackBar(activity, "已同意邀请")
+                    } else {
+                        ToastUtil.showTopSnackBar(activity, "已拒绝邀请")
+                    }
+                    bind.group.visibility=View.GONE
+                }
+            }, activity))
+
     }
 
 

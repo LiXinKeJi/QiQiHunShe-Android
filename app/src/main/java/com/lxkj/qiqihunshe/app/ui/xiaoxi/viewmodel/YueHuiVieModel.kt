@@ -39,7 +39,9 @@ class YueHuiVieModel : BaseViewModel() {
         }
         messageAdapter.upData(list)
         messageAdapter.setMyListener { itemBean, position ->
-            RongIM.getInstance().startPrivateChat(fragment?.activity, itemBean.userId, itemBean.nickname)
+            RongIM.getInstance().startPrivateChat(
+                fragment!!.activity, itemBean.userId, itemBean.nickname
+            )
         }
 
     }

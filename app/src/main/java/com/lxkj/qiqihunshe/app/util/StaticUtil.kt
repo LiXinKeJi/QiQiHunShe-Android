@@ -33,7 +33,7 @@ object StaticUtil {
     val Weixin_AppSecret = "ecdf8ad6bd9d50d9575b6918a31f00a1"
 
 
-
+    var isReal = ""//是否实名认证,  0未认证 1待审核 2已认证 3认证失败
 
 
 }

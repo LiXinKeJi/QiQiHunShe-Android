@@ -54,6 +54,9 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
         iv_yuejian.setOnClickListener(this)
         iv_jubao.setOnClickListener(this)
 
+        tv_agree.setOnClickListener(this)
+        tv_jiechu.setOnClickListener(this)
+
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
@@ -69,6 +72,8 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 tv_tip0.visibility = View.GONE
                 iv_del.visibility = View.GONE
             }
+
+            it.isFirend().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
     }
 
@@ -96,6 +101,16 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                     } else {
                         it.showReportDialog()
                     }
+                }
+            }
+            R.id.tv_agree -> {//同意
+                viewModel?.let {
+                    it.argee("0").bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            }
+            R.id.tv_jiechu -> {//拒绝
+                viewModel?.let {
+                    it.argee("1").bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
         }

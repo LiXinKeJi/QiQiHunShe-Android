@@ -69,6 +69,18 @@ public class GetDateTimeUtil {
         return sdf.format(l);
     }
 
+
+    /**
+     * 获取shijian
+     */
+    public static String getHMS() {
+        long l = System.currentTimeMillis();
+        if (sdf == null) {
+            sdf = new SimpleDateFormat("HH:mm:ss");
+        }
+        return sdf.format(l);
+    }
+
     public static String getToDay() {
         long l = System.currentTimeMillis();
         if (sdf == null) {

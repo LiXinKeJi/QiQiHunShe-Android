@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
+import android.annotation.SuppressLint
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
@@ -9,6 +10,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.dialog.DynamicSignUpAfterDialog
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.UploadMarryModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityUploadMarryBinding
 import io.reactivex.Single
@@ -23,15 +25,15 @@ class UploadMarryViewModel : BaseViewModel(), UpLoadFileCallBack {
     private val upload by lazy { UpFileUtil(activity!!, this) }
 
     var flag = "1"//1牵手 2离婚
-    var bind: ActivityUploadMarryBinding?=null
+    var bind: ActivityUploadMarryBinding? = null
 
 
     fun init() {
 
         if (marryModel.type == "2") {
             bind?.let {
-                it.upload.text="请拍摄/上传您的离婚证"
-                it.tvAdd.text="上传离婚证"
+                it.upload.text = "请拍摄/上传您的离婚证"
+                it.tvAdd.text = "上传离婚证"
 
             }
         }
@@ -59,9 +61,20 @@ class UploadMarryViewModel : BaseViewModel(), UpLoadFileCallBack {
                 override fun onSuccess(response: String) {
                     ToastUtil.showToast("牵手成功")
                     DynamicSignUpAfterDialog.sginUpShow(activity!!, "已提交管理员审核，请耐心等待")
+                    jiechu()
                 }
             }, activity))
     }
 
+
+    @SuppressLint("CheckResult")
+    fun jiechu() {
+        val json =
+            "{\"cmd\":\"relieverelationship\",\"uid\":\"" + StaticUtil.uid + "\",\"tauid\":\"" + marryModel.taid + "\"}"
+        retrofit.getData(json).async().doOnSuccess {
+
+        }.subscribe({}, {})
+
+    }
 
 }

@@ -59,7 +59,6 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
-
         }
     }
 

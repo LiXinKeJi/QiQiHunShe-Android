@@ -70,7 +70,8 @@ class CustomizeMessageItemProvider4(private val context: Context) :
             holder.line1!!.visibility = View.GONE
         } else {
             holder.tv_msg!!.text = "对方发来定位地点"
-            holder.tv_address!!.text = "${shopMessage.address}   ${getDistance(shopMessage.lat, shopMessage.lon)}km"
+            holder.tv_address!!.text =
+                "${shopMessage.address}   ${getDistance(shopMessage.lat, shopMessage.lon)}km  ${shopMessage.time}"
             holder.tv_address!!.visibility = View.VISIBLE
             holder.tv_num!!.visibility = View.VISIBLE
             holder.tv_num!!.text = "3"

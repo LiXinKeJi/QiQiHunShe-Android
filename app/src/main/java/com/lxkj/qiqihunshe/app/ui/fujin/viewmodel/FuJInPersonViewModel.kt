@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
+import android.app.Activity
 import android.support.v7.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
@@ -9,6 +10,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.fujin.adapter.NearPeopleAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
@@ -55,7 +57,7 @@ class FuJInPersonViewModel : BaseViewModel() {
         })
         adapter = NearPeopleAdapter(fragment?.context, list)
         adapter?.setOnItemClickListener {
-            RongIM.getInstance().startPrivateChat(fragment?.activity, list[it].userId, list[it].nickname)
+            RongYunUtil.toChat(fragment!!.activity as Activity, list[it].userId, list[it].nickname)
         }
 
         bind?.xRecyclerView?.adapter = adapter

@@ -55,6 +55,13 @@ class MessageItemView : RelativeLayout {
             EventBus.getDefault().post(model)
         }
 
+        cl_main.setOnClickListener {
+            val model = EventCmdModel("item", position.toString())
+            model.lat = bean.userId
+            model.res=position.toString()
+            EventBus.getDefault().post(model)
+        }
+
     }
 
 
