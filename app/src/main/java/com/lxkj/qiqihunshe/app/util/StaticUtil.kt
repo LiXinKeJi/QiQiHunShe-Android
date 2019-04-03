@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.util
 
+import android.app.Activity
 import android.os.Environment
 
 /**
@@ -34,6 +35,16 @@ object StaticUtil {
 
 
     var isReal = ""//是否实名认证,  0未认证 1待审核 2已认证 3认证失败
+
+
+    //是否实名认证，不能发送消息，发布动态、邀约、才艺、评论、打赏
+    fun isRealNameAuth(activity: Activity): Boolean {
+        if (isReal != "2") {
+            ToastUtil.showTopSnackBar(activity, "请先实名认证")
+            return false
+        }
+        return true
+    }
 
 
 }

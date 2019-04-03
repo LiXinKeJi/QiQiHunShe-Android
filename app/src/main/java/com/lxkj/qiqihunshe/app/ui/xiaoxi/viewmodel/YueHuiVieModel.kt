@@ -23,7 +23,7 @@ class YueHuiVieModel : BaseViewModel() {
     var bind: ActivityRecyvlerviewBinding? = null
     val friendUserList by lazy { java.util.ArrayList<FindUserRelationshipModel.dataModel>() }
 
-    val messageAdapter by lazy { MessageAdapter() }
+    val messageAdapter by lazy { MessageAdapter(fragment!!.activity!!) }
 
     fun initViewmodel() {
         bind!!.recycler.isFocusable = false
@@ -33,7 +33,7 @@ class YueHuiVieModel : BaseViewModel() {
 
         val list = ArrayList<FindUserRelationshipModel.dataModel>()
         for (i in friendUserList) {
-            if (i.yuejian == "2") {
+            if (i.relationship == "2") {
                 list.add(i)
             }
         }

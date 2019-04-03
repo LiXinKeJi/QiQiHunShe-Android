@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.customview.FlowLayout
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.CashierInputFilter
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 
 
@@ -39,6 +40,10 @@ object DaShangDialog {
     private var money = "1"
 
     fun show(context: Activity, daShangCallBack: DaShangCallBack) {
+        if (!StaticUtil.isRealNameAuth(context)) {
+            return
+        }
+
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()

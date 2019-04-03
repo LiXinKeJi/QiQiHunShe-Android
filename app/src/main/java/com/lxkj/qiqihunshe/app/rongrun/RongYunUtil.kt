@@ -4,10 +4,16 @@ import android.app.Activity
 import android.net.Uri
 import android.text.TextUtils
 import com.lxkj.qiqihunshe.app.rongrun.message.*
+import com.lxkj.qiqihunshe.app.rongrun.plugin.MyExtensionEmptyModule
+import com.lxkj.qiqihunshe.app.rongrun.plugin.MyExtensionModule
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
+import io.rong.imkit.DefaultExtensionModule
+import io.rong.imkit.IExtensionModule
+import io.rong.imkit.RongExtensionManager
 import io.rong.imkit.RongIM
+import io.rong.imkit.plugin.IPluginModule
 import io.rong.imlib.IRongCallback
 import io.rong.imlib.RongIMClient
 import io.rong.imlib.model.CSCustomServiceInfo
@@ -22,6 +28,9 @@ object RongYunUtil {
 
     val serviceId = ""//客服id
 
+    var isLinShiModel = -2//0临时消息 1:相识，2:约会,3:牵手,4:拉黑，5通讯
+
+    val PluginList by lazy { ArrayList<IPluginModule>() }
 
     //连接融云服务器
     fun initService() {
@@ -43,11 +52,45 @@ object RongYunUtil {
         })
     }
 
+
     fun toChat(activity: Activity, userId: String, nickname: String) {
-        if(StaticUtil.isReal!="2"){
-            ToastUtil.showTopSnackBar(activity,"请先通过实名认证")
+        if (!StaticUtil.isRealNameAuth(activity)) {
             return
         }
+        isLinShiModel = -2
+        RongExtensionManager.getInstance().registerExtensionModule(MyExtensionEmptyModule())
+        RongIM.getInstance().startPrivateChat(
+            activity, userId, nickname
+        )
+    }
+
+    fun toChat(activity: Activity, userId: String, nickname: String, isLinShiModel: Int) {
+        if (!StaticUtil.isRealNameAuth(activity)) {
+            return
+        }
+
+        val moduleList = RongExtensionManager.getInstance().extensionModules
+        var defaultModule: IExtensionModule? = null
+        for (module in moduleList) {
+            if (module is DefaultExtensionModule) {
+                defaultModule = module
+                break
+            }
+        }
+        if (moduleList != null) {
+            if (defaultModule != null) {
+                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule)
+            }
+        }
+        if (isLinShiModel == 0) {
+            RongExtensionManager.getInstance()
+                .registerExtensionModule(MyExtensionEmptyModule())//临时模式，不显示自定义区域
+        }else{
+            RongExtensionManager.getInstance()
+                .registerExtensionModule(MyExtensionModule(1))//临时模式，不显示自定义区域
+        }
+
+        this.isLinShiModel = isLinShiModel
         RongIM.getInstance().startPrivateChat(
             activity, userId, nickname
         )

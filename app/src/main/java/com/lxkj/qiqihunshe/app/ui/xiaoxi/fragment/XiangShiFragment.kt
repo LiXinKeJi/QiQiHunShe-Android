@@ -83,14 +83,25 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
                 }
             }
             "item" -> {
+                ItemCount=model.res.toInt()
+                EventBus.getDefault().post("redMsg")
                 RongYunUtil.toChat(
-                    activity!!, viewModel!!.messageAdapter.getList()[model.res.toInt()].userId,
-                    viewModel!!.messageAdapter.getList()[model.res.toInt()].nickname
+                    activity!!,
+                    viewModel!!.messageAdapter.getList()[model.res.toInt()].userId,
+                    viewModel!!.messageAdapter.getList()[model.res.toInt()].nickname,
+                    viewModel!!.messageAdapter.getList()[model.res.toInt()].relationship.toInt()
                 )
+            }
+            "xiangshi" -> {//进入相识模式
+                viewModel?.let {
+                    it.messageAdapter.getList()[ItemCount].relationship="1"
+                    it.messageAdapter.notifyItemChanged(ItemCount)
+                }
             }
         }
     }
 
+    private var ItemCount = -1
 
     override fun onDestroy() {
         super.onDestroy()

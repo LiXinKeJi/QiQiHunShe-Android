@@ -12,9 +12,7 @@ import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
-import com.lxkj.qiqihunshe.app.rongrun.MyExtensionModule;
-import com.lxkj.qiqihunshe.app.rongrun.MyReceiveMessageListener;
-import com.lxkj.qiqihunshe.app.rongrun.RongCloudEvent;
+import com.lxkj.qiqihunshe.app.rongrun.plugin.MyExtensionModule;
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil;
 import com.lxkj.qiqihunshe.app.rongrun.message.*;
 import com.lxkj.qiqihunshe.app.util.StaticUtil;
@@ -76,6 +74,7 @@ public class MyApplication extends MultiDexApplication {
         StaticUtil.INSTANCE.setRytoken(sp.getString("rytoken", ""));
         StaticUtil.INSTANCE.setHeaderUrl(sp.getString("userIcon", ""));
         StaticUtil.INSTANCE.setNickName(sp.getString("nickName", ""));
+        StaticUtil.INSTANCE.setReal(sp.getString("isAuth", ""));
 
         Logger.addLogAdapter(new AndroidLogAdapter());
 
@@ -126,7 +125,7 @@ public class MyApplication extends MultiDexApplication {
             }
             if (defaultModule != null) {
                 RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
-                RongExtensionManager.getInstance().registerExtensionModule(new MyExtensionModule());
+                RongExtensionManager.getInstance().registerExtensionModule(new MyExtensionModule(1));
             }
         }
     }

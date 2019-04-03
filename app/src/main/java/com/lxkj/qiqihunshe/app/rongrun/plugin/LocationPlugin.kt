@@ -1,4 +1,4 @@
-package com.lxkj.qiqihunshe.app.rongrun
+package com.lxkj.qiqihunshe.app.rongrun.plugin
 
 import android.content.Context
 import android.content.Intent

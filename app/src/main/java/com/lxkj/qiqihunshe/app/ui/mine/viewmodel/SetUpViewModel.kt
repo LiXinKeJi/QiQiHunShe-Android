@@ -41,8 +41,8 @@ class SetUpViewModel : BaseViewModel() {
                 SharedPreferencesUtil.putSharePre(activity, "uid", "")
                 SharedPreferencesUtil.putSharePre(activity, "rytoken", "")
                 MyApplication.uId = ""
+                StaticUtil.uid=""
                 AppManager.finishAllActivity()
-                System.exit(0)
                 MyApplication.openActivity(activity, SignInActivity::class.java)
             }
         }, activity))

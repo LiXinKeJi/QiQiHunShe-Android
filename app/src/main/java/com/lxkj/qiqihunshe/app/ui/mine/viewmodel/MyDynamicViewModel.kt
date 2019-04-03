@@ -67,16 +67,16 @@ class MyDynamicViewModel : BaseViewModel() {
     fun getComment(): Single<String> {
         val json = "{\"cmd\":\"dongtaiCommentList\",\"dongtaiId\":\"${model.dongtaiId}\",\"page\":\"$page\"}"
         abLog.e("json", json)
-        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
-            override fun onSuccess(response: String) {
-                val model = Gson().fromJson(response, CommentModel::class.java)
+        return retrofit.getData(json).async()
+            .doOnSuccess {
+                val model = Gson().fromJson(it, CommentModel::class.java)
                 if (page == 1) {
                     totalPage = model.totalPage
                     bind!!.tvComment.text = "最新评论（${model.commentCount}）"
                     if (model.dataList.isEmpty()) {
                         adapter.flag = 1
                         bind!!.rvComment.visibility = View.GONE
-                        return
+                        return@doOnSuccess
                     }else{
                         bind!!.rvComment.visibility = View.VISIBLE
                     }
@@ -92,7 +92,6 @@ class MyDynamicViewModel : BaseViewModel() {
                     }
                 }
             }
-        }, activity))
     }
 
 

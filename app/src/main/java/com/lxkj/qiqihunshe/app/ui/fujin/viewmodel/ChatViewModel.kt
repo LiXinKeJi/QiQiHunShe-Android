@@ -1,12 +1,11 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
 import android.annotation.SuppressLint
-import android.net.Uri
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import com.baidu.mapapi.search.core.PoiInfo
 import com.google.gson.Gson
-import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.retrofitnet.*
@@ -20,13 +19,15 @@ import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog2
 import com.lxkj.qiqihunshe.app.ui.model.JuBaoModel
 import com.lxkj.qiqihunshe.app.ui.dialog.DatePop
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DivideModel
+import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
+import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.RelationsMeModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
 import io.reactivex.Single
-import io.rong.imkit.RongIM
-import io.rong.imlib.model.UserInfo
+import org.greenrobot.eventbus.EventBus
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -48,6 +49,8 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     val datePop by lazy { DatePop(activity, this) }
 
     var info: PoiInfo? = null
+
+    var isAppointment = false//是否和别人约见
 
 
     fun getJuBaoConten(): Single<String> {
@@ -107,7 +110,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     fun sendMessage1() {
         val shopMessage = CustomizeMessage1()
         shopMessage.reject = "0"
-        shopMessage.content = "消息1"
+        shopMessage.content = "约您见面，是否答应？"
         RongYunUtil.sendMessage1(targetId, shopMessage, "")
     }
 
@@ -135,7 +138,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
 
     fun selectTime() {
         if (!datePop.isShowing) {
-            datePop.showAtLocation(bind!!.clMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
+            datePop.showAtLocation(bind.clMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
         }
     }
 
@@ -210,7 +213,6 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     //解除关系
     fun jiechu(): Single<String> {
         val json = "{\"cmd\":\"relieverelationship\",\"uid\":\"" + StaticUtil.uid + "\",\"tauid\":\"" + targetId + "\"}"
-
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
@@ -257,43 +259,62 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
 
 
     //是否是好友
-    fun isFirend(): Single<String> {
-        val json =
-            "{\"cmd\":\"isFriends\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + targetId + "\"}"
-        return retrofit.getData(json).async()
-            .compose(SingleCompose.compose(object : SingleObserverInterface {
-                override fun onSuccess(response: String) {
-                    val obj = JSONObject(response)
-                    if (obj.getString("status") == "0") {// 0否 1是
-//                        RongIM.getInstance()
-//                            .setCurrentUserInfo(UserInfo(targetId,title, Uri.parse(activity.resources.getDrawable(R.mipmap.ic_launcher))))
-                        bind.group.visibility = View.VISIBLE
-                    } else {
-                        bind.group.visibility = View.GONE
-                    }
-                }
-            }, activity))
+    fun isXiangShi() {
+
+        if (RongYunUtil.isLinShiModel == 0) {// 0否 1是
+            bind.group.visibility = View.VISIBLE
+        } else {
+            bind.group.visibility = View.GONE
+        }
     }
 
 
-    //同意or拒绝
+    //同意or拒绝，进入相识模式
     fun argee(type: String): Single<String> {//0同意 1拒绝
         val json =
-            "{\"cmd\":\"isFriends\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + targetId +
+            "{\"cmd\":\"agreerelationship\",\"uid\":\"" + StaticUtil.uid + "\",\"tauid\":\"" + targetId +
                     "\",\"type\":\"" + type + "\"}"
+        abLog.e("进入相识模式", json)
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     if (type == "0") {
+                        RongYunUtil.isLinShiModel = 1
                         ToastUtil.showTopSnackBar(activity, "已同意邀请")
+                        EventBus.getDefault().post(EventCmdModel("xiangshi",""))
                     } else {
                         ToastUtil.showTopSnackBar(activity, "已拒绝邀请")
                     }
-                    bind.group.visibility=View.GONE
+                    bind.group.visibility = View.GONE
                 }
             }, activity))
-
     }
 
+
+    //获取约见详情，判断消息发送，避免重复
+    fun yuejianDetails(): Single<String> {
+        val json =
+            "{\"cmd\":\"yuejianDetail\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + targetId +
+                    "\",\"yuejianId\":\"" + "" + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+
+            }
+        }, activity))
+    }
+
+
+    //和别人的关系，是否已经在和别人邀约
+    fun RelationsMe(): Single<String> {
+        val json = "{\"cmd\":\"getUserChatList\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + "1" + "\"}"
+        return retrofit.getData(json).async()
+            .doOnSuccess {
+                val model = Gson().fromJson(it, RelationsMeModel::class.java)
+                abLog.e("和别人的关旭", it)
+                if (model.dataList.isNotEmpty()) {
+                    isAppointment = true
+                }
+            }
+    }
 
 }

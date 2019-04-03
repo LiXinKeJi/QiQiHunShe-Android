@@ -10,12 +10,16 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.shouye.adapter.HistoryAdapter
 import com.lxkj.qiqihunshe.app.ui.shouye.model.DataListModel
+import com.lxkj.qiqihunshe.app.ui.shouye.model.MatchingModel
 import com.lxkj.qiqihunshe.app.ui.shouye.model.ShouYeModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityMatchHistoryBinding
+import io.reactivex.Single
 import io.rong.imkit.RongIM
 
 /**
@@ -45,7 +49,11 @@ class MatchingHistoryViewModel : BaseViewModel() {
             override fun onRefresh() {
                 bind?.xRecyclerView?.setNoMore(false)
                 page = 1
-                getPipeiLog()
+                if(flag==2){
+                    peiResult().subscribe({},{toastFailure(it)})
+                }else{
+                    getPipeiLog()
+                }
             }
 
             override fun onLoadMore() {
@@ -54,11 +62,15 @@ class MatchingHistoryViewModel : BaseViewModel() {
                     return
                 }
                 page++
-                getPipeiLog()
+                if(flag==2){
+                    peiResult().subscribe({},{toastFailure(it)})
+                }else{
+                    getPipeiLog()
+                }
             }
         })
 
-        adapter = HistoryAdapter(activity, list,flag)
+        adapter = HistoryAdapter(activity, list, flag)
         adapter?.setOnItemClickListener {
             RongYunUtil.toChat(
                 activity!!, list[it].userId, list[it].nickname
@@ -67,11 +79,9 @@ class MatchingHistoryViewModel : BaseViewModel() {
 
         bind?.xRecyclerView?.adapter = adapter
 
-        getPipeiLog()
     }
 
 
-    //获取消息列表
     @SuppressLint("CheckResult")
     fun getPipeiLog() {
         var params = HashMap<String, String>()
@@ -79,6 +89,7 @@ class MatchingHistoryViewModel : BaseViewModel() {
         params["uid"] = StaticUtil.uid
         params["type"] = type.toString()
         params["page"] = page.toString()
+        abLog.e("匹配结果", Gson().toJson(params))
         retrofit.getData(Gson().toJson(params))
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
@@ -91,8 +102,8 @@ class MatchingHistoryViewModel : BaseViewModel() {
                     if (page == 1)
                         list.clear()
                     list.addAll(model.dataList)
-                    adapter?.notifyDataSetChanged()
 
+                    adapter?.notifyDataSetChanged()
                 }
             }, activity)).subscribe({
                 bind?.xRecyclerView?.refreshComplete()
@@ -101,6 +112,27 @@ class MatchingHistoryViewModel : BaseViewModel() {
                 bind?.xRecyclerView?.refreshComplete()
                 bind?.xRecyclerView?.loadMoreComplete()
             })
+    }
+
+
+    //匹配结果
+    @SuppressLint("CheckResult")
+    fun peiResult(): Single<String> {
+        return retrofit.getData(Gson().toJson(activity!!.intent.getSerializableExtra("model") as MatchingModel))
+            .async().compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val model = Gson().fromJson(response, ShouYeModel::class.java)
+                    totalPage = model.totalPage.toInt()
+                    bind?.xRecyclerView?.refreshComplete()
+                    bind?.xRecyclerView?.loadMoreComplete()
+
+                    if (page == 1)
+                        list.clear()
+
+                    list.addAll(model.dataList)
+                    adapter?.notifyDataSetChanged()
+                }
+            }, activity))
     }
 
 

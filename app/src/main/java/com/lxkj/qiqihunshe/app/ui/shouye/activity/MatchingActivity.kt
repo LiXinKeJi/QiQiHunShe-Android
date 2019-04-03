@@ -39,7 +39,7 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
     override fun init() {
         initTitle("")
 
-        AbStrUtil.setDrawableLeft(this, R.drawable.ic_add3, tv_right, 0)
+        tv_right.text = "历史记录"
         tv_right.visibility = View.VISIBLE
         tv_right.setOnClickListener {
             val bundle = Bundle()
@@ -55,6 +55,7 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
 
         viewModel?.let {
             binding.viewmodel = it
+            it.bind=binding
             it.headerUrl.set(StaticUtil.headerUrl)
         }
 
@@ -70,7 +71,7 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
         when (v?.id) {
             R.id.iv_in -> {
                 if (TextUtils.isEmpty(viewModel!!.id)) {
-                    ToastUtil.showTopSnackBar(this, "暂时未匹配到用户")
+                    ToastUtil.showTopSnackBar(this, "暂无匹配到合适的用户")
                     return
                 }
                 RongYunUtil.toChat(this, viewModel!!.id, viewModel!!.username)
@@ -97,7 +98,7 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
             }, { toastFailure(it) })
         }
 
-            anim?.resume()//恢复
+        anim?.resume()//恢复
     }
 
 

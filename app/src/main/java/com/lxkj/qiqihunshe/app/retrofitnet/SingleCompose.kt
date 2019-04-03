@@ -3,7 +3,6 @@ package com.lxkj.qiqihunshe.app.retrofitnet
 import android.accounts.Account
 import android.app.Activity
 import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
-import com.lxkj.qiqihunshe.app.util.ThreadUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import io.reactivex.SingleTransformer
@@ -48,7 +47,7 @@ object SingleCompose {
     }
 
 
-    fun <T> compose(context: Activity?): SingleTransformer<String, String> {
+    fun  compose(context: Activity?): SingleTransformer<String, String> {
         return return SingleTransformer { upstream ->
             upstream.doOnSubscribe {
                 //                ToastUtil.showToast("开始")

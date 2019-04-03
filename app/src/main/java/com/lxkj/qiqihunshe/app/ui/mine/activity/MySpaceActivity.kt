@@ -11,6 +11,7 @@ import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.FragmentPagerAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.*
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MySpaceViewModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityMyspaceBinding
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import kotlinx.android.synthetic.main.include_title.*
@@ -39,14 +40,24 @@ class MySpaceActivity : BaseActivity<ActivityMyspaceBinding, MySpaceViewModel>()
         tv_right.setOnClickListener {
             when (flag) {
                 0 -> {
+                    if (!StaticUtil.isRealNameAuth(this)) {
+                        return@setOnClickListener
+                    }
                     val bundle = Bundle()
                     bundle.putInt("flag", 0)
                     MyApplication.openActivityForResult(this, ReleaseDynamicActivity::class.java, bundle, 0)
                 }
                 1 -> {
+                    if (!StaticUtil.isRealNameAuth(this)) {
+                        return@setOnClickListener
+                    }
                     MyApplication.openActivityForResult(this, ReleaseSkillActivity::class.java, 1)
                 }
                 2 -> {
+                    if (!StaticUtil.isRealNameAuth(this)) {
+                        return@setOnClickListener
+                    }
+
                     val bundle = Bundle()
                     bundle.putInt("type", 0)
                     MyApplication.openActivityForResult(this, ReleaseInvitationTypeActivity::class.java, bundle, 2)

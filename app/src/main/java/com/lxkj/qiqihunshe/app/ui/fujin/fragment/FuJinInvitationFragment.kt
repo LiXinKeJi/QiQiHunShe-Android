@@ -12,6 +12,7 @@ import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.FuJinInvitationViewModel
 import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonInvitationDetailsActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.ReleaseInvitationTypeActivity
 import com.lxkj.qiqihunshe.app.util.SeePhotoViewUtil
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FragmentFujinInvitationBinding
 import kotlinx.android.synthetic.main.fragment_fujin_invitation.*
@@ -31,6 +32,10 @@ class FuJinInvitationFragment : BaseFragment<FragmentFujinInvitationBinding, FuJ
 
         fab.attachToRecyclerView(xRecyclerView)
         fab.setOnClickListener {
+            if (!StaticUtil.isRealNameAuth(activity!!)) {
+                return@setOnClickListener
+            }
+
             val bundle = Bundle()
             bundle.putInt("type", 0)
             MyApplication.openActivity(activity, ReleaseInvitationTypeActivity::class.java, bundle)

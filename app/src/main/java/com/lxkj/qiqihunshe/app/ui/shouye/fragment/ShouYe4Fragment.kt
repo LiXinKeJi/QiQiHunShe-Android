@@ -93,6 +93,8 @@ class ShouYe4Fragment : BaseFragment<FragmentShouye4Binding, ShouYe4ViewModel>()
                     } else {
                         val bundle = Bundle()
                         bundle.putInt("flag", 2)
+                        matchingModel.cmd = "peiList"
+                        bundle.putSerializable("model", matchingModel)
                         MyApplication.openActivity(activity, MatchingHistoryActivity::class.java, bundle)
                     }
                 }
@@ -116,7 +118,6 @@ class ShouYe4Fragment : BaseFragment<FragmentShouye4Binding, ShouYe4ViewModel>()
     fun onEvent(mode: MatchingModel) {
         if (mode.flag == flag) {
             matchingModel = mode
-            com.lxkj.qiqihunshe.app.util.ToastUtil.showTopSnackBar(activity, Gson().toJson(matchingModel))
         }
     }
 

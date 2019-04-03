@@ -70,7 +70,7 @@ class CustomizeMessageItemProvider6(private val context: Context) :
 
     override fun bindView(view: View, i: Int, shopMessage: CustomizeMessage6, message: UIMessage) {
         val holder = view.tag as ViewHolder
-        holder.tv_msg!!.text = "约见栏"
+        holder.tv_msg!!.text = "印象评分"
         holder.tv_address!!.visibility = View.VISIBLE
         holder.tv_address!!.text = "${shopMessage.address}   ${getDistance(shopMessage.lat, shopMessage.lon)}km"
         holder.cardView2!!.visibility = View.VISIBLE

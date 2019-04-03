@@ -1,21 +1,19 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
+import android.app.Activity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.google.gson.Gson
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
-import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.MessageAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.FindUserRelationshipModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
-import com.lxkj.qiqihunshe.app.util.RecyclerItemTouchListener
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FraXiangshiBinding
 import io.reactivex.Single
 import io.rong.imkit.RongIM
@@ -33,7 +31,7 @@ class XiangShiViewModel : BaseViewModel() {
 
     val friendUserList by lazy { ArrayList<FindUserRelationshipModel.dataModel>() }
 
-    val messageAdapter by lazy { MessageAdapter() }
+    val messageAdapter by lazy { MessageAdapter(fragment!!.activity as Activity) }
 
 
     fun init() {
@@ -45,11 +43,14 @@ class XiangShiViewModel : BaseViewModel() {
 
             val userList = ArrayList<FindUserRelationshipModel.dataModel>()
             for (user in friendUserList) {
-                if (user.relationship == "0" || user.relationship == "1") {
+                if (user.relationship == "0" || user.relationship == "1"|| user.relationship == "-1") {//-1新消息
                     userList.add(user)
                 }
             }
+
+            abLog.e("相识列表",Gson().toJson(userList))
             messageAdapter.upData(userList)
+
         }
 
     }

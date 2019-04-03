@@ -1,18 +1,15 @@
 package com.lxkj.qiqihunshe.app.ui.shouye.viewmodel
 
 import android.databinding.ObservableField
+import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
-import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.shouye.model.ShouYeModel
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
+import com.lxkj.qiqihunshe.databinding.ActivityMatchingBinding
 import io.reactivex.Single
-import io.rong.imkit.RongIM
-import io.rong.imkit.utilities.RongUtils
 
 /**
  * 匹配
@@ -21,7 +18,7 @@ import io.rong.imkit.utilities.RongUtils
 class MatchingViewModel : BaseViewModel() {
 
     var type = "1"
-
+    lateinit var bind: ActivityMatchingBinding
     var headerUrl = ObservableField<String>()
 
     var id = ""
@@ -31,6 +28,7 @@ class MatchingViewModel : BaseViewModel() {
      * 1聊 2语 人物匹配
      */
     fun randomUser(): Single<String> {
+        bind.ivDefaul.visibility = View.GONE
         abLog.e("匹配", Gson().toJson(activity!!.intent.getSerializableExtra("model")))
         return retrofit.getData(Gson().toJson(activity!!.intent.getSerializableExtra("model")))
             .async().doOnSuccess {
@@ -39,7 +37,7 @@ class MatchingViewModel : BaseViewModel() {
                     ToastUtil.showToast("匹配成功！")
                     id = model.userId
                     username = model.nickname
-
+                    bind.ivDefaul.visibility = View.VISIBLE
                 } else {
                     ToastUtil.showTopSnackBar(activity, model.resultNote)
                 }

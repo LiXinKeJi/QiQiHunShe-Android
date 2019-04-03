@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.shouye.activity
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.MatchingHistoryViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityMatchHistoryBinding
 import kotlinx.android.synthetic.main.activity_withdrawal.*
@@ -21,6 +22,7 @@ class MatchingHistoryActivity : BaseActivity<ActivityMatchHistoryBinding, Matchi
         viewModel?.let {
             it.bind = binding
             var flag = intent.getIntExtra("flag", -1)
+            it.flag = flag
             when (flag) {
                 0 -> {
                     it.type = 1
@@ -33,7 +35,11 @@ class MatchingHistoryActivity : BaseActivity<ActivityMatchHistoryBinding, Matchi
                 }
             }
             it.init()
-
+            if (flag == 2) {
+                it.peiResult().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            } else {
+                it.getPipeiLog()
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.fra_communication.*
  */
 class CommunicationViewModel : BaseViewModel() {
 
-  lateinit  var bind: FraCommunicationBinding
+    lateinit var bind: FraCommunicationBinding
 
     var adapter: NewPeopleAdapter? = null
     var list = ArrayList<DataListModel>()
@@ -62,7 +62,7 @@ class CommunicationViewModel : BaseViewModel() {
         })
         adapter = NewPeopleAdapter(fragment?.context, list)
         adapter?.setOnItemClickListener {
-            RongYunUtil.toChat(fragment!!.activity as Activity, list[it].userId, list[it].nickname)
+            RongYunUtil.toChat(fragment!!.activity as Activity, list[it].userId, list[it].nickname, 5)
         }
 
         adapter?.setOnItemDeleteListener {
