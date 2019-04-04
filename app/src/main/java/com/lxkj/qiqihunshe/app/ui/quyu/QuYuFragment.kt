@@ -21,6 +21,8 @@ import com.zhy.m.permission.PermissionGrant
 import android.os.Bundle
 import android.view.View
 import com.baidu.mapapi.map.*
+import com.baidu.mapapi.search.core.SearchResult
+import com.baidu.mapapi.search.geocode.*
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
@@ -38,7 +40,8 @@ import com.lxkj.qiqihunshe.app.util.*
  */
 class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.OnClickListener,
     BaiduMap.OnMapStatusChangeListener, FwwdDialog.OnTellListener, AqxzDialog.OnTellListener,
-    SayHolleDialog.OnSayHiListener {
+    SayHolleDialog.OnSayHiListener, OnGetGeoCoderResultListener {
+
 
 
     val mMapView by lazy { bmapView.map }
@@ -50,6 +53,8 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
 
     var currentPosition: LatLng? = null
     var phoneNum: String? = null
+
+    var mCoder = GeoCoder.newInstance()
 
     override fun getBaseViewModel() = QuYuViewModel()
 
@@ -82,6 +87,8 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         params.clear()
         params.put("cmd", "getChatList")
         viewModel?.getChatList(Gson().toJson(params))?.bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
+
+        mCoder.setOnGetGeoCodeResultListener(this)
     }
 
     override fun loadData() {
@@ -181,8 +188,12 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
             }
 
             R.id.tv_aqxz -> {
-                AqxzDialog.show(activity!!, viewModel!!.serviceOffice)
-                AqxzDialog.setListener(this)
+                if (viewModel?.canXz!!){
+                    AqxzDialog.show(activity!!, viewModel!!.serviceOffice)
+                    AqxzDialog.setListener(this)
+                }else
+                    ToastUtil.showTopSnackBar(activity,"没有约见信息，暂不可用")
+
             }
 
             R.id.tv_fwwd -> {
@@ -221,13 +232,13 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
     }
 
     override fun onTell(phoneNum: String) {
+        this.phoneNum = phoneNum
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             MPermissions.requestPermissions(
                 this, AppConsts.PMS_CALL,
                 Manifest.permission.CALL_PHONE
             )
         } else {
-            this.phoneNum = phoneNum
             pmsCallSuccess()
         }
     }
@@ -291,6 +302,24 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         lat = mapStatus?.bound?.center?.latitude!!
         lng = mapStatus.bound?.center?.longitude!!
         getData()
+        mCoder.reverseGeoCode(
+            ReverseGeoCodeOption()
+        .location(mapStatus?.bound?.center)
+        .radius(500))
+    }
+
+    override fun onGetGeoCodeResult(p0: GeoCodeResult?) {
+    }
+
+    override fun onGetReverseGeoCodeResult(reverseGeoCodeResult: ReverseGeoCodeResult?) {
+        if (reverseGeoCodeResult == null || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+            //没有找到检索结果
+            return
+        } else {
+            //详细地址
+            var address = reverseGeoCodeResult.address
+            tv_toMyLocation.text = address
+        }
     }
 
 

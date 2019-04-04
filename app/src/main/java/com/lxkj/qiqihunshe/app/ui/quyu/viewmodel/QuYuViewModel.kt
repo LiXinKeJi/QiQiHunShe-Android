@@ -30,6 +30,7 @@ class QuYuViewModel : BaseViewModel() {
     var headOffice = DataListModel() //总公司
     var serviceOffice = DataListModel() //服务网点
     var hiList = ArrayList<String>() //打招呼用语
+    var canXz = false //是否可以安全协助
 
     //获取服务网点
     fun getServiceArea(json: String): Single<String> =
@@ -39,11 +40,11 @@ class QuYuViewModel : BaseViewModel() {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, QuYuModel::class.java)
 
-                    if (!StringUtil.isEmpty(model.arrivalTime)) {
+                    if (!StringUtil.isEmpty(model.arrivalTime)){
                         bind!!.tvTime?.text = ("到场时间：" + model.arrivalTime)
-                        bind!!.tvAqxz.visibility = VISIBLE
+                        canXz = true
                     } else
-                        bind!!.tvAqxz.visibility = GONE
+                        canXz = false
 
                     var servicePosition = 0
                     for (i in 0 until model.dataList?.size) {
@@ -59,9 +60,9 @@ class QuYuViewModel : BaseViewModel() {
 
                     if (null != serviceOffice) {
                         if (serviceOffice.distance.toInt() > 10000)
-                            bind!!.tvNoRange.visibility = VISIBLE
+                            bind!!.tvNoRange.text = "您不在小七的服务范围哦"
                         else
-                            bind!!.tvNoRange.visibility = GONE
+                            bind!!.tvNoRange.text = "当前位置为小七服务范围，请随时呼叫小七"
 
                         setData(serviceOffice)
                     } else
