@@ -5,12 +5,14 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.mine.activity.InteractiveNotificationActivity
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.QiQiRemindActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.FindUserRelationshipModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.XiangShiViewModel
 import com.lxkj.qiqihunshe.databinding.FraXiangshiBinding
+import io.rong.imkit.RongIM
 import kotlinx.android.synthetic.main.fra_xiangshi.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -80,9 +82,26 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
                     }
                 }
             }
+            "item" -> {
+                ItemCount=model.res.toInt()
+                EventBus.getDefault().post("redMsg")
+                RongYunUtil.toChat(
+                    activity!!,
+                    viewModel!!.messageAdapter.getList()[model.res.toInt()].userId,
+                    viewModel!!.messageAdapter.getList()[model.res.toInt()].nickname,
+                    viewModel!!.messageAdapter.getList()[model.res.toInt()].relationship.toInt()
+                )
+            }
+            "xiangshi" -> {//进入相识模式
+                viewModel?.let {
+                    it.messageAdapter.getList()[ItemCount].relationship="1"
+                    it.messageAdapter.notifyItemChanged(ItemCount)
+                }
+            }
         }
     }
 
+    private var ItemCount = -1
 
     override fun onDestroy() {
         super.onDestroy()

@@ -30,11 +30,16 @@ class UploadMarryActivity : BaseActivity<ActivityUploadMarryBinding, UploadMarry
     override fun getLayoutId() = R.layout.activity_upload_marry
 
     override fun init() {
-        initTitle("上传结婚证")
+
 
         viewModel?.let {
             it.marryModel.taid = intent.getStringExtra("id")
-            it.marryModel.type = intent.getStringExtra("flag")
+            it.marryModel.type = intent.getStringExtra("flag")//1牵手 2离婚
+            if(it.marryModel.type=="1"){
+                initTitle("上传结婚证")
+            }else{
+                initTitle("上传离婚证")
+            }
             it.init()
         }
 

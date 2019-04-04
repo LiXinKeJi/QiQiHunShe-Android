@@ -1,6 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.map.activity
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.view.View
 import android.widget.AdapterView
 import com.baidu.mapapi.cloud.*
@@ -24,6 +25,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption
 import com.lxkj.qiqihunshe.app.ui.map.adapter.PoiAdapter
+import com.lxkj.qiqihunshe.app.util.FileUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 
@@ -49,6 +51,8 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding, ChooseA
         initTitle("选择地址")
         mMapView.setOnMapStatusChangeListener(this)
         mCoder.setOnGetGeoCodeResultListener(this)
+        mMapView.showMapIndoorPoi(false)
+
         val ll = LatLng(StaticUtil.lat.toDouble(), StaticUtil.lng.toDouble())
         mCoder.reverseGeoCode(
             ReverseGeoCodeOption()
@@ -62,6 +66,12 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding, ChooseA
         adapter = PoiAdapter(this, list)
         lvPoi.adapter = adapter
         lvPoi?.setOnItemClickListener { p0, p1, p2, p3 ->
+
+            mMapView.snapshot {
+                FileUtil.saveFile(this@ChooseAddressActivity,"screenshot",it)
+            }
+
+
             var intent = Intent()
             intent.putExtra("poi",list[p2])
             setResult(1,intent)

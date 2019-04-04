@@ -99,6 +99,9 @@ class SkillViewModel : BaseViewModel() {
      * 评论才艺
      */
     fun addCaiyiComment(content: String) {
+        if (!StaticUtil.isRealNameAuth(fragment!!.activity!!)) {
+            return
+        }
         var params = HashMap<String, String>()
         params["cmd"] = "addCaiyiComment"
         params["uid"] = StaticUtil.uid
@@ -154,15 +157,7 @@ class SkillViewModel : BaseViewModel() {
     }
 
 
-    fun <T> compose(): ObservableTransformer<T, T> {
-        return return ObservableTransformer { upstream ->
-            upstream.doOnSubscribe {
-                ToastUtil.showToast("开始加载")
-            }.doOnTerminate {
-                ToastUtil.showToast("结束加载")
-            }
-        }
-    }
+
 
     //打赏
     fun dashang(money: String): Single<String> {

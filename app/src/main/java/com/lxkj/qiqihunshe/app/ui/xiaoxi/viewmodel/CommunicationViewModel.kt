@@ -1,5 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
+import android.app.Activity
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
 import android.view.View
@@ -12,6 +13,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.quyu.model.QuYuModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.NewPeopleAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
@@ -28,7 +30,7 @@ import kotlinx.android.synthetic.main.fra_communication.*
  */
 class CommunicationViewModel : BaseViewModel() {
 
-  lateinit  var bind: FraCommunicationBinding
+    lateinit var bind: FraCommunicationBinding
 
     var adapter: NewPeopleAdapter? = null
     var list = ArrayList<DataListModel>()
@@ -60,7 +62,7 @@ class CommunicationViewModel : BaseViewModel() {
         })
         adapter = NewPeopleAdapter(fragment?.context, list)
         adapter?.setOnItemClickListener {
-            RongIM.getInstance().startPrivateChat(fragment?.activity, list[it].userId, list[it].nickname)
+            RongYunUtil.toChat(fragment!!.activity as Activity, list[it].userId, list[it].nickname, 5)
         }
 
         adapter?.setOnItemDeleteListener {

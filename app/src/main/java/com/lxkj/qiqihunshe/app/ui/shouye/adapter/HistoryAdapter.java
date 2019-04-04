@@ -26,7 +26,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     private Context context;
     private List<DataListModel> list;
     private OnItemClickListener onItemClickListener;
-    private int flag;//2显示匹配度
+      int flag;//2显示匹配度
 
     public HistoryAdapter(Context context, List list, int flag) {
         this.context = context;

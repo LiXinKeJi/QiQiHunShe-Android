@@ -6,10 +6,12 @@ import android.os.Build
 import cn.jzvd.Jzvd
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
 import com.lxkj.qiqihunshe.app.service.LocationService
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.util.*
+import org.greenrobot.eventbus.EventBus
 
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
@@ -20,7 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
 
     override fun init() {
-
+        EventBus.getDefault().register(this)
         isWhiteStatusBar = false
         if (Build.VERSION.SDK_INT > 19) {
             StatusBarBlackWordUtil.StatusBarLightMode(this)
@@ -29,10 +31,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             it.bind = binding
             it.framanage = supportFragmentManager
             it.initBind()
+            it.getMine().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
 
         if (PermissionUtil.LocationPermissionAlbum(this, 0)) {
             initLocationOption()
+        }
+    }
+
+
+    fun onEvent(cmd: String) {
+        if (cmd == "redMsg") {//相识Fragment进入聊天，读取消息
+            viewModel?.let {
+                it.getUnreadMsg()
+            }
         }
     }
 
@@ -69,5 +81,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         super.onBackPressed()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

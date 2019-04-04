@@ -37,8 +37,9 @@ class PersonSkillViewModel : BaseViewModel() {
             val bundle = Bundle()
             bundle.putString("image", itemBean.image)
             bundle.putString("video", itemBean.video)
-            bundle.putInt("position",position)
-            MyApplication.openActivity(fragment!!.activity, MySkillActivity::class.java)
+            bundle.putInt("position", position)
+            bundle.putString("id", itemBean.caiyiId)
+            MyApplication.openActivity(fragment!!.activity, MySkillActivity::class.java, bundle)
         }
     }
 

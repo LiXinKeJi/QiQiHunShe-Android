@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.customview.FlowLayout
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.CashierInputFilter
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 
 
@@ -39,6 +40,10 @@ object DaShangDialog {
     private var money = "1"
 
     fun show(context: Activity, daShangCallBack: DaShangCallBack) {
+        if (!StaticUtil.isRealNameAuth(context)) {
+            return
+        }
+
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -75,19 +80,19 @@ object DaShangDialog {
         et_money?.filters = arrayOf<InputFilter>(CashierInputFilter())
 
         tv_play?.setOnClickListener {
-
             if (!TextUtils.isEmpty(AbStrUtil.etTostr(et_money!!))) {
-                daShangCallBack.dashang(AbStrUtil.etTostr(et_money!!))
-            } else {
+                money = AbStrUtil.etTostr(et_money!!)
                 if (TextUtils.isEmpty(money)) {
-                    ToastUtil.showTopSnackBar(context, "请选择或输入打赏金额")
+                    ToastUtil.showToast("请选择或输入打赏金额")
                     return@setOnClickListener
                 }
 
                 if (money.toDouble() == 0.0) {
-                    ToastUtil.showTopSnackBar(context, "打赏金额错误")
+                    ToastUtil.showToast("打赏金额错误")
                     return@setOnClickListener
                 }
+                daShangCallBack.dashang(money)
+            } else {
                 daShangCallBack.dashang(money)
             }
             dialog?.dismiss()

@@ -129,8 +129,10 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
         if (requestCode == 1) {
             var poi = data.getParcelableExtra("poi") as PoiInfo
             if (null != poi) {
+
+
                 binding.model?.lat = poi.location.latitude.toString()
-                binding.model?.lon = poi.location.latitude.toString()
+                binding.model?.lon = poi.location.longitude.toString()
                 binding.model?.location = poi.name
                 tv_address.text = poi.name
             }

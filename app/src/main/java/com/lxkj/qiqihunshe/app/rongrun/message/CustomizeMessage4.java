@@ -187,4 +187,5 @@ public class CustomizeMessage4 extends MessageContent {
     public void setTime(String time) {
         this.time = time;
     }
+
 }

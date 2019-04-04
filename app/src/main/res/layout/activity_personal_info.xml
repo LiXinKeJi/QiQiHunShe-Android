@@ -301,7 +301,7 @@
             <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                       android:layout_weight="1"
                       android:id="@+id/tv_conversation"
-                      android:text="通话"
+                      android:text="会话"
                       android:paddingBottom="10dp"
                       android:paddingTop="10dp"
                       android:layout_marginLeft="30dp"

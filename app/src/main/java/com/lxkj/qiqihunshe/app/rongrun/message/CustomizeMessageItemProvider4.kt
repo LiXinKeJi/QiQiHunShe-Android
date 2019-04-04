@@ -47,10 +47,6 @@ class CustomizeMessageItemProvider4(private val context: Context) :
         holder.tv_no = view.findViewById(R.id.tv_no)
         holder.tv_yes = view.findViewById(R.id.tv_yes)
 
-        holder.tv_no!!.setOnClickListener {
-            EventBus.getDefault().post(EventCmdModel("4", "6"))//拒绝定位
-        }
-
         holder.tv_address = view.findViewById(R.id.tv_address)
 
         holder.tv_selectAdd = view.findViewById(R.id.tv_selectAdd)
@@ -70,7 +66,8 @@ class CustomizeMessageItemProvider4(private val context: Context) :
             holder.line1!!.visibility = View.GONE
         } else {
             holder.tv_msg!!.text = "对方发来定位地点"
-            holder.tv_address!!.text = "${shopMessage.address}   ${getDistance(shopMessage.lat, shopMessage.lon)}km"
+            holder.tv_address!!.text =
+                "${shopMessage.address}   ${getDistance(shopMessage.lat, shopMessage.lon)}km  ${shopMessage.time}"
             holder.tv_address!!.visibility = View.VISIBLE
             holder.tv_num!!.visibility = View.VISIBLE
             holder.tv_num!!.text = "3"
@@ -90,6 +87,13 @@ class CustomizeMessageItemProvider4(private val context: Context) :
                 model.arrivaltime = shopMessage.time
                 EventBus.getDefault().post(model)
             }
+
+            holder.tv_no!!.setOnClickListener {
+                val model=EventCmdModel("4", "6")
+                model.lat=shopMessage.address
+                    EventBus.getDefault().post(EventCmdModel("4", "6"))//拒绝定位
+            }
+
         }
 
     }

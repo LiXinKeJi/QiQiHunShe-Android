@@ -20,7 +20,8 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"/>
         <ImageView
                 android:id="@+id/iv_state"
@@ -45,12 +46,15 @@
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_age"
                   android:textColor="@color/girl"
-                  android:background="@mipmap/bg_sex_nv"
+                  android:drawableLeft="@drawable/ic_girl"
                   android:text="16"
+                  android:background="@drawable/bg_girl"
                   android:textSize="10sp"
+                  android:drawablePadding="3dp"
+                  android:paddingLeft="8dp"
+                  android:paddingRight="8dp"
                   android:paddingTop="2dp"
                   android:paddingBottom="2dp"
-                  android:paddingLeft="15dp"
                   app:layout_constraintStart_toEndOf="@+id/tv_name"
                   app:layout_constraintBottom_toBottomOf="@+id/tv_name" android:layout_marginLeft="10dp"
                   android:layout_marginStart="10dp"/>

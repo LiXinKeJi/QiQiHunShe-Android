@@ -15,6 +15,7 @@ import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.FuJinDynamicViewModel
 import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.ReleaseDynamicActivity
 import com.lxkj.qiqihunshe.app.util.ShareUtil
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityXrecyclerviewBinding
 import kotlinx.android.synthetic.main.activity_xrecyclerview.*
@@ -72,6 +73,10 @@ class FuJinDynamicFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJinDyn
         fab.visibility = View.VISIBLE
         fab.attachToRecyclerView(xRecyclerView)
         fab.setOnClickListener {
+            if(!StaticUtil.isRealNameAuth(activity!!)){
+                return@setOnClickListener
+            }
+
             // flag = -1//0普通动态，1情感动态
             val bundle = Bundle()
             bundle.putInt("flag", 0)

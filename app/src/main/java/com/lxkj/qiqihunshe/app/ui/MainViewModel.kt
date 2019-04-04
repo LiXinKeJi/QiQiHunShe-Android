@@ -4,22 +4,33 @@ import android.graphics.Color
 import android.os.Build
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.view.View
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.fujin.FuJinFragment
 import com.lxkj.qiqihunshe.app.ui.mine.MineFragment
+import com.lxkj.qiqihunshe.app.ui.mine.model.MineModel
 import com.lxkj.qiqihunshe.app.ui.quyu.QuYuFragment
 import com.lxkj.qiqihunshe.app.ui.shouye.*
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.XiaoXiFragment
-import com.lxkj.qiqihunshe.app.util.StatusBarUtil
+import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
+import io.reactivex.Single
+import io.rong.imkit.RongIM
+import io.rong.imlib.RongIMClient
+import io.rong.imlib.model.Conversation
 
 /**
  * Created by Slingge on 2019/2/16
  */
-class MainViewModel : BaseViewModel() {
+class MainViewModel : BaseViewModel(), RongIM.OnReceiveUnreadCountChangedListener {
 
-    var bind: ActivityMainBinding? = null
+
+    lateinit var bind: ActivityMainBinding
     var framanage: FragmentManager? = null
 
     val shouYeFragment by lazy { ShouYeFragment() }
@@ -44,8 +55,10 @@ class MainViewModel : BaseViewModel() {
 
 
     fun initBind() {
+        getUnreadMsg()
         switchFragment(shouYeFragment)
-        bind!!.RadioGBottem.setOnCheckedChangeListener { group, checkedId ->
+        bind.RadioGBottem.setOnCheckedChangeListener { group, checkedId ->
+            getUnreadMsg()
             when (checkedId) {
                 R.id.tab_0 -> {
                     if (Build.VERSION.SDK_INT > 19) {
@@ -79,6 +92,61 @@ class MainViewModel : BaseViewModel() {
                 }
             }
         }
+    }
+
+
+    //获取未读消息
+    fun getUnreadMsg() {
+        RongIM.getInstance().getConversationList(object : RongIMClient.ResultCallback<List<Conversation>>() {
+            override fun onSuccess(p0: List<Conversation>?) {
+                if (p0 == null) {
+                    return
+                }
+                abLog.e("会话列表", Gson().toJson(p0))
+                for (im in p0) {
+                    if (im.unreadMessageCount > 0) {
+                        bind.ivSpot.visibility = View.VISIBLE
+                        return
+                    }
+                }
+                bind.ivSpot.visibility = View.GONE
+            }
+
+            override fun onError(p0: RongIMClient.ErrorCode?) {
+                ToastUtil.showTopSnackBar(fragment!!.activity, "获取会话列表错误 ${p0?.message}")
+            }
+        })
+
+    }
+
+
+    fun getMine(): Single<String> {
+        val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json).async()
+            .doOnSuccess {
+                abLog.e("个人信息",it)
+                val model = Gson().fromJson(it, MineModel::class.java)
+                bind?.let {
+
+                    StaticUtil.headerUrl = model.icon
+                    StaticUtil.nickName = model.nickname
+                    SharedPreferencesUtil.putSharePre(fragment!!.activity, "userIcon", model.icon)
+                    SharedPreferencesUtil.putSharePre(fragment!!.activity, "nickName", model.nickname)
+
+                }
+
+                StaticUtil.isReal=model.auth
+                SharedPreferencesUtil.putSharePre(fragment!!.activity, "isAuth", StaticUtil.isReal)
+
+                StaticUtil.headerUrl = model.icon
+                StaticUtil.nickName = model.nickname
+                StaticUtil.age = model.age
+            }
+    }
+
+
+    override fun onMessageIncreased(p0: Int) {
+
     }
 
 

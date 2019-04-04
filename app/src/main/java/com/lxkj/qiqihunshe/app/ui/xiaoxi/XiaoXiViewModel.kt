@@ -6,8 +6,6 @@ import android.support.v4.app.FragmentManager
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.fragment.CommunicationFragment
@@ -20,6 +18,7 @@ import com.lxkj.qiqihunshe.databinding.FragmentXiaoxiBinding
 import io.rong.imkit.RongIM
 import io.rong.imlib.RongIMClient
 import io.rong.imlib.model.Conversation
+
 
 /**
  * Created by Slingge on 2019/2/16
@@ -79,7 +78,7 @@ class XiaoXiViewModel : BaseViewModel() {
 
     //本地回话列表中的id集合
     private val imList by lazy { ArrayList<String>() }
-
+    private val chatList by lazy { ArrayList<Conversation>() }
     fun getAllIMList() {
         RongIM.getInstance().getConversationList(object : RongIMClient.ResultCallback<List<Conversation>>() {
             override fun onSuccess(p0: List<Conversation>?) {
@@ -87,6 +86,9 @@ class XiaoXiViewModel : BaseViewModel() {
                     setFragment0()
                     return
                 }
+                chatList.clear()
+                chatList.addAll(p0)
+                abLog.e("会话列表", Gson().toJson(p0))
                 for (im in p0) {
                     imList.add(im.targetId)
                 }
@@ -97,7 +99,7 @@ class XiaoXiViewModel : BaseViewModel() {
             }
 
             override fun onError(p0: RongIMClient.ErrorCode?) {
-                ToastUtil.showTopSnackBar(fragment!!.activity, "获取回话列表错误 ${p0?.message}")
+                ToastUtil.showTopSnackBar(fragment!!.activity, "获取会话列表错误 ${p0?.message}")
             }
         })
 
@@ -108,8 +110,26 @@ class XiaoXiViewModel : BaseViewModel() {
         abLog.e("获取我的好友关系", Gson().toJson(RelationshipModel(imList)))
         retrofit.getData(Gson().toJson(RelationshipModel(imList))).async()
             .doOnSuccess {
+
                 val model = Gson().fromJson(it, FindUserRelationshipModel::class.java)
+                if (friendUserList.isNotEmpty()) {
+                    friendUserList.clear()
+                }
                 friendUserList.addAll(model.dataList)
+
+                  for (count in 0 until friendUserList.size) {
+                      var count = 0
+                      for (i in 0 until chatList.size) {
+                          if (chatList[i].targetId != friendUserList[count].userId) {
+                              if (chatList[count].unreadMessageCount > 0) {
+                                  friendUserList[count].newMsgNum = chatList[count].unreadMessageCount//有新消息
+                              } else {
+                                  friendUserList[count].newMsgNum = 0
+                              }
+                          }
+                      }
+                  }
+
                 abLog.e("friendUserList", Gson().toJson(friendUserList))
                 setFragment0()
             }

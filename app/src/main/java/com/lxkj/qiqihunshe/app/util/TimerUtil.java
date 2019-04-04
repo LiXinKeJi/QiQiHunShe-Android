@@ -25,7 +25,10 @@ public class TimerUtil {
     }
 
     public void stop() {
-        timer.onFinish();
+        if (timer != null) {
+            timer.cancel();
+            timer.onFinish();
+        }
     }
 
     private CountDownTimer timer = new CountDownTimer(60000, 1000) {

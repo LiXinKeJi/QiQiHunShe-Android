@@ -11,7 +11,10 @@ import com.lxkj.qiqihunshe.app.ui.shouye.activity.MatchingActivity
 import com.lxkj.qiqihunshe.app.ui.shouye.activity.MatchingHistoryActivity
 import com.lxkj.qiqihunshe.app.ui.shouye.activity.StrokeActivity
 import com.lxkj.qiqihunshe.app.ui.shouye.model.MatchingModel
+import com.lxkj.qiqihunshe.app.ui.shouye.model.VoiceTimeModel
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.ShouYe4ViewModel
+import com.lxkj.qiqihunshe.app.util.GetDateTimeUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FragmentShouye4Binding
 import kotlinx.android.synthetic.main.fragment_shouye_4.*
@@ -61,15 +64,28 @@ class ShouYe4Fragment : BaseFragment<FragmentShouye4Binding, ShouYe4ViewModel>()
                     matchingModel.cmd = "randomUser"
                     bundle.putSerializable("model", matchingModel)
                     MyApplication.openActivity(activity, MatchingActivity::class.java, bundle)
-                    abLog.e("筛选",Gson().toJson(matchingModel))
+                    abLog.e("筛选", Gson().toJson(matchingModel))
                 }
                 1 -> {
-                    val bundle = Bundle()
-                    bundle.putInt("flag", 1)
-                    matchingModel.type = "2"///1聊 2语
-                    matchingModel.cmd = "randomUser"
-                    bundle.putSerializable("model", matchingModel)
-                    MyApplication.openActivity(activity, MatchingActivity::class.java, bundle)
+                    viewModel?.let {
+                        it.matchingTime().bindLifeCycle(this).subscribe({
+                            val model = Gson().fromJson(it, VoiceTimeModel::class.java)
+                            val l1 = model.startTime.replace(":", "")//开始时间
+                            val l2 = model.endTime.replace(":", "")//结束时间
+                            val l0 = GetDateTimeUtil.getHMS().replace(":", "")//当前时间
+
+                            if (l0 in l1..l2) {
+                                val bundle = Bundle()
+                                bundle.putInt("flag", 1)
+                                matchingModel.type = "2"///1聊 2语
+                                matchingModel.cmd = "randomUser"
+                                bundle.putSerializable("model", matchingModel)
+                                MyApplication.openActivity(activity, MatchingActivity::class.java, bundle)
+                            } else {
+                                ToastUtil.showTopSnackBar(activity, "不在匹配时间")
+                            }
+                        }, { toastFailure(it) })
+                    }
                 }
                 2 -> {//先判断有没有设置问题
                     if (viewModel?.answer == "0") {
@@ -77,7 +93,8 @@ class ShouYe4Fragment : BaseFragment<FragmentShouye4Binding, ShouYe4ViewModel>()
                     } else {
                         val bundle = Bundle()
                         bundle.putInt("flag", 2)
-
+                        matchingModel.cmd = "peiList"
+                        bundle.putSerializable("model", matchingModel)
                         MyApplication.openActivity(activity, MatchingHistoryActivity::class.java, bundle)
                     }
                 }
@@ -101,7 +118,6 @@ class ShouYe4Fragment : BaseFragment<FragmentShouye4Binding, ShouYe4ViewModel>()
     fun onEvent(mode: MatchingModel) {
         if (mode.flag == flag) {
             matchingModel = mode
-            com.lxkj.qiqihunshe.app.util.ToastUtil.showTopSnackBar(activity, Gson().toJson(matchingModel))
         }
     }
 

@@ -23,27 +23,36 @@
                 android:id="@+id/include"/>
 
 
-        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                   android:src="@drawable/ic_saomiao"
-                   android:scaleType="centerInside"
-                   android:id="@+id/iv_saomiao" android:layout_marginTop="15dp"
-                   app:layout_constraintTop_toBottomOf="@+id/include" app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
-                   app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.188"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_saomiao"
+                android:scaleType="centerInside"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:id="@+id/iv_saomiao"
+                app:layout_constraintTop_toBottomOf="@+id/include"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.18"/>
 
-        <com.lxkj.qiqihunshe.app.customview.CircleImageView android:layout_width="55dp" android:layout_height="55dp"
-                   android:id="@+id/iv_header"
-                   android:src="@mipmap/ic_launcher"
-                   android:scaleType="centerCrop"
-                   bind:imageHeaderUrl="@{viewmodel.headerUrl}"
-                   app:layout_constraintTop_toTopOf="@+id/iv_saomiao" app:layout_constraintEnd_toEndOf="@+id/iv_saomiao"
-                   app:layout_constraintStart_toStartOf="@+id/iv_saomiao"
-                   app:layout_constraintBottom_toBottomOf="@+id/iv_saomiao"/>
+        <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                android:layout_width="80dp" android:layout_height="80dp"
+                android:id="@+id/iv_header"
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="centerCrop"
+                bind:imageHeaderUrl="@{viewmodel.headerUrl}"
+                app:layout_constraintTop_toTopOf="@+id/iv_saomiao"
+                app:layout_constraintEnd_toEndOf="@+id/iv_saomiao"
+                app:layout_constraintStart_toStartOf="@+id/iv_saomiao"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_saomiao"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="真诚从这里出发"
                   android:textSize="19sp"
                   android:textColor="@color/colorTheme"
+                  android:visibility="gone"
                   android:id="@+id/tel"
                   android:layout_marginTop="84dp" app:layout_constraintTop_toBottomOf="@+id/iv_saomiao"
                   android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
@@ -60,12 +69,57 @@
                   android:paddingTop="12dp"
                   android:paddingBottom="12dp"
                   android:paddingLeft="45dp"
+                  android:visibility="gone"
                   android:paddingRight="45dp"
                   app:layout_constraintTop_toBottomOf="@+id/tel"
                   app:layout_constraintBottom_toBottomOf="parent"
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.491"
                   app:layout_constraintVertical_bias="0.735"/>
+
+
+        <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                android:layout_width="90dp" android:layout_height="90dp"
+                android:id="@+id/iv_defaul"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintTop_toBottomOf="@+id/tel"
+                android:layout_marginBottom="8dp"
+                app:civ_border_width="5dp"
+                android:visibility="gone"
+                app:civ_border_color="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.61"
+                app:layout_constraintEnd_toEndOf="@+id/tv_match"
+                app:layout_constraintStart_toStartOf="@+id/tv_match"
+                app:layout_constraintHorizontal_bias="0.81"/>
+
+
+        <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                android:layout_width="90dp" android:layout_height="90dp"
+                android:id="@+id/iv_in"
+                android:src="@drawable/queren"
+                app:layout_constraintTop_toBottomOf="@+id/tel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.37"
+                app:layout_constraintStart_toStartOf="@+id/tv_match"
+                app:layout_constraintEnd_toEndOf="@+id/tv_match"
+                app:layout_constraintHorizontal_bias="0.09"/>
+        <android.support.constraint.Guideline
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/guideline6" app:layout_constraintGuide_percent="0.5"
+                android:orientation="vertical"/>
+
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:id="@+id/iv_next"
+                   app:layout_constraintCircle="@+id/iv_in"
+                   app:layout_constraintCircleAngle="45"
+                   app:layout_constraintCircleRadius="50dp"
+                   android:padding="10dp"
+                   android:src="@drawable/fanhui"
+                   app:layout_constraintBottom_toTopOf="@+id/iv_in"
+                   app:layout_constraintStart_toEndOf="@+id/iv_in"
+        />
 
     </android.support.constraint.ConstraintLayout>
 

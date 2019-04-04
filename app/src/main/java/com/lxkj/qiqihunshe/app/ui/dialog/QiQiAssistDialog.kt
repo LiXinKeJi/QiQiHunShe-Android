@@ -8,9 +8,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.QiQiAssistModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
@@ -21,8 +23,8 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
 @SuppressLint("StaticFieldLeak")
 object QiQiAssistDialog {
 
-    interface QiQiAssistCallBack{
-        fun Assist(model:QiQiAssistModel)
+    interface QiQiAssistCallBack {
+        fun Assist(model: QiQiAssistModel)
     }
 
     private var tv_aumnt: TextView? = null
@@ -35,9 +37,11 @@ object QiQiAssistDialog {
     private var cb_qiqi: RadioButton? = null
     private var cb_service: RadioButton? = null
 
+    private lateinit var iv_cancel: ImageView
+
 
     private var dialog: AlertDialog? = null
-    fun show(context: Activity,qiQiAssistCallBack: QiQiAssistCallBack) {
+    fun show(context: Activity, qiQiAssistCallBack: QiQiAssistCallBack) {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
@@ -53,6 +57,8 @@ object QiQiAssistDialog {
 
             tv_enter = view.findViewById(R.id.tv_enter)
 
+            iv_cancel = view.findViewById(R.id.iv_cancel)
+
 
             dialog!!.window.setContentView(view)
 
@@ -60,39 +66,50 @@ object QiQiAssistDialog {
             dialog?.show()
         }
 
+        cb_service?.setOnClickListener {
+            cb_qiqi?.isChecked = true
+        }
+        cb_qiqi?.setOnClickListener {
+            cb_service?.isChecked = true
+        }
 
         tv_enter!!.setOnClickListener {
             if (cb_qiqi!!.isChecked) {
                 val mode = QiQiAssistModel()
-                val phone=AbStrUtil.etTostr(et_phone!!)
-                if(TextUtils.isEmpty(phone)){
-                 ToastUtil.showTopSnackBar(context,"请输入联系人手机号")
+                val phone = AbStrUtil.etTostr(et_phone!!)
+                if (TextUtils.isEmpty(phone)) {
+                    ToastUtil.showTopSnackBar(context, "请输入联系人手机号")
                     return@setOnClickListener
                 }
-                mode.phone=phone
+                mode.phone = phone
 
-                val address=AbStrUtil.etTostr(et_address!!)
-                if(TextUtils.isEmpty(address)){
-                    ToastUtil.showTopSnackBar(context,"请输入约见地址")
+                val address = AbStrUtil.etTostr(et_address!!)
+                if (TextUtils.isEmpty(address)) {
+                    ToastUtil.showTopSnackBar(context, "请输入约见地址")
                     return@setOnClickListener
                 }
-                mode.address=address
+                mode.address = address
 
-                val note=AbStrUtil.etTostr(et_note!!)
-                if(TextUtils.isEmpty(note)){
-                    ToastUtil.showTopSnackBar(context,"请输入约见地址")
+                val note = AbStrUtil.etTostr(et_note!!)
+                if (TextUtils.isEmpty(note)) {
+                    ToastUtil.showTopSnackBar(context, "请输入约见地址")
                     return@setOnClickListener
                 }
-                mode.remark=note
+                mode.remark = note
                 qiQiAssistCallBack.Assist(mode)
             } else if (cb_qiqi!!.isChecked) {
-                ToastUtil.showTopSnackBar(context,"跳转客服")
+                RongYunUtil.toService(context)
             }
+            dialog?.dismiss()
+        }
 
+        iv_cancel.setOnClickListener {
+            dialog?.dismiss()
         }
 
         dialog!!.window.clearFlags(
-            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+        )
 
         val dialogWindow = dialog!!.window
         dialogWindow.setWindowAnimations(R.style.dialogAnim)//淡入、淡出动画

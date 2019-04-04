@@ -33,6 +33,7 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
         val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"
         return retrofit.getData(json).async()
             .doOnSuccess {
+                abLog.e("个人信息",it)
                 val model = Gson().fromJson(it, MineModel::class.java)
                 bind?.let {
                     it.model = model
@@ -50,9 +51,13 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
                     StaticUtil.nickName = model.nickname
                     SharedPreferencesUtil.putSharePre(fragment!!.activity, "userIcon", model.icon)
                     SharedPreferencesUtil.putSharePre(fragment!!.activity, "nickName", model.nickname)
+
                     MyApplication.setRedNum(it.tvMsgNum1, model.xiaoqi.toInt())
                     MyApplication.setRedNum(it.tvMsgNum2, model.interact.toInt())
                 }
+
+                StaticUtil.isReal=model.auth
+                SharedPreferencesUtil.putSharePre(fragment!!.activity, "isAuth", StaticUtil.isReal)
 
                 StaticUtil.headerUrl = model.icon
                 StaticUtil.nickName = model.nickname
@@ -62,7 +67,7 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
 
     fun motifyState(identity: Int) {
-        val json = "{\"cmd\":\"upPrize\",\"uid\":\"" + StaticUtil.uid + "\",\"identity\":\"" + identity + "\"}"
+        val json = "{\"cmd\":\"editIdentity\",\"uid\":\"" + StaticUtil.uid + "\",\"identity\":\"" + identity + "\"}"
         abLog.e("修改状态", json)
         retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {

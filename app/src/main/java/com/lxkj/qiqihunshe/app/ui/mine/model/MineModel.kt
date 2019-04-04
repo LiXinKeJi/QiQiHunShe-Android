@@ -21,6 +21,4 @@ class MineModel : BaseModel(){
 
     var age=""
 
-
-
 }

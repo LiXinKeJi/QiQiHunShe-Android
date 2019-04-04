@@ -3,31 +3,43 @@ package com.lxkj.qiqihunshe.app.ui.fujin.activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.support.v4.content.FileProvider
+import android.text.TextUtils
 import android.view.View
 import com.baidu.mapapi.search.core.PoiInfo
+import com.google.gson.Gson
 import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.ImpressionScoreModel
 import com.lxkj.qiqihunshe.app.rongrun.model.QiQiAssistModel
 import com.lxkj.qiqihunshe.app.rongrun.model.ShiYueModel
 import com.lxkj.qiqihunshe.app.rongrun.model.YueJianModel
+import com.lxkj.qiqihunshe.app.rongrun.plugin.MyExtensionEmptyModule
+import com.lxkj.qiqihunshe.app.rongrun.plugin.MyExtensionModule
 import com.lxkj.qiqihunshe.app.ui.dialog.*
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DivideModel
+import com.lxkj.qiqihunshe.app.ui.fujin.model.YueJianInfoModel
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.ChatViewModel
-import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
+import io.rong.imkit.RongExtensionManager
+import io.rong.imlib.model.Conversation
+import io.rong.message.LocationMessage
 import kotlinx.android.synthetic.main.activity_chat_details.*
 import kotlinx.android.synthetic.main.include_title.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import java.io.File
 
 /**
  * Created by Slingge on 2019/3/12
@@ -48,6 +60,9 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
         iv_yuejian.setOnClickListener(this)
         iv_jubao.setOnClickListener(this)
 
+        tv_agree.setOnClickListener(this)
+        tv_jiechu.setOnClickListener(this)
+
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
@@ -56,14 +71,31 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
             it.targetId = uri.getQueryParameter("targetId")
             initTitle(it.title)
 
-            if (it.targetId == "客服id") {
+            if (it.targetId == RongYunUtil.serviceId) {
                 iv_yuejian.visibility = View.GONE
                 tv_right.visibility = View.GONE
                 iv_jubao.visibility = View.GONE
                 tv_tip0.visibility = View.GONE
                 iv_del.visibility = View.GONE
             }
+
+            if (RongYunUtil.isLinShiModel == 5) {
+                iv_yuejian.visibility = View.GONE
+            }
+
+            it.isXiangShi()
+            it.RelationsMe().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+
+           /* when (RongYunUtil.isLinShiModel) {
+                0 -> ToastUtil.showTopSnackBar(this, "临时")
+                1 -> ToastUtil.showTopSnackBar(this, "相识")
+                2 -> ToastUtil.showTopSnackBar(this, "约会")
+                3 -> ToastUtil.showTopSnackBar(this, "牵手")
+                4 -> ToastUtil.showTopSnackBar(this, "拉黑")
+                5 -> ToastUtil.showTopSnackBar(this@ChatActivity, "通讯")
+            }*/
         }
+
     }
 
 
@@ -74,8 +106,21 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 tv_tip0.visibility = View.GONE
             }
             R.id.iv_yuejian -> {
+                if (viewModel!!.isAppointment) {
+                    ToastUtil.showTopSnackBar(this@ChatActivity, "已在和别人约见中")
+                    return
+                }
                 viewModel?.let {
-                    it.sendMessage1()
+                    it.yuejianDetails().bindLifeCycle(this).subscribe({
+                        val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                        if (!TextUtils.isEmpty(mode.yuejianId)) {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已在约见中")
+                            return@subscribe
+                        }
+                        viewModel?.let {
+                            it.sendMessage1()
+                        }
+                    }, { toastFailure(it) })
                 }
             }
             R.id.tv_right -> {
@@ -92,6 +137,16 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                     }
                 }
             }
+            R.id.tv_agree -> {//同意
+                viewModel?.let {
+                    it.argee("0").bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            }
+            R.id.tv_jiechu -> {//拒绝
+                viewModel?.let {
+                    it.argee("1").bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                }
+            }
         }
     }
 
@@ -99,19 +154,64 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
     fun onEvent(model: EventCmdModel) {
         when (model.cmd) {
             "1" -> {//拒绝约见
+                if (viewModel!!.isAppointment) {
+                    ToastUtil.showTopSnackBar(this@ChatActivity, "已在和别人约见中")
+                    return
+                }
+                viewModel?.let {
+                    it.yuejianDetails().bindLifeCycle(this).subscribe({
+                        val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                        if (!TextUtils.isEmpty(mode.yuejianId)) {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已在约见中")
+                            return@subscribe
+                        }
+                    }, { toastFailure(it) })
+                }
                 abLog.e("拒绝请求", "2")
                 viewModel?.sendMessage2("1")
             }
             "2" -> {//同意约见
+                if (viewModel!!.isAppointment) {
+                    ToastUtil.showTopSnackBar(this@ChatActivity, "已在和别人约见中")
+                    return
+                }
+                viewModel?.let {
+                    it.yuejianDetails().bindLifeCycle(this).subscribe({
+                        val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                        if (!TextUtils.isEmpty(mode.yuejianId)) {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已在约见中")
+                            return@subscribe
+                        }
+                    }, { toastFailure(it) })
+                }
                 abLog.e("同意请求", "3")
                 viewModel?.sendMessage3()
             }
             "3" -> {//选择约见地点
+                viewModel?.let {
+                    it.yuejianDetails().bindLifeCycle(this).subscribe({
+                        val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                        if (!TextUtils.isEmpty(mode.address)) {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已选择约见地点")
+                            return@subscribe
+                        }
+                    }, { toastFailure(it) })
+                }
+
                 val bundle = Bundle()
                 bundle.putInt("flag", 0)
                 MyApplication.openActivityForResult(this, DdtjActivity::class.java, bundle, 1)
             }
             "4" -> {//拒绝定位
+                viewModel?.let {
+                    it.yuejianDetails().bindLifeCycle(this).subscribe({
+                        val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                        if (!TextUtils.isEmpty("yuejianId")) {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已拒绝约见地点")
+                            return@subscribe
+                        }
+                    }, { toastFailure(it) })
+                }
                 viewModel?.sendMessage2("6")
             }
             "5" -> {//小七协助
@@ -137,6 +237,15 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 startActivity(intent) // 启动调用
             }
             "7" -> {//完成预约
+                viewModel?.let {
+                    it.yuejianDetails().bindLifeCycle(this).subscribe({
+                        val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                        if (!TextUtils.isEmpty(mode.comment)) {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已完成约见")
+                            return@subscribe
+                        }
+                    }, { toastFailure(it) })
+                }
                 ImpressionScoreDialog.show(this, object : ImpressionScoreDialog.ImpressionScoreCallBack {
                     override fun Score(models: ImpressionScoreModel) {
                         viewModel?.let {
@@ -154,9 +263,33 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 DivideDialog.show(this, model.res)
             }
             "10" -> {//同意消费划分
+                viewModel?.let {
+                    it.yuejianDetails().bindLifeCycle(this).subscribe({
+                        val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                        if (mode.payment == "1") {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已支付划分金额")
+                            return@subscribe
+                        } else if (mode.payment == "2") {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已拒绝支付划分金额")
+                            return@subscribe
+                        }
+                    }, { toastFailure(it) })
+                }
                 viewModel?.sendMessage2("4", model.res)
             }
             "11" -> {//拒绝消费划分
+                viewModel?.let {
+                    it.yuejianDetails().bindLifeCycle(this).subscribe({
+                        val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                        if (mode.payment == "1") {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已支付划分金额")
+                            return@subscribe
+                        } else if (mode.payment == "2") {
+                            ToastUtil.showTopSnackBar(this@ChatActivity, "已拒绝支付划分金额")
+                            return@subscribe
+                        }
+                    }, { toastFailure(it) })
+                }
                 viewModel?.sendMessage2("5", model.res)
             }
         }
@@ -164,6 +297,15 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
 
     @Subscribe
     fun onEvent(model: YueJianModel) {//同意约见地点
+        viewModel?.let {
+            it.yuejianDetails().bindLifeCycle(this).subscribe({
+                val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                if (!TextUtils.isEmpty("yuejianId")) {
+                    ToastUtil.showTopSnackBar(this@ChatActivity, "已同意约见地点")
+                    return@subscribe
+                }
+            }, { toastFailure(it) })
+        }
         viewModel?.let {
             model.taid = it.targetId
             it.yueJian(model).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
@@ -173,6 +315,15 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
     @Subscribe
     fun onEvent(model: ShiYueModel) {//某方失约
         viewModel?.let {
+            it.yuejianDetails().bindLifeCycle(this).subscribe({
+                val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                if (!TextUtils.isEmpty("status")) {
+                    ToastUtil.showTopSnackBar(this@ChatActivity, "已划分")
+                    return@subscribe
+                }
+            }, { toastFailure(it) })
+        }
+        viewModel?.let {
             it.shiYue(model).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
     }
@@ -180,6 +331,15 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
 
     @Subscribe
     fun onEvent(model: DivideModel) {//提交消费划分
+        viewModel?.let {
+            it.yuejianDetails().bindLifeCycle(this).subscribe({
+                val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
+                if (!TextUtils.isEmpty("payment")) {
+                    ToastUtil.showTopSnackBar(this@ChatActivity, "已划分消费方式")
+                    return@subscribe
+                }
+            }, { toastFailure(it) })
+        }
         viewModel?.let {
             it.huafen(model).bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
@@ -219,8 +379,37 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 it.info = data.getParcelableExtra("poi") as PoiInfo
                 it.selectTime()
             }
+        } else if (requestCode == 403) {//发送地址
+            var poi = data.getParcelableExtra("poi") as PoiInfo
+
+            val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                FileProvider.getUriForFile(
+                    this@ChatActivity,
+                    "com.lxkj.qiqihunshe.provider", screenshotPath
+                )
+            } else {
+                Uri.fromFile(screenshotPath)
+            }
+            val locationMessage =
+                LocationMessage.obtain(
+                    poi.location.latitude,
+                    poi.location.longitude,
+                    "我的位置：" + poi.name, uri
+                )
+
+            val message =
+                io.rong.imlib.model.Message.obtain(
+                    viewModel?.targetId,
+                    Conversation.ConversationType.PRIVATE,
+                    locationMessage
+                )
+            RongYunUtil.sendLocationMessage(message)
         }
     }
+
+
+    private val screenshotPath =
+        File("${Environment.getExternalStorageDirectory()} /DCIM/" + "Screenshots/screenshot.png")
 
 
     override fun onDestroy() {
