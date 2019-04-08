@@ -116,7 +116,7 @@ class DdtjViewModel : BaseViewModel() {
                 }
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     val image = LayoutInflater.from(activity).inflate(R.layout.layout_imageview, null)
-                   image.ivHead.setImageBitmap(resource)
+                    image.ivHead.setImageBitmap(resource)
                     //构建Marker图标
                     val des = BitmapDescriptorFactory.fromView(image)
                     //构建MarkerOption，用于在地图上添加Marker
@@ -168,9 +168,8 @@ class DdtjViewModel : BaseViewModel() {
                         }
                     })
                 }
-        })
+            })
 
 
     }
 }
-

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Build
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.text.TextUtils
 import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
@@ -11,6 +12,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
+import com.lxkj.qiqihunshe.app.ui.dialog.PerfectInfoDialog
 import com.lxkj.qiqihunshe.app.ui.fujin.FuJinFragment
 import com.lxkj.qiqihunshe.app.ui.mine.MineFragment
 import com.lxkj.qiqihunshe.app.ui.mine.model.MineModel
@@ -124,23 +126,33 @@ class MainViewModel : BaseViewModel(), RongIM.OnReceiveUnreadCountChangedListene
         val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"
         return retrofit.getData(json).async()
             .doOnSuccess {
-                abLog.e("个人信息",it)
+                abLog.e("个人信息it",it)
                 val model = Gson().fromJson(it, MineModel::class.java)
-                bind?.let {
-
-                    StaticUtil.headerUrl = model.icon
-                    StaticUtil.nickName = model.nickname
-                    SharedPreferencesUtil.putSharePre(fragment!!.activity, "userIcon", model.icon)
-                    SharedPreferencesUtil.putSharePre(fragment!!.activity, "nickName", model.nickname)
-
-                }
-
-                StaticUtil.isReal=model.auth
-                SharedPreferencesUtil.putSharePre(fragment!!.activity, "isAuth", StaticUtil.isReal)
+                abLog.e("个人信息", Gson().toJson(model))
 
                 StaticUtil.headerUrl = model.icon
                 StaticUtil.nickName = model.nickname
-                StaticUtil.age = model.age
+                SharedPreferencesUtil.putSharePre(activity, "userIcon", model.icon)
+                SharedPreferencesUtil.putSharePre(activity, "nickName", model.nickname)
+
+                StaticUtil.isReal = model.auth
+                SharedPreferencesUtil.putSharePre(activity, "isAuth", StaticUtil.isReal)
+
+                StaticUtil.headerUrl = model.icon
+                StaticUtil.nickName = model.nickname
+                StaticUtil.sex = model.sex
+
+         
+                if (TextUtils.isEmpty(StaticUtil.sex)) {    // 0未完善资料 1已完善资料
+                    StaticUtil.fill = "0"
+                }else{
+                    StaticUtil.fill = "1"
+                }
+
+                if (StaticUtil.fill == "0") {
+                    PerfectInfoDialog.show(activity!!)
+                }
+
             }
     }
 

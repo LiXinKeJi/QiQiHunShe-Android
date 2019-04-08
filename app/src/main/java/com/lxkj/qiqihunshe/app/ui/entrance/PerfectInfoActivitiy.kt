@@ -67,10 +67,11 @@ class PerfectInfoActivitiy : BaseActivity<ActivityPerfectInfoBinding, PerfectInf
             it.birthplace2.set("请选择")
             it.residence2.set("请选择")
 
+            it.state = intent.getIntExtra("state", -1)
+
             if (intent.getIntExtra("flag", -1) == 0) {
                 it.getData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
-
         }
 
         rg_sex.setOnCheckedChangeListener(this)
@@ -390,6 +391,7 @@ class PerfectInfoActivitiy : BaseActivity<ActivityPerfectInfoBinding, PerfectInf
         abLog.e("头像", viewModel!!.model.icons)
         viewModel!!.saveData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
     }
+
 
 
 }

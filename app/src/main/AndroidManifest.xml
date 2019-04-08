@@ -81,7 +81,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.entrance.SignInActivity"
                   android:screenOrientation="portrait"/>
-
+        <activity android:name=".app.ui.entrance.WelComeActivity"
+                  android:screenOrientation="portrait"/>
 
         <!--我的-->
         <activity android:name=".app.ui.mine.activity.SetUpActivity"

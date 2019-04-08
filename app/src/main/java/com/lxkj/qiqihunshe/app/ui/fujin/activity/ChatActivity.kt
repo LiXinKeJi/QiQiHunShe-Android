@@ -436,4 +436,10 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
     }
 
 
+    override fun onBackPressed() {
+        EventBus.getDefault().post("redMsg")
+        super.onBackPressed()
+    }
+
+
 }

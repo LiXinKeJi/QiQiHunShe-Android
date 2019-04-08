@@ -5,7 +5,7 @@ import com.lxkj.qiqihunshe.app.base.BaseModel
 /**
  * Created by Slingge on 2019/2/19
  */
-class MineModel : BaseModel(){
+class MineModel : BaseModel() {
 
 
     var nickname = ""
@@ -19,6 +19,15 @@ class MineModel : BaseModel(){
 
     var auth = ""// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
 
-    var age=""
+    var sex = ""
+
+    var account = ""// 七七账号
+
+    var marriage = ""// 情感状态 0未婚 1已婚 2离异
+
+    var behavior = ""//行为值
+
+    var bail = ""//// 信誉金 0代表未缴纳
+
 
 }

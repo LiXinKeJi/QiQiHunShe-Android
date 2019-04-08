@@ -14,12 +14,13 @@ import com.lxkj.qiqihunshe.app.retrofitnet.GetTagUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.ui.MainActivity
 import com.lxkj.qiqihunshe.app.ui.dialog.AddressPop
 import com.lxkj.qiqihunshe.app.ui.dialog.DateBirthdayPop
 import com.lxkj.qiqihunshe.app.ui.dialog.StringSelectPop
 import com.lxkj.qiqihunshe.app.ui.entrance.MyTypeActivity
+import com.lxkj.qiqihunshe.app.ui.entrance.WelComeActivity
 import com.lxkj.qiqihunshe.app.ui.entrance.model.PerfectInfoModel
-import com.lxkj.qiqihunshe.app.ui.mine.model.PersonalInfoModel
 import com.lxkj.qiqihunshe.app.ui.model.CityModel
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityPerfectInfoBinding
@@ -46,7 +47,6 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
     val birthplace2 = ObservableField<String>()//ta的家乡
     val residence2 = ObservableField<String>()//ta的现居
 
-
     private var SelectString = -1//0民族，1学历,2我的情感状态,3我的情感计划，4他的情感状态,5他的情感计划，6他的薪资范围，9他的学历
 
     private var stringPop: StringSelectPop? = null
@@ -71,6 +71,8 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
     private val HeCarList by lazy { ArrayList<String>() }//他的车
     private val HeRoomList by lazy { ArrayList<String>() }//他的房
 
+
+    var state = -1//2从登录进入
 
     //flag 0我的出生日期
     fun showDate(flag: Int) {
@@ -169,8 +171,8 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                 bind?.tvEmotionalPlanning?.text = model.plan
             }
             4 -> {//他的情感状态
-                model.marriage2 =  position1.toString()
-                bind?.tvHeEmotionalState?.text =emotionalList[position1]
+                model.marriage2 = position1.toString()
+                bind?.tvHeEmotionalState?.text = emotionalList[position1]
             }
             5 -> {//他的情感计划
                 model.plan2 = heplanningList[position1]
@@ -316,42 +318,34 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
 
     //我的类型
     fun getMyType() {
-        if (MyTypeList.isEmpty()) {
-            GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
-                override fun TagList(tagList: ArrayList<String>) {
-                    MyTypeList.addAll(tagList)
-                    val bundle = Bundle()
-                    bundle.putStringArrayList("list", MyTypeList)
-                    bundle.putInt("flag", 1)
-                    MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 1)
-                }
-            }).getTag(model.sex, "2")
-        } else {
-            val bundle = Bundle()
-            bundle.putStringArrayList("list", MyTypeList)
-            bundle.putInt("flag", 1)
-            MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 1)
+        if (MyTypeList.isNotEmpty()) {
+            MyTypeList.clear()
         }
+        GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
+            override fun TagList(tagList: ArrayList<String>) {
+                MyTypeList.addAll(tagList)
+                val bundle = Bundle()
+                bundle.putStringArrayList("list", MyTypeList)
+                bundle.putInt("flag", 1)
+                MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 1)
+            }
+        }).getTag(model.sex, "2")
     }
 
     //兴趣爱好
     fun getHobby() {
-        if (hobbyList.isEmpty()) {
-            GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
-                override fun TagList(tagList: ArrayList<String>) {
-                    hobbyList.addAll(tagList)
-                    val bundle = Bundle()
-                    bundle.putStringArrayList("list", hobbyList)
-                    bundle.putInt("flag", 2)
-                    MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 2)
-                }
-            }).getTag(getHeSex(), "3")
-        } else {
-            val bundle = Bundle()
-            bundle.putStringArrayList("list", hobbyList)
-            bundle.putInt("flag", 2)
-            MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 2)
+        if (hobbyList.isNotEmpty()) {
+            hobbyList.clear()
         }
+        GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
+            override fun TagList(tagList: ArrayList<String>) {
+                hobbyList.addAll(tagList)
+                val bundle = Bundle()
+                bundle.putStringArrayList("list", hobbyList)
+                bundle.putInt("flag", 2)
+                MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 2)
+            }
+        }).getTag(getHeSex(), "3")
     }
 
 
@@ -378,22 +372,19 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
 
     //他的类型
     fun getHeType() {
-        if (HeTypeList.isEmpty()) {
-            GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
-                override fun TagList(tagList: ArrayList<String>) {
-                    HeTypeList.addAll(tagList)
-                    val bundle = Bundle()
-                    bundle.putStringArrayList("list", HeTypeList)
-                    bundle.putInt("flag", 4)
-                    MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 4)
-                }
-            }).getTag(getHeSex(), "2")
-        } else {
-            val bundle = Bundle()
-            bundle.putStringArrayList("list", HeTypeList)
-            bundle.putInt("flag", 4)
-            MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 4)
+        if (HeTypeList.isNotEmpty()) {
+            HeTypeList.clear()
         }
+        GetTagUtil(activity!!, object : GetTagUtil.TagListCallback {
+            override fun TagList(tagList: ArrayList<String>) {
+                HeTypeList.addAll(tagList)
+                val bundle = Bundle()
+                bundle.putStringArrayList("list", HeTypeList)
+                bundle.putInt("flag", 4)
+                MyApplication.openActivityForResult(activity, MyTypeActivity::class.java, bundle, 4)
+            }
+        }).getTag(getHeSex(), "2")
+
     }
 
 
@@ -460,8 +451,16 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     activity?.let {
-                        val intent = Intent()
-                        it.setResult(103, intent)
+                        if (state == 2) {//从登陆进来
+                            if (!SharedPreferencesUtil.getSharePreBoolean(activity, "isFirst")) {
+                                MyApplication.openActivity(activity, WelComeActivity::class.java)
+                            } else {
+                                MyApplication.openActivity(activity, MainActivity::class.java)
+                            }
+                        } else {
+                            val intent = Intent()
+                            it.setResult(103, intent)
+                        }
                         it.finish()
                     }
                 }

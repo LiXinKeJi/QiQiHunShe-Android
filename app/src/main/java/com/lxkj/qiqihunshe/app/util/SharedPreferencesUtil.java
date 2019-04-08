@@ -15,6 +15,8 @@ import static android.content.Context.MODE_PRIVATE;
  * 4、用户头像 userIcon String类型
  * 5、融云token  字段 rytoken string类型
  *5、是否实名认证  字段 isAuth string类型
+ *
+ * 6、 isFirst 是否第一次进入，mainActiivty显示欢迎页
  * */
 
 public class SharedPreferencesUtil {

@@ -73,7 +73,6 @@ class FwqyViewModel : BaseViewModel() {
                     mMapView.addOverlay(mCircleOptions)
 
 
-
                     mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
                         override fun onMarkerClick(p0: Marker?): Boolean {
                             if (p0 == marker) {

@@ -89,8 +89,7 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
         val dm = DisplayMetrics()
         wm.defaultDisplay.getMetrics(dm)
         val heigh = dm.heightPixels - ControlWidthHeight.dip2px(
-            activity!!,
-            (45 + 44 + 48)//底部导航，tablayout
+            activity!!, (45 + 44 + 48)//底部导航，tablayout
         ) - StatusBarUtil.getStatusBarHeight(activity)//，状态栏高度
 
         ControlWidthHeight.inputhigh(heigh, jc_video)

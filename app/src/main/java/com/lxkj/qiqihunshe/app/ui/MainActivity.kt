@@ -9,9 +9,11 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
 import com.lxkj.qiqihunshe.app.service.LocationService
+import com.lxkj.qiqihunshe.app.ui.dialog.PerfectInfoDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.util.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
@@ -40,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
 
+    @Subscribe
     fun onEvent(cmd: String) {
         if (cmd == "redMsg") {//相识Fragment进入聊天，读取消息
             viewModel?.let {
@@ -84,6 +87,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+        PerfectInfoDialog.diss()
     }
 
 }

@@ -84,7 +84,6 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
             }
             "item" -> {
                 ItemCount=model.res.toInt()
-                EventBus.getDefault().post("redMsg")
                 RongYunUtil.toChat(
                     activity!!,
                     viewModel!!.messageAdapter.getList()[model.res.toInt()].userId,
