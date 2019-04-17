@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.app.ui.shouye.model.MatchingModel
 import com.lxkj.qiqihunshe.app.ui.shouye.model.VoiceTimeModel
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.ShouYe4ViewModel
 import com.lxkj.qiqihunshe.app.util.GetDateTimeUtil
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.FragmentShouye4Binding
@@ -58,6 +59,13 @@ class ShouYe4Fragment : BaseFragment<FragmentShouye4Binding, ShouYe4ViewModel>()
         iv_but.setOnClickListener {
             when (flag) {
                 0 -> {
+                    if (StaticUtil.isReal == "0") {// 0未认证 1待审核 2已认证 3认证失败
+                        ToastUtil.showTopSnackBar(activity, "请先实名认证")
+                        return@setOnClickListener
+                    }else if(StaticUtil.isReal == "1"){
+                        ToastUtil.showTopSnackBar(activity, "实名认证审核中")
+                        return@setOnClickListener
+                    }
                     val bundle = Bundle()
                     bundle.putInt("flag", 0)
                     matchingModel.type = "1"///1聊 2语
@@ -67,6 +75,13 @@ class ShouYe4Fragment : BaseFragment<FragmentShouye4Binding, ShouYe4ViewModel>()
                     abLog.e("筛选", Gson().toJson(matchingModel))
                 }
                 1 -> {
+                    if (StaticUtil.isReal == "0") {// 0未认证 1待审核 2已认证 3认证失败
+                        ToastUtil.showTopSnackBar(activity, "请先实名认证")
+                        return@setOnClickListener
+                    }else if(StaticUtil.isReal == "1"){
+                        ToastUtil.showTopSnackBar(activity, "实名认证审核中")
+                        return@setOnClickListener
+                    }
                     viewModel?.let {
                         it.matchingTime().bindLifeCycle(this).subscribe({
                             val model = Gson().fromJson(it, VoiceTimeModel::class.java)

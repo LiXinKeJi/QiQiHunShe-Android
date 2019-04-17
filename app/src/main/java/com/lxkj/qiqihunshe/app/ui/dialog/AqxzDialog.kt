@@ -5,16 +5,9 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.ui.quyu.model.DataListModel
 import kotlinx.android.synthetic.main.dialog_aqxz_map.view.*
-import kotlinx.android.synthetic.main.spinner_tv.view.*
-import java.util.ArrayList
 
 /**
  * Created by kxn on 2019/3/1 0001.'

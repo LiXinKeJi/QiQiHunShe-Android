@@ -5,8 +5,6 @@ import android.graphics.Bitmap
 import android.view.View
 import android.widget.AdapterView
 import com.baidu.mapapi.cloud.*
-import com.baidu.mapapi.map.BaiduMap
-import com.baidu.mapapi.map.MapStatus
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.map.viewmodel.ChooseAddressViewModel
@@ -15,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_choose_address.*
 import com.baidu.mapapi.search.core.RouteNode.location
 import com.baidu.mapsdkplatform.comapi.map.ak
 import com.baidu.mapapi.cloud.CloudRgcInfo
-import com.baidu.mapapi.map.MapStatusUpdateFactory
+import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.core.PoiInfo
 import com.baidu.mapapi.search.core.SearchResult
@@ -35,7 +33,7 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
  * 选择位置信息
  */
 class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding, ChooseAddressViewModel>(),
-    BaiduMap.OnMapStatusChangeListener, OnGetGeoCoderResultListener {
+    BaiduMap.OnMapStatusChangeListener, OnGetGeoCoderResultListener, BaiduMap.OnMapClickListener {
 
 
     val mMapView by lazy { bmapView.map }
@@ -52,6 +50,7 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding, ChooseA
         mMapView.setOnMapStatusChangeListener(this)
         mCoder.setOnGetGeoCodeResultListener(this)
         mMapView.showMapIndoorPoi(false)
+        mMapView.setOnMapClickListener(this)
 
         val ll = LatLng(StaticUtil.lat.toDouble(), StaticUtil.lng.toDouble())
         mCoder.reverseGeoCode(
@@ -68,13 +67,13 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding, ChooseA
         lvPoi?.setOnItemClickListener { p0, p1, p2, p3 ->
 
             mMapView.snapshot {
-                FileUtil.saveFile(this@ChooseAddressActivity,"screenshot",it)
+                FileUtil.saveFile(this@ChooseAddressActivity, "screenshot", it)
             }
 
 
             var intent = Intent()
-            intent.putExtra("poi",list[p2])
-            setResult(1,intent)
+            intent.putExtra("poi", list[p2])
+            setResult(1, intent)
             finish()
         }
     }
@@ -111,13 +110,35 @@ class ChooseAddressActivity : BaseActivity<ActivityChooseAddressBinding, ChooseA
             ToastUtil.showTopSnackBar(this, "没有找到检索结果")
             return
         } else {
-            if (null != reverseGeoCodeResult.poiList){
+            if (null != reverseGeoCodeResult.poiList) {
                 //详细地址
                 list.clear()
                 list.addAll(reverseGeoCodeResult.poiList)
                 adapter?.notifyDataSetChanged()
             }
         }
+    }
+
+
+    //地图点击事件
+    override fun onMapClick(p0: LatLng?) {
+        p0?.let {
+            val ll = LatLng(it.latitude, it.longitude)
+            mCoder.reverseGeoCode(
+                ReverseGeoCodeOption()
+                    .location(ll)
+                    .pageSize(2)
+                    .radius(500)
+            )
+            val builder = MapStatus.Builder()
+            builder.target(ll).zoom(18.0f)
+            mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
+        }
+
+    }
+
+    override fun onMapPoiClick(p0: MapPoi?): Boolean {
+        return true
     }
 
 

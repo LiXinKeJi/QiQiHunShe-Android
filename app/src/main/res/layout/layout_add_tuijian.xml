@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+
+    <android.support.constraint.ConstraintLayout android:layout_width="wrap_content"
+                                                 android:layout_height="wrap_content">
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/bg_infowindow_qy"
+                      android:padding="10dp"
+                      android:orientation="vertical" android:id="@+id/linearLayout"
+                      app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电话：10086"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"/>
+            <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址：商都世贸中心"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"/>
+            <TextView
+                    android:id="@+id/tvDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="距离：1.5km"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"/>
+            <TextView
+                    android:id="@+id/tvNavigation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="去导航"
+                    android:textSize="11sp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/bg_rect_white_50dp"
+                    android:textColor="#17ACF6"/>
+
+        </LinearLayout>
+
+
+        <com.lxkj.qiqihunshe.app.customview.CircleImageView
+                android:id="@+id/ivHead"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>

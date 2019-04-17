@@ -1,7 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
 import android.annotation.SuppressLint
-import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import com.baidu.mapapi.search.core.PoiInfo
@@ -27,7 +26,6 @@ import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
 import io.reactivex.Single
 import org.greenrobot.eventbus.EventBus
-import org.json.JSONArray
 import org.json.JSONObject
 
 /**
@@ -281,7 +279,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                     if (type == "0") {
                         RongYunUtil.isLinShiModel = 1
                         ToastUtil.showTopSnackBar(activity, "已同意邀请")
-                        EventBus.getDefault().post(EventCmdModel("xiangshi",""))
+                        EventBus.getDefault().post(EventCmdModel("xiangshi", ""))
                     } else {
                         ToastUtil.showTopSnackBar(activity, "已拒绝邀请")
                     }
@@ -315,6 +313,21 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                     isAppointment = true
                 }
             }
+    }
+
+    //回复临时消息
+    fun ReplyTemporaryNews(): Single<String> {
+        val json = "{\"cmd\":\"sendchatmessage\",\"uid\":\"" + StaticUtil.uid + "\",\"tauid\":\"" + targetId + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+
+            }
+        }, activity))
+    }
+
+    fun getDefaultMsg(): Single<String> {
+        val json = "{\"cmd\":\"getChatList\"" + "}"
+        return retrofit.getData(json).async()
     }
 
 }

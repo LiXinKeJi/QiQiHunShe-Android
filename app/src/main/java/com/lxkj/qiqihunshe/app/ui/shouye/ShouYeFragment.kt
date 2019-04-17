@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.ui.dialog.ScreenShouYeDialog
@@ -14,6 +15,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonDynamicFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonInvitationFragment
 import com.lxkj.qiqihunshe.app.ui.mine.fragment.PersonSkillFragment
 import com.lxkj.qiqihunshe.app.ui.shouye.fragment.ShouYe4Fragment
+import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil
 import com.lxkj.qiqihunshe.app.util.StatusBarUtil
 import com.lxkj.qiqihunshe.databinding.FragmentShouyeBinding
 import kotlinx.android.synthetic.main.fragment_shouye.*
@@ -35,6 +37,10 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
         if (Build.VERSION.SDK_INT > 19) {
             StatusBarUtil.setColorNoTranslucent(activity, Color.parseColor("#2d91ff"))
         }
+        if (!SharedPreferencesUtil.getSharePreBoolean(activity, "isSlide")) {//仅显示一次
+            iv_slide.visibility = View.VISIBLE
+        }
+
         val list = ArrayList<Fragment>()
 
         var bundle = Bundle()
@@ -58,22 +64,29 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 4
 
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
+        viewPager.addOnPageChangeListener(
+            object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(p0: Int) {
 
-            }
+                }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-            }
+                override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                }
 
-            override fun onPageSelected(p0: Int) {
-                flag = p0
-            }
-        })
+                override fun onPageSelected(p0: Int) {
+                    flag = p0
 
-        iv_screen.setOnClickListener {
-            ScreenShouYeDialog.show(activity!!, flag)
-        }
+                    if (flag == 3) {
+                        SharedPreferencesUtil.putSharePre(activity, "isSlide", true)//仅显示一次
+                        iv_slide.visibility = View.GONE
+                    }
+                }
+            })
+
+
+        iv_screen.setOnClickListener { ScreenShouYeDialog.show(activity!!, flag) }
+
+
     }
 
     override fun loadData() {

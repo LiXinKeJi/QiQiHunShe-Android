@@ -1,7 +1,6 @@
 package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.google.gson.Gson
 
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
@@ -9,17 +8,14 @@ import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
-import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.QiQiBlackListAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.QiQiBlackListModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 
-import com.lxkj.qiqihunshe.app.util.ToastUtil
-import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 
 import io.reactivex.Single
-import org.json.JSONObject
 
 /**
  *
@@ -27,7 +23,7 @@ import org.json.JSONObject
  */
 class QiQiBlackListViewModel : BaseViewModel() {
 
-    val adapter by lazy { QiQiBlackListAdapter() }
+    val adapter by lazy { QiQiBlackListAdapter(flag) }
 
     var bind: ActivityRecyvlerviewBinding? = null
 
@@ -45,7 +41,7 @@ class QiQiBlackListViewModel : BaseViewModel() {
     fun getBlackData(): Single<String> {
         var json: String
         if (flag == 0) {
-            json = "{\"cmd\":\"blacklist" + "\",\"page\":\"" + page + "\"}"
+            json = "{\"cmd\":\"blacklist\",\"page\":\"$page\"}"
         } else {
             json =
                 "{\"cmd\":\"myblacklist\",\"uid\":\"" + StaticUtil.uid + "\",\"page\":\"" + page + "\"}"
@@ -53,15 +49,20 @@ class QiQiBlackListViewModel : BaseViewModel() {
         return retrofit.getData(json)
             .async().compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
-                    val model =Gson().fromJson(response, QiQiBlackListModel::class.java)
+                    val model = Gson().fromJson(response, QiQiBlackListModel::class.java)
 
                     if (page == 1) {
-                        bind!!.refresh.isRefreshing=false
+                        bind!!.refresh.isRefreshing = false
                         totalpage = model.totalPage
                         if (totalpage == 1) {
                             adapter.flag = 1
                         }
                         adapter.upData(model.dataList)
+
+                        for (m in model.dataList) {
+                            RongYunUtil.removeBlackList(m.userId)
+                        }
+
                     } else {
                         if (page == totalpage) {
                             adapter.loadMore(model.dataList, 1)

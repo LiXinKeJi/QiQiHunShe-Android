@@ -20,18 +20,16 @@ import com.lxkj.qiqihunshe.app.ui.quyu.activity.ShopDetailActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.quyu.model.QuYuModel
 import com.lxkj.qiqihunshe.app.util.DoubleCalculationUtil
-import com.lxkj.qiqihunshe.app.util.GlideUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityDdtjBinding
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.layout_imageview.view.*
 import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
-import android.graphics.Bitmap.createScaledBitmap
-import android.content.Intent.getIntent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
+import com.lxkj.qiqihunshe.app.util.abLog
 
 
 /**
@@ -42,6 +40,9 @@ class DdtjViewModel : BaseViewModel() {
 
     var flag = -1
 
+
+    val mMapView by lazy { bind?.bmapView?.map }
+
     //获取推荐地点
     fun getServiceArea(json: String): Single<String> =
         retrofit.getData(json)
@@ -49,120 +50,138 @@ class DdtjViewModel : BaseViewModel() {
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, QuYuModel::class.java)
-                    for (i in 0 until model.dataList?.size) {
-                        addOverlay(model.dataList[i])
+                    for (i in 0 until model.dataList.size) {
+                        addOverlay(model.dataList[i], i)
+                        abLog.e("i。。。。。。", i.toString())
                     }
                 }
             }, activity))
 
 
-    fun addOverlay(data: DataListModel) {
+    fun addOverlay(data: DataListModel, i: Int) {
         val point = LatLng(data.lat.toDouble(), data.lon.toDouble())
 
         Glide.with(activity!!)
             .asBitmap()
-            .load(data?.logo)
+            .load(data.logo)
             .into(object : SimpleTarget<Bitmap>() {
                 override fun onLoadFailed(errorDrawable: Drawable?) {
-                    val image = LayoutInflater.from(activity).inflate(R.layout.layout_imageview, null)
-                    //构建Marker图标
-                    val des = BitmapDescriptorFactory.fromView(image)
-                    //构建MarkerOption，用于在地图上添加Marker
-                    val option = MarkerOptions()
-                        .position(point)
-                        .icon(des)
-                    //在地图上添加Marker，并显示
-                    var mMapView = bind?.bmapView?.map
-                    val marker = mMapView?.addOverlay(option) as Marker
-                    mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
-                        override fun onMarkerClick(p0: Marker?): Boolean {
-                            if (p0 == marker) {
-                                if (flag == 0) {//聊天约见选择地点
-                                    val view =
-                                        LayoutInflater.from(activity)
-                                            .inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_qy, null)
-                                    view.tvAddress.text = "地址：" + data.address
-                                    view.tvPhone.text = "电话：" + data.phone
-                                    val latLng = LatLng(data.lat.toDouble(), data.lon.toDouble())
-                                    val latLng2 = LatLng(StaticUtil.lat.toDouble(), StaticUtil.lng.toDouble())
-                                    view.tvDistance.text =
-                                        "距离：" + DoubleCalculationUtil.mTokm(DistanceUtil.getDistance(latLng, latLng2).toString())
-                                    view.tvNavigation.text = "选择时间"
-                                    view.tvNavigation.setOnClickListener {
-                                        val intent = Intent()
-                                        var info = PoiInfo()
-                                        info.setName(data.title)
-                                        info.setAddress(data.address)
-                                        val latLng = LatLng(data.lat.toDouble(), data.lon.toDouble())
-                                        info.setLocation(latLng)
-                                        intent.putExtra("poi", info)
-                                        activity?.setResult(2, intent)
-                                        activity?.finish()
-                                    }
+                    /*   val view = LayoutInflater.from(activity).inflate(R.layout.layout_add_tuijian, null)
+                       //构建Marker图标
+                       val des = BitmapDescriptorFactory.fromView(view)
+                       //构建MarkerOption，用于在地图上添加Marker
+                       val option = MarkerOptions()
+                           .position(point)
+                           .icon(des)
+                       //在地图上添加Marker，并显示
+                       var mMapView = bind?.bmapView?.map
+                       val marker = mMapView?.addOverlay(option) as Marker*/
 
-                                    val mInfoWindow = InfoWindow(view, point, -100)
-                                    //使InfoWindow生效
-                                    mMapView.showInfoWindow(mInfoWindow)
 
-                                } else {
-                                    var bundle = Bundle()
-                                    bundle.putString("id", data.shopId)
-                                    MyApplication.openActivity(activity, ShopDetailActivity::class.java, bundle)
-                                }
-                            }
-                            return true
-                        }
-                    })
+                    /*  mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
+                          override fun onMarkerClick(p0: Marker?): Boolean {
+                              if (p0 == marker) {
+                                  if (flag == 0) {//聊天约见选择地点
+                                      val view =
+                                          LayoutInflater.from(activity)
+                                              .inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_qy, null)
+                                      view.tvAddress.text = "地址：" + data.address
+                                      view.tvPhone.text = "电话：" + data.phone
+                                      val latLng = LatLng(data.lat.toDouble(), data.lon.toDouble())
+                                      val latLng2 = LatLng(StaticUtil.lat.toDouble(), StaticUtil.lng.toDouble())
+                                      view.tvDistance.text =
+                                          "距离：" + DoubleCalculationUtil.mTokm(DistanceUtil.getDistance(latLng, latLng2).toString())
+                                      view.tvNavigation.text = "选择时间"
+                                      view.tvNavigation.setOnClickListener {
+                                          val intent = Intent()
+                                          var info = PoiInfo()
+                                          info.setName(data.title)
+                                          info.setAddress(data.address)
+                                          val latLng = LatLng(data.lat.toDouble(), data.lon.toDouble())
+                                          info.setLocation(latLng)
+                                          intent.putExtra("poi", info)
+                                          activity?.setResult(2, intent)
+                                          activity?.finish()
+                                      }
+
+                                      val mInfoWindow = InfoWindow(view, point, -100)
+                                      //使InfoWindow生效
+                                      mMapView.showInfoWindow(mInfoWindow)
+
+                                  } else {
+                                      var bundle = Bundle()
+                                      bundle.putString("id", data.shopId)
+                                      MyApplication.openActivity(activity, ShopDetailActivity::class.java, bundle)
+                                  }
+                              }
+                              return true
+                          }
+                      })*/
                 }
+
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    val image = LayoutInflater.from(activity).inflate(R.layout.layout_imageview, null)
-                    image.ivHead.setImageBitmap(resource)
+                    val view = LayoutInflater.from(activity).inflate(R.layout.layout_add_tuijian, null)
+
+                    view.ivHead.ivHead.setImageBitmap(resource)
                     //构建Marker图标
-                    val des = BitmapDescriptorFactory.fromView(image)
+
+                    view.tvAddress.text = "地址：" + data.address
+                    view.tvPhone.text = "电话：" + data.phone
+                    val latLng = LatLng(data.lat.toDouble(), data.lon.toDouble())
+                    val latLng2 = LatLng(StaticUtil.lat.toDouble(), StaticUtil.lng.toDouble())
+                    view.tvDistance.text =
+                        "距离：" + DoubleCalculationUtil.mTokm(DistanceUtil.getDistance(latLng, latLng2).toString())
+                    view.tvNavigation.text = "选择时间"
+
+                    if (flag == 0) {
+                        view.tvNavigation.text = "选择时间"
+                    } else {
+                        view.tvNavigation.text = "查看详情"
+                    }
+
+                    view.setOnClickListener {
+
+                    }
+
+//                    val mInfoWindow = InfoWindow(view, point, -100)
+//                    使InfoWindow生效
+//                    mMapView?.showInfoWindow(mInfoWindow)
+
+                    val des = BitmapDescriptorFactory.fromView(view)
                     //构建MarkerOption，用于在地图上添加Marker
                     val option = MarkerOptions()
                         .position(point)
                         .icon(des)
                     //在地图上添加Marker，并显示
-                    var mMapView = bind?.bmapView?.map
-                    val marker = mMapView?.addOverlay(option) as Marker
+                    marker = mMapView?.addOverlay(option) as Marker
+                    marker.title = i.toString()
+                    val mCircleOptions = CircleOptions().center(point)
+                        .radius(10000)//单位米
+                        .fillColor(0x3315acf5) //填充颜色
+                    //在地图上显示圆
+                    mMapView?.addOverlay(mCircleOptions)
 
-
-                    mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
+                    mMapView?.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
                         override fun onMarkerClick(p0: Marker?): Boolean {
-                            if (p0 == marker) {
-                                if (flag == 0) {//聊天约见选择地点
-                                    val view =
-                                        LayoutInflater.from(activity)
-                                            .inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_qy, null)
-                                    view.tvAddress.text = "地址：" + data.address
-                                    view.tvPhone.text = "电话：" + data.phone
-                                    val latLng = LatLng(data.lat.toDouble(), data.lon.toDouble())
-                                    val latLng2 = LatLng(StaticUtil.lat.toDouble(), StaticUtil.lng.toDouble())
-                                    view.tvDistance.text =
-                                        "距离：" + DoubleCalculationUtil.mTokm(DistanceUtil.getDistance(latLng, latLng2).toString())
-                                    view.tvNavigation.text = "选择时间"
-                                    view.tvNavigation.setOnClickListener {
-                                        val intent = Intent()
-                                        var info = PoiInfo()
-                                        info.setName(data.title)
-                                        info.setAddress(data.address)
-                                        val latLng = LatLng(data.lat.toDouble(), data.lon.toDouble())
-                                        info.setLocation(latLng)
-                                        intent.putExtra("poi", info)
-                                        activity?.setResult(2, intent)
-                                        activity?.finish()
-                                    }
+                            if (p0?.title != i.toString()) {
+                                return true
+                            }
+                            if (flag == 0) {//聊天约见选择地点
 
-                                    val mInfoWindow = InfoWindow(view, point, -100)
-                                    //使InfoWindow生效
-                                    mMapView.showInfoWindow(mInfoWindow)
+                                val intent = Intent()
+                                var info = PoiInfo()
+                                info.setName(data.title)
+                                info.setAddress(data.address)
+                                val latLng = LatLng(data.lat.toDouble(), data.lon.toDouble())
+                                info.setLocation(latLng)
+                                intent.putExtra("poi", info)
+                                activity?.setResult(2, intent)
+                                activity?.finish()
 
-                                } else {
-                                    var bundle = Bundle()
-                                    bundle.putString("id", data.shopId)
-                                    MyApplication.openActivity(activity, ShopDetailActivity::class.java, bundle)
-                                }
+                            } else {
+                                var bundle = Bundle()
+                                bundle.putString("id", data.shopId)
+                                MyApplication.openActivity(activity, ShopDetailActivity::class.java, bundle)
                             }
                             return true
                         }
@@ -170,6 +189,8 @@ class DdtjViewModel : BaseViewModel() {
                 }
             })
 
-
     }
+
+    lateinit var marker: Marker
+
 }

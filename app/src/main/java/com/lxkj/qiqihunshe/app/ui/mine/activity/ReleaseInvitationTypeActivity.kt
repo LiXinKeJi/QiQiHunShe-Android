@@ -6,6 +6,7 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseInvitationTypeViewModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityReleaseInvitationTypeBinding
 import kotlinx.android.synthetic.main.activity_release_invitation_type.*
 
@@ -36,6 +37,9 @@ class ReleaseInvitationTypeActivity :
 
 
     override fun onClick(v: View?) {
+        if(StaticUtil.isBail(this)){
+            return
+        }
         val bundle = Bundle()
         when (v?.id) {
             R.id.iv_chifan -> {
@@ -56,7 +60,6 @@ class ReleaseInvitationTypeActivity :
         }
         bundle.putInt("type", intent.getIntExtra("type", -1))
         MyApplication.openActivity(this, ReleaseInvitationActivity::class.java, bundle)
-        finish()
     }
 
 }

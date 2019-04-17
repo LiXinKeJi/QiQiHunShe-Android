@@ -46,11 +46,7 @@ class SignInViewModel : BaseViewModel() {
                         bundle.putInt("state", 2)
                         MyApplication.openActivity(activity, PerfectInfoActivitiy::class.java, bundle)
                     } else {
-                        if (!SharedPreferencesUtil.getSharePreBoolean(activity, "isFirst")) {
-                            MyApplication.openActivity(activity, WelComeActivity::class.java)
-                        } else {
-                            MyApplication.openActivity(activity, MainActivity::class.java)
-                        }
+                        MyApplication.openActivity(activity, MainActivity::class.java)
                     }
                     activity?.finish()
                 }

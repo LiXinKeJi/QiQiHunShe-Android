@@ -384,7 +384,7 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/tv_2"
                           android:layout_marginTop="8dp"
-                          android:text="2、；连续签到七天后，还是默认七人"
+                          android:text="2、连续签到七天后，还是默认七人"
                           android:textColor="@color/white"
                           android:textSize="13sp"
                           app:layout_constraintTop_toBottomOf="@+id/tv_1"

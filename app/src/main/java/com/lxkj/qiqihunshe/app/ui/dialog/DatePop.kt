@@ -40,6 +40,9 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
     private var month = 0//当前月份
     private var day = 0//当天
     private var year = 0
+    private var hour=0
+    private var min=0
+    private var s=0
 
     interface DateCallBack {
         fun position(position1: String, position2: String, position3: String, position4: String, position5: String, position6: String)
@@ -82,6 +85,10 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
             month = c.get(Calendar.MONTH) + 1// 获取当前月份
             day = c.get(Calendar.DAY_OF_MONTH)
 
+            hour=c.get(Calendar.HOUR_OF_DAY)
+            min=c.get(Calendar.MINUTE)
+            s=c.get(Calendar.SECOND)
+
             getYear()
             getMonth()
             getDay(year.toString(), month.toString())
@@ -121,9 +128,9 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
             yearList[yearList.size - 1],
             monthList[month - 1],
             dayList[day - 1],
-            hourList[position4],
-            hourList[position5],
-            hourList[position6]
+            hourList[hour-1],
+            minList[min-1],
+            minList[s-1]
         )
 
 

@@ -26,7 +26,7 @@ class WelComeViewModel : BaseViewModel() ,WelComeFragment.WelComeNextCallBack{
 
 
     fun init() {
-        for (i in 0..6) {
+        for (i in 0..5) {
             val bundle = Bundle()
             bundle.putInt("flag", i)
             val fragment1 = Fragment.instantiate(activity, WelComeFragment::class.java.name, bundle) as WelComeFragment

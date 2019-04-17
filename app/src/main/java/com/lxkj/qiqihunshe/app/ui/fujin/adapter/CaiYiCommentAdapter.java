@@ -1,6 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +12,10 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.lxkj.qiqihunshe.R;
+import com.lxkj.qiqihunshe.app.MyApplication;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DataListModel;
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity;
 import com.lxkj.qiqihunshe.app.util.AbStrUtil;
 import com.lxkj.qiqihunshe.app.util.DisplayUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
@@ -47,6 +50,15 @@ public class CaiYiCommentAdapter extends RecyclerView.Adapter<CaiYiCommentAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.ivHeader);
+
+        holder.ivHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(",", list.get(position).getUserId());
+                MyApplication.openActivity(context, PersonalInfoActivity.class, bundle);
+            }
+        });
 
 
         if (null != list.get(position).getAge())

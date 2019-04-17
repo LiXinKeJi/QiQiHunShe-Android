@@ -13,6 +13,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.ReleaseAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseDynamicModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityReleaseDynamicBinding
@@ -32,6 +33,8 @@ class ReleaseDynamicViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCallb
 
 
     fun initViewModel() {
+        model.lat=StaticUtil.lat
+        model.lon=StaticUtil.lng//必须要有默认经纬度，不能为空
         ablumList.add(LocalMedia())
         imageAdapter = ReleaseAdapter(activity!!, ablumList, 9, this)
         imageAdapter?.setFlag(1)

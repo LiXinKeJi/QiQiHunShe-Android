@@ -9,6 +9,8 @@ import android.os.Environment
 import android.support.v4.content.FileProvider
 import android.text.TextUtils
 import android.view.View
+import android.view.WindowManager
+import android.widget.EditText
 import com.baidu.mapapi.search.core.PoiInfo
 import com.google.gson.Gson
 import com.luck.picture.lib.PictureSelector
@@ -24,6 +26,7 @@ import com.lxkj.qiqihunshe.app.rongrun.model.YueJianModel
 import com.lxkj.qiqihunshe.app.rongrun.plugin.MyExtensionEmptyModule
 import com.lxkj.qiqihunshe.app.rongrun.plugin.MyExtensionModule
 import com.lxkj.qiqihunshe.app.ui.dialog.*
+import com.lxkj.qiqihunshe.app.ui.fujin.model.DefaultMsgModel
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DivideModel
 import com.lxkj.qiqihunshe.app.ui.fujin.model.YueJianInfoModel
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.ChatViewModel
@@ -32,7 +35,9 @@ import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.quyu.activity.DdtjActivity
 import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
+import io.rong.imkit.RongExtension
 import io.rong.imkit.RongExtensionManager
+import io.rong.imkit.RongIM
 import io.rong.imlib.model.Conversation
 import io.rong.message.LocationMessage
 import kotlinx.android.synthetic.main.activity_chat_details.*
@@ -50,7 +55,12 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
 
     override fun getLayoutId() = R.layout.activity_chat_details
 
+    private val edittext by lazy { findViewById<RongExtension>(R.id.rc_extension).inputEditText }//对话编辑框
+
     override fun init() {
+        window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+
         EventBus.getDefault().register(this)
         tv_right.visibility = View.VISIBLE
         tv_right.setOnClickListener(this)
@@ -60,8 +70,17 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
         iv_yuejian.setOnClickListener(this)
         iv_jubao.setOnClickListener(this)
 
+        iv_sayHello.setOnClickListener(this)
         tv_agree.setOnClickListener(this)
         tv_jiechu.setOnClickListener(this)
+
+
+        edittext.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                edittext.setText("")
+            }
+        }
+
 
         viewModel?.let {
             binding.viewmodel = it
@@ -80,20 +99,34 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
             }
 
             if (RongYunUtil.isLinShiModel == 5) {
+                iv_sayHello.visibility = View.GONE
                 iv_yuejian.visibility = View.GONE
             }
 
             it.isXiangShi()
             it.RelationsMe().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
 
-           /* when (RongYunUtil.isLinShiModel) {
-                0 -> ToastUtil.showTopSnackBar(this, "临时")
-                1 -> ToastUtil.showTopSnackBar(this, "相识")
-                2 -> ToastUtil.showTopSnackBar(this, "约会")
-                3 -> ToastUtil.showTopSnackBar(this, "牵手")
-                4 -> ToastUtil.showTopSnackBar(this, "拉黑")
-                5 -> ToastUtil.showTopSnackBar(this@ChatActivity, "通讯")
-            }*/
+            it.getDefaultMsg().bindLifeCycle(this).subscribe({
+                val model = Gson().fromJson(it, DefaultMsgModel::class.java)
+                if (model.result != "0") {
+                    return@subscribe
+                }
+                for (msg in model.dataList) {
+                    if (msg.status == "1") {
+                        edittext.setText(msg.content)
+                        return@subscribe
+                    }
+                }
+            }, { toastFailure(it) })
+
+            /* when (RongYunUtil.isLinShiModel) {
+                 0 -> ToastUtil.showTopSnackBar(this, "临时")
+                 1 -> ToastUtil.showTopSnackBar(this, "相识")
+                 2 -> ToastUtil.showTopSnackBar(this, "约会")
+                 3 -> ToastUtil.showTopSnackBar(this, "牵手")
+                 4 -> ToastUtil.showTopSnackBar(this, "拉黑")
+                 5 -> ToastUtil.showTopSnackBar(this@ChatActivity, "通讯")
+             }*/
         }
 
     }
@@ -106,6 +139,10 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 tv_tip0.visibility = View.GONE
             }
             R.id.iv_yuejian -> {
+                if (StaticUtil.isBail(this)) {
+                    return
+                }
+
                 if (viewModel!!.isAppointment) {
                     ToastUtil.showTopSnackBar(this@ChatActivity, "已在和别人约见中")
                     return
@@ -135,6 +172,11 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                     } else {
                         it.showReportDialog()
                     }
+                }
+            }
+            R.id.iv_sayHello -> {//回复打招呼，回复临时消息
+                viewModel?.let {
+                    it.ReplyTemporaryNews().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
             R.id.tv_agree -> {//同意
@@ -206,7 +248,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 viewModel?.let {
                     it.yuejianDetails().bindLifeCycle(this).subscribe({
                         val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
-                        if (!TextUtils.isEmpty("yuejianId")) {
+                        if (!TextUtils.isEmpty(mode.yuejianId)) {
                             ToastUtil.showTopSnackBar(this@ChatActivity, "已拒绝约见地点")
                             return@subscribe
                         }
@@ -300,7 +342,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
         viewModel?.let {
             it.yuejianDetails().bindLifeCycle(this).subscribe({
                 val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
-                if (!TextUtils.isEmpty("yuejianId")) {
+                if (!TextUtils.isEmpty(mode.yuejianId)) {
                     ToastUtil.showTopSnackBar(this@ChatActivity, "已同意约见地点")
                     return@subscribe
                 }
@@ -317,7 +359,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
         viewModel?.let {
             it.yuejianDetails().bindLifeCycle(this).subscribe({
                 val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
-                if (!TextUtils.isEmpty("status")) {
+                if (!TextUtils.isEmpty(mode.status)) {
                     ToastUtil.showTopSnackBar(this@ChatActivity, "已划分")
                     return@subscribe
                 }
@@ -334,7 +376,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
         viewModel?.let {
             it.yuejianDetails().bindLifeCycle(this).subscribe({
                 val mode = Gson().fromJson(it, YueJianInfoModel::class.java)
-                if (!TextUtils.isEmpty("payment")) {
+                if (!TextUtils.isEmpty(mode.payment)) {
                     ToastUtil.showTopSnackBar(this@ChatActivity, "已划分消费方式")
                     return@subscribe
                 }
@@ -408,9 +450,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
     }
 
 
-    private val screenshotPath =
-        File("${Environment.getExternalStorageDirectory()} /DCIM/" + "Screenshots/screenshot.png")
-
+    private val screenshotPath by lazy{ File("${Environment.getExternalStorageDirectory()}/DCIM/" + "Screenshots/screenshot.png")}
 
     override fun onDestroy() {
         super.onDestroy()

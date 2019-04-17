@@ -1,12 +1,14 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import android.content.Intent
+import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangAfterDialog
@@ -43,7 +45,6 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
     private lateinit var et_sendmessage: EditText
 
     override fun init() {
-        initTitle("我的动态")
 
         et_sendmessage = findViewById(R.id.et_sendmessage)
 
@@ -59,8 +60,9 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
             tv_right.visibility = View.VISIBLE
             tv_right.text = "删除"
             tv_right.setOnClickListener(this)
-
+            initTitle("我的动态")
         } else {
+            initTitle("动态详情")
             cl_person.visibility = View.VISIBLE
             tv_reward.visibility = View.VISIBLE
             tv_reward.setOnClickListener(this)
@@ -117,6 +119,7 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
             selectLv(model.permission[i])
         }
 
+        header.setOnClickListener(this)
         findViewById<ImageView>(R.id.btn_send).setOnClickListener(this)
         tv_zan.setOnClickListener(this)
         tv_share.setOnClickListener(this)
@@ -131,6 +134,11 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
                     return
                 }
                 viewModel!!.sendComment(str, et_sendmessage).bindLifeCycle(this).subscribe({}, { it })
+            }
+            R.id.header -> {
+                val bundle = Bundle()
+                bundle.putString("userId", viewModel!!.model.userId)
+                MyApplication.openActivity(this, PersonalInfoActivity::class.java, bundle)
             }
             R.id.tv_zan -> {
                 viewModel!!.zan().bindLifeCycle(this).subscribe({}, { it })

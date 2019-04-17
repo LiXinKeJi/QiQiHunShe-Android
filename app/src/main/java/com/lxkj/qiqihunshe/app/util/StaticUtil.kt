@@ -1,7 +1,19 @@
 package com.lxkj.qiqihunshe.app.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.os.Bundle
 import android.os.Environment
+import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
+import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.Utils
+import com.lxkj.qiqihunshe.app.retrofitnet.exception.dispatchFailure
+import com.lxkj.qiqihunshe.app.ui.dialog.YesOrNoDialog
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
+import io.reactivex.Single
+import org.json.JSONObject
 
 /**
  * Created by Slingge on 2019/2/20
@@ -35,6 +47,50 @@ object StaticUtil {
 
 
     var isReal = ""//是否实名认证,  0未认证 1待审核 2已认证 3认证失败
+
+    var bail = ""//信誉金 0代表未缴纳
+
+
+    //获取平台信誉金
+    @SuppressLint("CheckResult")
+    fun getReputationMoney(context: Activity) {
+        val json = "{\"cmd\":\"getBail\"" + "}"
+        Utils.retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                val obj = JSONObject(response)
+                val price = obj.getString("price")
+                val json =
+                    "{\"cmd\":\"addBailOrder\",\"uid\":\"" + StaticUtil.uid + "\",\"price\":\"" + price + "\"}"
+                Utils.retrofit.getData(json).async()
+                    .compose(SingleCompose.compose(object : SingleObserverInterface {
+                        override fun onSuccess(response: String) {
+                            val obj = JSONObject(response)
+                            val bundle = Bundle()
+                            bundle.putDouble("money", price.toDouble())
+                            bundle.putString("num", obj.getString("orderId"))
+                            bundle.putInt("flag", 0)
+                            MyApplication.openActivityForResult(context, PayActivity::class.java, bundle, 0)
+                        }
+                    }, context)).subscribe({}, { dispatchFailure(context, it) })
+            }
+        }, context)).subscribe({}, { dispatchFailure(context, it) })
+    }
+
+
+    fun isBail(context: Activity): Boolean {//聊天里发起约见，和报名及发布报名必须完成缴纳信誉金才可，否则弹缴纳窗口
+        if (bail == "0") {
+            YesOrNoDialog.showDialog(context, "缴纳信誉金", "以后再说", "缴纳", object : YesOrNoDialog.YesOrNoCallback {
+                @SuppressLint("CheckResult")
+                override fun YesOrNo(b: Boolean) {
+                    if (b) {
+                        getReputationMoney(context)
+                    }
+                }
+            })
+            return true
+        }
+        return false
+    }
 
 
     //是否实名认证，不能发送消息，发布动态、邀约、才艺、评论、打赏

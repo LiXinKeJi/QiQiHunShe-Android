@@ -1,6 +1,5 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -12,6 +11,7 @@ import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.LookupActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.UploadMarryActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.QianShouViewModel
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentQianshouBinding
 import kotlinx.android.synthetic.main.fragment_qianshou.*
@@ -68,7 +68,12 @@ class QianShouFragment : BaseFragment<FragmentQianshouBinding, QianShouViewModel
 
     @Subscribe
     fun onEvent(model: DataListModel) {
+        if (StaticUtil.uid == model.userId) {
+            ToastUtil.showTopSnackBar(this, "不能添加自己")
+            return
+        }
         viewModel?.let {
+
             it.qianshouId = model.userId
             it.name.set(model.nickname)
             it.icon.set(model.icon)

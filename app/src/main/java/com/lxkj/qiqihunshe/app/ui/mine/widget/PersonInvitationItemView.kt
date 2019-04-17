@@ -2,9 +2,12 @@ package com.lxkj.qiqihunshe.app.ui.mine.widget
 
 import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceInvitationModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.*

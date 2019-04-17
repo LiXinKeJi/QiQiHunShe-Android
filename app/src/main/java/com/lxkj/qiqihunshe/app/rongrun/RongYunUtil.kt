@@ -26,7 +26,7 @@ import io.rong.imlib.model.UserInfo
  */
 object RongYunUtil {
 
-    val serviceId = ""//客服id
+    val serviceId = "1"//客服id
 
     var isLinShiModel = -2//0临时消息 1:相识，2:约会,3:牵手,4:拉黑，5通讯
 
@@ -85,7 +85,7 @@ object RongYunUtil {
         if (isLinShiModel == 0) {
             RongExtensionManager.getInstance()
                 .registerExtensionModule(MyExtensionEmptyModule())//临时模式，不显示自定义区域
-        }else{
+        } else {
             RongExtensionManager.getInstance()
                 .registerExtensionModule(MyExtensionModule(1))//临时模式，不显示自定义区域
         }
@@ -308,6 +308,21 @@ object RongYunUtil {
                         }
                     }
                 })
+    }
+
+
+    //移出黑名单
+    fun removeBlackList(id: String) {
+        RongIM.getInstance().removeFromBlacklist(id, object : RongIMClient.OperationCallback() {
+            override fun onSuccess() {
+                abLog.e("removeBlackList","移出黑名单成功")
+            }
+
+            override fun onError(p0: RongIMClient.ErrorCode?) {
+                abLog.e("removeBlackList","移出黑名单失败")
+            }
+
+        })
     }
 
 

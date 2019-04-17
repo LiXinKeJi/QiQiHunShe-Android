@@ -452,11 +452,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                 override fun onSuccess(response: String) {
                     activity?.let {
                         if (state == 2) {//从登陆进来
-                            if (!SharedPreferencesUtil.getSharePreBoolean(activity, "isFirst")) {
-                                MyApplication.openActivity(activity, WelComeActivity::class.java)
-                            } else {
-                                MyApplication.openActivity(activity, MainActivity::class.java)
-                            }
+                            MyApplication.openActivity(activity, WelComeActivity::class.java)
                         } else {
                             val intent = Intent()
                             it.setResult(103, intent)

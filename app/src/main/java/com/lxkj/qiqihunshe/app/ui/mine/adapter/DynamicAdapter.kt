@@ -1,6 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.mine.adapter
 
 import android.app.Activity
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,12 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.animators.ItemAnimator
 import com.lxkj.qiqihunshe.app.base.animators.ScaleInItemAnimator
 import com.lxkj.qiqihunshe.app.customview.CircleImageView
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PersonalInfoActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel
 import com.lxkj.qiqihunshe.app.ui.mine.widget.LoadMoreView
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
@@ -175,6 +178,11 @@ class DynamicAdapter(val context: Activity, val list: ArrayList<SpaceDynamicMode
             }
         }
 
+        p0.header.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("userId", bean.userId)
+            MyApplication.openActivity(context, PersonalInfoActivity::class.java, bundle)
+        }
 
         p0.tv_zan.setOnClickListener {
             EventBus.getDefault().post(EventCmdModel(EventBusCmd.DianZan, (p1).toString()))

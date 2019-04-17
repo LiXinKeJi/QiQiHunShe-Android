@@ -126,7 +126,7 @@ class MainViewModel : BaseViewModel(), RongIM.OnReceiveUnreadCountChangedListene
         val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"
         return retrofit.getData(json).async()
             .doOnSuccess {
-                abLog.e("个人信息it",it)
+                abLog.e("个人信息it", it)
                 val model = Gson().fromJson(it, MineModel::class.java)
                 abLog.e("个人信息", Gson().toJson(model))
 
@@ -142,16 +142,18 @@ class MainViewModel : BaseViewModel(), RongIM.OnReceiveUnreadCountChangedListene
                 StaticUtil.nickName = model.nickname
                 StaticUtil.sex = model.sex
 
-         
+
                 if (TextUtils.isEmpty(StaticUtil.sex)) {    // 0未完善资料 1已完善资料
                     StaticUtil.fill = "0"
-                }else{
+                } else {
                     StaticUtil.fill = "1"
                 }
 
                 if (StaticUtil.fill == "0") {
                     PerfectInfoDialog.show(activity!!)
                 }
+
+                StaticUtil.bail = model.bail
 
             }
     }

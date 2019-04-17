@@ -32,7 +32,7 @@
 
         <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                   android:id="@+id/tv_jiechu"
-                  android:text="拒绝"
+                  android:text="解除"
                   android:background="@drawable/touch_bg"
                   android:padding="10dp"
                   android:gravity="center"
@@ -94,7 +94,15 @@
                    android:id="@+id/iv_jubao"
                    android:src="@drawable/jubao2"
                    app:layout_constraintStart_toStartOf="parent"
-                   android:layout_marginBottom="90dp"
+                   android:layout_marginBottom="75dp"
+                   app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:id="@+id/iv_sayHello"
+                   android:src="@mipmap/ic_sayhello"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:layout_marginBottom="140dp"
                    app:layout_constraintBottom_toBottomOf="parent"
         />
 

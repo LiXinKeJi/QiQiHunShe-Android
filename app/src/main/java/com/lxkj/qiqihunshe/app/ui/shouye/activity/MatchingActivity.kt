@@ -35,6 +35,7 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
 
     private var flag = -1
 
+
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun init() {
         initTitle("")
@@ -87,12 +88,12 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun randomUser() {
         if (flag == 0) {
-            viewModel?.type = "1"
+
             viewModel!!.randomUser().bindLifeCycle(this).subscribe({
                 anim?.pause()
             }, { toastFailure(it) })
         } else if (flag == 1) {
-            viewModel?.type = "2"
+
             viewModel!!.randomUser().bindLifeCycle(this).subscribe({
                 anim?.pause()
             }, { toastFailure(it) })

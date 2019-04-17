@@ -35,6 +35,19 @@ class QiQiBlackListModel : BaseModel() {
         var phone = ""
 
 
+        var adtime = ""//拉黑时间
+
+        var permission = ArrayList<String>()
+
+        var job = ""
+        var plan = ""
+        var introduction = ""
+        var safe = ""
+        var credit = ""
+        var polite = ""
+        var identity = ""
+
+        var userId=""
 
     }
 

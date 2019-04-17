@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
@@ -24,7 +25,7 @@ class ReputationBaoViewModel : BaseViewModel() {
 
     val adapter by lazy { ReputationBaoAdapter() }
 
-    var bind: ActivityReputationBaoBinding? = null
+    lateinit var bind: ActivityReputationBaoBinding
     var userId = ""
     var bail = ""// 信誉金 0代表未缴纳
     var page = 1
@@ -38,11 +39,14 @@ class ReputationBaoViewModel : BaseViewModel() {
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, ReputationBaoModel::class.java)
-                    bind!!.model = model
+                    bind.model = model
+                    if (model.safe.toDouble() <12.5) {
+                        bind.tvAnquan.setTextColor(activity!!.resources.getColor(R.color.red))
+                    }
                     if (model.bail != "0") {
-                        bind!!.tvPay.text = "已缴纳信誉金${model.bail}元"
-                    }else{
-                        bind!!.tvPay.text = "缴纳信誉金"
+                        bind.tvPay.text = "已缴纳信誉金${model.bail}元"
+                    } else {
+                        bind.tvPay.text = "缴纳信誉金"
                     }
                 }
             }, activity))

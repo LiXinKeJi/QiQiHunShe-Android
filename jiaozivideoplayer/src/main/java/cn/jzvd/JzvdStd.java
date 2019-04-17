@@ -42,7 +42,6 @@ public class JzvdStd extends Jzvd {
     public TextView titleTextView;
     public ImageView thumbImageView;
     public ImageView tinyBackImageView;
-    public LinearLayout batteryTimeLayout;
     public ImageView batteryLevel;
     public TextView videoCurrentTime;
     public TextView replayTextView;
@@ -94,7 +93,6 @@ public class JzvdStd extends Jzvd {
     @Override
     public void init(Context context) {
         super.init(context);
-        batteryTimeLayout = findViewById(R.id.battery_time_layout);
         bottomProgressBar = findViewById(R.id.bottom_progress);
         titleTextView = findViewById(R.id.title);
         backButton = findViewById(R.id.back);
@@ -124,7 +122,6 @@ public class JzvdStd extends Jzvd {
             fullscreenButton.setImageResource(R.drawable.jz_shrink);
             backButton.setVisibility(View.VISIBLE);
             tinyBackImageView.setVisibility(View.INVISIBLE);
-            batteryTimeLayout.setVisibility(View.VISIBLE);
             if (jzDataSource.urlsMap.size() == 1) {
                 clarity.setVisibility(GONE);
             } else {
@@ -138,13 +135,11 @@ public class JzvdStd extends Jzvd {
             backButton.setVisibility(View.GONE);
             tinyBackImageView.setVisibility(View.INVISIBLE);
             changeStartButtonSize((int) getResources().getDimension(R.dimen.jz_start_button_w_h_normal));
-            batteryTimeLayout.setVisibility(View.GONE);
             clarity.setVisibility(View.GONE);
         } else if (currentScreen == SCREEN_WINDOW_TINY) {
             tinyBackImageView.setVisibility(View.VISIBLE);
             setAllControlsVisiblity(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE,
                     View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
-            batteryTimeLayout.setVisibility(View.GONE);
             clarity.setVisibility(View.GONE);
         }
         setSystemTimeAndBattery();

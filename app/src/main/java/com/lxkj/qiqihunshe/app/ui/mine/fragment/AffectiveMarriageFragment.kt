@@ -47,7 +47,6 @@ class AffectiveMarriageFragment : BaseFragment<ActivityRecyvlerviewBinding, Affe
             }
         }
 
-
     }
 
     override fun loadData() {

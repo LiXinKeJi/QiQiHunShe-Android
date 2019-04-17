@@ -7,6 +7,7 @@ import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.ui.dialog.ScreenMenuPop
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.LookupActivity
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentXiaoxiBinding
 import kotlinx.android.synthetic.main.fragment_xiaoxi.*
 
@@ -58,12 +59,14 @@ class XiaoXiFragment : BaseFragment<FragmentXiaoxiBinding, XiaoXiViewModel>(), V
         when (v?.id) {
             R.id.iv_user -> {
                 if (flag == 1) {
+                    ToastUtil.showTopSnackBar(activity,"此模式不能使用此功能")
                     return
                 }
                 categoryPop!!.screenPopwindow(iv_user)
             }
             R.id.iv_search -> {
                 if (flag == 0) {
+                    ToastUtil.showTopSnackBar(activity,"此模式不能使用此功能")
                     return
                 }
                 val bundle = Bundle()

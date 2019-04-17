@@ -70,6 +70,7 @@
                 android:exported="true"/>
 
         <activity android:name=".app.ui.MainActivity"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.entrance.ForgetPassActivity"
                   android:screenOrientation="portrait"/>

@@ -8,6 +8,7 @@ import com.lxkj.qiqihunshe.app.ui.dialog.DynamicSignUpAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PersonInvitationDetailsViewModel
 import com.lxkj.qiqihunshe.app.util.SeePhotoViewUtil
+import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPersonInvitationDetailsBinding
 import kotlinx.android.synthetic.main.activity_person_invitation_details.*
 
@@ -56,6 +57,9 @@ class PersonInvitationDetailsActivity :
                 })
             }
             R.id.tv_signup -> {
+                if(StaticUtil.isBail(this)){
+                    return
+                }
                 viewModel!!.singUp().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
         }

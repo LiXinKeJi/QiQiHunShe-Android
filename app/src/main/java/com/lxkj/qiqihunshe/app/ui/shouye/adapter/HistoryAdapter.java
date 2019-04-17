@@ -26,11 +26,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     private Context context;
     private List<DataListModel> list;
     private OnItemClickListener onItemClickListener;
-      int flag;//2显示匹配度
+    int flag;//2显示匹配度
 
-    public HistoryAdapter(Context context, List list, int flag) {
+    private int type;
+
+    public HistoryAdapter(Context context, List list, int flag, int type) {
         this.context = context;
         this.list = list;
+        this.flag = flag;
+        this.type = type;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -46,7 +50,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.ivHeader);
+        if (type == 1) {//	1聊
+            holder.ivHeader.setImageResource(R.mipmap.ic_launcher);
+        } else {
+            GlideUtil.INSTANCE.glideHeaderLoad(context, list.get(position).getIcon(), holder.ivHeader);
+        }
+
 
         if (null != list.get(position).getIdentity()) {
             switch (list.get(position).getIdentity()) {
@@ -126,7 +135,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         if (flag == 2) {
             holder.tvDegree.setVisibility(View.VISIBLE);
-            holder.tvDegree.setText("匹配率："+list.get(position).getProportion());
+            holder.tvDegree.setText("匹配率：" + list.get(position).getProportion());
         }
 
 

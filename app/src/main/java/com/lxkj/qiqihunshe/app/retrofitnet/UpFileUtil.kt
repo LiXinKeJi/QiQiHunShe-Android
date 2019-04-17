@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Handler
 import android.os.Message
-import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.util.ThreadUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
@@ -16,7 +15,6 @@ import okhttp3.RequestBody
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import java.io.IOException
-import kotlin.math.log
 
 
 /**

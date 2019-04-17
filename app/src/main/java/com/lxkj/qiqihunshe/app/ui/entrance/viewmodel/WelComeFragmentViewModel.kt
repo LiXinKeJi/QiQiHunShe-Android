@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.entrance.viewmodel
 
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentWelcomeBinding
 
 /**

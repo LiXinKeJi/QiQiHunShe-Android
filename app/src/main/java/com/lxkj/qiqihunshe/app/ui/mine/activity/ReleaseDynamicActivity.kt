@@ -68,11 +68,6 @@ class ReleaseDynamicActivity : BaseActivity<ActivityReleaseDynamicBinding, Relea
                         return
                     }
 
-                    if (TextUtils.isEmpty(it.model.location)) {
-                        ToastUtil.showTopSnackBar(this, "请选择位置信息")
-                        return
-                    }
-
                     if (it.ablumList.size>1) {
                         val fileList = ArrayList<String>()
                         for (i in 0 until it.ablumList.size - 1) {//移除最后一个添加占位的图片

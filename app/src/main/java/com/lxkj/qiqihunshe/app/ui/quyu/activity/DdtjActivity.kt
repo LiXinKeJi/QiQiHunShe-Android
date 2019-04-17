@@ -13,11 +13,8 @@ import com.lxkj.qiqihunshe.app.ui.quyu.viewmodel.DdtjViewModel
 import com.lxkj.qiqihunshe.databinding.ActivityDdtjBinding
 import kotlinx.android.synthetic.main.activity_ddtj.*
 import com.google.gson.Gson
-import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
-import com.lxkj.qiqihunshe.app.util.DoubleCalculationUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
-import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
 
 
 /**
