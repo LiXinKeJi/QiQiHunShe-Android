@@ -7,6 +7,9 @@ import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
+import com.lxkj.qiqihunshe.app.ui.dialog.BailRefundAfterDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.BailRefundDialog
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReputationBaoViewModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
@@ -40,12 +43,7 @@ class ReputationBaoActivity : BaseActivity<ActivityReputationBaoBinding, Reputat
                 rl_pay.visibility = View.GONE
             }
             it.initViewModel()
-            it.getUserCredit().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-
-            it.getCreditList().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-
-            it.getReputationMoney().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-
+            getData()
 
             it.adapter.setLoadMore {
                 it.page++
@@ -54,7 +52,6 @@ class ReputationBaoActivity : BaseActivity<ActivityReputationBaoBinding, Reputat
                 }
             }
         }
-
     }
 
     override fun onClick(v: View?) {
@@ -64,8 +61,19 @@ class ReputationBaoActivity : BaseActivity<ActivityReputationBaoBinding, Reputat
             }
             R.id.tv_pay -> {//缴纳信誉金
                 viewModel?.let {
-                    if (it.bail == "0") {
+                    if (it.bail == "0") {//信誉金 0代表未缴纳
                         viewModel!!.getReputationNum().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                    } else {//退还信誉金
+                        if (it.reputModel.refundStatus == "1") {//// 信誉金退还状态 0没有退还申请(用户可申请）1有审核中的退还申请(不可申请)
+                            ToastUtil.showTopSnackBar(this, "已申请退还信誉金，正在审核")
+                            return
+                        }
+                        BailRefundDialog.show(this, object : BailRefundDialog.BailRefundCallBack {
+                            override fun refund() {
+                                it.BailRefund().bindLifeCycle(this@ReputationBaoActivity)
+                                    .subscribe({}, { toastFailure(it) })
+                            }
+                        })
                     }
                 }
             }
@@ -76,8 +84,23 @@ class ReputationBaoActivity : BaseActivity<ActivityReputationBaoBinding, Reputat
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0 && resultCode == 303) {
             ToastUtil.showTopSnackBar(this, "缴纳信誉金成功")
+            getData()
         }
     }
 
+
+    fun getData(){
+        viewModel?.let {
+            it.getUserCredit().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.getCreditList().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.getReputationMoney().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        BailRefundDialog.diss()
+        BailRefundAfterDialog.diss()
+    }
 
 }

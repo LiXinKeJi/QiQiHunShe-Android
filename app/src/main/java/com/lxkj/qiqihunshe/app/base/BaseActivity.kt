@@ -8,10 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.retrofitnet.exception.dispatchFailure
-import com.lxkj.qiqihunshe.app.util.AppManager
-import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
-import com.lxkj.qiqihunshe.app.util.StatusBarBlackWordUtil
-import com.lxkj.qiqihunshe.app.util.StatusBarUtil
+import com.lxkj.qiqihunshe.app.util.*
 import kotlinx.android.synthetic.main.include_title.*
 
 /**
@@ -29,7 +26,7 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     protected open fun loadData() {}
 
     var isWhiteStatusBar = true
-    var params = HashMap<String,String>()
+    var params = HashMap<String, String>()
     var lat = ""
     var lng = ""
 

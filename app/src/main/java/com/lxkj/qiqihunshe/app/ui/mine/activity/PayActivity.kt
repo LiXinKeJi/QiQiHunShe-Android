@@ -4,11 +4,13 @@ import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.exception.bindLifeCycle
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.PayViewModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPaymentBinding
 import kotlinx.android.synthetic.main.activity_payment.*
+import kotlinx.android.synthetic.main.include_title.*
 
 /**
  * Created by Slingge on 2019/3/12
@@ -22,9 +24,18 @@ class PayActivity : BaseActivity<ActivityPaymentBinding, PayViewModel>(), View.O
 
     private var flag = -1//0包括余额支付，1不能余额支付
 
+    private var type = -1//缴纳信誉金
+
     override fun init() {
         initTitle("选择支付方式")
 
+        type = intent.getIntExtra("type", -1)
+
+        if (type == 0 || type == 1) {
+            tv_service.visibility = View.VISIBLE
+            tv_service.setOnClickListener(this)
+            tv_title.setOnClickListener (null)
+        }
         viewModel?.let {
             binding.viewmodel = it
             it.initViewModel()
@@ -48,6 +59,7 @@ class PayActivity : BaseActivity<ActivityPaymentBinding, PayViewModel>(), View.O
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.tv_service -> RongYunUtil.toService(this)
             R.id.cb_balance -> {
                 cb_weixin.isChecked = false
                 cb_zhifubao.isChecked = false
@@ -83,5 +95,12 @@ class PayActivity : BaseActivity<ActivityPaymentBinding, PayViewModel>(), View.O
         }
     }
 
+
+    override fun onBackPressed() {
+        if (type == 0 && StaticUtil.foul.toInt() > 0) {
+            return
+        }
+        super.onBackPressed()
+    }
 
 }

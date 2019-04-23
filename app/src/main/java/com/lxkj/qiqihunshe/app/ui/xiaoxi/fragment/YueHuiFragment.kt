@@ -30,7 +30,6 @@ class YueHuiFragment : BaseFragment<ActivityRecyvlerviewBinding, YueHuiVieModel>
             it.friendUserList.addAll((arguments?.getSerializable("list") as ArrayList<FindUserRelationshipModel.dataModel>))
             it.initViewmodel()
         }
-
     }
 
     override fun loadData() {

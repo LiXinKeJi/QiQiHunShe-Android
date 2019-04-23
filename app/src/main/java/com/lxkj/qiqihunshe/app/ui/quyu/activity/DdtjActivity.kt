@@ -1,12 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.quyu.activity
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
 import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
-import com.baidu.mapapi.search.core.PoiInfo
-import com.baidu.mapapi.utils.DistanceUtil
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.ui.quyu.viewmodel.DdtjViewModel
@@ -45,6 +40,13 @@ class DdtjActivity : BaseActivity<ActivityDdtjBinding,DdtjViewModel>() {
         val position = LatLng(lat.toDouble(), lng.toDouble())
 
         params.put("cmd", "recommendPlace")
+        viewModel!!.getTuiJian(Gson().toJson(params)).bindLifeCycle(this).subscribe({ }, { toastFailure(it) })
+
+        params.clear()
+        params.put("cmd", "serviceArea")
+        params.put("uid", StaticUtil.uid)
+        params.put("lon", lng)
+        params.put("lat", lat)
         viewModel!!.getServiceArea(Gson().toJson(params)).bindLifeCycle(this).subscribe({ }, { toastFailure(it) })
 
         //构建Marker图标

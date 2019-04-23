@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui
 
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.text.TextUtils
@@ -10,12 +11,15 @@ import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
-import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.dialog.PerfectInfoDialog
 import com.lxkj.qiqihunshe.app.ui.fujin.FuJinFragment
 import com.lxkj.qiqihunshe.app.ui.mine.MineFragment
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.MineModel
+import com.lxkj.qiqihunshe.app.ui.mine.model.ReputationBaoModel
 import com.lxkj.qiqihunshe.app.ui.quyu.QuYuFragment
 import com.lxkj.qiqihunshe.app.ui.shouye.*
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.XiaoXiFragment
@@ -25,6 +29,7 @@ import io.reactivex.Single
 import io.rong.imkit.RongIM
 import io.rong.imlib.RongIMClient
 import io.rong.imlib.model.Conversation
+import org.json.JSONObject
 
 /**
  * Created by Slingge on 2019/2/16
@@ -119,6 +124,37 @@ class MainViewModel : BaseViewModel(), RongIM.OnReceiveUnreadCountChangedListene
             }
         })
 
+    }
+
+
+    //是否违规，违规强制去缴纳信誉金
+    fun getUserCredit(): Single<String> {
+        val json = "{\"cmd\":\"getUserCredit\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+
+                }
+            }, activity))
+    }
+
+    //获取平台信誉金
+    fun getReputationMoney(): Single<String> {
+        val json = "{\"cmd\":\"getBail\"" + "}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+
+            }
+        }, activity))
+    }
+
+    //获取信誉金订单号，强制去缴纳
+    fun getReputationNum(price:String): Single<String> {
+        val json = "{\"cmd\":\"addBailOrder\",\"uid\":\"" + StaticUtil.uid + "\",\"price\":\"" + price + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+            }
+        }, activity))
     }
 
 

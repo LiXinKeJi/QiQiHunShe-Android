@@ -49,6 +49,7 @@ object StaticUtil {
     var isReal = ""//是否实名认证,  0未认证 1待审核 2已认证 3认证失败
 
     var bail = ""//信誉金 0代表未缴纳
+    var foul = ""//违规次数
 
 
     //获取平台信誉金

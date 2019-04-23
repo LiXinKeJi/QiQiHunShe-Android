@@ -33,7 +33,7 @@ class PayViewModel : BaseViewModel() {
     var payMoney = 0.0//支付金额
     var num = ""//订单号
 
-    var type = -1//0余额支付，1微信支付，2支付宝支付
+    var type = 0//0余额支付，1微信支付，2支付宝支付
 
     private var toastMsg = ""
 

@@ -43,7 +43,6 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
     SayHolleDialog.OnSayHiListener, OnGetGeoCoderResultListener {
 
 
-
     val mMapView by lazy { bmapView.map }
     val mLocationClient by lazy { LocationClient(context) }
     var isFirst = true

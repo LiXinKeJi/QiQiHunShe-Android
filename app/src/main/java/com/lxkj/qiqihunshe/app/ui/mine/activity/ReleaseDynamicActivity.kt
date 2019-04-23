@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.text.TextUtils
 import android.view.View
-import com.baidu.location.LocationClient
 import com.baidu.mapapi.search.core.PoiInfo
 import com.luck.picture.lib.PictureSelector
 import com.lxkj.qiqihunshe.R
@@ -15,10 +14,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.UpFileUtil
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.map.activity.ChooseAddressActivity
-import com.lxkj.qiqihunshe.app.ui.map.activity.SelectAddressMapActivity
-import com.lxkj.qiqihunshe.app.ui.mine.model.ReleaseDynamicModel
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.ReleaseDynamicViewModel
-import com.lxkj.qiqihunshe.app.util.PermissionUtil
 import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
 import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil

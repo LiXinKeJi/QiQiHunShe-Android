@@ -30,14 +30,14 @@ import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
  */
 class FwqyViewModel : BaseViewModel() {
     var bind: ActivityFwqyBinding? = null
-    //获取服务网点
+    //获取服务商
     fun getServiceArea(json: String): Single<String> =
         retrofit.getData(json)
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, QuYuModel::class.java)
-                    for (i in 0 until model.dataList?.size) {
+                    for (i in 0 until model.dataList.size) {
                         addOverlay(model.dataList[i])
                     }
                 }
@@ -47,7 +47,7 @@ class FwqyViewModel : BaseViewModel() {
     fun addOverlay(data: DataListModel) {
         val point = LatLng(data.lat.toDouble(), data.lon.toDouble())
         val image = LayoutInflater.from(activity).inflate(R.layout.layout_imageview, null)
-        GlideUtil.glideHeaderLoad(activity, data?.logo, image?.ivHead)
+        GlideUtil.glideHeaderLoad(activity, data.logo, image?.ivHead)
 
         Glide.with(activity!!)
             .asBitmap()
@@ -144,8 +144,5 @@ class FwqyViewModel : BaseViewModel() {
                     })
                 }
             })
-
-
-
     }
 }

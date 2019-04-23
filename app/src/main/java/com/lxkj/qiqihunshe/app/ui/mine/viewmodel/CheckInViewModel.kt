@@ -2,10 +2,9 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.view.View
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
-import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityCheckinBinding
 import io.reactivex.Single
 import org.json.JSONObject
@@ -22,6 +21,10 @@ class CheckInViewModel : BaseViewModel() {
         return retrofit.getData(json).async()
             .doOnSuccess {
                 val obj = JSONObject(it)
+                if(obj.getString("result")!="0"){
+                    ToastUtil.showTopSnackBar(activity,obj.getString("resultNote"))
+                    return@doOnSuccess
+                }
                 when (obj.getInt("qty")) {
                     1 -> {
                         bind!!.iv1.visibility = View.VISIBLE
@@ -75,11 +78,7 @@ class CheckInViewModel : BaseViewModel() {
                     }
                 }
             }
-            .compose(
-                SingleCompose.compose(object : SingleObserverInterface {
-                    override fun onSuccess(response: String) {
-                    }
-                }, activity))
+
     }
 
 

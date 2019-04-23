@@ -12,6 +12,8 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.ui.mine.activity.MyBillActivity
+import com.lxkj.qiqihunshe.app.ui.mine.activity.ReputationBaoActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.MsgDetailsActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.XqHintAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
@@ -56,9 +58,21 @@ class QiQiRemindViewModel : BaseViewModel() {
         })
         adapter = XqHintAdapter(activity, list)
         adapter?.setOnItemClickListener {
-            var bundle = Bundle()
-            bundle.putSerializable("model", list[it])
-            MyApplication.openActivity(activity, MsgDetailsActivity::class.java, bundle)
+            when (list[it].title) {
+                "举报通知" -> {
+                    var bundle = Bundle()
+                    MyApplication.openActivity(activity, ReputationBaoActivity::class.java, bundle)
+                }
+                "退款提醒" -> {
+                    var bundle = Bundle()
+                    MyApplication.openActivity(activity, MyBillActivity::class.java, bundle)
+                }
+                else -> {
+                    var bundle = Bundle()
+                    bundle.putSerializable("model", list[it])
+                    MyApplication.openActivity(activity, MsgDetailsActivity::class.java, bundle)
+                }
+            }
         }
 
         bind?.xRecyclerView?.adapter = adapter

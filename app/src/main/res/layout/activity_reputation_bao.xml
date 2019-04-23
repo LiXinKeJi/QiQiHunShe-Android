@@ -144,7 +144,9 @@
                               android:layout_alignParentRight="true"
                     />
 
+
                 </RelativeLayout>
+
 
                 <include layout="@layout/include_line10"
                          android:layout_width="match_parent"

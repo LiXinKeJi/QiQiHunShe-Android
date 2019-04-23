@@ -59,7 +59,8 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
 
     override fun init() {
         window.setSoftInputMode(
-            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        )
 
         EventBus.getDefault().register(this)
         tv_right.visibility = View.VISIBLE
@@ -75,13 +76,6 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
         tv_jiechu.setOnClickListener(this)
 
 
-        edittext.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                edittext.setText("")
-            }
-        }
-
-
         viewModel?.let {
             binding.viewmodel = it
             it.bind = binding
@@ -90,15 +84,22 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
             it.targetId = uri.getQueryParameter("targetId")
             initTitle(it.title)
 
-            if (it.targetId == RongYunUtil.serviceId) {
+            if (it.targetId == RongYunUtil.serviceId) {//客服
                 iv_yuejian.visibility = View.GONE
                 tv_right.visibility = View.GONE
                 iv_jubao.visibility = View.GONE
                 tv_tip0.visibility = View.GONE
                 iv_del.visibility = View.GONE
+                iv_sayHello.visibility = View.GONE
+            } else {
+                edittext.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+                    if (hasFocus) {
+                        edittext.setText("")
+                    }
+                }
             }
 
-            if (RongYunUtil.isLinShiModel == 5) {
+            if (RongYunUtil.isLinShiModel == 5) {//通讯模式
                 iv_sayHello.visibility = View.GONE
                 iv_yuejian.visibility = View.GONE
             }
@@ -108,7 +109,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
 
             it.getDefaultMsg().bindLifeCycle(this).subscribe({
                 val model = Gson().fromJson(it, DefaultMsgModel::class.java)
-                if (model.result != "0") {
+                if (model.result != "0" || viewModel!!.targetId == RongYunUtil.serviceId) {
                     return@subscribe
                 }
                 for (msg in model.dataList) {
@@ -450,7 +451,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
     }
 
 
-    private val screenshotPath by lazy{ File("${Environment.getExternalStorageDirectory()}/DCIM/" + "Screenshots/screenshot.png")}
+    private val screenshotPath by lazy { File("${Environment.getExternalStorageDirectory()}/DCIM/" + "Screenshots/screenshot.png") }
 
     override fun onDestroy() {
         super.onDestroy()

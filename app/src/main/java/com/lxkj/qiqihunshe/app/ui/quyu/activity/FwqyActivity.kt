@@ -49,38 +49,7 @@ class FwqyActivity : BaseActivity<ActivityFwqyBinding,FwqyViewModel>(){
 
     }
 
-    fun addOverlay(point: LatLng) {
-        val image = LayoutInflater.from(this).inflate(R.layout.layout_shop_map, null)
-        //构建Marker图标
-        val des = BitmapDescriptorFactory.fromView(image)
-        //构建MarkerOption，用于在地图上添加Marker
-        val option = MarkerOptions()
-            .position(LatLng(point.latitude-0.002,point.longitude))
-            .icon(des)
-        //在地图上添加Marker，并显示
 
-        val marker = mMapView.addOverlay(option) as Marker
-
-
-
-        mMapView.setOnMarkerClickListener(object : BaiduMap.OnMarkerClickListener {
-            override fun onMarkerClick(p0: Marker?): Boolean {
-                if (p0 == marker) {
-                    val view =
-                        LayoutInflater.from(this@FwqyActivity).inflate(com.lxkj.qiqihunshe.R.layout.layout_infowindow_fwqy, null)
-                    view.tvNavigation.setOnClickListener {
-                        ToastUtil.showToast("去导航！")
-                    }
-                    val mInfoWindow = InfoWindow(view,point , -100)
-                    //使InfoWindow生效
-                    mMapView.showInfoWindow(mInfoWindow)
-                }
-                return true
-            }
-
-        })
-
-    }
 
 
 
