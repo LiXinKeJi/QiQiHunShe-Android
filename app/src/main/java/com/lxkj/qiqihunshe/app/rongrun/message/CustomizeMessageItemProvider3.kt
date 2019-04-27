@@ -11,6 +11,7 @@ import android.widget.*
 
 
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import io.rong.imkit.model.ProviderTag
 import io.rong.imkit.model.UIMessage
@@ -21,9 +22,10 @@ import org.greenrobot.eventbus.EventBus
 /***
  * 同意约见
  * */
-@ProviderTag(messageContent = CustomizeMessage3::class)
+@ProviderTag(messageContent = CustomizeMessage3::class,showPortrait = false,centerInHorizontal=true)
 class CustomizeMessageItemProvider3(private val context: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage3>() {
+
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
@@ -42,9 +44,6 @@ class CustomizeMessageItemProvider3(private val context: Context) :
         holder.tv_yes = view.findViewById(R.id.tv_yes)
 
         holder.tv_selectAdd = view.findViewById(R.id.tv_selectAdd)
-        holder.tv_selectAdd!!.setOnClickListener {
-            EventBus.getDefault().post(EventBus.getDefault().post(EventCmdModel("3", "")))
-        }
 
         view.tag = holder
         return view
@@ -69,6 +68,14 @@ class CustomizeMessageItemProvider3(private val context: Context) :
             holder.tv_no!!.visibility = View.INVISIBLE
             holder.tv_yes!!.visibility = View.INVISIBLE
             holder.tv_selectAdd!!.visibility = View.VISIBLE
+        }
+
+
+        holder.tv_selectAdd!!.setOnClickListener {
+            if (message.message.receivedStatus.isDownload) {
+                return@setOnClickListener
+            }
+            EventBus.getDefault().post(EventBus.getDefault().post(EventCmdModel("3", message.message.messageId.toString())))
         }
 
     }

@@ -17,6 +17,7 @@ import com.lxkj.qiqihunshe.app.rongrun.model.ShiYueModel
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog2
 import com.lxkj.qiqihunshe.app.ui.model.JuBaoModel
 import com.lxkj.qiqihunshe.app.ui.dialog.DatePop
+import com.lxkj.qiqihunshe.app.ui.fujin.model.DefaultMsgModel
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DivideModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.RelationsMeModel
@@ -25,6 +26,10 @@ import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityChatDetailsBinding
 import io.reactivex.Single
+import io.rong.imkit.RongIM
+import io.rong.imlib.RongIMClient
+import io.rong.imlib.model.Conversation
+import io.rong.imlib.model.Message
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 
@@ -38,6 +43,8 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     val jubaoFilePath by lazy { ArrayList<String>() }
     private val upFileUtil by lazy { UpFileUtil(activity!!, this) }
 
+    var Messageid = 0//消息id
+    var isSelectAddress=false//是否已选择约见地址、时间
 
     var targetId = ""//对方id
     var title = ""//标题，对方昵称
@@ -49,6 +56,8 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     var info: PoiInfo? = null
 
     var isAppointment = false//是否和别人约见
+
+    private var tempMsg = ""//回应默认回复消息
 
 
     fun getJuBaoConten(): Single<String> {
@@ -158,6 +167,11 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
             shopMessage.lon = it.location.longitude.toString()
             shopMessage.time = dateTime
             RongYunUtil.sendMessage4(targetId, shopMessage, "")
+
+            isSelectAddress=true
+
+            EventBus.getDefault().post("YueJian")//通知自定义消息，已发送约见地址
+            RongYunUtil.setMessageStatus(Messageid)
         }
     }
 
@@ -236,7 +250,9 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                         }
                     } else {
                         ToastUtil.showTopSnackBar(activity, "评分成功")
+                        EventBus.getDefault().post("isYuejian")//通知自定义消息，CustomizeMessageItemProvider6
                     }
+                    RongYunUtil.setMessageStatus(Messageid)
                 }
             }, activity))
     }
@@ -251,6 +267,9 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                     shopMessage7.price = model.money
                     shopMessage7.yuejianId = model.yuejianId
                     RongYunUtil.sendMessage7(targetId, shopMessage7, "")
+
+                    RongYunUtil.setMessageStatusXiaoFei(Messageid)
+                    EventBus.getDefault().post("isRetrieved")
                 }
             }, activity))
     }
@@ -278,8 +297,13 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                 override fun onSuccess(response: String) {
                     if (type == "0") {
                         RongYunUtil.isLinShiModel = 1
-                        ToastUtil.showTopSnackBar(activity, "已同意邀请")
+
                         EventBus.getDefault().post(EventCmdModel("xiangshi", ""))
+
+                        val shopMessage2 = CustomizeMessage2()//发送进入相识模式提示
+                        shopMessage2.price = ""
+                        shopMessage2.type = "6"
+                        RongYunUtil.sendMessage2(targetId, shopMessage2, "")
                     } else {
                         ToastUtil.showTopSnackBar(activity, "已拒绝邀请")
                     }
@@ -308,7 +332,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
         return retrofit.getData(json).async()
             .doOnSuccess {
                 val model = Gson().fromJson(it, RelationsMeModel::class.java)
-                abLog.e("和别人的关旭", it)
+                abLog.e("和别人的关系", it)
                 if (model.dataList.isNotEmpty()) {
                     isAppointment = true
                 }
@@ -320,14 +344,53 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
         val json = "{\"cmd\":\"sendchatmessage\",\"uid\":\"" + StaticUtil.uid + "\",\"tauid\":\"" + targetId + "\"}"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
-
+                RongYunUtil.sendWordsMessage(targetId, tempMsg)
             }
         }, activity))
     }
 
     fun getDefaultMsg(): Single<String> {
         val json = "{\"cmd\":\"getChatList\"" + "}"
-        return retrofit.getData(json).async()
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(it: String) {
+                val model = Gson().fromJson(it, DefaultMsgModel::class.java)
+                if (model.result != "0" || targetId == RongYunUtil.serviceId) {
+                    return
+                }
+                for (msg in model.dataList) {
+                    if (msg.status == "1") {
+                        tempMsg = msg.content
+                        return
+                    }
+                }
+            }
+        }, activity))
     }
+
+
+    //与他的聊天记录，没有则发送CustomizeMessage2，小七提醒 7
+    fun getRingYunMsgList() {
+        RongIM.getInstance().getHistoryMessages(
+            Conversation.ConversationType.PRIVATE,
+            targetId,
+            -1,
+            5,
+            object : RongIMClient.ResultCallback<List<Message>>() {
+                override fun onError(p0: RongIMClient.ErrorCode?) {
+                }
+
+                override fun onSuccess(p0: List<Message>?) {
+                    p0?.let {
+                        if (it.isEmpty()) {
+                            val shopMessage2 = CustomizeMessage2()//发送进入相识模式提示
+                            shopMessage2.price = ""
+                            shopMessage2.type = "7"
+                            RongYunUtil.sendMessage2(targetId, shopMessage2, "")
+                        }
+                    }
+                }
+            })
+    }
+
 
 }

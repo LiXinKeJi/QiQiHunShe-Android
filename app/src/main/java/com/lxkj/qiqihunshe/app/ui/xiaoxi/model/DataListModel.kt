@@ -29,6 +29,8 @@ class DataListModel : Serializable {
     var msgId = ""// 消息ID
     var title = ""// 标题
 
+    var objId=""
+
     var proportion=""// 匹配率
 
     var userIcon = "" // 头像

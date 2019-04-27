@@ -52,14 +52,14 @@ abstract class BaseListAdapter<ITEMBEAN, ITEMVIEW : View> : RecyclerView.Adapter
     fun upData(list: ArrayList<ITEMBEAN>) {
         this.list.clear()
         this.list.addAll(list)
-       notifyDataSetChanged()
+        notifyItemRangeChanged(0, this.list.size)
     }
 
     fun loadMore(list: ArrayList<ITEMBEAN>, flag: Int) {
         val size = this.list.size
         this.list.addAll(list)
         this.flag = flag
-        notifyItemRangeChanged(0, this.list.size)
+        notifyItemRangeChanged(size, this.list.size)
     }
 
     override fun getItemViewType(position: Int): Int {

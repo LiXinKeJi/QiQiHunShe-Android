@@ -25,6 +25,8 @@ public class CustomizeMessage1 extends MessageContent {
     private String reject;
     private String content;
 
+    private String type;//0未操作，1已同意，2已拒绝
+
     public CustomizeMessage1() {
 
     }

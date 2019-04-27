@@ -120,7 +120,7 @@ class MainViewModel : BaseViewModel(), RongIM.OnReceiveUnreadCountChangedListene
             }
 
             override fun onError(p0: RongIMClient.ErrorCode?) {
-                ToastUtil.showTopSnackBar(fragment!!.activity, "获取会话列表错误 ${p0?.message}")
+                ToastUtil.showTopSnackBar(activity, "获取会话列表错误 ${p0?.message}")
             }
         })
 

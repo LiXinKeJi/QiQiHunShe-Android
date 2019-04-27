@@ -21,18 +21,27 @@ import com.baidu.mapapi.utils.DistanceUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.ShiYueModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.weigan.loopview.OnItemSelectedListener
+import org.greenrobot.eventbus.Subscribe
 import java.text.DecimalFormat
 
 
 /***
  * 消费划分
  * */
-@ProviderTag(messageContent = CustomizeMessage6::class)
+@ProviderTag(messageContent = CustomizeMessage6::class,showPortrait = false,centerInHorizontal=true)
 class CustomizeMessageItemProvider6(private val context: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage6>() {
 
 
+    private var isRetrieved = false//是否完成消费划分
+
+    private var isYuejian = false//是否完成约见
+
+
     override fun newView(context: Context, viewGroup: ViewGroup): View {
+
+        EventBus.getDefault().register(this)
+
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
         val holder = ViewHolder()
         holder.fl_main = view.findViewById(R.id.fl_main)
@@ -60,9 +69,7 @@ class CustomizeMessageItemProvider6(private val context: Context) :
 
         holder.tv_selectAdd = view.findViewById(R.id.tv_selectAdd)
         holder.tv_selectAdd!!.text = "消费划分"
-        holder.tv_selectAdd!!.visibility=View.VISIBLE
-
-
+        holder.tv_selectAdd!!.visibility = View.VISIBLE
 
         view.tag = holder
         return view
@@ -80,16 +87,27 @@ class CustomizeMessageItemProvider6(private val context: Context) :
 
         holder.tv_yes!!.setOnClickListener {
             //完成预约
+            if (isYuejian || message.message.receivedStatus.isDownload) {
+                return@setOnClickListener
+            }
             EventBus.getDefault().post(EventCmdModel("7", shopMessage.yuejianId))
         }
         holder.tv_no!!.setOnClickListener {
             //解除关系
+            if (isYuejian || message.message.receivedStatus.isDownload) {
+                return@setOnClickListener
+            }
             EventBus.getDefault().post(EventCmdModel("8", shopMessage.yuejianId))
         }
 
         holder.tv_selectAdd!!.setOnClickListener {
             //消费划分
-            EventBus.getDefault().post(EventCmdModel("9", shopMessage.yuejianId))
+            if (isRetrieved || message.message.receivedStatus.isRetrieved) {
+                return@setOnClickListener
+            }
+            val model = EventCmdModel("9", shopMessage.yuejianId)
+            model.lat = message.message.messageId.toString()
+            EventBus.getDefault().post(model)
         }
 
     }
@@ -127,5 +145,14 @@ class CustomizeMessageItemProvider6(private val context: Context) :
         return DecimalFormat("#0.00").format((DistanceUtil.getDistance(p1LL, p1LL2) / 1000)).toString()
     }
 
+
+    @Subscribe
+    fun onEvent(cmd: String) {
+        if (cmd == "isRetrieved") {//已划分消费
+            isRetrieved = true
+        }else if(cmd=="isYuejian"){
+            isYuejian=true
+        }
+    }
 
 }

@@ -46,7 +46,6 @@ class XiaoXiFragment : BaseFragment<FragmentXiaoxiBinding, XiaoXiViewModel>(), V
             it.bind = binding
             it.framanage = childFragmentManager
             it.init()
-            it.getAllIMList()
         }
 
         categoryPop = ScreenMenuPop(activity!!)

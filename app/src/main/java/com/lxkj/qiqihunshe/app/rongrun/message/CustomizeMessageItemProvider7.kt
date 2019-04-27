@@ -19,6 +19,7 @@ import io.rong.imkit.model.UIMessage
 import io.rong.imkit.widget.provider.IContainerItemProvider
 import org.greenrobot.eventbus.EventBus
 import com.baidu.mapapi.utils.DistanceUtil
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.ShiYueModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.weigan.loopview.OnItemSelectedListener
@@ -29,10 +30,11 @@ import java.text.DecimalFormat
 /***
  * 显示消费划分金额
  * */
-@ProviderTag(messageContent = CustomizeMessage7::class)
+@ProviderTag(messageContent = CustomizeMessage7::class,showPortrait = false,centerInHorizontal=true)
 class CustomizeMessageItemProvider7(private val context: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage7>() {
 
+    private var isDown = false
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
@@ -49,9 +51,7 @@ class CustomizeMessageItemProvider7(private val context: Context) :
 
         holder.tv_msg = view.findViewById(R.id.tv_msg)
         holder.tv_no = view.findViewById(R.id.tv_no)
-        holder.tv_no!!.setOnClickListener {
-            EventBus.getDefault().post(EventCmdModel("5", ""))
-        }
+
         holder.tv_yes = view.findViewById(R.id.tv_yes)
         holder.tv_no!!.text = "拒绝"
         holder.tv_yes!!.text = "同意"
@@ -94,12 +94,23 @@ class CustomizeMessageItemProvider7(private val context: Context) :
 
             holder.tv_yes!!.setOnClickListener {
                 //同意消费划分
+                if (isDown || message.message.receivedStatus.isDownload) {
+                    return@setOnClickListener
+                }
+                isDown = true
+                RongYunUtil.setMessageStatus(message.message.messageId)
                 EventBus.getDefault().post(EventBus.getDefault().post(EventCmdModel("10", shopMessage.price)))
             }
             holder.tv_no!!.setOnClickListener {
                 //拒绝消费划分
+                if (isDown || message.message.receivedStatus.isDownload) {
+                    return@setOnClickListener
+                }
+                isDown = true
+                RongYunUtil.setMessageStatus(message.message.messageId)
                 EventBus.getDefault().post(EventBus.getDefault().post(EventCmdModel("11", shopMessage.price)))
             }
+
         }
 
     }

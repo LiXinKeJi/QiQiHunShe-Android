@@ -64,11 +64,23 @@ class MyDynamicViewModel : BaseViewModel() {
     }
 
 
+    fun getDynmic(id: String): Single<String> {
+        val json = "{\"cmd\":\"dongtaiDetail\",\"uid\":\"" + StaticUtil.uid + "\",\"dongtaiId\":\"" + id +
+                "\",\"lon\":\"" + StaticUtil.lng + "\",\"lat\":\"" + StaticUtil.lat + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+
+            }
+        }, activity))
+    }
+
+
     fun getComment(): Single<String> {
         val json = "{\"cmd\":\"dongtaiCommentList\",\"dongtaiId\":\"${model.dongtaiId}\",\"page\":\"$page\"}"
         abLog.e("json", json)
         return retrofit.getData(json).async()
             .doOnSuccess {
+                abLog.e("评论",it)
                 val model = Gson().fromJson(it, CommentModel::class.java)
                 if (page == 1) {
                     totalPage = model.totalPage
@@ -77,7 +89,7 @@ class MyDynamicViewModel : BaseViewModel() {
                         adapter.flag = 1
                         bind!!.rvComment.visibility = View.GONE
                         return@doOnSuccess
-                    }else{
+                    } else {
                         bind!!.rvComment.visibility = View.VISIBLE
                     }
                     if (model.totalPage == 1) {
@@ -95,7 +107,7 @@ class MyDynamicViewModel : BaseViewModel() {
     }
 
 
-    fun sendComment(str:String,et:EditText): Single<String> {
+    fun sendComment(str: String, et: EditText): Single<String> {
         val json =
             "{\"cmd\":\"addDongtaiComment\",\"dongtaiId\":\"${model.dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"lat\":\"${StaticUtil.lat}\",\"content\":\"$str\"" +
                     ",\"lon\":\"${StaticUtil.lng}\"}"

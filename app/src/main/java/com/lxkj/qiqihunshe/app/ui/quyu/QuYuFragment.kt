@@ -175,7 +175,6 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
                 bundle.putDouble("lng", lng)
                 bundle.putString("address", tv_address.text.toString())
                 MyApplication.openActivity(activity, FwqyActivity::class.java, bundle)
-//                MyApplication.openActivity(activity, SelectAddressMapActivity::class.java, bundle)
             }
             R.id.iv_sayHi -> {
                 if (viewModel!!.hiList.isEmpty()) {

@@ -72,7 +72,6 @@ object DivideDialog {
         }
 
 
-
         tv_enter!!.setOnClickListener {
             if (flag == -1) {
                 ToastUtil.showToast("请选择消费划分")

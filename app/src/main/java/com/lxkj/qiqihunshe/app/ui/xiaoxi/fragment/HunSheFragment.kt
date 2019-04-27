@@ -44,8 +44,6 @@ class HunSheFragment : BaseFragment<FragmentHunsheBinding, HunSheViewModel>(), V
         rb_qianshou.setOnClickListener(this)
         rb_xiangshi.isChecked = true
 
-        friendUserList.clear()
-        friendUserList.addAll(arguments?.getSerializable("list") as ArrayList<FindUserRelationshipModel.dataModel>)
         val list = ArrayList<Fragment>()
 
         val bundle = Bundle()

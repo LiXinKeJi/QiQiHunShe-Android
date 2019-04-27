@@ -3,6 +3,7 @@ package com.lxkj.qiqihunshe.app.ui.xiaoxi.fragment
 import android.view.View
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseFragment
+import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.FindUserRelationshipModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.YueHuiVieModel
@@ -27,8 +28,8 @@ class YueHuiFragment : BaseFragment<ActivityRecyvlerviewBinding, YueHuiVieModel>
         refresh.isEnabled = false
         viewModel?.let {
             it.bind = binding
-            it.friendUserList.addAll((arguments?.getSerializable("list") as ArrayList<FindUserRelationshipModel.dataModel>))
             it.initViewmodel()
+            it.isFriend().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
     }
 

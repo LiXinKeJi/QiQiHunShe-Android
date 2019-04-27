@@ -27,7 +27,6 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
     var bind: FragmentMineBinding? = null
 
-    var auth = ""
 
     fun getMine(): Single<String> {
         val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"

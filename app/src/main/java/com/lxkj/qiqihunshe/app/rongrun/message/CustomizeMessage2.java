@@ -23,7 +23,7 @@ public class CustomizeMessage2 extends MessageContent {
     private static final String TAG = "CustomizeMessage2";
 
     private String content;
-    private String type;//1见面，2定位，3完成约见，4支付，5拒绝支付，6，拒绝定位
+    private String type;//1 拒绝约见请求 2 拒绝定位 3 完成约见 4支付 5 拒绝支付 6 进入相识模式 7 小七提醒：此窗口三日无进入，临时模式自动关闭 8 此约见活动结束
     private String price;//支付金额
 
     public CustomizeMessage2() {

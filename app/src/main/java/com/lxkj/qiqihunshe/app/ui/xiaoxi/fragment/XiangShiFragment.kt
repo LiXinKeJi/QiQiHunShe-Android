@@ -32,9 +32,10 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
         viewModel?.let {
             it.bind = binding
             viewModel?.getNewMsg()!!.bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-            it.friendUserList.clear()
-            it.friendUserList.addAll((arguments?.getSerializable("list") as ArrayList<FindUserRelationshipModel.dataModel>))
             it.init()
+            it.friendUserList.clear()
+            it.isFriend0().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            it.isFriend1().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
 
         llHint.setOnClickListener(this)
@@ -83,7 +84,7 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
                 }
             }
             "item" -> {
-                ItemCount=model.res.toInt()
+                ItemCount = model.res.toInt()
                 RongYunUtil.toChat(
                     activity!!,
                     viewModel!!.messageAdapter.getList()[model.res.toInt()].userId,
@@ -93,7 +94,7 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
             }
             "xiangshi" -> {//进入相识模式
                 viewModel?.let {
-                    it.messageAdapter.getList()[ItemCount].relationship="1"
+                    it.messageAdapter.getList()[ItemCount].relationship = "1"
                     it.messageAdapter.notifyItemChanged(ItemCount)
                 }
             }

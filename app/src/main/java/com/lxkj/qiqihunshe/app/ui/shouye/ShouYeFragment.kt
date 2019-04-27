@@ -39,6 +39,7 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
         }
         if (!SharedPreferencesUtil.getSharePreBoolean(activity, "isSlide")) {//仅显示一次
             iv_slide.visibility = View.VISIBLE
+            SharedPreferencesUtil.putSharePre(activity, "isSlide", true)//仅显示一次
         }
 
         val list = ArrayList<Fragment>()
@@ -77,7 +78,6 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
                     flag = p0
 
                     if (flag == 3) {
-                        SharedPreferencesUtil.putSharePre(activity, "isSlide", true)//仅显示一次
                         iv_slide.visibility = View.GONE
                     }
                 }

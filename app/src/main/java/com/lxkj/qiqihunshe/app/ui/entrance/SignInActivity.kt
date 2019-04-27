@@ -1,22 +1,13 @@
 package com.lxkj.qiqihunshe.app.ui.entrance
 
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.text.TextUtils
 import android.view.View
-import com.baidu.location.BDAbstractLocationListener
-import com.baidu.location.BDLocation
-import com.baidu.location.LocationClient
-import com.baidu.location.LocationClientOption
-import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
-import com.lxkj.qiqihunshe.app.service.LocationService
 import com.lxkj.qiqihunshe.app.ui.MainActivity
-import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.entrance.model.SignInModel
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.SignInViewModel
 import com.lxkj.qiqihunshe.app.util.*

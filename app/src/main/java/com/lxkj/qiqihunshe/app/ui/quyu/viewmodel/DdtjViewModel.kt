@@ -50,7 +50,6 @@ class DdtjViewModel : BaseViewModel() {
                     val model = Gson().fromJson(response, QuYuModel::class.java)
                     for (i in 0 until model.dataList.size) {
                         addOverlay(model.dataList[i], i)
-                        abLog.e("i。。。。。。", i.toString())
                     }
                 }
             }, activity))

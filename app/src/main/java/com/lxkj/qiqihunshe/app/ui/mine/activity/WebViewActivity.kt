@@ -28,7 +28,8 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding, WebViewViewModel>()
                 initTitle("注册协议")
                 it.setUrl(RetrofitUtil.url + "display/agreement?id=1")
             } else {
-                it.setUrl(intent.getStringExtra("url"))
+                it.setUrl(RetrofitUtil.url + "display/agreement?id=1")
+//                it.setUrl(intent.getStringExtra("url"))
             }
         }
 

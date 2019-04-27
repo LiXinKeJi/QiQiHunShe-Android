@@ -26,7 +26,6 @@ import java.util.ArrayList
  */
 class XiangShiViewModel : BaseViewModel() {
 
-
     var bind: FraXiangshiBinding? = null
 
     val friendUserList by lazy { ArrayList<FindUserRelationshipModel.dataModel>() }
@@ -38,21 +37,7 @@ class XiangShiViewModel : BaseViewModel() {
         bind?.let {
             it.recycler.layoutManager = LinearLayoutManager(fragment!!.activity)
             it.recycler.adapter = messageAdapter
-
-            messageAdapter.flag = 1
-
-            val userList = ArrayList<FindUserRelationshipModel.dataModel>()
-            for (user in friendUserList) {
-                if (user.relationship == "0" || user.relationship == "1"|| user.relationship == "-1") {//-1新消息
-                    userList.add(user)
-                }
-            }
-
-            abLog.e("相识列表",Gson().toJson(userList))
-            messageAdapter.upData(userList)
-
         }
-
     }
 
 
@@ -105,11 +90,9 @@ class XiangShiViewModel : BaseViewModel() {
                 override fun onError(p0: RongIMClient.ErrorCode?) {
                     ToastUtil.showTopSnackBar(fragment!!.activity, p0?.message)
                 }
-
                 override fun onSuccess(p0: Boolean?) {
                     messageAdapter.removeItem(position)
                 }
-
             }
         )
     }
@@ -120,6 +103,40 @@ class XiangShiViewModel : BaseViewModel() {
         val json = "{\"cmd\":\"readMsg\",\"uid\":\"" + StaticUtil.uid + "\"}"
         return retrofit.getData(json).async().doOnSuccess { }
     }
+
+
+
+    //临时消息
+    fun isFriend0() :Single<String>{
+        val json = "{\"cmd\":\"getUserChatList\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + "0" + "\"}"
+       return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object :SingleObserverInterface{
+                override fun onSuccess(it: String) {
+                    val model = Gson().fromJson(it, FindUserRelationshipModel::class.java)
+                    abLog.e("我的好友关系-临时", it)
+                    friendUserList.addAll(model.dataList)
+                    messageAdapter.loadMore(model.dataList,1)
+                    abLog.e("friendUserList", Gson().toJson(friendUserList))
+                }
+            },fragment!!.activity))
+    }
+
+
+    //相识消息
+    fun isFriend1() :Single<String>{
+        val json = "{\"cmd\":\"getUserChatList\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + "1" + "\"}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object :SingleObserverInterface{
+                override fun onSuccess(it: String) {
+                    val model = Gson().fromJson(it, FindUserRelationshipModel::class.java)
+                    abLog.e("我的好友关系-相识", it)
+                    friendUserList.addAll(model.dataList)
+                    messageAdapter.loadMore(model.dataList,1)
+                    abLog.e("friendUserList", Gson().toJson(friendUserList))
+                }
+            },fragment!!.activity))
+    }
+
 
 
 }

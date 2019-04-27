@@ -1,14 +1,19 @@
 package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.MessageAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.FindUserRelationshipModel
+import com.lxkj.qiqihunshe.app.util.RecyclerItemTouchListener
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityRecyvlerviewBinding
 import io.reactivex.Single
 import io.rong.imkit.RongIM
@@ -31,18 +36,15 @@ class YueHuiVieModel : BaseViewModel() {
 
         bind!!.recycler.adapter = messageAdapter
 
-        val list = ArrayList<FindUserRelationshipModel.dataModel>()
-        for (i in friendUserList) {
-            if (i.relationship == "2") {
-                list.add(i)
+        bind!!.recycler.addOnItemTouchListener(object : RecyclerItemTouchListener(bind!!.recycler) {
+            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
+                val i = vh!!.adapterPosition
+                if (i < 0 || i >= friendUserList.size) {
+                    return
+                }
+                RongYunUtil.toChat(fragment!!.activity!!, friendUserList[i].userId, friendUserList[i].realname, 2)
             }
-        }
-        messageAdapter.upData(list)
-        messageAdapter.setMyListener { itemBean, position ->
-            RongIM.getInstance().startPrivateChat(
-                fragment!!.activity, itemBean.userId, itemBean.nickname
-            )
-        }
+        })
 
     }
 
@@ -67,11 +69,27 @@ class YueHuiVieModel : BaseViewModel() {
                 override fun onError(p0: RongIMClient.ErrorCode?) {
                     ToastUtil.showTopSnackBar(fragment!!.activity, p0?.message)
                 }
+
                 override fun onSuccess(p0: Boolean?) {
                     messageAdapter.removeItem(position)
                 }
             }
         )
+    }
+
+
+    fun isFriend(): Single<String> {
+        val json = "{\"cmd\":\"getUserChatList\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + "2" + "\"}"
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(it: String) {
+                    val model = Gson().fromJson(it, FindUserRelationshipModel::class.java)
+                    abLog.e("我的好友关系-约会", it)
+                    friendUserList.addAll(model.dataList)
+                    messageAdapter.flag = 1
+                    messageAdapter.upData(friendUserList)
+                }
+            }, fragment!!.activity))
     }
 
 

@@ -79,11 +79,11 @@ class MineFragment : BaseFragment<FragmentMineBinding, MineViewModel>(), View.On
                 MyApplication.openActivityForResult(activity, PerfectInfoActivitiy::class.java, bundle, 3)
             }
             R.id.tv_authent -> {//实名认证
-                if (viewModel!!.auth == "2") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
+                if (StaticUtil.isReal== "2") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
                     ToastUtil.showTopSnackBar(activity, "您已认证通过")
                     return
                 }
-                if (viewModel!!.auth == "1") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
+                if (StaticUtil.isReal == "1") {// 实名认证状态 0未认证 1待审核 2已认证 3认证失败
                     ToastUtil.showTopSnackBar(activity, "您的认证正在审核")
                     return
                 }

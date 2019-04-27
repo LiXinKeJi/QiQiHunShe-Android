@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
@@ -19,6 +20,7 @@ import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MyDynamicViewModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.ShareUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityMydynamicBinding
 import io.rong.push.platform.hms.common.StrUtils
 import kotlinx.android.synthetic.main.activity_mydynamic.*
@@ -50,10 +52,17 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
 
         flag = intent.getIntExtra("flag", -1)
 
-        val model = intent.getSerializableExtra("bean") as SpaceDynamicModel.dataModel
+        var id = ""
+        if (TextUtils.isEmpty(intent.getStringExtra("id"))) {
+            val model = intent.getSerializableExtra("bean") as SpaceDynamicModel.dataModel
+            id = model.userId
+        } else {
+            id = intent.getStringExtra("id")
+        }
+
         position = intent.getIntExtra("position", -1)
 
-        if (model.userId == StaticUtil.uid) {
+        if (id == StaticUtil.uid) {
             cl_person.visibility = View.GONE
             tv_reward.visibility = View.INVISIBLE
 
@@ -73,13 +82,25 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
         }
 
         viewModel?.let {
-            it.model = model
-            binding.model = it.model
+
             binding.viewmodel = it
             it.bind = binding
 
             it.initViewModel()
-            it.imageAdapter.loadMore(model.images, 1)
+
+            if (intent.getSerializableExtra("bean") != null) {
+                it.model = intent.getSerializableExtra("bean") as SpaceDynamicModel.dataModel
+                binding.model = it.model
+                setData(it.model)
+            } else {
+                it.getDynmic(id).bindLifeCycle(this).subscribe({
+                    abLog.e("动态详情",it)
+                    viewModel!!.model = Gson().fromJson(it, SpaceDynamicModel.dataModel::class.java)
+                    viewModel!!.model.dongtaiId=id
+                    binding.model = viewModel!!.model
+                    setData(viewModel!!.model)
+                }, {})
+            }
 
             it.adapter.setLoadMore {
                 it.page++
@@ -87,9 +108,19 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
                     it.getComment().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
                 }
             }
-
-            it.getComment().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
+
+        header.setOnClickListener(this)
+        findViewById<ImageView>(R.id.btn_send).setOnClickListener(this)
+        tv_zan.setOnClickListener(this)
+        tv_share.setOnClickListener(this)
+        iv_emoj.setOnClickListener(this)
+    }
+
+
+    fun setData(model: SpaceDynamicModel.dataModel) {
+        viewModel!!.getComment().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+        viewModel!!.imageAdapter.loadMore(model.images, 1)
 
         if (model.zan == "0") {
             AbStrUtil.setDrawableLeft(this, R.drawable.ic_zan_nor, tv_zan, 5)
@@ -118,12 +149,6 @@ class MyDynamicActivity : BaseActivity<ActivityMydynamicBinding, MyDynamicViewMo
         for (i in 0 until model.permission.size) {
             selectLv(model.permission[i])
         }
-
-        header.setOnClickListener(this)
-        findViewById<ImageView>(R.id.btn_send).setOnClickListener(this)
-        tv_zan.setOnClickListener(this)
-        tv_share.setOnClickListener(this)
-        iv_emoj.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {

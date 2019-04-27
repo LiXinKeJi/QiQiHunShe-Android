@@ -11,13 +11,14 @@ import android.widget.*
 
 
 import com.lxkj.qiqihunshe.R
+import io.rong.imkit.model.ConversationProviderTag
 import io.rong.imkit.model.ProviderTag
 import io.rong.imkit.model.UIMessage
 import io.rong.imkit.widget.provider.IContainerItemProvider
 import io.rong.imlib.model.Message
 
-@ProviderTag(messageContent = CustomizeMessage2::class)
-class CustomizeMessageItemProvider2(private val context: Context) :
+@ProviderTag(messageContent = CustomizeMessage2::class,showPortrait = false,centerInHorizontal=true)
+class CustomizeMessageItemProvider2(private val showPortrait: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage2>() {
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
@@ -43,16 +44,22 @@ class CustomizeMessageItemProvider2(private val context: Context) :
     override fun bindView(view: View, i: Int, shopMessage: CustomizeMessage2, message: UIMessage) {
         val holder = view.tag as ViewHolder
 
+
         if (message.messageDirection == Message.MessageDirection.SEND) {//消息方向，自己发送的
             holder.cardView2!!.visibility = View.GONE
             holder.tv_num!!.visibility = View.GONE
             holder.line0!!.visibility = View.GONE
             holder.line1!!.visibility = View.GONE
+
             when (shopMessage.type) {
                 "1" -> holder.tv_tip!!.text = shopMessage.content
+                "2" -> holder.tv_tip!!.text = "您拒绝了当前定位"
+                "3" -> holder.tv_tip!!.text = "约见完成"
                 "4" -> holder.tv_tip!!.text = "您同意了消费划分"
                 "5" -> holder.tv_tip!!.text = "您拒绝了消费划分"
-                "6" -> holder.tv_tip!!.text = "您拒绝了当前约见地点"
+                "6" -> holder.tv_tip!!.text = "进入相识模式"
+                "7"->holder.tv_tip!!.text = "小七提醒：此窗口三日无进入，临时模式自动关闭"
+                "8"->holder.tv_tip!!.text = "此约见活动结束"
             }
 
         } else {
@@ -62,9 +69,13 @@ class CustomizeMessageItemProvider2(private val context: Context) :
             holder.line1!!.visibility = View.GONE
             when (shopMessage.type) {
                 "1" -> holder.tv_tip!!.text = "您拒绝了约见请求"
+                "2" -> holder.tv_tip!!.text = "对方拒绝了当前定位"
+                "3" -> holder.tv_tip!!.text = "约见完成"
                 "4" -> holder.tv_tip!!.text = "对方同意了消费划分"
                 "5" -> holder.tv_tip!!.text = "对方拒绝了消费划分"
-                "6" -> holder.tv_tip!!.text = "对方拒绝了当前定位"
+                "6" -> holder.tv_tip!!.text = "进入相识模式"
+                "7"->holder.tv_tip!!.text = "小七提醒：此窗口三日无进入，临时模式自动关闭"
+                "8"->holder.tv_tip!!.text = "此约见活动结束"
             }
         }
 

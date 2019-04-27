@@ -1145,6 +1145,7 @@
                               android:id="@+id/rb_agree"
                               android:text="继续表示您同意"
                               android:textSize="13sp"
+                              android:checked="true"
                               android:textColor="@color/colorTabTexts"
                     />
 

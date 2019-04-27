@@ -19,6 +19,7 @@ import io.rong.imkit.widget.provider.IContainerItemProvider
 import io.rong.imlib.model.Message
 import org.greenrobot.eventbus.EventBus
 import com.baidu.mapapi.utils.DistanceUtil
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.YueJianModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import java.text.DecimalFormat
@@ -27,9 +28,15 @@ import java.text.DecimalFormat
 /***
  * 同意约见
  * */
-@ProviderTag(messageContent = CustomizeMessage4::class)
-class CustomizeMessageItemProvider4(private val context: Context) :
+@ProviderTag(messageContent = CustomizeMessage4::class,showPortrait = false,centerInHorizontal=true)
+  class CustomizeMessageItemProvider4(private val context: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage4>() {
+
+    override fun onItemClick(p0: View?, p1: Int, p2: CustomizeMessage4?, p3: UIMessage?) {
+
+    }
+
+    private var isDown = false//是否同意或拒绝
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
@@ -58,6 +65,10 @@ class CustomizeMessageItemProvider4(private val context: Context) :
     override fun bindView(view: View, i: Int, shopMessage: CustomizeMessage4, message: UIMessage) {
         val holder = view.tag as ViewHolder
 
+        if (message.message.receivedStatus.isDownload) {
+            setColor(holder)
+        }
+
         if (message.messageDirection == Message.MessageDirection.SEND) {//消息方向，自己发送的
             holder.tv_tip!!.text = "地址已发送"
             holder.cardView2!!.visibility = View.GONE
@@ -80,40 +91,52 @@ class CustomizeMessageItemProvider4(private val context: Context) :
             holder.tv_selectAdd!!.visibility = View.GONE
 
             holder.tv_yes!!.setOnClickListener {
+                if (isDown || message.message.receivedStatus.isDownload) {
+                    return@setOnClickListener
+                }
                 val model = YueJianModel()
                 model.lat = shopMessage.lat
                 model.lon = shopMessage.lon
                 model.address = shopMessage.address
                 model.arrivaltime = shopMessage.time
                 EventBus.getDefault().post(model)
+
+                setColor(holder)
+                isDown=true
+                RongYunUtil.setMessageStatus(message.message.messageId)
             }
 
             holder.tv_no!!.setOnClickListener {
-                val model=EventCmdModel("4", "6")
-                model.lat=shopMessage.address
-                    EventBus.getDefault().post(EventCmdModel("4", "6"))//拒绝定位
+                if (isDown || message.message.receivedStatus.isDownload) {
+                    return@setOnClickListener
+                }
+                val model = EventCmdModel("4", "6")
+                model.lat = shopMessage.address
+                EventBus.getDefault().post(model)//拒绝定位
+
+                setColor(holder)
+                isDown=true
+                RongYunUtil.setMessageStatus(message.message.messageId)
             }
 
         }
 
+    }
+
+
+    fun setColor(holder: ViewHolder) {
+        holder.tv_no!!.setBackgroundResource(R.drawable.bg_gray_60)
+        holder.tv_no!!.setTextColor(context.resources.getColor(R.color.colorTabText))
+        holder.tv_yes!!.setBackgroundResource(R.drawable.bg_gray_60)
+        holder.tv_yes!!.setTextColor(context.resources.getColor(R.color.colorTabText))
     }
 
     override fun getContentSummary(shopMessage: CustomizeMessage4): Spannable {
         return SpannableString("内容摘要")
     }
 
-    override fun onItemClick(view: View, i: Int, shopMessage: CustomizeMessage4, uiMessage: UIMessage) {
-        when (view.id) {
-            R.id.tv_no -> {
 
-            }
-            R.id.tv_yes -> {
-
-            }
-        }
-    }
-
-    internal inner class ViewHolder {
+    inner class ViewHolder {
         var fl_main: FrameLayout? = null
         var cardView2: CardView? = null
         var line0: View? = null

@@ -2,7 +2,6 @@ package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
@@ -12,13 +11,17 @@ import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
 import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.mine.activity.MyBillActivity
+import com.lxkj.qiqihunshe.app.ui.mine.activity.MyDynamicActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.ReputationBaoActivity
+import com.lxkj.qiqihunshe.app.ui.mine.activity.WalletActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.MsgDetailsActivity
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.adapter.XqHintAdapter
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.XxModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityXrecyclerviewBinding
 
 /**
@@ -58,17 +61,30 @@ class QiQiRemindViewModel : BaseViewModel() {
         })
         adapter = XqHintAdapter(activity, list)
         adapter?.setOnItemClickListener {
+            abLog.e("item", Gson().toJson(list))
             when (list[it].title) {
+                "打赏通知" -> MyApplication.openActivity(activity, WalletActivity::class.java)
+                "退款提醒" -> MyApplication.openActivity(activity, MyBillActivity::class.java)
+                "信息超时" -> RongYunUtil.toChat(activity!!, list[it].userId, list[it].nickname, 0)//临时消息超时
+                "约见提醒" -> RongYunUtil.toChat(activity!!, list[it].userId, list[it].nickname, 2)//约见，应该是约会中
+
                 "举报通知" -> {
-                    var bundle = Bundle()
+                    val bundle = Bundle()
+                    bundle.putString("userId", StaticUtil.uid)
                     MyApplication.openActivity(activity, ReputationBaoActivity::class.java, bundle)
                 }
-                "退款提醒" -> {
-                    var bundle = Bundle()
-                    MyApplication.openActivity(activity, MyBillActivity::class.java, bundle)
-                }
+                "点赞通知" -> {
+                     val bundle = Bundle()
+                     bundle.putString("id", list[it].objId)
+                     MyApplication.openActivity(activity, MyDynamicActivity::class.java, bundle)
+                 }
+                "评论通知" -> {
+                   val bundle = Bundle()
+                   bundle.putString("id", list[it].objId)
+                   MyApplication.openActivity(activity, MyDynamicActivity::class.java, bundle)
+               }
                 else -> {
-                    var bundle = Bundle()
+                    val bundle = Bundle()
                     bundle.putSerializable("model", list[it])
                     MyApplication.openActivity(activity, MsgDetailsActivity::class.java, bundle)
                 }
@@ -83,10 +99,12 @@ class QiQiRemindViewModel : BaseViewModel() {
     //获取消息列表
     @SuppressLint("CheckResult")
     fun getMsgList() {
-        var params = HashMap<String, String>()
+        val params = HashMap<String, String>()
         params["cmd"] = "msgList"
         params["uid"] = StaticUtil.uid
         params["page"] = page.toString()
+
+        abLog.e("消息列表",Gson().toJson(params))
         retrofit.getData(Gson().toJson(params))
             .async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {

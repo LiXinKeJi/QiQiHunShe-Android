@@ -205,7 +205,8 @@ class RealNameAuthenActivity : BaseActivity<ActivityRealnameAuthenBinding, RealN
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             when (msg.what) {
-                1 -> if (PreviewingBitmap != null) {
+                1 ->
+                    if (PreviewingBitmap != null) {
                     iv_video.scaleType = ImageView.ScaleType.CENTER_CROP
                     iv_video.setImageBitmap(PreviewingBitmap)
                 }

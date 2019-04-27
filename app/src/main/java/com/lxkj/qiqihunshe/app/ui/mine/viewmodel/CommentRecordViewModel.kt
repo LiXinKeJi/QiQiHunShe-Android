@@ -59,7 +59,7 @@ class CommentRecordViewModel : BaseViewModel() {
         adapter?.setOnItemClickListener {
             val bundle=Bundle()
             bundle.putString("userId",StaticUtil.uid)
-            MyApplication.openActivity(activity, ReputationBaoActivity::class.java,bundle)
+            MyApplication.openActivity(fragment!!.activity, ReputationBaoActivity::class.java,bundle)
         }
 
         bind?.xRecyclerView?.adapter = adapter

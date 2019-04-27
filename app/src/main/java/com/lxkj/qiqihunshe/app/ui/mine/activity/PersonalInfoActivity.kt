@@ -106,7 +106,10 @@ class PersonalInfoActivity : BaseActivity<ActivityPersonalInfoBinding, PersonalI
                 finish()
             }
             R.id.iv_edit -> {
-                MyApplication.openActivity(this, PerfectInfoActivitiy::class.java)
+                val bundle = Bundle()
+                bundle.putInt("flag", 0)
+                MyApplication.openActivity(this, PerfectInfoActivitiy::class.java, bundle)
+
             }
             R.id.tv_vido -> {
                 if (TextUtils.isEmpty(viewModel?.model?.video)) {

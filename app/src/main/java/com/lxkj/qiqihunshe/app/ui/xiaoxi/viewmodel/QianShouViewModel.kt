@@ -4,6 +4,8 @@ import android.databinding.ObservableField
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleCompose
+import com.lxkj.qiqihunshe.app.retrofitnet.SingleObserverInterface
 import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.QianShouRenModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -38,15 +40,17 @@ class QianShouViewModel : BaseViewModel() {
         val json = "{\"cmd\":\"getQianshou\",\"uid\":\"" + StaticUtil.uid + "\"}"
         abLog.e("获取牵手人", json)
         return retrofit.getData(json).async()
-            .doOnSuccess {
-                val model = Gson().fromJson(it, QianShouRenModel::class.java)
-                if (!TextUtils.isEmpty(model.userId)) {
-                    qianshouId = model.userId
-                    icon.set(model.userIcon)
-                    name.set(model.nickname)
-                    flag = "2"
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
+                override fun onSuccess(response: String) {
+                    val model = Gson().fromJson(response, QianShouRenModel::class.java)
+                    if (!TextUtils.isEmpty(model.userId)) {
+                        qianshouId = model.userId
+                        icon.set(model.userIcon)
+                        name.set(model.nickname)
+                        flag = "2"
+                    }
                 }
-            }
+            },fragment!!.activity))
     }
 
 

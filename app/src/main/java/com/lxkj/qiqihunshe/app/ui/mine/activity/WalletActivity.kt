@@ -41,8 +41,6 @@ class WalletActivity : BaseActivity<ActivityWalletBinding, WalletViewModel>(), V
 
         viewModel?.let {
             it.bind = binding
-
-
         }
 
         tv_recharge.setOnClickListener(this)

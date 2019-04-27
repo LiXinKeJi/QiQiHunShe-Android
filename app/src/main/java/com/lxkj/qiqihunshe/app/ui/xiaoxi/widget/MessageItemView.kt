@@ -50,7 +50,12 @@ class MessageItemView : RelativeLayout {
         when (bean.relationship) {// 0:临时，1:相识，2:约会,3:牵手,4:拉黑
             "0" -> tv_type.text = "临时消息"
             "1" -> tv_type.text = "相识消息"
-            "2" -> tv_type.text = "约会中"
+            "2" -> {
+                tv_type.text = "约会中"
+                if(!TextUtils.isEmpty(bean.realname)){
+                    tv_title.text=bean.realname
+                }
+            }
             "3" -> tv_type.text = "牵手"
         }
 

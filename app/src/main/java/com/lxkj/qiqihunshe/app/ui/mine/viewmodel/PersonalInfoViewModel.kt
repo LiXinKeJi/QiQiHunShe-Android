@@ -34,7 +34,7 @@ class PersonalInfoViewModel : BaseViewModel() {
         bind?.let {
             if (userId == StaticUtil.uid) {
                 it.tvPerfect.visibility = View.GONE
-                it.ivEdit.visibility = View.GONE
+                it.ivEdit.visibility = View.VISIBLE
                 it.ll3.visibility = View.GONE
             } else {
                 it.tvPerfect.visibility = View.GONE

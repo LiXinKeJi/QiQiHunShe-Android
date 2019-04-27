@@ -16,10 +16,9 @@ import io.rong.imkit.RongIM
 import io.rong.imkit.plugin.IPluginModule
 import io.rong.imlib.IRongCallback
 import io.rong.imlib.RongIMClient
-import io.rong.imlib.model.CSCustomServiceInfo
-import io.rong.imlib.model.Conversation
-import io.rong.imlib.model.Message
-import io.rong.imlib.model.UserInfo
+import io.rong.imlib.model.*
+import io.rong.message.TextMessage
+
 
 /**
  * Created by Slingge on 2019/3/12
@@ -109,6 +108,24 @@ object RongYunUtil {
     }
 
 
+    fun sendWordsMessage(id: String, msg: String) {
+        val myTextMessage = TextMessage.obtain(msg)
+        val myMessage = Message.obtain(id, Conversation.ConversationType.PRIVATE, myTextMessage)
+
+        RongIM.getInstance().sendMessage(myMessage, null, null, object : IRongCallback.ISendMessageCallback {
+            override fun onAttached(p0: Message?) {
+            }
+
+            override fun onSuccess(p0: Message?) {
+            }
+
+            override fun onError(p0: Message?, p1: RongIMClient.ErrorCode?) {
+            }
+
+        })
+    }
+
+
     /**
      * 发送自定义信息
      *
@@ -130,11 +147,7 @@ object RongYunUtil {
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
                     abLog.e("sendMessage1", errorCode.message)
-                    when (errorCode.message) {
-                        "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                        "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                        else -> ToastUtil.showToast(errorCode.message)
-                    }
+                    sendMsgResult(errorCode.message)
                 }
             })
     }
@@ -153,11 +166,7 @@ object RongYunUtil {
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
                     abLog.e("sendMessage1", errorCode.message)
-                    when (errorCode.message) {
-                        "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                        "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                        else -> ToastUtil.showToast(errorCode.message)
-                    }
+                    sendMsgResult(errorCode.message)
                 }
             })
     }
@@ -176,11 +185,7 @@ object RongYunUtil {
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
                     abLog.e("sendMessage1", errorCode.message)
-                    when (errorCode.message) {
-                        "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                        "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                        else -> ToastUtil.showToast(errorCode.message)
-                    }
+                    sendMsgResult(errorCode.message)
                 }
             })
     }
@@ -199,11 +204,7 @@ object RongYunUtil {
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
                     abLog.e("sendMessage1", errorCode.message)
-                    when (errorCode.message) {
-                        "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                        "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                        else -> ToastUtil.showToast(errorCode.message)
-                    }
+                    sendMsgResult(errorCode.message)
                 }
             })
     }
@@ -223,11 +224,7 @@ object RongYunUtil {
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
                     abLog.e("sendMessage1", errorCode.message)
-                    when (errorCode.message) {
-                        "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                        "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                        else -> ToastUtil.showToast(errorCode.message)
-                    }
+                    sendMsgResult(errorCode.message)
                 }
             })
     }
@@ -246,11 +243,7 @@ object RongYunUtil {
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
                     abLog.e("sendMessage1", errorCode.message)
-                    when (errorCode.message) {
-                        "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                        "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                        else -> ToastUtil.showToast(errorCode.message)
-                    }
+                    sendMsgResult(errorCode.message)
                 }
             })
     }
@@ -273,11 +266,7 @@ object RongYunUtil {
 
                     override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
                         abLog.e("sendMessage1", errorCode.message)
-                        when (errorCode.message) {
-                            "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                            "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                            else -> ToastUtil.showToast(errorCode.message)
-                        }
+                        sendMsgResult(errorCode.message)
                     }
                 })
     }
@@ -301,13 +290,17 @@ object RongYunUtil {
 
                     override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
                         abLog.e("sendMessage1", errorCode.message)
-                        when (errorCode.message) {
-                            "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
-                            "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
-                            else -> ToastUtil.showToast("发送失败")
-                        }
+                        sendMsgResult(errorCode.message)
                     }
                 })
+    }
+
+    fun sendMsgResult(message: String) {
+        when (message) {
+            "IPC is not connected" -> ToastUtil.showToast("发送失败：IPC未连接")
+            "the parameter is error." -> ToastUtil.showToast("发送失败：参数错误")
+            else -> ToastUtil.showToast("发送失败")
+        }
     }
 
 
@@ -315,14 +308,30 @@ object RongYunUtil {
     fun removeBlackList(id: String) {
         RongIM.getInstance().removeFromBlacklist(id, object : RongIMClient.OperationCallback() {
             override fun onSuccess() {
-                abLog.e("removeBlackList","移出黑名单成功")
+                abLog.e("removeBlackList", "移出黑名单成功")
             }
 
             override fun onError(p0: RongIMClient.ErrorCode?) {
-                abLog.e("removeBlackList","移出黑名单失败")
+                abLog.e("removeBlackList", "移出黑名单失败")
             }
 
         })
+    }
+
+
+    //设置自定义消息已操作
+    fun setMessageStatus(msgId: Int) {
+        val status = Message.ReceivedStatus(4)
+        status.setDownload()
+        RongIM.getInstance().setMessageReceivedStatus(msgId, status)
+    }
+
+
+    //设置自定义消息消费方式划分
+    fun setMessageStatusXiaoFei(msgId: Int) {
+        val status = Message.ReceivedStatus(8)
+        status.setDownload()
+        RongIM.getInstance().setMessageReceivedStatus(msgId, status)
     }
 
 

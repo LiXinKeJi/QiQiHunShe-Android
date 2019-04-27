@@ -141,14 +141,32 @@ class SkillFragment : BaseFragment<FragmentSkillBinding, SkillViewModel>(), View
                 viewModel?.floow()!!.bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             }
             R.id.iv_voice -> {
+              viewModel?.model?.let {
+                  if(it.userId==StaticUtil.uid){
+                      ToastUtil.showTopSnackBar(activity,"不能和自己语音通话")
+                      return
+                  }
+              }
                 viewModel?.type = 1
                 VoiceTipDialog.show(activity!!, model!!.userName, "语音", model!!.voice)
             }
             R.id.iv_video -> {
+                viewModel?.model?.let {
+                    if(it.userId==StaticUtil.uid){
+                        ToastUtil.showTopSnackBar(activity,"不能和自己语音视频")
+                        return
+                    }
+                }
                 viewModel?.type = 2
                 VoiceTipDialog.show(activity!!, model!!.userName, "视频", model!!.video)
             }
             R.id.iv_dashang -> {
+                viewModel?.model?.let {
+                    if(it.userId==StaticUtil.uid){
+                        ToastUtil.showTopSnackBar(activity,"不能打赏自己")
+                        return
+                    }
+                }
                 DaShangDialog.show(activity!!, object : DaShangDialog.DaShangCallBack {
                     override fun dashang(money: String) {
                         viewModel!!.dashang(money).bindLifeCycle(this@SkillFragment).subscribe({}, { toastFailure(it) })

@@ -11,6 +11,7 @@ import android.widget.*
 
 
 import com.lxkj.qiqihunshe.R
+import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.abLog
 import io.rong.imkit.model.ProviderTag
@@ -19,9 +20,11 @@ import io.rong.imkit.widget.provider.IContainerItemProvider
 import io.rong.imlib.model.Message
 import org.greenrobot.eventbus.EventBus
 
-@ProviderTag(messageContent = CustomizeMessage1::class)
+@ProviderTag(messageContent = CustomizeMessage1::class,showPortrait = false,centerInHorizontal=true)
 class CustomizeMessageItemProvider1(private val context: Context) :
-    IContainerItemProvider.MessageProvider<CustomizeMessage1>() ,View.OnClickListener{
+    IContainerItemProvider.MessageProvider<CustomizeMessage1>() {
+
+    private var isDown=false//消息是否已操作
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
@@ -39,9 +42,6 @@ class CustomizeMessageItemProvider1(private val context: Context) :
         holder.tv_no = view.findViewById(R.id.tv_no)
         holder.tv_yes = view.findViewById(R.id.tv_yes)
 
-        holder.tv_no!!.setOnClickListener(this)
-        holder.tv_yes!!.setOnClickListener(this)
-
         view.tag = holder
         return view
     }
@@ -49,37 +49,55 @@ class CustomizeMessageItemProvider1(private val context: Context) :
     override fun bindView(view: View, i: Int, shopMessage: CustomizeMessage1, message: UIMessage) {
         val holder = view.tag as ViewHolder
 
+        if (message.message.receivedStatus.isDownload) {
+            setColor(holder)
+        }
+
         if (message.messageDirection == Message.MessageDirection.SEND) {//消息方向，自己发送的
-            holder.tv_tip!!.visibility=View.VISIBLE
+            holder.tv_tip!!.visibility = View.VISIBLE
             holder.tv_tip!!.text = "已发起约见信息，请等待"
             holder.cardView2!!.visibility = View.GONE
             holder.tv_num!!.visibility = View.GONE
             holder.line0!!.visibility = View.GONE
             holder.line1!!.visibility = View.GONE
         } else {
-            holder.tv_tip!!.visibility=View.INVISIBLE
+            holder.tv_tip!!.visibility = View.INVISIBLE
             holder.cardView2!!.visibility = View.VISIBLE
             holder.tv_num!!.visibility = View.VISIBLE
             holder.line0!!.visibility = View.VISIBLE
             holder.line1!!.visibility = View.VISIBLE
         }
 
-    }
 
-
-    override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.tv_no->{
-                abLog.e("拒绝请求","2")
-                EventBus.getDefault().post(EventCmdModel("1",""))
+        holder.tv_no!!.setOnClickListener {
+            if (isDown||message.message.receivedStatus.isDownload) {
+                return@setOnClickListener
             }
-            R.id.tv_yes->{
-                EventBus.getDefault().post(EventCmdModel("2",""))
-            }
+            abLog.e("拒绝请求", "2")
+            EventBus.getDefault().post(EventCmdModel("1", ""))
+            setColor(holder)
+            isDown=true
+            RongYunUtil.setMessageStatus(message.message.messageId)
         }
+        holder.tv_yes!!.setOnClickListener {
+            if (isDown||message.message.receivedStatus.isDownload) {
+                return@setOnClickListener
+            }
+            EventBus.getDefault().post(EventCmdModel("2", ""))
+            setColor(holder)
+            isDown=true
+            RongYunUtil.setMessageStatus(message.message.messageId)
+        }
+
     }
 
 
+    fun setColor(holder: ViewHolder) {
+        holder.tv_no!!.setBackgroundResource(R.drawable.bg_gray_60)
+        holder.tv_no!!.setTextColor(context.resources.getColor(R.color.colorTabText))
+        holder.tv_yes!!.setBackgroundResource(R.drawable.bg_gray_60)
+        holder.tv_yes!!.setTextColor(context.resources.getColor(R.color.colorTabText))
+    }
 
     override fun getContentSummary(shopMessage: CustomizeMessage1): Spannable {
         return SpannableString("内容摘要")
@@ -89,7 +107,7 @@ class CustomizeMessageItemProvider1(private val context: Context) :
     override fun onItemClick(view: View, i: Int, shopMessage: CustomizeMessage1, uiMessage: UIMessage) {
     }
 
-    internal inner class ViewHolder {
+    class ViewHolder {
         var fl_main: FrameLayout? = null
         var cardView2: CardView? = null
         var line0: View? = null
@@ -101,8 +119,6 @@ class CustomizeMessageItemProvider1(private val context: Context) :
         var tv_no: TextView? = null
         var tv_yes: TextView? = null
     }
-
-
 
 
 }
