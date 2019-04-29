@@ -8,11 +8,13 @@ import android.support.annotation.RequiresApi
 import android.text.TextUtils
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
+import com.lxkj.qiqihunshe.app.ui.shouye.model.ShouYeModel
 import com.lxkj.qiqihunshe.app.ui.shouye.viewmodel.MatchingViewModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -56,7 +58,7 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
 
         viewModel?.let {
             binding.viewmodel = it
-            it.bind=binding
+            it.bind = binding
             it.headerUrl.set(StaticUtil.headerUrl)
         }
 
@@ -88,14 +90,18 @@ class MatchingActivity : BaseActivity<ActivityMatchingBinding, MatchingViewModel
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun randomUser() {
         if (flag == 0) {
-
             viewModel!!.randomUser().bindLifeCycle(this).subscribe({
-                anim?.pause()
+                val model = Gson().fromJson(it, ShouYeModel::class.java)
+                if (model.result == "0") {
+                    anim?.pause()
+                }
             }, { toastFailure(it) })
         } else if (flag == 1) {
-
             viewModel!!.randomUser().bindLifeCycle(this).subscribe({
-                anim?.pause()
+                val model = Gson().fromJson(it, ShouYeModel::class.java)
+                if (model.result == "0") {
+                    anim?.pause()
+                }
             }, { toastFailure(it) })
         }
 

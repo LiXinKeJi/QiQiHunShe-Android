@@ -21,9 +21,11 @@ class FindUserRelationshipModel : Serializable {
 
         var yuejian = ""// 是否为约见中人 0否 1是
 
-        var newMsgNum = 0//新消息数
 
         var isPipei=""// 是否为匹配用户 0否 1是
+
+        var content=""
+        var isNewMsg=-1
     }
 
 

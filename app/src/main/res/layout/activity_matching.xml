@@ -38,7 +38,8 @@
                 app:layout_constraintVertical_bias="0.18"/>
 
         <com.lxkj.qiqihunshe.app.customview.CircleImageView
-                android:layout_width="80dp" android:layout_height="80dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/iv_header"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop"

@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
 import android.app.Activity
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
@@ -90,6 +91,7 @@ class XiangShiViewModel : BaseViewModel() {
                 override fun onError(p0: RongIMClient.ErrorCode?) {
                     ToastUtil.showTopSnackBar(fragment!!.activity, p0?.message)
                 }
+
                 override fun onSuccess(p0: Boolean?) {
                     messageAdapter.removeItem(position)
                 }
@@ -105,38 +107,89 @@ class XiangShiViewModel : BaseViewModel() {
     }
 
 
+    private var flag = -1
 
     //临时消息
-    fun isFriend0() :Single<String>{
+    fun isFriend0(): Single<String> {
         val json = "{\"cmd\":\"getUserChatList\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + "0" + "\"}"
-       return retrofit.getData(json).async()
-            .compose(SingleCompose.compose(object :SingleObserverInterface{
+        return retrofit.getData(json).async()
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(it: String) {
                     val model = Gson().fromJson(it, FindUserRelationshipModel::class.java)
                     abLog.e("我的好友关系-临时", it)
                     friendUserList.addAll(model.dataList)
-                    messageAdapter.loadMore(model.dataList,1)
                     abLog.e("friendUserList", Gson().toJson(friendUserList))
+
+                    flag++
+                    if (flag >= 1) {
+                        getAllIMList()
+                    }
                 }
-            },fragment!!.activity))
+            }, fragment!!.activity))
     }
 
 
     //相识消息
-    fun isFriend1() :Single<String>{
+    fun isFriend1(): Single<String> {
         val json = "{\"cmd\":\"getUserChatList\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + "1" + "\"}"
         return retrofit.getData(json).async()
-            .compose(SingleCompose.compose(object :SingleObserverInterface{
+            .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(it: String) {
                     val model = Gson().fromJson(it, FindUserRelationshipModel::class.java)
                     abLog.e("我的好友关系-相识", it)
                     friendUserList.addAll(model.dataList)
-                    messageAdapter.loadMore(model.dataList,1)
                     abLog.e("friendUserList", Gson().toJson(friendUserList))
+
+                    flag++
+
+                    if (flag >= 1) {
+                        getAllIMList()
+                    }
                 }
-            },fragment!!.activity))
+            }, fragment!!.activity))
     }
 
+
+    //本地回话列表中的id集合
+    fun getAllIMList() {
+        abLog.e("获取本地好友", "")
+        RongIM.getInstance().getConversationList(object : RongIMClient.ResultCallback<List<Conversation>>() {
+            override fun onSuccess(p0: List<Conversation>?) {
+                val chatList by lazy { ArrayList<Conversation>() }
+                if (p0 == null) {
+                    messageAdapter.loadMore(friendUserList, 1)
+                    return
+                }
+                chatList.clear()
+                chatList.addAll(p0)
+                abLog.e("会话列表", Gson().toJson(p0))
+
+                if (chatList.isNotEmpty()) {
+                    for (msg in chatList) {
+                        for (i in 0 until friendUserList.size) {
+                            if (msg.targetId != friendUserList[i].userId) {
+                                continue
+                            }
+                            if (msg.unreadMessageCount > 0) {
+                                friendUserList[i].isNewMsg = msg.unreadMessageCount
+                                if( msg.latestMessage.mentionedInfo!=null){
+                                    friendUserList[i].content = msg.latestMessage.mentionedInfo.mentionedContent
+                                }
+                            } else {
+                                friendUserList[i].isNewMsg = -1
+                            }
+                        }
+                    }
+                }
+                messageAdapter.loadMore(friendUserList, 1)
+            }
+
+            override fun onError(p0: RongIMClient.ErrorCode?) {
+                ToastUtil.showTopSnackBar(fragment!!.activity, "获取会话列表错误 ${p0?.message}")
+            }
+        })
+
+    }
 
 
 }

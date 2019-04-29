@@ -52,41 +52,35 @@ class MessageItemView : RelativeLayout {
             "1" -> tv_type.text = "相识消息"
             "2" -> {
                 tv_type.text = "约会中"
-                if(!TextUtils.isEmpty(bean.realname)){
-                    tv_title.text=bean.realname
+                if (!TextUtils.isEmpty(bean.realname)) {
+                    tv_title.text = bean.realname
                 }
             }
             "3" -> tv_type.text = "牵手"
         }
 
-        if(bean.newMsgNum>0){
+       /* if (bean.newMsgNum > 0) {
             MyApplication.setRedNum(tv_sysNum, bean.newMsgNum)
-        }
+        }*/
 
         if (bean.yuejian == "1") {
             tv_type.text = "约见中"
         } else if (bean.yuejian == "0") {//新消息
-            if(bean.relationship=="0"){
+            if (bean.relationship == "0") {
                 tv_type.text = "临时消息"
             }
-            /*   if (!TextUtils.isEmpty(bean.yuejian) && bean.yuejian.toInt() > 0) {//有新消息
 
-               }
-               val json =
-                   "{\"cmd\":\"userDetail\",\"uid\":\"" + StaticUtil.uid + "\",\"userId\":\"" + bean.userId + "\"}"
-               retrofit.getData(json).async()
-                   .doOnSuccess {
-                       val model = Gson().fromJson(it, PersonalInfoModel::class.java)
-                       if (model.icon.isNotEmpty()) {
-                           GlideUtil.glideHeaderLoad(context, model.icon[0], header)
-                       }
-                       tv_title.text = model.nickname
-                   }
-                   .subscribe({}, { dispatchFailure(activity, it) })*/
         } else {
             tv_type.text = ""
         }
 
+        if (bean.isNewMsg > 0) {
+            tv_sysNum.visibility=View.VISIBLE
+            tv_content.text=bean.content
+            MyApplication.setRedNum(tv_sysNum,bean.isNewMsg)
+        }else{
+            tv_sysNum.visibility=View.GONE
+        }
 
         btnDelete.setOnClickListener {
             val model = EventCmdModel("DelMsg", position.toString())
@@ -99,7 +93,7 @@ class MessageItemView : RelativeLayout {
             model.lat = bean.userId
             model.res = position.toString()
             EventBus.getDefault().post(model)
-            MyApplication.setRedNum(tv_sysNum,0)
+            MyApplication.setRedNum(tv_sysNum, 0)
         }
 
 

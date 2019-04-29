@@ -19,6 +19,7 @@ import io.reactivex.Single
 import io.rong.imkit.RongIM
 import io.rong.imlib.RongIMClient
 import io.rong.imlib.model.Conversation
+import java.util.ArrayList
 
 /**
  * Created by Slingge on 2019/3/1
@@ -86,10 +87,52 @@ class YueHuiVieModel : BaseViewModel() {
                     val model = Gson().fromJson(it, FindUserRelationshipModel::class.java)
                     abLog.e("我的好友关系-约会", it)
                     friendUserList.addAll(model.dataList)
-                    messageAdapter.flag = 1
-                    messageAdapter.upData(friendUserList)
+                    getAllIMList()
                 }
             }, fragment!!.activity))
+    }
+
+
+
+    //本地回话列表中的id集合
+    fun getAllIMList() {
+        abLog.e("获取本地好友", "")
+        RongIM.getInstance().getConversationList(object : RongIMClient.ResultCallback<List<Conversation>>() {
+            override fun onSuccess(p0: List<Conversation>?) {
+                val chatList by lazy { ArrayList<Conversation>() }
+                if (p0 == null) {
+                    messageAdapter.loadMore(friendUserList, 1)
+                    return
+                }
+                chatList.clear()
+                chatList.addAll(p0)
+                abLog.e("会话列表", Gson().toJson(p0))
+
+                if (chatList.isNotEmpty()) {
+                    for (msg in chatList) {
+                        for (i in 0 until friendUserList.size) {
+                            if (msg.targetId != friendUserList[i].userId) {
+                                continue
+                            }
+                            if (msg.unreadMessageCount > 0) {
+                                friendUserList[i].isNewMsg = msg.unreadMessageCount
+                                if( msg.latestMessage.mentionedInfo!=null){
+                                    friendUserList[i].content = msg.latestMessage.mentionedInfo.mentionedContent
+                                }
+                            } else {
+                                friendUserList[i].isNewMsg = -1
+                            }
+                        }
+                    }
+                }
+                messageAdapter.loadMore(friendUserList, 1)
+            }
+
+            override fun onError(p0: RongIMClient.ErrorCode?) {
+                ToastUtil.showTopSnackBar(fragment!!.activity, "获取会话列表错误 ${p0?.message}")
+            }
+        })
+
     }
 
 

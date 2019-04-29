@@ -74,36 +74,4 @@ class XiaoXiViewModel : BaseViewModel() {
         switchFragment(communicationFragment)
     }
 
-
-    //本地回话列表中的id集合
-//    private val imList by lazy { ArrayList<String>() }
-    private val chatList by lazy { ArrayList<Conversation>() }
-    /*  fun getAllIMList() {
-          RongIM.getInstance().getConversationList(object : RongIMClient.ResultCallback<List<Conversation>>() {
-              override fun onSuccess(p0: List<Conversation>?) {
-                  if (p0 == null) {
-                      setFragment0()
-                      return
-                  }
-                  chatList.clear()
-                  chatList.addAll(p0)
-                  abLog.e("会话列表", Gson().toJson(p0))
-                  for (im in p0) {
-                      imList.add(im.targetId)
-                  }
-                  abLog.e("imList", Gson().toJson(imList))
-                  if (imList.isNotEmpty()) {
-                      isFriend()
-                  }
-              }
-
-              override fun onError(p0: RongIMClient.ErrorCode?) {
-                  ToastUtil.showTopSnackBar(fragment!!.activity, "获取会话列表错误 ${p0?.message}")
-              }
-          })
-
-      }*/
-
-
-
 }

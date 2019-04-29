@@ -84,6 +84,7 @@
                       android:id="@+id/tv_type"
                       android:text="类型"
                       android:textSize="11sp"
+                      android:layout_marginRight="12dp"
                       android:textColor="@color/colorSubtitle"
                       app:layout_constraintEnd_toStartOf="@+id/tv_msgNum"
                       app:layout_constraintTop_toTopOf="@+id/tv_msgNum"
