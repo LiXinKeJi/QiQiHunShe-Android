@@ -97,10 +97,10 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
 
             it.isXiangShi()
             it.RelationsMe().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-
             it.getDefaultMsg().bindLifeCycle(this).subscribe({ }, { toastFailure(it) })
+            it.getRingYunMsgList()
 
-            it.getRingYunMsgList()            /* when (RongYunUtil.isLinShiModel) {
+            /* when (RongYunUtil.isLinShiModel) {
                  0 -> ToastUtil.showTopSnackBar(this, "临时")
                  1 -> ToastUtil.showTopSnackBar(this, "相识")
                  2 -> ToastUtil.showTopSnackBar(this, "约会")
@@ -139,9 +139,6 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                          }
                      }, { toastFailure(it) })
                  }
-                viewModel?.let {
-                    it.sendMessage1()
-                }
             }
             R.id.tv_right -> {
                 val bundle = Bundle()
@@ -330,7 +327,7 @@ class ChatActivity : BaseActivity<ActivityChatDetailsBinding, ChatViewModel>(), 
                 it.selectTime()
             }
         } else if (requestCode == 403) {//发送地址
-            var poi = data.getParcelableExtra("poi") as PoiInfo
+            val poi = data.getParcelableExtra("poi") as PoiInfo
 
             val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 FileProvider.getUriForFile(

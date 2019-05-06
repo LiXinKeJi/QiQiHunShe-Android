@@ -13,13 +13,11 @@ import butterknife.ButterKnife;
 import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.mine.model.SpaceDynamicModel;
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
 import com.lxkj.qiqihunshe.app.util.AbStrUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
-import com.lxkj.qiqihunshe.app.util.ToastUtil;
 import com.lxkj.runproject.app.view.SquareImage;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by kxn on 2019/3/7 0007.
@@ -28,16 +26,22 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
 
 
     private Context context;
-    private List<SpaceDynamicModel.dataModel> list;
+    private ArrayList<SpaceDynamicModel.dataModel> list;
     private OnItemClickListener onItemClickListener;
 
-    public NearDynamicAdapter(Context context, List list) {
+    private OnReplyClickListener replyClickListener;
+
+    public NearDynamicAdapter(Context context, ArrayList<SpaceDynamicModel.dataModel> list) {
         this.context = context;
         this.list = list;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnReplyClickListener(OnReplyClickListener replyClickListener) {
+        this.replyClickListener = replyClickListener;
     }
 
 
@@ -249,6 +253,14 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
             }
         });
 
+        holder.tvNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (replyClickListener != null) {
+                    replyClickListener.ReplyClick(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -266,6 +278,11 @@ public class NearDynamicAdapter extends RecyclerView.Adapter<NearDynamicAdapter.
         void daShnangClick(int position);
 
         void juBaoClick(int position);
+    }
+
+    public interface OnReplyClickListener {
+        void ReplyClick(int position);
+
     }
 
 

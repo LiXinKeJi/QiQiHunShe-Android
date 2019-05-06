@@ -7,6 +7,7 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/cl"
     >
 
 
@@ -16,7 +17,8 @@
                       android:background="@drawable/bg_infowindow_qy"
                       android:padding="10dp"
                       android:orientation="vertical" android:id="@+id/linearLayout"
-                      app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintStart_toStartOf="parent"
                       app:layout_constraintEnd_toEndOf="parent">
 
             <TextView

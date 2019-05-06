@@ -38,6 +38,7 @@ class XiangShiViewModel : BaseViewModel() {
         bind?.let {
             it.recycler.layoutManager = LinearLayoutManager(fragment!!.activity)
             it.recycler.adapter = messageAdapter
+            it.recycler.isFocusable = false
         }
     }
 
@@ -172,7 +173,7 @@ class XiangShiViewModel : BaseViewModel() {
                             }
                             if (msg.unreadMessageCount > 0) {
                                 friendUserList[i].isNewMsg = msg.unreadMessageCount
-                                if( msg.latestMessage.mentionedInfo!=null){
+                                if (msg.latestMessage.mentionedInfo != null) {
                                     friendUserList[i].content = msg.latestMessage.mentionedInfo.mentionedContent
                                 }
                             } else {
@@ -181,6 +182,7 @@ class XiangShiViewModel : BaseViewModel() {
                         }
                     }
                 }
+                friendUserList.sortByDescending { it.isNewMsg }//按消息数量排序，倒序
                 messageAdapter.loadMore(friendUserList, 1)
             }
 

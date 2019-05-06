@@ -28,7 +28,7 @@ import java.io.File
 
 
 /**
- * 如果修改了服务器地址，viewmode里截取拼接头像地址截取位置要改变
+ * 如果修改了服务器地址，viewmodel里截取拼接头像地址截取位置要改变
  * Created by Slingge on 2019/2/19
  */
 class PerfectInfoActivitiy : BaseActivity<ActivityPerfectInfoBinding, PerfectInfoViewModel>(), View.OnClickListener,
@@ -42,6 +42,7 @@ class PerfectInfoActivitiy : BaseActivity<ActivityPerfectInfoBinding, PerfectInf
 
     private val upload by lazy { UpFileUtil(this, this) }
 
+    private var flag=-1
 
     override fun init() {
         this.window.setSoftInputMode(
@@ -69,18 +70,24 @@ class PerfectInfoActivitiy : BaseActivity<ActivityPerfectInfoBinding, PerfectInf
 
             it.state = intent.getIntExtra("state", -1)
 
-            if (intent.getIntExtra("flag", -1) == 0) {
+            flag=intent.getIntExtra("flag", -1)
+            if (flag == 0) {
                 it.getData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+                rb_boy.isEnabled = false
+                rb_girl.isEnabled = false
+            }else{//个人中心进入，不能修改性别
+                rg_sex.setOnCheckedChangeListener(this)
             }
         }
 
-        rg_sex.setOnCheckedChangeListener(this)
         rl_birthday.setOnClickListener(this)
         rl_hometown.setOnClickListener(this)
         rl_residence.setOnClickListener(this)
         tv_nation.setOnClickListener(this)
         rl_education.setOnClickListener(this)
-        rl_emotional_state.setOnClickListener(this)
+        if(flag != 0){//个人中心进入，不能修改情感状态
+            rl_emotional_state.setOnClickListener(this)
+        }
         rl_emotional_planning.setOnClickListener(this)
         rl_mytype.setOnClickListener(this)
         rl_hobby.setOnClickListener(this)
@@ -313,12 +320,8 @@ class PerfectInfoActivitiy : BaseActivity<ActivityPerfectInfoBinding, PerfectInf
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
         when (checkedId) {
-            R.id.rb_boy -> {
-                viewModel!!.model.sex = "1"
-            }
-            R.id.rb_girl -> {
-                viewModel!!.model.sex = "0"
-            }
+            R.id.rb_boy -> viewModel!!.model.sex = "1"
+            R.id.rb_girl -> viewModel!!.model.sex = "0"
         }
     }
 
@@ -391,7 +394,6 @@ class PerfectInfoActivitiy : BaseActivity<ActivityPerfectInfoBinding, PerfectInf
         abLog.e("头像", viewModel!!.model.icons)
         viewModel!!.saveData().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
     }
-
 
 
 }

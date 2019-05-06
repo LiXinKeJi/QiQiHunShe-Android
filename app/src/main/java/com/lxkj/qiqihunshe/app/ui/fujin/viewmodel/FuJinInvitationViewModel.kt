@@ -23,7 +23,6 @@ import io.reactivex.Single
  */
 class FuJinInvitationViewModel : BaseViewModel() {
 
-
     var typeId = ""
     var bind: FragmentFujinInvitationBinding? = null
 

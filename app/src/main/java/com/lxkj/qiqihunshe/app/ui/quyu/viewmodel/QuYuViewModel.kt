@@ -1,6 +1,7 @@
 package com.lxkj.qiqihunshe.app.ui.quyu.viewmodel
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.baidu.mapapi.map.*
@@ -19,6 +20,15 @@ import com.lxkj.qiqihunshe.databinding.FragmentQuyuBinding
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.layout_imageview.view.*
 import kotlinx.android.synthetic.main.layout_infowindow_qy.view.*
+import com.baidu.mapapi.map.MyLocationData
+import com.baidu.mapapi.map.MapStatusUpdateFactory
+import com.baidu.mapapi.map.MapStatusUpdate
+import com.baidu.mapapi.search.core.RouteNode.location
+import com.baidu.mapapi.map.MyLocationConfiguration
+import com.baidu.mapapi.map.BitmapDescriptorFactory
+import com.baidu.mapapi.map.BitmapDescriptor
+import org.json.JSONObject
+
 
 /**
  * Created by Slingge on 2019/2/16
@@ -32,6 +42,8 @@ class QuYuViewModel : BaseViewModel() {
     var hiList = ArrayList<String>() //打招呼用语
     var canXz = false //是否可以安全协助
 
+    private var defaultlatlng: LatLng? = null
+
     //获取服务网点
     fun getServiceArea(json: String): Single<String> =
         retrofit.getData(json)
@@ -40,7 +52,7 @@ class QuYuViewModel : BaseViewModel() {
                 override fun onSuccess(response: String) {
                     val model = Gson().fromJson(response, QuYuModel::class.java)
 
-                    if (!StringUtil.isEmpty(model.arrivalTime)){
+                    if (!StringUtil.isEmpty(model.arrivalTime)) {
                         bind!!.tvTime?.text = ("到场时间：" + model.arrivalTime)
                         canXz = true
                     } else
@@ -48,9 +60,10 @@ class QuYuViewModel : BaseViewModel() {
 
                     var servicePosition = 0
                     for (i in 0 until model.dataList?.size) {
-                        if (model.dataList[i].default == ("1")) //总公司
+                        if (model.dataList[i].default == ("1")) { //总公司
                             headOffice = model.dataList[i]
-
+                            defaultlatlng = LatLng(model.dataList[i].lat.toDouble(), model.dataList[i].lon.toDouble())
+                        }
                         if (i > 0 && model.dataList[i].distance.toDouble() < model.dataList[i - 1].distance.toDouble())
                             servicePosition = i
 
@@ -138,13 +151,48 @@ class QuYuViewModel : BaseViewModel() {
                         var mapNavigationUtil = MapNavigationUtil(fragment?.context)
                         mapNavigationUtil.goToBaiduMap(data.lat, data.lon, data.address)
                     }
-                    val mInfoWindow = InfoWindow(view, point, -100)
+                    val mInfoWindow = InfoWindow(view, point, -150)
                     //使InfoWindow生效
                     mMapView.showInfoWindow(mInfoWindow)
                 }
                 return true
             }
         })
+    }
+
+
+    //移动地图到默认服务商
+
+    fun moveMap() {
+
+        defaultlatlng?.let {
+            abLog.e("默认金维度", it.latitude.toString() + "," + it.longitude)
+            val locationData = MyLocationData.Builder()
+                .latitude(it.latitude)
+                .longitude(it.longitude)
+                .build()
+            // 设置定位数据
+            bind?.bmapView?.map?.setMyLocationData(locationData)
+            // 自定以图表
+            // 设置定位图层的配置，设置图标跟随状态（图标一直在地图中心）
+            val config = MyLocationConfiguration(
+                MyLocationConfiguration.LocationMode.FOLLOWING, true, null
+            )
+            bind?.bmapView?.map?.setMyLocationConfigeration(config)
+        }
+    }
+
+
+    var SignNUm = 0//签到天数
+    fun checkIn(): Single<String> {
+        val json = "{\"cmd\":\"sign\",\"uid\":\"" + StaticUtil.uid + "\"}"
+        return retrofit.getData(json).async()
+            .doOnSuccess {
+                val obj = JSONObject(it)
+                SignNUm = obj.getString("qty").toInt() + 10
+                abLog.e("签到", SignNUm.toString())
+            }
+
     }
 
 

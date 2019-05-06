@@ -56,6 +56,9 @@ object RongYunUtil {
         if (!StaticUtil.isRealNameAuth(activity)) {
             return
         }
+        if (!StaticUtil.isMarriage(activity)) {
+            return
+        }
         isLinShiModel = -2
         RongExtensionManager.getInstance().registerExtensionModule(MyExtensionEmptyModule())
         RongIM.getInstance().startPrivateChat(

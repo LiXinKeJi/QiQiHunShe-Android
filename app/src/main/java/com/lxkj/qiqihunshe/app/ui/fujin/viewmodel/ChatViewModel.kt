@@ -44,7 +44,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     private val upFileUtil by lazy { UpFileUtil(activity!!, this) }
 
     var Messageid = 0//消息id
-    var isSelectAddress=false//是否已选择约见地址、时间
+    var isSelectAddress = false//是否已选择约见地址、时间
 
     var targetId = ""//对方id
     var title = ""//标题，对方昵称
@@ -62,6 +62,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
 
     fun getJuBaoConten(): Single<String> {
         val json = "{\"cmd\":\"getReportList\",\"type\":\"" + "1" + "\"}"
+        abLog.e("聊天举报内容", json)
         return retrofit.getData(json).async()
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
@@ -76,8 +77,10 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     private var JuBaoContent = ""//举报内容
     fun showReportDialog() {//聊天举报
         ReportDialog2.show(activity!!, JuBaoList, object : ReportDialog2.ReportContentCallBack {
-            override fun report(content: String) {
+            override fun report(content: String, startTime: String, endTime: String) {
                 JuBaoContent = content
+                JuBaoStartTimer = startTime
+                JuBaoEndTimer = endTime
                 if (jubaoFilePath.isNotEmpty()) {
                     upFileUtil.setListPath(jubaoFilePath)
                 } else {
@@ -101,11 +104,16 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     }
 
 
+    private var JuBaoStartTimer = ""
+    private var JuBaoEndTimer = ""
+
     @SuppressLint("CheckResult")
     fun chatJuBao(file: String) {
         val json =
             "{\"cmd\":\"liaotianjubao\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + targetId +
-                    "\",\"content\":\"" + JuBaoContent + "\",\"images\":\"" + file + "\"}"
+                    "\",\"content\":\"" + JuBaoContent + "\",\"images\":\"" + file +
+                    "\",\"beginTime\":\"" + JuBaoStartTimer + "\",\"endTime\":\"" + JuBaoEndTimer + "\"}"
+        abLog.e("聊天举报........",json)
         retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 ToastUtil.showTopSnackBar(activity, "举报成功")
@@ -168,7 +176,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
             shopMessage.time = dateTime
             RongYunUtil.sendMessage4(targetId, shopMessage, "")
 
-            isSelectAddress=true
+            isSelectAddress = true
 
             EventBus.getDefault().post("YueJian")//通知自定义消息，已发送约见地址
             RongYunUtil.setMessageStatus(Messageid)
@@ -333,8 +341,11 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
             .doOnSuccess {
                 val model = Gson().fromJson(it, RelationsMeModel::class.java)
                 abLog.e("和别人的关系", it)
-                if (model.dataList.isNotEmpty()) {
-                    isAppointment = true
+                for (chat in model.dataList) {
+                    if (chat.yuejian == "1") {
+                        isAppointment = true
+                        return@doOnSuccess
+                    }
                 }
             }
     }
@@ -386,6 +397,20 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                             shopMessage2.price = ""
                             shopMessage2.type = "7"
                             RongYunUtil.sendMessage2(targetId, shopMessage2, "")
+                        }
+
+                        //临时消息
+                        // 获取历史消息,判断是否是主动消息发起人，主动发起人不显示同意拒绝
+                        if (RongYunUtil.isLinShiModel == 0) {
+                            abLog.e("历史消息", Gson().toJson(it))
+                            if (p0.isNotEmpty()) {
+                                if (p0[0].senderUserId == StaticUtil.uid) {//自己发的，隐藏同意拒绝
+                                    bind.let {
+                                        it.tvJiechu.visibility = View.GONE
+                                        it.tvAgree.visibility = View.GONE
+                                    }
+                                }
+                            }
                         }
                     }
                 }

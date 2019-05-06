@@ -38,7 +38,7 @@ class FwqyActivity : BaseActivity<ActivityFwqyBinding,FwqyViewModel>(){
 
         val ll = LatLng(lat.toDouble(),lng.toDouble())
         val builder = MapStatus.Builder()
-        builder.target(ll).zoom(12.0f)
+        builder.target(ll).zoom(5.8f)
         mMapView.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
 
         params.put("cmd", "serviceArea")

@@ -52,12 +52,12 @@ class CustomizeMessageItemProvider2(private val showPortrait: Context) :
             holder.line1!!.visibility = View.GONE
 
             when (shopMessage.type) {
-                "1" -> holder.tv_tip!!.text = shopMessage.content
+                "1" -> holder.tv_tip!!.text = "您拒绝了约见请求"
                 "2" -> holder.tv_tip!!.text = "您拒绝了当前定位"
                 "3" -> holder.tv_tip!!.text = "约见完成"
                 "4" -> holder.tv_tip!!.text = "您同意了消费划分"
                 "5" -> holder.tv_tip!!.text = "您拒绝了消费划分"
-                "6" -> holder.tv_tip!!.text = "进入相识模式"
+                "6" -> holder.tv_tip!!.text = "您已进入相识模式"
                 "7"->holder.tv_tip!!.text = "小七提醒：此窗口三日无进入，临时模式自动关闭"
                 "8"->holder.tv_tip!!.text = "此约见活动结束"
             }
@@ -68,12 +68,12 @@ class CustomizeMessageItemProvider2(private val showPortrait: Context) :
             holder.line0!!.visibility = View.GONE
             holder.line1!!.visibility = View.GONE
             when (shopMessage.type) {
-                "1" -> holder.tv_tip!!.text = "您拒绝了约见请求"
+                "1" -> holder.tv_tip!!.text = "对方拒绝了约见请求"
                 "2" -> holder.tv_tip!!.text = "对方拒绝了当前定位"
                 "3" -> holder.tv_tip!!.text = "约见完成"
                 "4" -> holder.tv_tip!!.text = "对方同意了消费划分"
                 "5" -> holder.tv_tip!!.text = "对方拒绝了消费划分"
-                "6" -> holder.tv_tip!!.text = "进入相识模式"
+                "6" -> holder.tv_tip!!.text = "您已进入相识模式"
                 "7"->holder.tv_tip!!.text = "小七提醒：此窗口三日无进入，临时模式自动关闭"
                 "8"->holder.tv_tip!!.text = "此约见活动结束"
             }

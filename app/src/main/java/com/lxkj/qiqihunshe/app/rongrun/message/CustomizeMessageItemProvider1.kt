@@ -20,11 +20,11 @@ import io.rong.imkit.widget.provider.IContainerItemProvider
 import io.rong.imlib.model.Message
 import org.greenrobot.eventbus.EventBus
 
-@ProviderTag(messageContent = CustomizeMessage1::class,showPortrait = false,centerInHorizontal=true)
+@ProviderTag(messageContent = CustomizeMessage1::class, showPortrait = false, centerInHorizontal = true)
 class CustomizeMessageItemProvider1(private val context: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage1>() {
 
-    private var isDown=false//消息是否已操作
+//    private var isDown=false//消息是否已操作
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
@@ -70,23 +70,31 @@ class CustomizeMessageItemProvider1(private val context: Context) :
 
 
         holder.tv_no!!.setOnClickListener {
-            if (isDown||message.message.receivedStatus.isDownload) {
+            if (message.message.receivedStatus.isDownload) {
+                return@setOnClickListener
+            }
+            if (holder.tv_no!!.background==context.resources.getDrawable(R.drawable.bg_gray_60)) {
                 return@setOnClickListener
             }
             abLog.e("拒绝请求", "2")
             EventBus.getDefault().post(EventCmdModel("1", ""))
             setColor(holder)
-            isDown=true
+
             RongYunUtil.setMessageStatus(message.message.messageId)
+            message.message.receivedStatus.setDownload()
         }
         holder.tv_yes!!.setOnClickListener {
-            if (isDown||message.message.receivedStatus.isDownload) {
+            if (message.message.receivedStatus.isDownload) {
+                return@setOnClickListener
+            }
+            if (holder.tv_yes!!.background==context.resources.getDrawable(R.drawable.bg_gray_60)) {
                 return@setOnClickListener
             }
             EventBus.getDefault().post(EventCmdModel("2", ""))
             setColor(holder)
-            isDown=true
+
             RongYunUtil.setMessageStatus(message.message.messageId)
+            message.message.receivedStatus.setDownload()
         }
 
     }

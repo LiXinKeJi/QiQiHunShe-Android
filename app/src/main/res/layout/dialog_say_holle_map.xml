@@ -45,7 +45,7 @@
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:id="@+id/tv_content"
-                  android:text="向定位附近距离您最近的10人打招呼"
+                  android:text=" "
                   android:textSize="13sp"
                   android:textColor="@color/colorTabText"
                   android:layout_marginTop="15dp"

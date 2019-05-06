@@ -14,6 +14,7 @@ import com.lxkj.qiqihunshe.databinding.ActivityMainBinding
 import com.lxkj.qiqihunshe.app.service.LocationService
 import com.lxkj.qiqihunshe.app.ui.dialog.PerfectInfoDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
+import com.lxkj.qiqihunshe.app.ui.entrance.SignInActivity
 import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.mine.model.ReputationBaoModel
 import com.lxkj.qiqihunshe.app.util.*
@@ -44,11 +45,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
             //信誉金
             it.getUserCredit().bindLifeCycle(this).subscribe({
-                abLog.e("信誉金it",it)
+                abLog.e("信誉金it", it)
                 //先获取是否有违规，强制去缴纳信誉金
                 val reputModel = Gson().fromJson(it, ReputationBaoModel::class.java)
                 StaticUtil.foul = reputModel.foul
-                if (reputModel.foul.toDouble() != 1.0||reputModel.safe.toDouble() >= 12.5) {
+                if (reputModel.foul.toDouble() != 1.0 || reputModel.safe.toDouble() >= 12.5) {
                     return@subscribe
                 }
                 //两个条件，1安全总值小于12.5 ； 2、是第一次违规并且信誉金小于100，强制缴纳信誉金
@@ -86,6 +87,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             viewModel?.let {
                 it.getUnreadMsg()
             }
+        } else if (cmd == "RemoteLogin") {    //异地登录
+            SharedPreferencesUtil.putSharePre(this, "uid", "")
+            SharedPreferencesUtil.putSharePre(this, "rytoken", "")
+            MyApplication.uId = ""
+            StaticUtil.uid = ""
+            AppManager.finishAllActivity()
+            MyApplication.openActivity(this, SignInActivity::class.java)
+            ToastUtil.showToast("您的账号在其他设备登录")
         }
     }
 
@@ -127,5 +136,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         EventBus.getDefault().unregister(this)
         PerfectInfoDialog.diss()
     }
+
 
 }

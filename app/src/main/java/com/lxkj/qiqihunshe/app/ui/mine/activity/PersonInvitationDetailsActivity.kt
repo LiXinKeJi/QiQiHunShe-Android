@@ -48,7 +48,7 @@ class PersonInvitationDetailsActivity :
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tv_report -> {
+            R.id.tv_report -> {//举报
                 ReportDialog1.getReportList(this, "3", object : ReportDialog1.ReportCallBack {
                     override fun report(report: String) {
                         viewModel!!.yaoyueReport(report).bindLifeCycle(this@PersonInvitationDetailsActivity)
@@ -58,6 +58,9 @@ class PersonInvitationDetailsActivity :
             }
             R.id.tv_signup -> {
                 if(StaticUtil.isBail(this)){
+                    return
+                }
+                if (!StaticUtil.isMarriage(this)) {
                     return
                 }
                 viewModel!!.singUp().bindLifeCycle(this).subscribe({}, { toastFailure(it) })

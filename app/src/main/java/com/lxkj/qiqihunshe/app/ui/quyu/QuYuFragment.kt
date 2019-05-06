@@ -62,6 +62,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
     override fun init() {
 
         viewModel?.bind = binding
+        viewModel!!.checkIn().bindLifeCycle(this).subscribe({},{toastFailure(it)})
 
         mMapView.isMyLocationEnabled = true
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -88,6 +89,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         viewModel?.getChatList(Gson().toJson(params))?.bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
 
         mCoder.setOnGetGeoCodeResultListener(this)
+        headOfficeIv.setOnClickListener(this)
     }
 
     override fun loadData() {
@@ -140,6 +142,7 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         params.put("lon", lng.toString())
         params.put("lat", lat.toString())
         params.put("content", phoneNum)
+        abLog.e("打招呼...........", Gson().toJson(params))
         viewModel?.greet(Gson().toJson(params))?.bindLifeCycle(this)?.subscribe({ }, { toastFailure(it) })
 
     }
@@ -181,22 +184,27 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
                     ToastUtil.showTopSnackBar(activity, "暂无打招呼内容")
                     return
                 }
-                SayHolleDialog.show(activity!!, viewModel!!.hiList)
+                SayHolleDialog.show(activity!!, viewModel!!.hiList,viewModel!!.SignNUm)
                 SayHolleDialog.setListener(this)
             }
 
             R.id.tv_aqxz -> {
-                if (viewModel?.canXz!!){
+                if (viewModel?.canXz!!) {
                     AqxzDialog.show(activity!!, viewModel!!.serviceOffice)
                     AqxzDialog.setListener(this)
-                }else
-                    ToastUtil.showTopSnackBar(activity,"没有约见信息，暂不可用")
+                } else
+                    ToastUtil.showTopSnackBar(activity, "没有约见信息，暂不可用")
 
             }
 
             R.id.tv_fwwd -> {
                 FwwdDialog.show(activity!!, viewModel!!.serviceOffice)
                 FwwdDialog.setListener(this)
+            }
+
+
+            R.id.headOfficeIv -> {//默认服务商
+                viewModel?.moveMap()
             }
 
             R.id.tv_ddtj -> {
@@ -302,8 +310,9 @@ class QuYuFragment : BaseFragment<FragmentQuyuBinding, QuYuViewModel>(), View.On
         getData()
         mCoder.reverseGeoCode(
             ReverseGeoCodeOption()
-        .location(mapStatus?.bound?.center)
-        .radius(500))
+                .location(mapStatus?.bound?.center)
+                .radius(500)
+        )
     }
 
     override fun onGetGeoCodeResult(p0: GeoCodeResult?) {

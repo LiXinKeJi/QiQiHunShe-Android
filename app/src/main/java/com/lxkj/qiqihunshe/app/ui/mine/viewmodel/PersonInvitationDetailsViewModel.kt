@@ -11,6 +11,7 @@ import com.lxkj.qiqihunshe.app.ui.dialog.DynamicSignUpAfterDialog
 import com.lxkj.qiqihunshe.app.ui.mine.adapter.ImageAdapter
 import com.lxkj.qiqihunshe.app.ui.mine.model.MyInvitationDetailsModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
+import com.lxkj.qiqihunshe.app.util.SeePhotoViewUtil
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPersonInvitationDetailsBinding
@@ -35,6 +36,10 @@ class PersonInvitationDetailsViewModel : BaseViewModel() {
         bind!!.rvImage.isFocusable = false
         bind!!.rvImage.layoutManager = GridLayoutManager(fragment?.context, 3)
         bind!!.rvImage.adapter = imageAdapter
+
+        imageAdapter.setMyListener { itemBean, position ->
+            SeePhotoViewUtil.toPhotoView(activity,model.image,position)
+        }
     }
 
     fun getYaoyueDetails(): Single<String> {

@@ -197,6 +197,7 @@
         <activity android:name=".app.ui.quyu.activity.DdtjActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.ui.quyu.activity.ShopDetailActivity"
+                  android:launchMode="singleTask"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".app.ui.map.activity.SelectAddressMapActivity"
@@ -333,10 +334,10 @@
         <receiver android:name=".app.rongrun.receiver.SealNotificationReceiver"
                   android:exported="true">
             <intent-filter>
-                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
-                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
-                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
-                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED"/>
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED"/>
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED"/>
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED"/>
             </intent-filter>
         </receiver>
 

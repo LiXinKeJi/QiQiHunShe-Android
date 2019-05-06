@@ -11,10 +11,7 @@ import com.lxkj.qiqihunshe.app.retrofitnet.async
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.CategoryPop
 import com.lxkj.qiqihunshe.app.ui.mine.model.MineModel
-import com.lxkj.qiqihunshe.app.util.SharePrefUtil
-import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil
-import com.lxkj.qiqihunshe.app.util.StaticUtil
-import com.lxkj.qiqihunshe.app.util.abLog
+import com.lxkj.qiqihunshe.app.util.*
 import io.reactivex.Single
 import java.util.*
 
@@ -27,12 +24,14 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
     var bind: FragmentMineBinding? = null
 
+    private var marriage = ""//情感状态
+
 
     fun getMine(): Single<String> {
         val json = "{\"cmd\":\"userInfo\",\"uid\":\"" + StaticUtil.uid + "\"}"
         return retrofit.getData(json).async()
             .doOnSuccess {
-                abLog.e("个人信息",it)
+                abLog.e("个人信息", it)
                 val model = Gson().fromJson(it, MineModel::class.java)
                 bind?.let {
                     it.model = model
@@ -51,11 +50,17 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
                     SharedPreferencesUtil.putSharePre(fragment!!.activity, "userIcon", model.icon)
                     SharedPreferencesUtil.putSharePre(fragment!!.activity, "nickName", model.nickname)
 
+                    marriage = model.marriage
+                    StaticUtil.marriage=marriage
+                    if (marriage=="1") {
+                        bind!!.tvState.text = list[2]
+                    }
+
                     MyApplication.setRedNum(it.tvMsgNum1, model.xiaoqi.toInt())
                     MyApplication.setRedNum(it.tvMsgNum2, model.interact.toInt())
                 }
 
-                StaticUtil.isReal=model.auth
+                StaticUtil.isReal = model.auth
                 SharedPreferencesUtil.putSharePre(fragment!!.activity, "isAuth", StaticUtil.isReal)
 
                 StaticUtil.headerUrl = model.icon
@@ -93,6 +98,18 @@ class MineViewModel : BaseViewModel(), CategoryPop.Categoryinterface {
 
     // 选中的状态
     override fun category(position: Int) {
+        if (marriage == "1") {//已婚，不能选择单身和约会
+            if (position == 0 || position == 1) {
+                ToastUtil.showTopSnackBar(fragment!!.activity, "已婚状态不能选择“单身或者约会”")
+                return
+            }
+        }
+        if (marriage == "0" || marriage == "2") {//未婚和离异，不能选择牵手
+            if (position == 2) {
+                ToastUtil.showTopSnackBar(fragment!!.activity, "未婚或离异状态不能选择“牵手”")
+                return
+            }
+        }
         motifyState(position)
     }
 

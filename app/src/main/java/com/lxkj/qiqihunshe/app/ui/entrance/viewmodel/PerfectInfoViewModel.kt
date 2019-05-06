@@ -474,7 +474,7 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
                         GlideUtil.glideHeaderLoad(activity, model.icon[0], it.ivHeader)
 
                         var sb = StringBuffer()
-                        for (str in model.icon) {
+                        for (str in model.icon) {//服务器地址改变
                             sb.append("${str.substring(str.indexOf("8") + 1, str.length)}|")
                         }
                         model.icons = sb.toString().substring(0, sb.toString().length - 1)
@@ -553,7 +553,6 @@ class PerfectInfoViewModel : BaseViewModel(), DateBirthdayPop.DateCallBack, Addr
 
                         it.tvHeEducation.text = model.zeou_education
                         model.education2 = model.zeou_education
-
 
                         it.model = model
                     }

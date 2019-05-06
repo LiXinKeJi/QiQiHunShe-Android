@@ -3,12 +3,12 @@ package com.lxkj.qiqihunshe.app.ui.dialog
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Activity
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.customview.FlowLayout
 import com.lxkj.qiqihunshe.app.util.PermissionUtil
@@ -35,12 +35,11 @@ object ReportDialog2 : DatePop.DateCallBack {
     private var fl_jubao: FlowLayout? = null
     private var fl_main: FrameLayout? = null
 
-    private val reportList by lazy { ArrayList<String>() }
     private val list by lazy { ArrayList<String>() }
 
 
     interface ReportContentCallBack {
-        fun report(content: String)
+        fun report(content: String, startTime: String, endTime: String)
     }
 
     fun show(context: Activity, array: ArrayList<String>, reportCallBack: ReportContentCallBack) {
@@ -68,26 +67,37 @@ object ReportDialog2 : DatePop.DateCallBack {
         if (list.isNotEmpty()) {
             list.clear()
         }
-        if (reportList.isEmpty()) {
-            reportList.addAll(array)
-        }
 
-        initTLable(context, fl_jubao!!, fl_main!!)
+        initTLable(context, fl_jubao!!, fl_main!!, array)
 
         tv_cancel?.setOnClickListener {
             dialog?.dismiss()
         }
         tv_enter?.setOnClickListener {
+
+
             if (list.isEmpty()) {
                 ToastUtil.showToast("请选择举报内容")
                 return@setOnClickListener
             }
 
+
             val sb = StringBuffer()
             for (str in list) {
                 sb.append("$str,")
             }
-            reportCallBack.report(sb.toString().substring(0, sb.toString().length - 1))
+
+            if (TextUtils.isEmpty(statTime)) {
+                ToastUtil.showToast("请选择开始时间")
+                return@setOnClickListener
+            }
+
+            if (TextUtils.isEmpty(endTime)) {
+                ToastUtil.showToast("请选择结束时间")
+                return@setOnClickListener
+            }
+
+            reportCallBack.report(sb.toString().substring(0, sb.toString().length - 1), statTime, endTime)
             dialog?.dismiss()
         }
         iv_cancel?.setOnClickListener {
@@ -121,9 +131,8 @@ object ReportDialog2 : DatePop.DateCallBack {
     }
 
 
-    fun initTLable(context: Activity, flType: FlowLayout, fl: FrameLayout) {
+    fun initTLable(context: Activity, flType: FlowLayout, fl: FrameLayout, array: ArrayList<String>) {
         flType.removeAllViews()
-        val array = context.resources.getStringArray(R.array.report)
 
         for (i in 0 until array.size) {
             val tv = LayoutInflater.from(context).inflate(
@@ -178,7 +187,7 @@ object ReportDialog2 : DatePop.DateCallBack {
             statTime = "$position1-$position2-$position3 $position4:$position5:$position6"
             tv_startTime!!.text = statTime
         } else if (flag == 1) {
-            statTime = "$position1-$position2-$position3 $position4:$position5:$position6"
+            endTime = "$position1-$position2-$position3 $position4:$position5:$position6"
             tv_endTime!!.text = endTime
         }
     }

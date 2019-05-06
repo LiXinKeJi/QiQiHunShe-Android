@@ -50,6 +50,7 @@ object StaticUtil {
 
     var bail = ""//信誉金 0代表未缴纳
     var foul = ""//违规次数
+    var marriage = ""// 情感状态 0未婚 1已婚 2离异
 
 
     //获取平台信誉金
@@ -103,5 +104,14 @@ object StaticUtil {
         return true
     }
 
+
+    //已婚，不可以聊天，并且不可以参加附近邀约
+    fun isMarriage(activity: Activity): Boolean {
+        if (isReal != "2") {
+            ToastUtil.showTopSnackBar(activity, "已婚状态不能会话")
+            return false
+        }
+        return true
+    }
 
 }

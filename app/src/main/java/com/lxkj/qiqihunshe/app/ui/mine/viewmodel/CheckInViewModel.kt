@@ -14,7 +14,7 @@ import org.json.JSONObject
  */
 class CheckInViewModel : BaseViewModel() {
 
-    var bind: ActivityCheckinBinding? = null
+     var bind: ActivityCheckinBinding? = null
 
     fun checkIn(): Single<String> {
         val json = "{\"cmd\":\"sign\",\"uid\":\"" + StaticUtil.uid + "\"}"
@@ -23,9 +23,8 @@ class CheckInViewModel : BaseViewModel() {
                 val obj = JSONObject(it)
                 if(obj.getString("result")!="0"){
                     ToastUtil.showTopSnackBar(activity,obj.getString("resultNote"))
-                    return@doOnSuccess
                 }
-                when (obj.getInt("qty")) {
+                when (obj.getString("qty").toInt()) {
                     1 -> {
                         bind!!.iv1.visibility = View.VISIBLE
                     }

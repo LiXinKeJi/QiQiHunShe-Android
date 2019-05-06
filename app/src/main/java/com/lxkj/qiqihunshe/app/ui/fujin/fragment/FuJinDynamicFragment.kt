@@ -9,6 +9,7 @@ import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangAfterDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.DaShangDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.ReplyDialog
 import com.lxkj.qiqihunshe.app.ui.dialog.ReportDialog1
 import com.lxkj.qiqihunshe.app.ui.fujin.adapter.NearDynamicAdapter
 import com.lxkj.qiqihunshe.app.ui.fujin.viewmodel.FuJinDynamicViewModel
@@ -24,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_xrecyclerview.*
  * Created by Slingge on 2019/2/26
  */
 class FuJinDynamicFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJinDynamicViewModel>() {
-
 
     override fun getBaseViewModel() = FuJinDynamicViewModel()
 
@@ -69,11 +69,20 @@ class FuJinDynamicFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJinDyn
                     })
                 }
             })
+
+            //评论
+            it.adapter?.setOnReplyClickListener {
+                ReplyDialog.show(activity!!, object : ReplyDialog.EditCallBack {
+                    override fun edit(str: String) {
+                        viewModel?.sendComment(it, str)?.bindLifeCycle(this@FuJinDynamicFragment)?.subscribe({},{toastFailure(it)})
+                    }
+                })
+            }
         }
         fab.visibility = View.VISIBLE
         fab.attachToRecyclerView(xRecyclerView)
         fab.setOnClickListener {
-            if(!StaticUtil.isRealNameAuth(activity!!)){
+            if (!StaticUtil.isRealNameAuth(activity!!)) {
                 return@setOnClickListener
             }
 
@@ -100,6 +109,7 @@ class FuJinDynamicFragment : BaseFragment<ActivityXrecyclerviewBinding, FuJinDyn
         super.onPause()
         DaShangDialog.diss()
         DaShangAfterDialog.diss()
+        ReplyDialog.diss()
     }
 
 

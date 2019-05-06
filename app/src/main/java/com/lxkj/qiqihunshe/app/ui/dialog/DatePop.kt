@@ -44,6 +44,16 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
     private var min=0
     private var s=0
 
+
+    private lateinit var loopview4:LoopView
+    private lateinit var loopview5:LoopView
+    private lateinit var loopview6:LoopView
+
+    private lateinit var tv_hour:TextView
+    private lateinit var tv_min:TextView
+    private lateinit var tv_second:TextView
+
+
     interface DateCallBack {
         fun position(position1: String, position2: String, position3: String, position4: String, position5: String, position6: String)
         fun position()
@@ -56,9 +66,9 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         val loopview2 = v.findViewById<View>(R.id.loopView2) as LoopView
         val loopview3 = v.findViewById<View>(R.id.loopView3) as LoopView
 
-        val loopview4 = v.findViewById<View>(R.id.loopView4) as LoopView
-        val loopview5 = v.findViewById<View>(R.id.loopView5) as LoopView
-        val loopview6 = v.findViewById<View>(R.id.loopView6) as LoopView
+          loopview4 = v.findViewById<View>(R.id.loopView4) as LoopView
+          loopview5 = v.findViewById<View>(R.id.loopView5) as LoopView
+          loopview6 = v.findViewById<View>(R.id.loopView6) as LoopView
         loopview4.visibility = View.VISIBLE
         loopview5.visibility = View.VISIBLE
         loopview6.visibility = View.VISIBLE
@@ -70,9 +80,14 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
         v.findViewById<View>(R.id.month).visibility = View.VISIBLE
         v.findViewById<View>(R.id.day).visibility = View.VISIBLE
 
-        v.findViewById<View>(R.id.hour).visibility = View.VISIBLE
-        v.findViewById<View>(R.id.min).visibility = View.VISIBLE
-        v.findViewById<View>(R.id.second).visibility = View.VISIBLE
+        tv_hour= v.findViewById(R.id.hour)
+        tv_hour.visibility=View.VISIBLE
+
+        tv_min= v.findViewById(R.id.min)
+        tv_min.visibility=View.VISIBLE
+
+        tv_second= v.findViewById(R.id.second)
+        tv_second.visibility=View.VISIBLE
 
         //设置是否循环播放
         //        loopView.setNotLoop();
@@ -292,6 +307,16 @@ class DatePop(context: Context?, var wheelViewCallBack: DateCallBack) : PopupWin
                 minList.add(i.toString())
             }
         }
+    }
+
+    fun hide() {
+        loopview4.visibility=View.GONE
+        loopview5.visibility=View.GONE
+        loopview6.visibility=View.GONE
+
+        tv_hour.visibility=View.GONE
+        tv_min.visibility=View.GONE
+        tv_second.visibility=View.GONE
     }
 
 }

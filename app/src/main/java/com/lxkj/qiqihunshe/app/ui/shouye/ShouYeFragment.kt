@@ -37,10 +37,10 @@ class ShouYeFragment : BaseFragment<FragmentShouyeBinding, ShouYeViewModel>() {
         if (Build.VERSION.SDK_INT > 19) {
             StatusBarUtil.setColorNoTranslucent(activity, Color.parseColor("#2d91ff"))
         }
-        if (!SharedPreferencesUtil.getSharePreBoolean(activity, "isSlide")) {//仅显示一次
-            iv_slide.visibility = View.VISIBLE
-            SharedPreferencesUtil.putSharePre(activity, "isSlide", true)//仅显示一次
-        }
+//        if (!SharedPreferencesUtil.getSharePreBoolean(activity, "isSlide")) {//仅显示一次
+//            iv_slide.visibility = View.VISIBLE
+//            SharedPreferencesUtil.putSharePre(activity, "isSlide", true)//仅显示一次
+//        }
 
         val list = ArrayList<Fragment>()
 

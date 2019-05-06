@@ -97,9 +97,7 @@ class ReleaseInvitationActivity :
                         ToastUtil.showTopSnackBar(this, "请选择开始时间")
                         return
                     }
-                    it.model.address = "楼下"
-                    it.model.lat = "125.485489"
-                    it.model.lon = "35.4548"
+
                     if (TextUtils.isEmpty(it.model.address)) {
                         ToastUtil.showTopSnackBar(this, "请选择活动地点")
                         return
@@ -117,7 +115,6 @@ class ReleaseInvitationActivity :
                         ToastUtil.showTopSnackBar(this, "请选选择费用")
                         return
                     }
-
 
                     if (it.ablumList.size > 1) {
                         upFile()

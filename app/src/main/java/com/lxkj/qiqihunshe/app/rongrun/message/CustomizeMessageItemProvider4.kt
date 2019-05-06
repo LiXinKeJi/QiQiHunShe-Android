@@ -81,7 +81,7 @@ import java.text.DecimalFormat
                 "${shopMessage.address}   ${getDistance(shopMessage.lat, shopMessage.lon)}km  ${shopMessage.time}"
             holder.tv_address!!.visibility = View.VISIBLE
             holder.tv_num!!.visibility = View.VISIBLE
-            holder.tv_num!!.text = "3"
+            holder.tv_num!!.text = "2"
             holder.line0!!.visibility = View.VISIBLE
             holder.line1!!.visibility = View.VISIBLE
             holder.tv_tip!!.visibility = View.GONE

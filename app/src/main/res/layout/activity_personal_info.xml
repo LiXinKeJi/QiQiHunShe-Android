@@ -34,7 +34,6 @@
                             android:layout_height="match_parent"
                             android:background="@color/white"
                     >
-
                         <View
                                 android:id="@+id/view_staus"
                                 android:layout_width="match_parent"
@@ -78,8 +77,6 @@
                                   android:layout_below="@+id/iv_edit"
                                   android:layout_marginTop="12dp"
                         />
-
-
 
                         <com.lxkj.qiqihunshe.app.customview.MyJzvdStd
                                 android:layout_width="match_parent"

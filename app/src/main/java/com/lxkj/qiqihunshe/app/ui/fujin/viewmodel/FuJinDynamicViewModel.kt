@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.widget.EditText
 import com.google.gson.Gson
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
@@ -125,7 +126,7 @@ class FuJinDynamicViewModel : BaseViewModel() {
     fun dashang(money: String, position: Int): Single<String> {
         val json =
             "{\"cmd\":\"dongtaiTip\",\"dongtaiId\":\"${list[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"money\":\"$money\"}"
-        abLog.e("打赏订单号",json)
+        abLog.e("打赏订单号", json)
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 val obj = JSONObject(response)
@@ -139,6 +140,19 @@ class FuJinDynamicViewModel : BaseViewModel() {
     }
 
 
+    //评论
+    fun sendComment(position: Int, str: String): Single<String> {
+        val json =
+            "{\"cmd\":\"addDongtaiComment\",\"dongtaiId\":\"${list[position].dongtaiId}\",\"uid\":\"${StaticUtil.uid}\",\"lat\":\"${StaticUtil.lat}\",\"content\":\"$str\"" +
+                    ",\"lon\":\"${StaticUtil.lng}\"}"
+        abLog.e("json", json)
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                list[position].commentNum = (list[position].commentNum.toInt() + 1).toString()
+                adapter?.notifyDataSetChanged()
+            }
+        }, fragment!!.activity))
+    }
 
 
 }

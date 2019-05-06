@@ -31,13 +31,15 @@ class MatchingViewModel : BaseViewModel() {
         abLog.e("匹配", Gson().toJson(activity!!.intent.getSerializableExtra("model")))
         return retrofit.getData(Gson().toJson(activity!!.intent.getSerializableExtra("model")))
             .async().doOnSuccess {
-                abLog.e("匹配结果",it)
+                abLog.e("匹配结果", it)
                 val model = Gson().fromJson(it, ShouYeModel::class.java)
                 if (model.result == "0") {
                     ToastUtil.showToast("匹配成功！")
                     id = model.userId
                     username = model.nickname
                     bind.ivDefaul.visibility = View.VISIBLE
+                    bind.ivIn.visibility = View.VISIBLE
+                    bind.ivNext.visibility = View.VISIBLE
                 } else {
                     ToastUtil.showTopSnackBar(activity, model.resultNote)
                 }

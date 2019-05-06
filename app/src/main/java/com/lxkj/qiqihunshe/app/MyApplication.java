@@ -12,6 +12,7 @@ import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import com.lxkj.qiqihunshe.R;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.lxkj.qiqihunshe.app.rongrun.RongCloudEvent;
 import com.lxkj.qiqihunshe.app.rongrun.plugin.MyExtensionModule;
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil;
 import com.lxkj.qiqihunshe.app.rongrun.message.*;
@@ -94,7 +95,7 @@ public class MyApplication extends MultiDexApplication {
 
         RongIM.init(this, "3argexb63qm0e");
 //        RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener(CONTEXT));
-//        RongCloudEvent.INSTANCE.init();
+        RongCloudEvent.INSTANCE.init();
         RongIM.getInstance().setMessageAttachedUserInfo(true);
         RongIM.registerMessageType(CustomizeMessage1.class);//注册自定义消息
         RongIM.registerMessageTemplate(new CustomizeMessageItemProvider1(this));
@@ -110,7 +111,6 @@ public class MyApplication extends MultiDexApplication {
         RongIM.registerMessageTemplate(new CustomizeMessageItemProvider6(this));
         RongIM.registerMessageType(CustomizeMessage7.class);//注册自定义消息
         RongIM.registerMessageTemplate(new CustomizeMessageItemProvider7(this));
-
         if (!TextUtils.isEmpty(StaticUtil.INSTANCE.getRytoken())) {
             RongYunUtil.INSTANCE.initService();
         }
@@ -239,5 +239,6 @@ public class MyApplication extends MultiDexApplication {
             badgeTextView.showTextBadge(MsgNum + "");
         }
     }
+
 
 }

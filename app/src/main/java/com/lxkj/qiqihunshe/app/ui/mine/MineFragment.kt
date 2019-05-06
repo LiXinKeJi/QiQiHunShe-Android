@@ -2,10 +2,8 @@ package com.lxkj.qiqihunshe.app.ui.mine
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import com.lxkj.qiqihunshe.R
-import com.lxkj.qiqihunshe.app.AppConsts
 import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
@@ -16,10 +14,6 @@ import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MineViewModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.FragmentMineBinding
-import io.rong.callkit.RongCallKit
-import io.rong.calllib.RongCallClient
-import io.rong.imkit.RongIM
-import io.rong.imlib.model.CSCustomServiceInfo
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 

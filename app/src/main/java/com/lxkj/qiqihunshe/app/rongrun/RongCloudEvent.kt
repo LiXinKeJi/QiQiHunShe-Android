@@ -1,10 +1,17 @@
 package com.lxkj.qiqihunshe.app.rongrun
 
 import android.os.IBinder
+import com.lxkj.qiqihunshe.app.MyApplication
+import com.lxkj.qiqihunshe.app.ui.entrance.SignInActivity
+import com.lxkj.qiqihunshe.app.util.AppManager
+import com.lxkj.qiqihunshe.app.util.SharedPreferencesUtil
+import com.lxkj.qiqihunshe.app.util.StaticUtil
+import com.lxkj.qiqihunshe.app.util.abLog
 import io.rong.imkit.RongIM
 import io.rong.imlib.OnReceiveMessageListener
 import io.rong.imlib.RongIMClient
 import io.rong.imlib.model.Message
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Slingge on 2019/3/22
@@ -34,6 +41,11 @@ object RongCloudEvent : RongIMClient.ConnectionStatusListener, RongIM.OnSendMess
 
     override fun onChanged(p0: RongIMClient.ConnectionStatusListener.ConnectionStatus?) {
 
+        when (p0) {//异地登录
+            RongIMClient.ConnectionStatusListener.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT -> {
+               EventBus.getDefault().post("RemoteLogin")
+            }
+        }
     }
 
     override fun onSend(p0: Message?): Message {

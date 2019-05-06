@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import com.lxkj.qiqihunshe.R
 import kotlinx.android.synthetic.main.dialog_say_holle_map.view.*
 import java.util.ArrayList
@@ -20,7 +21,7 @@ import java.util.ArrayList
 object SayHolleDialog {
     private var dialog: AlertDialog? = null
     private var messagSpinner: Spinner? = null
-    var hi : String ?= null
+    var hi: String? = null
 
     var onSayHiListener: OnSayHiListener? = null
 
@@ -29,7 +30,9 @@ object SayHolleDialog {
         this.onSayHiListener = onSayHiListener
     }
 
-    fun show(context: Activity,messages : List<String>) {
+    private lateinit var tv_content: TextView
+
+    fun show(context: Activity, messages: List<String>, num: Int) {
         if (SayHolleDialog.dialog == null) {
             SayHolleDialog.dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             SayHolleDialog.dialog?.show()
@@ -38,14 +41,14 @@ object SayHolleDialog {
             val ageAdapter = ArrayAdapter(context, R.layout.spinner_tv, messages)
             ageAdapter.setDropDownViewResource(R.layout.spinner_item)
             messagSpinner?.setAdapter(ageAdapter)
-            messagSpinner?.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            messagSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
                     hi = messages[i]
                 }
 
                 override fun onNothingSelected(adapterView: AdapterView<*>) {}
-            })
-
+            }
+            tv_content = view.findViewById(R.id.tv_content)
             view.ivClose.setOnClickListener {
                 dialog?.dismiss()
             }
@@ -62,6 +65,9 @@ object SayHolleDialog {
         } else {
             SayHolleDialog.dialog?.show()
         }
+
+        tv_content.text = "向定位附近距离您最近的${num}人打招呼"
+
 
         val dialogWindow = SayHolleDialog.dialog!!.window
         dialogWindow.setWindowAnimations(R.style.dialogAnim)//淡入、淡出动画

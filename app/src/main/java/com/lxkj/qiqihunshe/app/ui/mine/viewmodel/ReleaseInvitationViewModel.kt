@@ -45,6 +45,8 @@ class ReleaseInvitationViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCa
     fun showDate() {
         if (dateBirthdayPop == null) {
             dateBirthdayPop = DatePop(activity, this)
+
+            dateBirthdayPop?.hide()
         }
         if (!dateBirthdayPop!!.isShowing) {
             dateBirthdayPop!!.showAtLocation(bind?.llMain, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
@@ -60,7 +62,7 @@ class ReleaseInvitationViewModel : BaseViewModel(), ReleaseAdapter.ImageRemoveCa
         position5: String,
         position6: String
     ) {
-        model.starttime = "$position1-$position2-$position3 $position4:$position5:$position6"
+        model.starttime = "$position1-$position2-$position3"
         bind!!.tvTime.text = model.starttime
     }
 
