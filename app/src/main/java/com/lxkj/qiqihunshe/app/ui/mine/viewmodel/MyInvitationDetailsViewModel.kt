@@ -2,6 +2,7 @@ package com.lxkj.qiqihunshe.app.ui.mine.viewmodel
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
@@ -23,9 +24,9 @@ import org.greenrobot.eventbus.EventBus
  */
 class MyInvitationDetailsViewModel : BaseViewModel() {
 
-    private val adapterDai by lazy { MyInvitationDetailsAdapter(0) }
-    private val adapterNow by lazy { MyInvitationDetailsAdapter(1) }
-    private val adapterNo by lazy { MyInvitationDetailsAdapter(2) }
+    val adapterDai by lazy { MyInvitationDetailsAdapter(0) }
+    val adapterNow by lazy { MyInvitationDetailsAdapter(1) }
+    val adapterNo by lazy { MyInvitationDetailsAdapter(2) }
 
     val daiList = ArrayList<MyInvitationDetailsModel.dataModel>()//待审核
     val nowList = ArrayList<MyInvitationDetailsModel.dataModel>()//当前报名
@@ -64,9 +65,7 @@ class MyInvitationDetailsViewModel : BaseViewModel() {
 
 
     fun getYaoyueDetails(): Single<String> {
-
         val json = "{\"cmd\":\"yaoyueDetail\",\"uid\":\"" + StaticUtil.uid + "\",\"yaoyueId\":\"" + yaoyueId + "\"}"
-
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 model = Gson().fromJson(response, MyInvitationDetailsModel::class.java)
@@ -114,44 +113,95 @@ class MyInvitationDetailsViewModel : BaseViewModel() {
         }, activity))
     }
 
-    fun agree(position: Int, type: String, reason: String): Single<String> {
-        var joinId = ""
-        if (type == "1") {//同意
-            joinId = daiList[position].joinId
-        } else {
-            joinId = nowList[position].joinId
-        }
+    //同意or拒绝
+    fun agree(position: Int, type: String, reason: String, joinId: String): Single<String> {
 
         val json = "{\"cmd\":\"authYaoyue\",\"uid\":\"" + StaticUtil.uid + "\",\"joinId\":\"" + joinId +
                 "\",\"type\":\"" + type + "\",\"reason\":\"" + reason + "\"}"
 
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
-                if (type == "1") {
+                if (type == "1") {//同意
                     daiList[position].type = "1"
                     nowList.add(daiList[position])
                     daiList.removeAt(position)
-                    if (daiList.isNotEmpty()) {
-                        adapterDai.flag = 1
-                        adapterDai.upData(daiList)
-                    } else {
-                        bind!!.rvDai.visibility = View.GONE
-                    }
+
+                    adapterDai.flag = 1
+                    adapterDai.upData(daiList)
+
                     adapterNow.flag = 1
-                    adapterNow.upData(daiList)
-                } else {
-                    nowList[position].type = "2"
-                    nowList[position].reason = reason
-                    noList.add(daiList[position])
-                    nowList.removeAt(position)
-                    if (nowList.isNotEmpty()) {
+                    adapterNow.upData(nowList)
+
+                    bind?.let {
+                        it.tvDai.text = "待审核（${daiList.size}人）"
+                        it.tvNow.text = "已同意（${nowList.size}人）"
+
+                        if (daiList.isEmpty()) {
+                            it.rvDai.visibility = View.GONE
+                        }else{
+                            it.rvDai.visibility = View.VISIBLE
+                        }
+                        if (nowList.isEmpty()) {
+                            it.rvNow.visibility = View.GONE
+                        }else{
+                            it.rvNow.visibility = View.VISIBLE
+                        }
+                    }
+                } else {//删除
+                    if(!TextUtils.isEmpty(reason)){//删除
+                        nowList[position].type = "2"
+                        nowList[position].reason = reason
+                        noList.add(nowList[position])
+                        nowList.removeAt(position)
+
                         adapterNow.flag = 1
                         adapterNow.upData(nowList)
-                    } else {
-                        bind!!.rvNow.visibility = View.GONE
+
+                        adapterNo.flag = 1
+                        adapterNo.upData(noList)
+
+                        bind?.let {
+                            it.tvNow.text = "已同意（${daiList.size}人）"
+                            it.tvNo.text = "已拒绝（${noList.size}人）"
+
+                            if (daiList.isEmpty()) {
+                                it.rvNow.visibility = View.GONE
+                            }else{
+                                it.rvNow.visibility = View.VISIBLE
+                            }
+                            if (noList.isEmpty()) {
+                                it.rvNo.visibility = View.GONE
+                            }else{
+                                it.rvNo.visibility = View.VISIBLE
+                            }
+                        }
+                    }else{//拒绝
+                        daiList[position].type = "2"
+                        noList.add(daiList[position])
+                        daiList.removeAt(position)
+
+                        adapterDai.flag = 1
+                        adapterDai.upData(daiList)
+
+                        adapterNo.flag = 1
+                        adapterNo.upData(noList)
+
+                        bind?.let {
+                            it.tvDai.text = "待审核（${daiList.size}人）"
+                            it.tvNo.text = "已拒绝（${noList.size}人）"
+
+                            if (daiList.isEmpty()) {
+                                it.rvDai.visibility = View.GONE
+                            }else{
+                                it.rvDai.visibility = View.VISIBLE
+                            }
+                            if (noList.isEmpty()) {
+                                it.rvNo.visibility = View.GONE
+                            }else{
+                                it.rvNo.visibility = View.VISIBLE
+                            }
+                        }
                     }
-                    adapterNo.flag = 1
-                    adapterNo.upData(daiList)
                 }
             }
         }, activity))

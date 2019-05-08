@@ -5,7 +5,6 @@ import com.lxkj.qiqihunshe.app.base.BaseFragment
 import com.lxkj.qiqihunshe.app.ui.entrance.viewmodel.WelComeFragmentViewModel
 import com.lxkj.qiqihunshe.databinding.FragmentWelcomeBinding
 import kotlinx.android.synthetic.main.fragment_welcome.*
-import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Slingge on 2019/4/4

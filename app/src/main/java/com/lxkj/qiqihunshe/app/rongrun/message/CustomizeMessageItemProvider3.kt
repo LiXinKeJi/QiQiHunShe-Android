@@ -53,11 +53,21 @@ class CustomizeMessageItemProvider3(private val context: Context) :
         val holder = view.tag as ViewHolder
 
         if (message.messageDirection == Message.MessageDirection.SEND) {//消息方向，自己发送的
-            holder.tv_tip!!.text = "您已同意约见请求，等待对方选择约见地点"
-            holder.cardView2!!.visibility = View.GONE
-            holder.tv_num!!.visibility = View.GONE
-            holder.line0!!.visibility = View.GONE
-            holder.line1!!.visibility = View.GONE
+//            holder.tv_tip!!.text = "您已同意约见请求，等待对方选择约见地点"
+//            holder.cardView2!!.visibility = View.GONE
+//            holder.tv_num!!.visibility = View.GONE
+//            holder.line0!!.visibility = View.GONE
+//            holder.line1!!.visibility = View.GONE
+
+            holder.tv_msg!!.text = "点击“选择地点”完成约见地点选择"
+            holder.tv_num!!.text = "2"
+            holder.line0!!.visibility = View.VISIBLE
+            holder.line1!!.visibility = View.VISIBLE
+            holder.tv_tip!!.visibility = View.GONE
+            holder.cardView2!!.visibility = View.VISIBLE
+            holder.tv_no!!.visibility = View.INVISIBLE
+            holder.tv_yes!!.visibility = View.INVISIBLE
+            holder.tv_selectAdd!!.visibility = View.VISIBLE
         } else {
             holder.tv_msg!!.text = "点击“选择地点”完成约见地点选择"
             holder.tv_num!!.text = "2"

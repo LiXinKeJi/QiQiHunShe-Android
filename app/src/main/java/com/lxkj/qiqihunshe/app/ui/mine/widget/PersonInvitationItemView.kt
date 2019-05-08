@@ -75,7 +75,11 @@ class PersonInvitationItemView(activity: Activity, context: Context?) : Relative
             GlideUtil.glideLoad(context, bean.image[2], iv_3)
         } else if (bean.image.size > 3) {
             tv_totalnum.visibility = View.VISIBLE
-            tv_totalnum.text = (bean.image.size - 3).toString()
+            tv_totalnum.text = "+${(bean.image.size - 3)}"
+        }
+
+        if (bean.image.size <= 3) {
+            tv_totalnum.visibility = View.GONE
         }
 
         iv_1.setOnClickListener {

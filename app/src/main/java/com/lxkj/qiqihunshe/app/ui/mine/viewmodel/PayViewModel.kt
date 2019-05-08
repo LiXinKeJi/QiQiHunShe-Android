@@ -64,6 +64,7 @@ class PayViewModel : BaseViewModel() {
     fun Success() {
         ToastUtil.showToast("支付成功")
         val intent = Intent()
+        intent.putExtra("money",payMoney.toString())
         activity?.let {
             it.setResult(303, intent)
             it.finish()

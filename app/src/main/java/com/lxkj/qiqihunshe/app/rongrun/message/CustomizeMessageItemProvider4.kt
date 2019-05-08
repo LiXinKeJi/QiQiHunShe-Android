@@ -19,6 +19,7 @@ import io.rong.imkit.widget.provider.IContainerItemProvider
 import io.rong.imlib.model.Message
 import org.greenrobot.eventbus.EventBus
 import com.baidu.mapapi.utils.DistanceUtil
+import com.lxkj.qiqihunshe.app.rongrun.MessageIdUtil
 import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.YueJianModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -28,15 +29,14 @@ import java.text.DecimalFormat
 /***
  * 同意约见
  * */
-@ProviderTag(messageContent = CustomizeMessage4::class,showPortrait = false,centerInHorizontal=true)
-  class CustomizeMessageItemProvider4(private val context: Context) :
+@ProviderTag(messageContent = CustomizeMessage4::class, showPortrait = false, centerInHorizontal = true)
+class CustomizeMessageItemProvider4(private val context: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage4>() {
 
     override fun onItemClick(p0: View?, p1: Int, p2: CustomizeMessage4?, p3: UIMessage?) {
 
     }
 
-    private var isDown = false//是否同意或拒绝
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
@@ -91,7 +91,7 @@ import java.text.DecimalFormat
             holder.tv_selectAdd!!.visibility = View.GONE
 
             holder.tv_yes!!.setOnClickListener {
-                if (isDown || message.message.receivedStatus.isDownload) {
+                if (message.message.receivedStatus.isDownload) {
                     return@setOnClickListener
                 }
                 val model = YueJianModel()
@@ -102,12 +102,14 @@ import java.text.DecimalFormat
                 EventBus.getDefault().post(model)
 
                 setColor(holder)
-                isDown=true
+
                 RongYunUtil.setMessageStatus(message.message.messageId)
+                message.message.receivedStatus.setDownload()
+
             }
 
             holder.tv_no!!.setOnClickListener {
-                if (isDown || message.message.receivedStatus.isDownload) {
+                if (message.message.receivedStatus.isDownload) {
                     return@setOnClickListener
                 }
                 val model = EventCmdModel("4", "6")
@@ -115,8 +117,9 @@ import java.text.DecimalFormat
                 EventBus.getDefault().post(model)//拒绝定位
 
                 setColor(holder)
-                isDown=true
+
                 RongYunUtil.setMessageStatus(message.message.messageId)
+                message.message.receivedStatus.setDownload()
             }
 
         }

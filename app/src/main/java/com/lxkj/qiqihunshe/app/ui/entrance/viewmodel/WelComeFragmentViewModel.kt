@@ -23,6 +23,7 @@ class WelComeFragmentViewModel : BaseViewModel() {
             3 -> bind.image.setImageResource(R.drawable.bg_welcome3)
             4 -> bind.image.setImageResource(R.drawable.bg_welcome4)
             5 -> bind.image.setImageResource(R.drawable.bg_welcome5)
+            6 -> bind.image.setImageResource(R.drawable.bg_welcome6)
         }
     }
 

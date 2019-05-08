@@ -99,7 +99,9 @@ class CustomizeMessageItemProvider7(private val context: Context) :
                 }
                 isDown = true
                 RongYunUtil.setMessageStatus(message.message.messageId)
-                EventBus.getDefault().post(EventBus.getDefault().post(EventCmdModel("10", shopMessage.price)))
+                val eventModel=EventCmdModel("10", shopMessage.price)
+                eventModel.lat= shopMessage.yuejianId
+                EventBus.getDefault().post(EventBus.getDefault().post(eventModel))
             }
             holder.tv_no!!.setOnClickListener {
                 //拒绝消费划分

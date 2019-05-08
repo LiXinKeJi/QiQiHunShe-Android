@@ -47,7 +47,11 @@ class SpaceInvitationitenView : RelativeLayout {
             GlideUtil.glideLoad(context, bean.image[2], iv_3)
         } else if (bean.image.size > 3) {
             tv_num.visibility = View.VISIBLE
-            tv_num.text = (bean.image.size - 3).toString()
+            tv_num.text = "+${(bean.image.size - 3)}"
+        }
+
+        if (bean.image.size <= 3) {
+            tv_num.visibility = View.GONE
         }
 
         iv_1.setOnClickListener {
@@ -59,7 +63,6 @@ class SpaceInvitationitenView : RelativeLayout {
         iv_3.setOnClickListener {
             SeePhotoViewUtil.toPhotoView(context, bean.image, 2)
         }
-
 
         tv_psersonnum.text = "当前报名人数：${bean.yes}人  ${bean.wait}人待审核  ${bean.no}人拒绝"
 

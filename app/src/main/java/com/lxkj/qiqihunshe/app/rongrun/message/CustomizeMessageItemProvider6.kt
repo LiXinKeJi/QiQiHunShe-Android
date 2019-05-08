@@ -28,7 +28,7 @@ import java.text.DecimalFormat
 /***
  * 消费划分
  * */
-@ProviderTag(messageContent = CustomizeMessage6::class,showPortrait = false,centerInHorizontal=true)
+@ProviderTag(messageContent = CustomizeMessage6::class, showPortrait = false, centerInHorizontal = true)
 class CustomizeMessageItemProvider6(private val context: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage6>() {
 
@@ -40,7 +40,10 @@ class CustomizeMessageItemProvider6(private val context: Context) :
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
 
-        EventBus.getDefault().register(this)
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
+
 
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
         val holder = ViewHolder()
@@ -91,6 +94,7 @@ class CustomizeMessageItemProvider6(private val context: Context) :
                 return@setOnClickListener
             }
             EventBus.getDefault().post(EventCmdModel("7", shopMessage.yuejianId))
+            message.message.receivedStatus.setDownload()
         }
         holder.tv_no!!.setOnClickListener {
             //解除关系
@@ -98,11 +102,12 @@ class CustomizeMessageItemProvider6(private val context: Context) :
                 return@setOnClickListener
             }
             EventBus.getDefault().post(EventCmdModel("8", shopMessage.yuejianId))
+            message.message.receivedStatus.setDownload()
         }
 
         holder.tv_selectAdd!!.setOnClickListener {
             //消费划分
-            if (isRetrieved || message.message.receivedStatus.isRetrieved) {
+            if (isYuejian || message.message.receivedStatus.isDownload || isRetrieved || message.message.receivedStatus.isRetrieved) {
                 return@setOnClickListener
             }
             val model = EventCmdModel("9", shopMessage.yuejianId)
@@ -150,8 +155,8 @@ class CustomizeMessageItemProvider6(private val context: Context) :
     fun onEvent(cmd: String) {
         if (cmd == "isRetrieved") {//已划分消费
             isRetrieved = true
-        }else if(cmd=="isYuejian"){
-            isYuejian=true
+        } else if (cmd == "isYuejian") {
+            isYuejian = true
         }
     }
 

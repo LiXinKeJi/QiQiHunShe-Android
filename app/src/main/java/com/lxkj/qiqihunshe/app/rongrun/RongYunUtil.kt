@@ -136,12 +136,13 @@ object RongYunUtil {
      * @param message     自定义消息
      * @param pushContent push 接受cotent
      */
-    fun sendMessage1(id: String, message: CustomizeMessage1, pushContent: String) {
+    fun sendMessage1(activity: Activity, id: String, message: CustomizeMessage1, pushContent: String) {
         RongIM.getInstance()
             .sendMessage(Message.obtain(id, Conversation.ConversationType.PRIVATE, message), pushContent, null, object :
                 IRongCallback.ISendMessageCallback {
                 override fun onAttached(message: Message) {
                     abLog.e("sendMessage1", "消息发送")
+                    MessageIdUtil.saveMsg1(activity, message.messageId.toString())
                 }
 
                 override fun onSuccess(message: Message) {
@@ -174,7 +175,7 @@ object RongYunUtil {
             })
     }
 
-    fun sendMessage3(targetId: String, shopMessage: CustomizeMessage3, s: String) {
+    fun sendMessage3(activity: Activity, targetId: String, shopMessage: CustomizeMessage3, s: String) {
         RongIM.getInstance()
             .sendMessage(Message.obtain(targetId, Conversation.ConversationType.PRIVATE, shopMessage), s, null, object :
                 IRongCallback.ISendMessageCallback {
@@ -184,6 +185,8 @@ object RongYunUtil {
 
                 override fun onSuccess(message: Message) {
                     abLog.e("sendMessage1", "消息发送成功")
+                    MessageIdUtil.saveMsg3(activity, message.messageId.toString())
+                    abLog.e("消息3Id", message.messageId.toString() + "////////////" + MessageIdUtil.getMsg3Id(activity))
                 }
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
@@ -193,7 +196,7 @@ object RongYunUtil {
             })
     }
 
-    fun sendMessage4(targetId: String, shopMessage: CustomizeMessage4, s: String) {
+    fun sendMessage4(activity: Activity, targetId: String, shopMessage: CustomizeMessage4, s: String) {
         RongIM.getInstance()
             .sendMessage(Message.obtain(targetId, Conversation.ConversationType.PRIVATE, shopMessage), s, null, object :
                 IRongCallback.ISendMessageCallback {
@@ -203,6 +206,7 @@ object RongYunUtil {
 
                 override fun onSuccess(message: Message) {
                     abLog.e("sendMessage1", "消息发送成功")
+                    MessageIdUtil.saveMsg4(activity, message.messageId.toString())
                 }
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
@@ -213,7 +217,7 @@ object RongYunUtil {
     }
 
     //开始约见
-    fun sendMessage5(targetId: String, shopMessage: CustomizeMessage5, s: String) {
+    fun sendMessage5(activity: Activity, targetId: String, shopMessage: CustomizeMessage5, s: String) {
         RongIM.getInstance()
             .sendMessage(Message.obtain(targetId, Conversation.ConversationType.PRIVATE, shopMessage), s, null, object :
                 IRongCallback.ISendMessageCallback {
@@ -223,6 +227,7 @@ object RongYunUtil {
 
                 override fun onSuccess(message: Message) {
                     abLog.e("sendMessage1", "消息发送成功")
+                    MessageIdUtil.saveMsg5(activity, message.messageId.toString())
                 }
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
@@ -232,26 +237,27 @@ object RongYunUtil {
             })
     }
 
-    fun sendMessage6(targetId: String, shopMessage: CustomizeMessage6, s: String) {
+    fun sendMessage6(activity: Activity, targetId: String, shopMessage: CustomizeMessage6, s: String) {
         RongIM.getInstance()
             .sendMessage(Message.obtain(targetId, Conversation.ConversationType.PRIVATE, shopMessage), s, null, object :
                 IRongCallback.ISendMessageCallback {
                 override fun onAttached(message: Message) {
-                    abLog.e("sendMessage1", "消息发送")
+                    abLog.e("sendMessage6", "消息发送")
                 }
 
                 override fun onSuccess(message: Message) {
-                    abLog.e("sendMessage1", "消息发送成功")
+                    abLog.e("sendMessage6", "消息发送成功")
+                    MessageIdUtil.saveMsg6(activity, message.messageId.toString())
                 }
 
                 override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
-                    abLog.e("sendMessage1", errorCode.message)
+                    abLog.e("sendMessage6", errorCode.message)
                     sendMsgResult(errorCode.message)
                 }
             })
     }
 
-    fun sendMessage7(targetId: String, shopMessage7: CustomizeMessage7, s: String) {
+    fun sendMessage7(activity: Activity, targetId: String, shopMessage7: CustomizeMessage7, s: String) {
         RongIM.getInstance()
             .sendMessage(
                 Message.obtain(targetId, Conversation.ConversationType.PRIVATE, shopMessage7),
@@ -265,6 +271,7 @@ object RongYunUtil {
 
                     override fun onSuccess(message: Message) {
                         abLog.e("sendMessage1", "消息发送成功")
+                        MessageIdUtil.saveMsg7(activity, message.messageId.toString())
                     }
 
                     override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
@@ -337,5 +344,11 @@ object RongYunUtil {
         RongIM.getInstance().setMessageReceivedStatus(msgId, status)
     }
 
+
+    //设置失约
+    fun setMessageFlag(msgId: Int,type:Int){//type,101我方失约，102我方失约
+        val status = Message.ReceivedStatus(type)
+        RongIM.getInstance().setMessageReceivedStatus(msgId, status)
+    }
 
 }

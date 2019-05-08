@@ -9,14 +9,11 @@ import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.ui.mine.activity.InteractiveNotificationActivity
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.activity.QiQiRemindActivity
-import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.FindUserRelationshipModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel.XiangShiViewModel
 import com.lxkj.qiqihunshe.databinding.FraXiangshiBinding
-import io.rong.imkit.RongIM
 import kotlinx.android.synthetic.main.fra_xiangshi.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.util.ArrayList
 
 /**
  * Created by Slingge on 2019/2/28
@@ -31,15 +28,27 @@ class XiangShiFragment : BaseFragment<FraXiangshiBinding, XiangShiViewModel>(), 
         include.visibility = View.GONE
         viewModel?.let {
             it.bind = binding
-            viewModel?.getNewMsg()!!.bindLifeCycle(this).subscribe({}, { toastFailure(it) })
             it.init()
-            it.friendUserList.clear()
-            it.isFriend0().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
-            it.isFriend1().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            viewModel?.getNewMsg()!!.bindLifeCycle(this).subscribe({}, { toastFailure(it) })
+            getXiangShi()
+        }
+
+        refresh.setColorSchemeColors(resources.getColor(R.color.colorTheme))
+        refresh.setOnRefreshListener {
+            getXiangShi()
         }
 
         llHint.setOnClickListener(this)
         llNotify.setOnClickListener(this)
+    }
+
+
+    fun getXiangShi() {
+        viewModel?.let {
+            it.friendUserList.clear()
+            it.isFriend0().bindLifeCycle(this@XiangShiFragment).subscribe({}, { toastFailure(it) })
+            it.isFriend1().bindLifeCycle(this@XiangShiFragment).subscribe({}, { toastFailure(it) })
+        }
     }
 
     override fun onResume() {

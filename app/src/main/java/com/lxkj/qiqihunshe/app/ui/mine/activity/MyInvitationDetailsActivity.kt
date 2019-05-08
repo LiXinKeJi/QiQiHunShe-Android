@@ -1,13 +1,16 @@
 package com.lxkj.qiqihunshe.app.ui.mine.activity
 
 import android.view.View
+import com.google.gson.Gson
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.EditDialog
+import com.lxkj.qiqihunshe.app.ui.dialog.SignupExamineDialog
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.MyInvitationDetailsViewModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.EventBusCmd
+import com.lxkj.qiqihunshe.app.util.abLog
 import com.lxkj.qiqihunshe.databinding.ActivityMyinvitationDetailsBinding
 import kotlinx.android.synthetic.main.activity_myinvitation_details.*
 import kotlinx.android.synthetic.main.include_title.*
@@ -41,7 +44,7 @@ class MyInvitationDetailsActivity :
         tv_right.visibility = View.VISIBLE
         tv_right.text = "删除"
         tv_right.setOnClickListener {
-            viewModel!!.DelInvitation().bindLifeCycle(this).subscribe({},{toastFailure(it)})
+            viewModel!!.DelInvitation().bindLifeCycle(this).subscribe({}, { toastFailure(it) })
         }
     }
 
@@ -70,11 +73,34 @@ class MyInvitationDetailsActivity :
     @Subscribe
     fun onEvent(model: EventCmdModel) {
         if (model.cmd == "agree") {//同意
-            viewModel!!.agree(model.res.toInt(), "1", "")
+            SignupExamineDialog.show(
+                this,
+                viewModel!!.adapterDai.getList()[model.res.toInt()].userNickname,
+                object : SignupExamineDialog.SignupExamineCallBack {
+                    override fun result(boolean: Boolean) {
+                        val type = if (boolean) {
+                            "1"
+                        } else {
+                            "2"
+                        }
+                        val joinId = if (boolean) {
+                            viewModel!!.adapterDai.getList()[model.res.toInt()].joinId
+                        } else {
+                            viewModel!!.adapterDai.getList()[model.res.toInt()].joinId
+                        }
+                        viewModel!!.agree(model.res.toInt(), type, "", joinId)
+                            .bindLifeCycle(this@MyInvitationDetailsActivity)
+                            .subscribe({}, { toastFailure(it) })
+                    }
+                })
         } else if (model.cmd == "del") {//删除
             EditDialog.show(this, object : EditDialog.EditCallBack {
                 override fun edit(str: String) {
-                    viewModel!!.agree(model.res.toInt(), "2", str)
+                    abLog.e("同意", Gson().toJson(viewModel!!.adapterNow.getList()) + ";;;" + model.res)
+                    val joinId = viewModel!!.adapterNow.getList()[model.res.toInt()].joinId
+                    viewModel!!.agree(model.res.toInt(), "2", str, joinId)
+                        .bindLifeCycle(this@MyInvitationDetailsActivity)
+                        .subscribe({}, { toastFailure(it) })
                 }
             })
         }

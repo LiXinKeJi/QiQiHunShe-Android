@@ -1,10 +1,12 @@
 package com.lxkj.qiqihunshe.app.ui.fujin.viewmodel
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import com.baidu.mapapi.search.core.PoiInfo
 import com.google.gson.Gson
+import com.lxkj.qiqihunshe.app.MyApplication
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
 import com.lxkj.qiqihunshe.app.interf.UpLoadFileCallBack
 import com.lxkj.qiqihunshe.app.retrofitnet.*
@@ -19,6 +21,8 @@ import com.lxkj.qiqihunshe.app.ui.model.JuBaoModel
 import com.lxkj.qiqihunshe.app.ui.dialog.DatePop
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DefaultMsgModel
 import com.lxkj.qiqihunshe.app.ui.fujin.model.DivideModel
+import com.lxkj.qiqihunshe.app.ui.fujin.model.YueJianInfoModel
+import com.lxkj.qiqihunshe.app.ui.mine.activity.PayActivity
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.RelationsMeModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
@@ -113,7 +117,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
             "{\"cmd\":\"liaotianjubao\",\"uid\":\"" + StaticUtil.uid + "\",\"taid\":\"" + targetId +
                     "\",\"content\":\"" + JuBaoContent + "\",\"images\":\"" + file +
                     "\",\"beginTime\":\"" + JuBaoStartTimer + "\",\"endTime\":\"" + JuBaoEndTimer + "\"}"
-        abLog.e("聊天举报........",json)
+        abLog.e("聊天举报........", json)
         retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
                 ToastUtil.showTopSnackBar(activity, "举报成功")
@@ -126,7 +130,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
         val shopMessage = CustomizeMessage1()
         shopMessage.reject = "0"
         shopMessage.content = "约您见面，是否答应？"
-        RongYunUtil.sendMessage1(targetId, shopMessage, "")
+        RongYunUtil.sendMessage1(activity!!, targetId, shopMessage, "")
     }
 
     fun sendMessage2(type: String) {
@@ -147,7 +151,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
 
     fun sendMessage3() {
         val shopMessage = CustomizeMessage3()
-        RongYunUtil.sendMessage3(targetId, shopMessage, "")
+        RongYunUtil.sendMessage3(activity!!, targetId, shopMessage, "")
     }
 
 
@@ -174,7 +178,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
             shopMessage.lat = it.location.latitude.toString()
             shopMessage.lon = it.location.longitude.toString()
             shopMessage.time = dateTime
-            RongYunUtil.sendMessage4(targetId, shopMessage, "")
+            RongYunUtil.sendMessage4(activity!!, targetId, shopMessage, "")
 
             isSelectAddress = true
 
@@ -191,22 +195,27 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
             .compose(SingleCompose.compose(object : SingleObserverInterface {
                 override fun onSuccess(response: String) {
                     val obj = JSONObject(response)
-                    val shopMessage = CustomizeMessage5()
-                    shopMessage.address = model.address
-                    shopMessage.lat = model.lat
-                    shopMessage.lon = model.lon
-                    shopMessage.time = model.arrivaltime
-                    shopMessage.yuejianId = obj.getString("yuejianId")
-                    RongYunUtil.sendMessage5(targetId, shopMessage, "")
-
-                    val shopMessage6 = CustomizeMessage6()
-                    shopMessage6.address = model.address
-                    shopMessage6.lat = model.lat
-                    shopMessage6.lon = model.lon
-                    shopMessage6.yuejianId = obj.getString("yuejianId")
-                    RongYunUtil.sendMessage6(targetId, shopMessage6, "")
+                    SendMessage56(model, obj.getString("yuejianId"))
                 }
             }, activity))
+    }
+
+
+    fun SendMessage56(model: YueJianModel, yuejianId: String) {
+        val shopMessage = CustomizeMessage5()
+        shopMessage.address = model.address
+        shopMessage.lat = model.lat
+        shopMessage.lon = model.lon
+        shopMessage.time = model.arrivaltime
+        shopMessage.yuejianId = yuejianId
+        RongYunUtil.sendMessage5(activity!!, targetId, shopMessage, "")
+
+        val shopMessage6 = CustomizeMessage6()
+        shopMessage6.address = model.address
+        shopMessage6.lat = model.lat
+        shopMessage6.lon = model.lon
+        shopMessage6.yuejianId = yuejianId
+        RongYunUtil.sendMessage6(activity!!, targetId, shopMessage6, "")
     }
 
 
@@ -274,7 +283,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                     val shopMessage7 = CustomizeMessage7()
                     shopMessage7.price = model.money
                     shopMessage7.yuejianId = model.yuejianId
-                    RongYunUtil.sendMessage7(targetId, shopMessage7, "")
+                    RongYunUtil.sendMessage7(activity!!, targetId, shopMessage7, "")
 
                     RongYunUtil.setMessageStatusXiaoFei(Messageid)
                     EventBus.getDefault().post("isRetrieved")
@@ -321,6 +330,7 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
     }
 
 
+    lateinit var yueJIanDetailsModel: YueJianInfoModel
     //获取约见详情，判断消息发送，避免重复
     fun yuejianDetails(): Single<String> {
         val json =
@@ -328,7 +338,8 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                     "\",\"yuejianId\":\"" + "" + "\"}"
         return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
             override fun onSuccess(response: String) {
-
+                abLog.e("约见详情",response)
+                yueJIanDetailsModel = Gson().fromJson(response, YueJianInfoModel::class.java)
             }
         }, activity))
     }
@@ -415,6 +426,25 @@ class ChatViewModel : BaseViewModel(), DatePop.DateCallBack, UpLoadFileCallBack 
                     }
                 }
             })
+    }
+
+
+
+
+    //支付消费划分
+    fun payYuejianOrder(yuejianId: String,money:String): Single<String> {
+        val json = "{\"cmd\":\"addYuejianOrder\",\"uid\":\"" + StaticUtil.uid + "\",\"yuejianId\":\"" + yuejianId +
+                "\",\"type\":\"" + "1" + "\"}"
+        return retrofit.getData(json).async().compose(SingleCompose.compose(object : SingleObserverInterface {
+            override fun onSuccess(response: String) {
+                val obj=JSONObject(response)
+                val bundle = Bundle()
+                bundle.putDouble("money", money.toDouble())
+                bundle.putString("num", obj.getString("orderId"))
+                bundle.putInt("flag", 0)
+                MyApplication.openActivityForResult(activity, PayActivity::class.java, bundle, 101)
+            }
+        }, activity))
     }
 
 

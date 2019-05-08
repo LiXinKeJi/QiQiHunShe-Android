@@ -17,10 +17,7 @@ import com.lxkj.qiqihunshe.app.base.BaseActivity
 import com.lxkj.qiqihunshe.app.retrofitnet.bindLifeCycle
 import com.lxkj.qiqihunshe.app.ui.dialog.PermissionsDialog
 import com.lxkj.qiqihunshe.app.ui.mine.viewmodel.RealNameAuthenViewModel
-import com.lxkj.qiqihunshe.app.util.ImageUtil
-import com.lxkj.qiqihunshe.app.util.ProgressDialogUtil
-import com.lxkj.qiqihunshe.app.util.SelectPictureUtil
-import com.lxkj.qiqihunshe.app.util.ToastUtil
+import com.lxkj.qiqihunshe.app.util.*
 import com.lxkj.qiqihunshe.databinding.ActivityRealnameAuthenBinding
 import kotlinx.android.synthetic.main.activity_realname_authen.*
 import kotlinx.android.synthetic.main.include_title.*
@@ -173,7 +170,7 @@ class RealNameAuthenActivity : BaseActivity<ActivityRealnameAuthenBinding, RealN
                         || videoPath.endsWith(".3GP") || videoPath.endsWith(".wmv")
                     ) {
                         Thread(Runnable {
-                            PreviewingBitmap = ImageUtil.getVideoThumbnail(this, videoPath)
+                            PreviewingBitmap = BitmapUtil.decode(ImageUtil.getVideoThumbnail2(videoPath), 100, 100)
                             handler.sendEmptyMessage(1)
                         }).start()
                         ProgressDialogUtil.showProgressDialog(this)
@@ -207,9 +204,9 @@ class RealNameAuthenActivity : BaseActivity<ActivityRealnameAuthenBinding, RealN
             when (msg.what) {
                 1 ->
                     if (PreviewingBitmap != null) {
-                    iv_video.scaleType = ImageView.ScaleType.CENTER_CROP
-                    iv_video.setImageBitmap(PreviewingBitmap)
-                }
+                        iv_video.scaleType = ImageView.ScaleType.CENTER_CROP
+                        iv_video.setImageBitmap(PreviewingBitmap)
+                    }
             }
         }
     }

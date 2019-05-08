@@ -16,7 +16,7 @@ import java.util.ArrayList
 /**
  * Created by Slingge on 2019/4/4
  */
-class WelComeViewModel : BaseViewModel() ,WelComeFragment.WelComeNextCallBack{
+class WelComeViewModel : BaseViewModel(), WelComeFragment.WelComeNextCallBack {
 
     val list by lazy { ArrayList<Fragment>() }
 
@@ -26,7 +26,7 @@ class WelComeViewModel : BaseViewModel() ,WelComeFragment.WelComeNextCallBack{
 
 
     fun init() {
-        for (i in 0..5) {
+        for (i in 0..6) {
             val bundle = Bundle()
             bundle.putInt("flag", i)
             val fragment1 = Fragment.instantiate(activity, WelComeFragment::class.java.name, bundle) as WelComeFragment
@@ -73,8 +73,8 @@ class WelComeViewModel : BaseViewModel() ,WelComeFragment.WelComeNextCallBack{
             2 -> bind.viewPager.currentItem = 3
             3 -> bind.viewPager.currentItem = 4
             4 -> bind.viewPager.currentItem = 5
-            5 -> {
-                SharedPreferencesUtil.putSharePre(activity, "isFirst", true)
+            5 -> bind.viewPager.currentItem = 6
+            6 -> {
                 MyApplication.openActivity(activity, MainActivity::class.java)
             }
         }
@@ -84,7 +84,6 @@ class WelComeViewModel : BaseViewModel() ,WelComeFragment.WelComeNextCallBack{
     override fun welCome(flag: Int) {
         viewPagerSlide(flag)
     }
-
 
 
 }

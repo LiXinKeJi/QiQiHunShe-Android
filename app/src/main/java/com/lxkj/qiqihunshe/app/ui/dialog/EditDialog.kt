@@ -3,13 +3,17 @@ package com.lxkj.qiqihunshe.app.ui.dialog
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Activity
+import android.content.Context
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.lxkj.qiqihunshe.R
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
+import java.util.*
 
 
 /**
@@ -25,6 +29,8 @@ object EditDialog {
 
     private var et_content: EditText? = null
 
+    private val timer by lazy { Timer() }
+
     interface EditCallBack {
         fun edit(str: String)
     }
@@ -34,7 +40,7 @@ object EditDialog {
         if (dialog == null) {
             dialog = AlertDialog.Builder(context, R.style.Dialog).create()
             dialog?.show()
-            val view = LayoutInflater.from(context).inflate(R.layout.dialog_reward, null)
+            val view = LayoutInflater.from(context).inflate(R.layout.dialog_edit, null)
             tv_play = view.findViewById(R.id.tv_play)
 
             et_content = view.findViewById(R.id.et_content)
@@ -44,7 +50,7 @@ object EditDialog {
         } else {
             dialog?.show()
         }
-
+        et_content?.setText("")
 
         tv_play?.setOnClickListener {
             val str = AbStrUtil.etTostr(et_content!!)
@@ -53,7 +59,22 @@ object EditDialog {
                 return@setOnClickListener
             }
             editCallBack.edit(str)
+            dialog?.dismiss()
         }
+
+
+        dialog!!.window.clearFlags(
+            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+        )
+
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                val inputManager =
+                    et_content!!.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.showSoftInput(et_content, 0)
+            }
+        }, 300)
+
 
         val dialogWindow = dialog!!.window
         dialogWindow.setWindowAnimations(R.style.dialogAnim)//淡入、淡出动画

@@ -23,7 +23,7 @@ object ImageUtil {
         try {
             if (Build.VERSION.SDK_INT >= 14) {
                 if (Build.VERSION.SDK_INT >= 24) {
-                    retriever.setDataSource(context, FileProvider.getUriForFile(context, "com.lixin.amuseadjacent.provider", File(filePath)))
+                    retriever.setDataSource(context, FileProvider.getUriForFile(context, "com.lixin.qiqihunshe.provider", File(filePath)))
                 } else {
                     retriever.setDataSource(filePath, HashMap())
                 }

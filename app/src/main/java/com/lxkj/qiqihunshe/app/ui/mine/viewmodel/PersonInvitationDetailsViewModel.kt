@@ -16,6 +16,7 @@ import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.lxkj.qiqihunshe.app.util.ToastUtil
 import com.lxkj.qiqihunshe.databinding.ActivityPersonInvitationDetailsBinding
 import io.reactivex.Single
+import kotlinx.android.synthetic.main.activity_mydynamic.*
 
 /**
  * 个人信息邀约详情
@@ -65,6 +66,14 @@ class PersonInvitationDetailsViewModel : BaseViewModel() {
                         it.tvConsu.text = "消费：对方买单"
                     } else {
                         it.tvConsu.text = "消费：我买单"
+                    }
+
+                    if (model.identity == "1") {//1单身 2约会 3牵手
+                        it.ivState.setImageResource(R.drawable.danshen)
+                    } else if (model.identity == "2") {
+                        it.ivState.setImageResource(R.drawable.yuehui)
+                    } else {
+                        it.ivState.setImageResource(R.drawable.qianshou)
                     }
 
                     if (model.sex == "0") {//女

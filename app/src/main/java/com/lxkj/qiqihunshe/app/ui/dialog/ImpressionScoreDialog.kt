@@ -33,6 +33,8 @@ object ImpressionScoreDialog {
     private var ic_coincide2: ImageView? = null
     private var ic_coincide3: ImageView? = null
 
+    private lateinit var iv_cancel:ImageView
+
     private var match = ""//相符度
     private var impression = ""//印象值
 
@@ -62,6 +64,8 @@ object ImpressionScoreDialog {
             ic_coincide2 = view.findViewById(R.id.ic_coincide2)
             ic_coincide3 = view.findViewById(R.id.ic_coincide3)
 
+            iv_cancel=view.findViewById(R.id.iv_cancel)
+
             dialog!!.window.setContentView(view)
 
         } else {
@@ -83,6 +87,10 @@ object ImpressionScoreDialog {
             model.impression = impression
             model.type = "2"
             qiQiAssistCallBack.Score(model)
+            dismiss()
+        }
+
+        iv_cancel.setOnClickListener{
             dismiss()
         }
 

@@ -107,6 +107,24 @@ public class BitmapUtil {
         return result;
     }
 
+
+    /**
+     * @param width    宽度限制
+     * @param height   高度限制
+     * @return 先解码为尺寸接近的Bitmap，然后crop
+     */
+    public static Bitmap decode (final Bitmap bmp4Crop, final int width, final int height) {
+        Bitmap result = null;
+        if (null != bmp4Crop) {
+            try {
+                result = scaledCrop(bmp4Crop, width, height);
+            } catch (Exception e) {
+                UiTool.recycleBitmap(bmp4Crop);
+            }
+        }
+        return result;
+    }
+
     public static Bitmap decodeSquare(final String pathName, final int width) {
         return decodeCrop(pathName, width, width);
     }

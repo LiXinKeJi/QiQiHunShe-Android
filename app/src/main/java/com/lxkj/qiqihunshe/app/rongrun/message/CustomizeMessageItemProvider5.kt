@@ -22,13 +22,14 @@ import com.lxkj.qiqihunshe.app.rongrun.RongYunUtil
 import com.lxkj.qiqihunshe.app.rongrun.model.ShiYueModel
 import com.lxkj.qiqihunshe.app.util.StaticUtil
 import com.weigan.loopview.OnItemSelectedListener
+import io.rong.imlib.model.Message
 import java.text.DecimalFormat
 
 
 /***
  * 定位成功
  * */
-@ProviderTag(messageContent = CustomizeMessage5::class,showPortrait = false,centerInHorizontal=true)
+@ProviderTag(messageContent = CustomizeMessage5::class, showPortrait = false, centerInHorizontal = true)
 class CustomizeMessageItemProvider5(private val context: Context) :
     IContainerItemProvider.MessageProvider<CustomizeMessage5>() {
 
@@ -36,8 +37,6 @@ class CustomizeMessageItemProvider5(private val context: Context) :
 
     private var yuejianId = ""
     private var isFirst = false
-
-    private var isDown = false//是否划分过失约
 
     override fun newView(context: Context, viewGroup: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_custom_message1, null)
@@ -74,6 +73,7 @@ class CustomizeMessageItemProvider5(private val context: Context) :
         holder.sp_shiyue = view.findViewById(R.id.sp_shiyue)
         holder.sp_shiyue!!.adapter = ArrayAdapter(context, R.layout.item_spinner_text_9sp, list)
         holder.sp_shiyue!!.visibility = View.VISIBLE
+
         isFirst = false
 
         holder.tv_address = view.findViewById(R.id.tv_address)
@@ -93,7 +93,7 @@ class CustomizeMessageItemProvider5(private val context: Context) :
 
         holder.tv_num!!.text = "4"
 
-        if (!isDown || !message.message.receivedStatus.isDownload) {
+        if (!message.message.receivedStatus.isDownload) {
             holder.sp_shiyue!!.onItemSelectedListener =
                 object : OnItemSelectedListener, AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(index: Int) {
@@ -110,20 +110,32 @@ class CustomizeMessageItemProvider5(private val context: Context) :
                         }
                         if (position == 1) {
                             holder.tv_shiyue!!.text = "我方失约"
+                            RongYunUtil.setMessageFlag(message.message.messageId, 101)
                         } else if (position == 2) {
                             holder.tv_shiyue!!.text = "对方失约"
+                            RongYunUtil.setMessageFlag(message.message.messageId, 102)
                         }
-                        EventBus.getDefault().post(ShiYueModel(yuejianId, (position + 1).toString()))
 
-                        isDown=true
-                        holder.sp_shiyue!!.onItemSelectedListener=null
+                        EventBus.getDefault()
+                            .post(ShiYueModel(yuejianId, (position + 1).toString(), message.message.messageId))
+
+                        holder.sp_shiyue!!.onItemSelectedListener = null
                         RongYunUtil.setMessageStatus(message.message.messageId)
+
+                        message.message.receivedStatus.setDownload()
+
+                        holder.tv_shiyue!!.visibility = View.VISIBLE
+                        holder.iv_right!!.visibility = View.GONE
+
+                        holder.sp_shiyue!!.visibility = View.GONE
                     }
                 }
+        } else {
+            holder.sp_shiyue!!.visibility = View.GONE
         }
 
-        holder.tv_no!!.setOnClickListener {
 
+        holder.tv_no!!.setOnClickListener {
             EventBus.getDefault().post(EventCmdModel("5", ""))
         }
 

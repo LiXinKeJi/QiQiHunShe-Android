@@ -4,19 +4,13 @@ import android.content.Context
 import android.view.View
 import android.widget.RelativeLayout
 import com.lxkj.qiqihunshe.R
-import com.lxkj.qiqihunshe.app.ui.dialog.EditDialog
 import com.lxkj.qiqihunshe.app.ui.mine.model.MyInvitationDetailsModel
 import com.lxkj.qiqihunshe.app.ui.model.EventCmdModel
 import com.lxkj.qiqihunshe.app.util.AbStrUtil
-import com.lxkj.qiqihunshe.app.util.EventBusCmd
 import com.lxkj.qiqihunshe.app.util.GlideUtil
-import kotlinx.android.synthetic.main.activity_mydynamic.*
-import kotlinx.android.synthetic.main.include_v.*
 import kotlinx.android.synthetic.main.include_v.view.*
 import kotlinx.android.synthetic.main.item_myinvitation_details.view.*
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.model.PositionData
 import org.greenrobot.eventbus.EventBus
-import java.text.FieldPosition
 
 /**
  * Created by Slingge on 2019/2/21
@@ -41,9 +35,11 @@ class MyInvitationDetailsItemView : RelativeLayout {
 
         if (bean.userSex == "0") {//0女 1男
             tv_age.setBackgroundResource(R.drawable.bg_girl)
+            tv_age.setTextColor(context.resources.getColor(R.color.girl))
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl, tv_age, 3)
         } else {
             tv_age.setBackgroundResource(R.drawable.thems_bg35)
+            tv_age.setTextColor(context.resources.getColor(R.color.colorThemes))
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy, tv_age, 3)
         }
 

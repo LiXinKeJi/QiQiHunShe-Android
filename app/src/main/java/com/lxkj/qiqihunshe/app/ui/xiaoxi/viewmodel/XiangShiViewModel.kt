@@ -2,7 +2,6 @@ package com.lxkj.qiqihunshe.app.ui.xiaoxi.viewmodel
 
 import android.app.Activity
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.view.View
 import com.google.gson.Gson
 import com.lxkj.qiqihunshe.app.base.BaseViewModel
@@ -38,7 +37,14 @@ class XiangShiViewModel : BaseViewModel() {
         bind?.let {
             it.recycler.layoutManager = LinearLayoutManager(fragment!!.activity)
             it.recycler.adapter = messageAdapter
-            it.recycler.isFocusable = false
+
+            /*it.s.getViewTreeObserver()
+                .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener() {
+                    fun onScrollChanged() {
+                        swipeRefreshLayout.setEnabled(scrollView.getScrollY() === 0)
+                    }
+                })*/
+
         }
     }
 
@@ -156,6 +162,7 @@ class XiangShiViewModel : BaseViewModel() {
         abLog.e("获取本地好友", "")
         RongIM.getInstance().getConversationList(object : RongIMClient.ResultCallback<List<Conversation>>() {
             override fun onSuccess(p0: List<Conversation>?) {
+                bind!!.refresh.isRefreshing = false
                 val chatList by lazy { ArrayList<Conversation>() }
                 if (p0 == null) {
                     messageAdapter.loadMore(friendUserList, 1)
@@ -183,7 +190,8 @@ class XiangShiViewModel : BaseViewModel() {
                     }
                 }
                 friendUserList.sortByDescending { it.isNewMsg }//按消息数量排序，倒序
-                messageAdapter.loadMore(friendUserList, 1)
+                messageAdapter.flag = 1
+                messageAdapter.upData(friendUserList)
             }
 
             override fun onError(p0: RongIMClient.ErrorCode?) {

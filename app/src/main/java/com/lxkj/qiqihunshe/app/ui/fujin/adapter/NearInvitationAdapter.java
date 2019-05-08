@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import com.lxkj.qiqihunshe.R;
 import com.lxkj.qiqihunshe.app.customview.CircleImageView;
 import com.lxkj.qiqihunshe.app.ui.xiaoxi.model.DataListModel;
+import com.lxkj.qiqihunshe.app.util.AbStrUtil;
 import com.lxkj.qiqihunshe.app.util.GlideUtil;
 import com.lxkj.runproject.app.view.SquareImage;
 
@@ -70,12 +71,14 @@ public class NearInvitationAdapter extends RecyclerView.Adapter<NearInvitationAd
         if (null != list.get(position).getSex()) {
             switch (list.get(position).getSex()) {
                 case "0"://女
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nv);
+                    holder.tvAge.setBackgroundResource(R.drawable.bg_girl);
                     holder.tvAge.setTextColor(context.getResources().getColor(R.color.girl));
+                    AbStrUtil.INSTANCE.setDrawableLeft(context,R.drawable.ic_girl, holder.tvAge,5);
                     break;
                 case "1"://男
-                    holder.tvAge.setBackgroundResource(R.mipmap.bg_sex_nan);
-                    holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                    holder.tvAge.setBackgroundResource(R.drawable.thems_bg35);
+                    holder.tvAge.setTextColor(context.getResources().getColor(R.color.colorThemes));
+                    AbStrUtil.INSTANCE.setDrawableLeft(context,R.drawable.ic_boy, holder.tvAge,5);
                     break;
             }
         }
